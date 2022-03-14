@@ -16,6 +16,6 @@ public class HelloController extends HttpServlet {
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			System.out.println("요요췌키췌키");
-			System.out.println("풀안할거야@!");
+			// System.out.println("풀안할거야@!"); // 이 코드는 반영하지 맙시다!!
 		}
 }
