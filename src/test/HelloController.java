@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class HelloController
- */
 @WebServlet({ "/HelloController", "/hello" })
 public class HelloController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,5 +17,6 @@ public class HelloController extends HttpServlet {
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			System.out.println("요요췌키췌키");
 			System.out.println("풀안할거야@!");
+			System.out.println("테스트");
 		}
 }
