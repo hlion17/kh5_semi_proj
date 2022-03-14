@@ -18,6 +18,6 @@ public class HelloController extends HttpServlet {
 
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-			System.out.println("요요췌키라웃");
+			System.out.println("요요췌키라웃요요요");
 		}
 }
