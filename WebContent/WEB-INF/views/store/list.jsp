@@ -35,6 +35,8 @@
 	<td><%=productList.get(i).getImg_path() %></td>
 	<td><%=productList.get(i).getPrice() %></td>
 	<td><%=productList.get(i).getDescription() %></td>
+	
+	
 </tr>
 <%	} %>
 
