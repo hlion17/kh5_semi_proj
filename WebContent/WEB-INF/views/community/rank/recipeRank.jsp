@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>레시피 순위</title>
 </head>
 <body>
+
+<h1>레시피순위</h1>
+<hr>
 
 </body>
 </html>
