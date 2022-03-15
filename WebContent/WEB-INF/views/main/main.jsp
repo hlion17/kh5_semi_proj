@@ -14,6 +14,7 @@
  <button>요리사전</button> 
  <button>커뮤니티</button> 
  <button>상점</button>
-
+ <button>테스트</button>
+ 
 </body>
 </html>
