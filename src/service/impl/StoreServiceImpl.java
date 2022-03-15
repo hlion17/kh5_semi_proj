@@ -15,6 +15,7 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<Product> getList() {
 	
+		//상품 전체 조회 결과 반환
 		return storeDao.selectAll(JDBCTemplate.getConnection());
 		
 	}

@@ -21,7 +21,7 @@ public class StoreDaoImpl implements StoreDao {
 	public List<Product> selectAll(Connection conn) {
 		
 				String sql = "";
-				sql += "SELECT";
+				sql += "SELECT ";
 				sql += "	pro_no";
 				sql += "	, cty_no";
 				sql += "	, name";
@@ -29,7 +29,6 @@ public class StoreDaoImpl implements StoreDao {
 				sql += "	, price";
 				sql += "	, description";
 				sql += " FROM product";
-				sql += " ORDER BY boardno pro_no";
 				
 				//결과 저장할 List
 				List<Product> productList = new ArrayList<>();
