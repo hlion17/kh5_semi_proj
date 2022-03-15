@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class RefItem {
 	private int itemNo;
-	private String ingrName;
+	private int ingrCtyCode;
+	private String itemName;
 	private String itemQty;
 	private int status; // 0 - 냉장, 1 - 냉동, 2 - 실온
 	private Date regDate;
@@ -13,8 +14,9 @@ public class RefItem {
 	
 	@Override
 	public String toString() {
-		return "RefItem [itemNo=" + itemNo + ", ingrName=" + ingrName + ", itemQty=" + itemQty + ", status=" + status
-				+ ", regDate=" + regDate + ", expireDate=" + expireDate + ", note=" + note + "]";
+		return "RefItem [itemNo=" + itemNo + ", ingrCtyCode=" + ingrCtyCode + ", itemName=" + itemName + ", itemQty="
+				+ itemQty + ", status=" + status + ", regDate=" + regDate + ", expireDate=" + expireDate + ", note="
+				+ note + "]";
 	}
 
 	public int getItemNo() {
@@ -25,12 +27,12 @@ public class RefItem {
 		this.itemNo = itemNo;
 	}
 
-	public String getIngrName() {
-		return ingrName;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setIngrName(String ingrName) {
-		this.ingrName = ingrName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getItemQty() {
@@ -71,6 +73,14 @@ public class RefItem {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public int getIngrCtyCode() {
+		return ingrCtyCode;
+	}
+
+	public void setIngrCtyCode(int ingrCtyCode) {
+		this.ingrCtyCode = ingrCtyCode;
 	}
 	
 	
