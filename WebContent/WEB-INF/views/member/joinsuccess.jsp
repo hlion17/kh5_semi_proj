@@ -16,13 +16,20 @@
 
 </head>
 
+<div class="container">
 <body>
-<div>
-<h1>회원가입에 성공하셨습니다!</h1>
-<%=m.getMemberid() %>님 환영합니다!
+<div class="text-center">
+<strong>회원가입이 완료되었습니다!</strong><br><br>
+<strong><%=m.getMemberid() %>님 환영합니다!</strong><br>
 </div>
 
+<div class="text-center">
+
+<button onclick="location.href='<%=request.getContextPath() %>/member/login'">로그인</button>
+<button onclick="location.href='<%=request.getContextPath() %>/main.jsp'">메인으로</button>
+</div>
 
 <button></button>
 <button></button>
 </body>
+</div>

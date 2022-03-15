@@ -35,11 +35,14 @@ public class MemberJoinController extends HttpServlet {
 		//회원가입 전달파라미터 추출하고 가입처리하기
 		Member member = memberService.getJoinMember(req);
 		
+		//전달 파라미터 DTO객체를 DB에 입력
+		Member result = memberService.join(member);
+		
 		//DB에 입력된 값을 View에 전달하기
     	req.setAttribute("result", result);
     	
     	//View지정하고 응답하기 - forward
-    	req.getRequestDispatcher("/WEB-INF/views/member/result.jsp").forward(req, resp);
+    	req.getRequestDispatcher("/WEB-INF/views/member/joinsuccess.jsp").forward(req, resp);
 		
 	}
 	

@@ -54,14 +54,14 @@ form {
 	<div class="form-group">
 		<label for="userid" class="control-label col-xs-2">아이디</label>
 		<div class="col-xs-10">
-			<input type="text" id="userid" name="userid" class="form-control">
+			<input type="text" id="memberid" name="memberid" class="form-control">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="userpw" class="control-label col-xs-2">패스워드</label>
 		<div class="col-xs-10">
-			<input type="text" id="userpw" name="userpw" class="form-control">
+			<input type="text" id="memberpw" name="memberpw" class="form-control">
 		</div>
 	</div>
 	

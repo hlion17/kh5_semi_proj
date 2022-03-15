@@ -66,8 +66,8 @@ public class MemberDaoImpl implements MemberDao {
 			while( rs.next() ) {
 				result = new Member();
 				
-				result.setMemberid( rs.getString("memberid") );
-				result.setMemberpw( rs.getString("memberpw") );
+				result.setMemberid( rs.getString("id") );
+				result.setMemberpw( rs.getString("pw") );
 				result.setNick( rs.getString("nick") );
 			}
 			

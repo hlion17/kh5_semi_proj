@@ -9,6 +9,18 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <%-- 카카오 우편번호 API --%> 
+
+<script>
+function kakaopost() { //우편번호 검색 함수 with 카카오
+    new daum.Postcode({
+        oncomplete: function(data) {
+           document.querySelector("#zipcode").value = data.zonecode; //우편번호
+           document.querySelector("#address").value =  data.address //주소
+        }
+    }).open();
+}
+</script> 
 
     
 
@@ -281,6 +293,14 @@ form {
 		<label for="phone" class="control-label col-xs-2">전화번호</label>
 		<div class="col-xs-10">
 			<input type="text" id="phone" name="phone" class="form-control" required placeholder="필수 입력 항목입니다">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="zipcode" class="control-label col-xs-2">우편번호</label>
+		<div class="col-xs-10">
+			<input type="text" id="zipcode" name="zipcode" class="form-control" >
+		<input type="button" value="우편번호찾기" onclick="kakaopost()">
 		</div>
 	</div>
 	

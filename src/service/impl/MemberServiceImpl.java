@@ -30,6 +30,7 @@ private MemberDao memberDao = new MemberDaoImpl();
 	@Override
 	public boolean login(Member member) {
 		
+		System.out.println("로그인서비스임플 " + member);
 		//로그인 인증 성공
 		if( memberDao.selectCntMemberByMemberidMemberpw(JDBCTemplate.getConnection(), member) > 0 ) {
 			return true;
@@ -56,7 +57,6 @@ private MemberDao memberDao = new MemberDaoImpl();
 		}
 		
 		Member member = new Member();
-		Connection conn = JDBCTemplate.getConnection();
 		
 		member.setMemberid( req.getParameter("memberid") );
 		member.setMemberpw( req.getParameter("memberpw") );
@@ -68,18 +68,22 @@ private MemberDao memberDao = new MemberDaoImpl();
 		member.setAddress(req.getParameter("address"));
 		member.setIntro(req.getParameter("intro"));
 		
-		// DB에 데이터 삽입
-		int result = memberDao.insert(conn, member);
+		return member;
+	}
+	
+	@Override
+	public Member join(Member member) {
 		
-		if (result > 0) { // DB삽입 성공
-
+		Connection conn = JDBCTemplate.getConnection();
+		
+		if( memberDao.insert(conn, member) > 0 ) {
 			JDBCTemplate.commit(conn);
 			return member;
-
 		} else {
-			JDBCTemplate.rollback(conn); // 삽입 실패
+			JDBCTemplate.rollback(conn);
 			return null;
 		}
+		
 	}
 	
 }

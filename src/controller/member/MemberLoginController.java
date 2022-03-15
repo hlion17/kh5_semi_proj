@@ -29,11 +29,15 @@ public class MemberLoginController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		//요청 데이터의 한글 UTF-8 처리 설정
+    	req.setCharacterEncoding("UTF-8");
+		
 		//전달파라미터 얻기 - 로그인 정보(userid, userpw)
 		Member member = memberService.getLoginMember(req);
 		
 		//로그인 인증 - MemberService이용
 		boolean isLogin = memberService.login(member);
+		System.out.println("로그인 컨트롤러 - 로그인 인증" + isLogin);
 		
 		//세션 정보 처리
 		if( isLogin ) { //로그인 인증 성공
@@ -46,6 +50,8 @@ public class MemberLoginController extends HttpServlet {
 			session.setAttribute("login", isLogin);
 			session.setAttribute("memberid", member.getMemberid());
 			session.setAttribute("nick", member.getNick());
+			
+			System.out.println("로그인 컨트롤러 - 로그인 성공");
 			
 		}
 		

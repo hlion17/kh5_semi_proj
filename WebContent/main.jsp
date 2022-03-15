@@ -25,7 +25,7 @@
 
 <%-- 로그인 상태 --%>
 <%	if( session.getAttribute("login") != null && (boolean) session.getAttribute("login") ) { %>
-<strong><%=session.getAttribute("usernick") %>님, 환영합니다</strong><br><br>
+<strong><%=session.getAttribute("nick") %>님, 환영합니다</strong><br><br>
 <button onclick="location.href='<%=request.getContextPath() %>/board/list'">게시판 가기</button>
 <button onclick="location.href='<%=request.getContextPath() %>/member/logout'">로그아웃</button>
 <%	} %>

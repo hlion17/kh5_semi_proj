@@ -37,5 +37,13 @@ public interface MemberService {
 	 * @return Member - 전달파라미터를 추출하여 저장한 DTO객체
 	 */
 	public Member getJoinMember(HttpServletRequest req);
+	
+	/**
+	 * 회원가입 처리
+	 * 
+	 * @param member - 회원가입 정보 객체
+	 * @return DB에 삽입된 회원 정보 객체
+	 */
+	public Member join(Member member);
 
 }
