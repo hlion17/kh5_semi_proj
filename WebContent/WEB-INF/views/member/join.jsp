@@ -12,7 +12,7 @@
 
     
 
-<script type="text/javascript">
+ <script type="text/javascript">
 $(document).ready(function() {
 	
 	//페이지 접속 시 아이디 입력창으로 포커스 이동

@@ -58,12 +58,8 @@ private MemberDao memberDao = new MemberDaoImpl();
 		Member member = new Member();
 		Connection conn = JDBCTemplate.getConnection();
 		
-		// member_seq의 nextval을 조회한다
-		int next = memberDao.selectNextMemberno(conn);
-		
-		// 시퀀스의 nextval값을 member객체에 저장한다
-		member.setMemberno(next);
-		
+		member.setMemberid( req.getParameter("memberid") );
+		member.setMemberpw( req.getParameter("memberpw") );
 		member.setMembername( req.getParameter("membername") );
 		member.setNick( req.getParameter("nick") );
 		member.setGender(req.getParameter("gender"));
@@ -72,19 +68,18 @@ private MemberDao memberDao = new MemberDaoImpl();
 		member.setAddress(req.getParameter("address"));
 		member.setIntro(req.getParameter("intro"));
 		
-		return member;
+		// DB에 데이터 삽입
+		int result = memberDao.insert(conn, member);
+		
+		if (result > 0) { // DB삽입 성공
+
+			JDBCTemplate.commit(conn);
+			return member;
+
+		} else {
+			JDBCTemplate.rollback(conn); // 삽입 실패
+			return null;
+		}
 	}
 	
-	@Override
-	public void join(Member member) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		if( memberDao.insert(conn, member) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-	}
 }

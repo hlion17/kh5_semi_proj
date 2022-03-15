@@ -35,11 +35,4 @@ public interface MemberDao {
 	 */
 	public int insert(Connection conn, Member member);
 	
-	/**
-	 * member_seq의 nextval을 반환한다
-	 * 
-	 * @param conn - DB 연결 객체
-	 * @return userno로 사용될 시퀀스의 nextval
-	 */
-	public int selectNextMemberno(Connection conn);
 }

@@ -29,14 +29,17 @@ public class MemberJoinController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//회원가입 전달파라미터 추출하기
+		//요청 데이터의 한글 UTF-8 처리 설정
+    	req.setCharacterEncoding("UTF-8");
+		
+		//회원가입 전달파라미터 추출하고 가입처리하기
 		Member member = memberService.getJoinMember(req);
 		
-		//회원가입 처리
-		memberService.join(member);
-		
-		//메인으로 리다이렉트
-		resp.sendRedirect("/");
+		//DB에 입력된 값을 View에 전달하기
+    	req.setAttribute("result", result);
+    	
+    	//View지정하고 응답하기 - forward
+    	req.getRequestDispatcher("/WEB-INF/views/member/result.jsp").forward(req, resp);
 		
 	}
 	

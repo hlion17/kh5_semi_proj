@@ -38,10 +38,4 @@ public interface MemberService {
 	 */
 	public Member getJoinMember(HttpServletRequest req);
 
-	/**
-	 * 회원가입 처리
-	 * 
-	 * @param member - 회원가입 정보 객체
-	 */
-	public void join(Member member);
 }

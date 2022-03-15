@@ -17,7 +17,7 @@ public class MemberLogoutController extends HttpServlet {
 		
 		req.getSession().invalidate();
 		
-		resp.sendRedirect("/");
+		resp.sendRedirect("/main.jsp");
 		
 	}
 	

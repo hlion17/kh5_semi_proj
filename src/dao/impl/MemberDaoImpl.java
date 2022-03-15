@@ -66,9 +66,9 @@ public class MemberDaoImpl implements MemberDao {
 			while( rs.next() ) {
 				result = new Member();
 				
-				result.setMemberid( rs.getString("userid") );
-				result.setMemberpw( rs.getString("userpw") );
-				result.setNick( rs.getString("usernick") );
+				result.setMemberid( rs.getString("memberid") );
+				result.setMemberpw( rs.getString("memberpw") );
+				result.setNick( rs.getString("nick") );
 			}
 			
 		} catch (SQLException e) {
@@ -84,53 +84,28 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	
-	@Override
-	public int selectNextMemberno(Connection conn) {
-		String sql = "";
-		sql += "SELECT member_seq.nextval AS next FROM dual";
-		
-		int next = 0; //결과를 저장할 변수
-		
-		try {
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			rs.next();
-			
-			next = rs.getInt("next");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(ps);
-		}
-
-		return next;
-	}
 
 	@Override
 	public int insert(Connection conn, Member member) {
 		
 		String sql = "";
-		sql += "INSERT INTO member ( memberno, id, pw, name, nick, gender, email, phone, address, intro )";
-		sql += " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, address, intro )";
+		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		
 		int res = 0;
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, member.getMemberno());
-			ps.setString(2, member.getMemberid());
-			ps.setString(3, member.getMemberpw());
-			ps.setString(4, member.getMembername());
-			ps.setString(5, member.getNick());
-			ps.setString(6, member.getGender());
-			ps.setString(7, member.getEmail());
-			ps.setString(8, member.getPhone());
-			ps.setString(9, member.getAddress());
-			ps.setString(10, member.getIntro());
+			ps.setString(1, member.getMemberid());
+			ps.setString(2, member.getMemberpw());
+			ps.setString(3, member.getMembername());
+			ps.setString(4, member.getNick());
+			ps.setString(5, member.getGender());
+			ps.setString(6, member.getEmail());
+			ps.setString(7, member.getPhone());
+			ps.setString(8, member.getAddress());
+			ps.setString(9, member.getIntro());
 			
 			res = ps.executeUpdate();
 			
