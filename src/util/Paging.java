@@ -1,37 +1,47 @@
-package util;
+ package util;
 
 public class Paging {
 	
-	private int curPage; //ÇöÀç ÆäÀÌÁö ¹øÈ£
-
-	private int totalCount;	//ÃÑ °Ô½Ã±Û ¼ö
-	private int listCount; //ÇÑ ÆäÀÌÁö ´ç º¸¿©Áú °Ô½Ã±Û ¼ö
-	private int totalPage; //ÃÑ ÆäÀÌÁöÀÇ ¼ö
-
-	private int pageCount; //ÇÑ È­¸é¿¡ Ãâ·ÂµÉ ÆäÀÌÁö³×ÀÌ¼ÇÀÇ °³¼ö
-	private int startPage; //È­¸é¿¡ º¸ÀÌ´Â ÆäÀÌÁö³×ÀÌ¼ÇÀÇ ½ÃÀÛ ¹øÈ£
-	private int endPage; //È­¸é¿¡ º¸ÀÌ´Â ÆäÀÌÁö³×ÀÌ¼ÇÀÇ ³¡ ¹øÈ£
-
-	private int startNo; //È­¸é¿¡ º¸ÀÌ´Â °Ô½Ã±ÛÀÇ ½ÃÀÛ ¹øÈ£
-	private int endNo; //È­¸é¿¡ º¸ÀÌ´Â °Ô½Ã±ÛÀÇ ³¡ ¹øÈ£
+	private int curPage; //í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
 	
+	private int totalCount; //ì´ ê²Œì‹œê¸€ ìˆ˜
+	private int listCount; //í•œ í˜ì´ì§€ ë‹¹ ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ ìˆ˜
+	private int totalPage; //ì´ í˜ì´ì§€ì˜ ìˆ˜
+
+	private int pageCount; //í•œ í™”ë©´ì— ì¶œë ¥ë  í˜ì´ì§€ë„¤ì´ì…˜ì˜ ê°œìˆ˜
+	private int startPage; //í™”ë©´ì— ë³´ì´ëŠ” í˜ì´ì§€ë„¤ì´ì…˜ì˜ ì‹œì‘ ë²ˆí˜¸
+	private int endPage; //í™”ë©´ì— ë³´ì´ëŠ” í˜ì´ì§€ë„¤ì´ì…˜ì˜ ë ë²ˆí˜¸
 	
-	//µğÆúÆ® »ı¼ºÀÚ - ÆäÀÌÂ¡·ÎÁ÷ÀÌ ¿Ï¼ºµÇÁö ¾Ê´Â´Ù
+	private int startNo; //í™”ë©´ì— ë³´ì´ëŠ” ê²Œì‹œê¸€ì˜ ì‹œì‘ ë²ˆí˜¸
+	private int endNo; //í™”ë©´ì— ë³´ì´ëŠ” ê²Œì‹œê¸€ì˜ ë ë²ˆí˜¸
+	
+	//ë””í´íŠ¸ìƒì„±ì ì¶”ê°€í•˜ëŠ”ê²Œ ë°ì´í„° ê´€ë¦¬ ì°¨ì›ì—ì„œ ì¢‹ë‹¤
+	//-> í˜ì´ì§• ë¡œì§ì´ ì™„ì„±ë˜ì§€ ì•ŠëŠ”ë‹¤
 	public Paging() { }
 	
+	
+	//ìƒì„±ì ì´ìš©í•´ì„œ ë§¤ê°œë³€ìˆ˜ë¥¼ ë‘ê°œ ë°›ì•˜ì„ ë•Œ, makePagingë©”ì†Œë“œ í˜¸ì¶œ
+	//-> ì „ë‹¬ë°›ì€ ê°’ì— ë”°ë¼ì„œ í˜ì´ì§• ê³„ì‚° 
 	public Paging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		
 		makePaging();
 	}
-
+	
+	
+	//totalCountë§Œ ì œì–´í•˜ëŠ” ìƒí™©
+	//	curpage(ì „ë‹¬ê°’)ê°€ ì—†ì„ ë•Œ ê¸°ë³¸ê°’ìœ¼ë¡œ 1ë²ˆí˜ì´ì§€ë¡œ ì„¤ì •
+	//-> makePaging ë©”ì†Œë“œ í˜¸ì¶œë˜ë©´ì„œ setCurPage(1) ì„¤ì •ë˜ì–´ìˆìŒ
 	public Paging(int totalCount) {
 		setTotalCount(totalCount);
 		
 		makePaging();
 	}
 	
+	
+	
+
 	public Paging(int totalCount, int curPage, int listCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
@@ -50,39 +60,57 @@ public class Paging {
 	}
 	
 	
-	//ÆäÀÌÂ¡ Á¤º¸¸¦ »ı¼ºÇÏ´Â ¸Ş¼Òµå
+	
+	
+	
+	//í˜ì´ì§• ì •ë³´ë¥¼ ìƒì„±í•˜ëŠ” ë©”ì†Œë“œ
 	private void makePaging() {
-		if( totalCount == 0 )	return; //°Ô½Ã±ÛÀÌ ¾ø´Â °æ¿ì Áß´Ü
 		
-		//±âº»°ª ¼³Á¤
-		if( curPage == 0 )		setCurPage(1); //Ã¹ ÆäÀÌÁö¸¦ ±âº» ÆäÀÌÁö·Î ¼³Á¤ÇÑ´Ù
-		if( listCount == 0 )	setListCount(10); //È­¸é¿¡ º¸¿©Áú °Ô½Ã±Û ¼ö¸¦ 10°³·Î ¼³Á¤ÇÑ´Ù
-		if( pageCount == 0 )	setPageCount(10); //È­¸é¿¡ º¸¿©Áú ÆäÀÌÂ¡ ¼ö¸¦ 10°³·Î ¼³Á¤ÇÑ´Ù
+		//ê²Œì‹œê¸€ì´ ì—†ëŠ” ê²½ìš° ì¤‘ë‹¨
+		if(totalCount == 0) return;
+		
+		
+		
+		//ê¸°ë³¸ê°’ ì„¤ì •
+		
+		//curPageê°€ 0ì¼ ê²½ìš° curpegeë¥¼ 1ë²ˆìœ¼ë¡œ ì„¤ì •í•œë‹¤
+		//ì²« í˜ì´ì§€ë¥¼ ê¸°ë³¸ í˜ì´ì§€ë¡œ ì„¤ì •í•œë‹¤
+		if(curPage==0) setCurPage(1);
+		
+		//listcountê°€ ì„¤ì •ì´ ì•ˆë˜ì—ˆì„ ë•Œ ê°ì²´ê°€ ë§Œë“¤ì–´ì§€ë©´ listcountë¥¼ 10ê°œë¡œ ì„¤ì •
+		//->í™”ë©´ì— ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ ìˆ˜ë¥¼ 10ê°œë¡œ ì„¤ì •í•œë‹¤
+		if(listCount==0) setListCount(10);
+		
+		//í™”ë©´ì— ë³´ì—¬ì§ˆ í˜ì´ì§• ìˆ˜ë¥¼ 10ê°œë¡œ ì„¤ì •í•œë‹¤
+		if(pageCount==0) setPageCount(10);
+		
 		
 		//----------------------------------------
 		
-		//ÃÑ ÆäÀÌÁöÀÇ ¼ö °è»ê
+		//ì´ í˜ì´ì§€ì˜ ìˆ˜ ê³„ì‚°
 		totalPage = totalCount / listCount;
 		if( totalCount % listCount > 0 )	totalPage++;
 
-		//ÃÑ ÆäÀÌÁöÀÇ ¼ö °è»ê º¸Á¤ ÀÛ¾÷
+		//ì´ í˜ì´ì§€ì˜ ìˆ˜ ê³„ì‚° ë³´ì • ì‘ì—…
 		if( curPage > totalPage )	curPage = totalPage;
 		
 		//----------------------------------------
 		
-		//È­¸é¿¡ º¸ÀÌ´Â ÆäÀÌÁö³×ÀÌ¼ÇÀÇ ½ÃÀÛ ¹øÈ£, ³¡ ¹øÈ£ °è»ê
+		//í™”ë©´ì— ë³´ì´ëŠ” í˜ì´ì§€ë„¤ì´ì…˜ì˜ ì‹œì‘ ë²ˆí˜¸, ë ë²ˆí˜¸ ê³„ì‚°
 		startPage = ( (curPage-1)/pageCount ) * pageCount + 1;
 		endPage = startPage + pageCount - 1;
 
-		//ÆäÀÌÁö³×ÀÌ¼Ç º¸Á¤ ÀÛ¾÷
+		//í˜ì´ì§€ë„¤ì´ì…˜ ë³´ì • ì‘ì—…
 		if( endPage > totalPage )	endPage = totalPage;
 		
 		//----------------------------------------
 
-		// È­¸é¿¡ º¸ÀÌ´Â °Ô½Ã±ÛÀÇ ½ÃÀÛ ¹øÈ£, ³¡ ¹øÈ£ °è»ê
+		// í™”ë©´ì— ë³´ì´ëŠ” ê²Œì‹œê¸€ì˜ ì‹œì‘ ë²ˆí˜¸, ë ë²ˆí˜¸ ê³„ì‚°
 		startNo = ( curPage-1 ) * listCount + 1;
 		endNo = curPage * listCount;
 	}
+	
+	
 	
 	
 	@Override
@@ -146,5 +174,8 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
-
+	
+	
 }
+	
+	
