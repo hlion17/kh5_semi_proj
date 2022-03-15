@@ -1,6 +1,7 @@
 package controller.ref;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,13 +16,15 @@ import service.impl.RefServiceImpl;
 public class RefItemDeleteController extends HttpServlet {
 	
 	private RefService refService = new RefServiceImpl();
+	private static Logger logger = Logger.getLogger(RefItemDeleteController.class.getName());
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("삭제 컨트롤러 도착");
 		
 		String refCode = req.getParameter("refCode");
-		
+		logger.info("품목 삭제 요청에서 받은 냉장고 코드: " + refCode);
+
+		// 품목 삭제 서비스
 		refService.deleteRefItem(req);
 		
 		// 냉장고 품목 삭제 후 냉장고 메인페이지로 리다이렉트

@@ -177,7 +177,7 @@ public class RefDaoImpl implements RefDao{
 				+ "ON ri.item_no = i.item_no "
 			+ "WHERE ri.ref_no = ? "
 				+ subSql
-				+ "ORDER BY ?";
+			+ "ORDER BY ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
