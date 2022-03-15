@@ -9,92 +9,91 @@ import dto.RecipeFile;
 import util.Paging;
 
 public interface RecipeService {
+	
 	/**
-	 * °Ô½Ã±Û ÀüÃ¼ Á¶È¸
+	 * ê²Œì‹œê¸€ ì „ì²´ ì¡°íšŒ
 	 * @return 
 	 */
 	public List<Recipe> recipeBoard();
 	
 	/**
-	 * °Ô½Ã±Û ÆäÀÌÂ¡ ¸ñ·Ï Á¶È¸
+	 * ê²Œì‹œê¸€ í˜ì´ì§• ëª©ë¡ ì¡°íšŒ
 	 * 
-	 * @param paging - ÆäÀÌÂ¡ Á¤º¸ °´Ã¼
-	 * @return List<Board> - ÆäÀÌÂ¡ÀÌ ¹İ¿µµÈ °Ô½Ã±Û Á¶È¸ °á°ú ¸ñ·Ï
+	 * @param paging - í˜ì´ì§• ì •ë³´ ê°ì²´
+	 * @return List<Board> - í˜ì´ì§•ì´ ë°˜ì˜ëœ ê²Œì‹œê¸€ ì¡°íšŒ ê²°ê³¼ ëª©ë¡
 	 */
 	public List<Recipe> getList(Paging paging);
 	
 	/**
-	 * ÆäÀÌÂ¡ °´Ã¼ »ı¼º
+	 * í˜ì´ì§• ê°ì²´ ìƒì„±
 	 * 
-	 * @param req - ¿äÃ» Á¤º¸ °´Ã¼
-	 * @return Paging - ÆäÀÌÂ¡ °è»êÀÌ ¿Ï·áµÈ Paging°´Ã¼
+	 * @param req - ìš”ì²­ ì •ë³´ ê°ì²´
+	 * @return Paging - í˜ì´ì§• ê³„ì‚°ì´ ì™„ë£Œëœ Pagingê°ì²´
 	 */
 	public Paging getPaging(HttpServletRequest req);
 
 	/**
-	 * ¿äÃ» ÆÄ¶ó¹ÌÅÍ ¾ò¾î¿À±â
+	 * ìš”ì²­ íŒŒë¼ë¯¸í„° ì–»ì–´ì˜¤ê¸°
 	 * 
-	 * @param req - ¿äÃ» Á¤º¸ °´Ã¼
-	 * @return Recipe - Àü´ŞÆÄ¶ó¹ÌÅÍ recipeIdx°ªÀ» Æ÷ÇÔÇÑ DTO°´Ã¼
+	 * @param req - ìš”ì²­ ì •ë³´ ê°ì²´
+	 * @return Recipe - ì „ë‹¬íŒŒë¼ë¯¸í„° recipeIdxê°’ì„ í¬í•¨í•œ DTOê°ì²´
 	 */
 	public Recipe getRecipeIdx(HttpServletRequest req);
 
 	/**
-	 * Àü´ŞµÈ recipeIdx¸¦ ÀÌ¿ëÇÏ¿© °Ô½Ã±ÛÀ» Á¶È¸ÇÑ´Ù
+	 * ì „ë‹¬ëœ recipeIdxë¥¼ ì´ìš©í•˜ì—¬ ê²Œì‹œê¸€ì„ ì¡°íšŒí•œë‹¤
 	 * 
-	 * Á¶È¸µÈ °Ô½Ã±ÛÀÇ Á¶È¸¼ö¸¦ 1 Áõ°¡½ÃÅ²´Ù
+	 * ì¡°íšŒëœ ê²Œì‹œê¸€ì˜ ì¡°íšŒìˆ˜ë¥¼ 1 ì¦ê°€ì‹œí‚¨ë‹¤
 	 * 
-	 * @param boardno - Á¶È¸ÇÒ recipeIdx¸¦ °¡Áö°í ÀÖ´Â DTO°´Ã¼
-	 * @return Board - Á¶È¸µÈ °Ô½Ã±Û Á¤º¸
+	 * @param boardno - ì¡°íšŒí•  recipeIdxë¥¼ ê°€ì§€ê³  ìˆëŠ” DTOê°ì²´
+	 * @return Board - ì¡°íšŒëœ ê²Œì‹œê¸€ ì •ë³´
 	 */
 	public Recipe recipeContent(Recipe recipe);
 
 	/**
-	 * °Ô½Ã±Û ÀÛ¼º
-	 * 	ÀÔ·ÂÇÑ °Ô½Ã±Û ³»¿ëÀ» DB¿¡ ÀúÀå
+	 * ê²Œì‹œê¸€ ì‘ì„±
+	 * 	ì…ë ¥í•œ ê²Œì‹œê¸€ ë‚´ìš©ì„ DBì— ì €ì¥
 	 * 
-	 * @param req - ¿äÃ»Á¤º¸ °´Ã¼(°Ô½Ã±Û³»¿ë + Ã·ºÎÆÄÀÏ)
+	 * @param req - ìš”ì²­ì •ë³´ ê°ì²´(ê²Œì‹œê¸€ë‚´ìš© + ì²¨ë¶€íŒŒì¼)
 	 * 
 	 */
 //	public void recipeInsert(Recipe recipe);
 	public void recipeInsert(HttpServletRequest req);
 
 	/**
-	 * Àü´ŞµÈ Recipe °´Ã¼ÀÇ id ¸¦ ÀÌ¿ëÇÑ ´Ğ³×ÀÓ Á¶È¸
+	 * ì „ë‹¬ëœ Recipe ê°ì²´ì˜ id ë¥¼ ì´ìš©í•œ ë‹‰ë„¤ì„ ì¡°íšŒ
 	 * 
-	 * @param viewRecipe - Á¶È¸ÇÒ °Ô½Ã±Û Á¤º¸
-	 * @return String - °Ô½Ã±Û ÀÛ¼ºÀÚÀÇ ´Ğ³×ÀÓ
+	 * @param viewRecipe - ì¡°íšŒí•  ê²Œì‹œê¸€ ì •ë³´
+	 * @return String - ê²Œì‹œê¸€ ì‘ì„±ìì˜ ë‹‰ë„¤ì„
 	 */
 	public String getNick(Recipe viewRecipe);
 
 	/**
-	 * Ã·ºÎÆÄÀÏ Á¤º¸ Á¶È¸ÇÏ±â
+	 * ì²¨ë¶€íŒŒì¼ ì •ë³´ ì¡°íšŒí•˜ê¸°
 	 * 
-	 * @param viewRecipe - Ã·ºÎÆÄÀÏ°ú ¿¬°áµÈ °Ô½Ã±ÛÀÇ ¹øÈ£
-	 * @return RecipeFile - Ã·ºÎÆÄÀÏ Á¤º¸ DTO°´Ã¼
+	 * @param viewRecipe - ì²¨ë¶€íŒŒì¼ê³¼ ì—°ê²°ëœ ê²Œì‹œê¸€ì˜ ë²ˆí˜¸
+	 * @return RecipeFile - ì²¨ë¶€íŒŒì¼ ì •ë³´ DTOê°ì²´
 	 */
 	public RecipeFile viewFile(Recipe viewRecipe);
 
 	/**
-	 * °Ô½Ã±Û ¼öÁ¤
+	 * ê²Œì‹œê¸€ ìˆ˜ì •
 	 * 
-	 * @param req - ¿äÃ» Á¤º¸ °´Ã¼
+	 * @param req - ìš”ì²­ ì •ë³´ ê°ì²´
 	 */
 	public void recipeUpdate(HttpServletRequest req);
 
 	/**
-	 * °Ô½Ã±Û »èÁ¦
+	 * ê²Œì‹œê¸€ ì‚­ì œ
 	 * 
-	 * @param recipe - »èÁ¦ÇÒ °Ô½Ã±Û ¹øÈ£¸¦ °¡Áø °´Ã¼
+	 * @param recipe - ì‚­ì œí•  ê²Œì‹œê¸€ ë²ˆí˜¸ë¥¼ ê°€ì§„ ê°ì²´
 	 */
 	public void recipeDelete(Recipe recipe);
 
 	/**
-	 * ·¹½ÃÇÇ ·©Å·
+	 * ë ˆì‹œí”¼ ë­í‚¹
 	 * @return
 	 */
 	public List<Recipe> recipeRank();
 	
-	
-
 }

@@ -10,7 +10,7 @@ import service.face.RecipeService;
 import util.Paging;
 
 public class RecipeServiceImpl implements RecipeService {
-
+	
 	@Override
 	public List<Recipe> recipeBoard() {
 		// TODO Auto-generated method stub
@@ -76,5 +76,5 @@ public class RecipeServiceImpl implements RecipeService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }
