@@ -10,20 +10,20 @@ import util.Paging;
 public interface RecipeDao {
 
 	/**
-	 * Board테이블 전체 조회
+	 * recipe테이블 전체 조회
 	 * 
 	 * @param conn - DB연결 객체
-	 * @return List<Recipe> - Board테이블 전체 조회 결과 목록
+	 * @return List<Recipe> - recipe테이블 전체 조회 결과 목록
 	 */
 	public List<Recipe> selectAll(Connection conn);
 
 	/**
-	 * Board테이블 전체 조회
+	 * recipe테이블 전체 조회
 	 * 	-> 페이징 처리 추가
 	 * 
 	 * @param conn - DB연결 객체
 	 * @param paging - 페이징 정보 객체
-	 * @return List<Recipe> - Board테이블 전체 조회 결과 목록
+	 * @return List<Recipe> - recipe테이블 전체 조회 결과 목록
 	 */
 	public List<Recipe> selectAll(Connection conn, Paging paging);
 	
@@ -31,7 +31,7 @@ public interface RecipeDao {
 	 * 총 게시글 수 조회
 	 * 
 	 * @param conn - DB연결 객체
-	 * @return int - Recipe테이블의 전체 행 수
+	 * @return int - recipe테이블의 전체 행 수
 	 */
 	public int selectCntAll(Connection conn);
 
@@ -57,7 +57,7 @@ public interface RecipeDao {
 	 * 게시글 입력
 	 * 
 	 * @param conn - DB연결 객체
-	 * @param Recipe - 삽입될 게시글 내용
+	 * @param recipe - 삽입될 게시글 내용
 	 * @return int - INSERT 쿼리 수행 결과
 	 */
 	public int insert(Connection conn, Recipe recipe);
@@ -69,7 +69,7 @@ public interface RecipeDao {
 	 * @param viewRecipe - 조회할 id를 가진 객체
 	 * @return String - 작성자 닉네임
 	 */
-	public String selectNickByUserid(Connection conn, Recipe viewRecipe);
+	public String selectNickByMemberId(Connection conn, Recipe viewRecipe);
 
 	/**
 	 * 시퀀스를 이용하여 다음 게시글 번호를 조회한다
@@ -86,7 +86,7 @@ public interface RecipeDao {
 	 * @param recipeFile - 첨부파일 정보
 	 * @return int - INSERT 쿼리 수행 결과
 	 */
-	public int recipeInsertFile(Connection conn, RecipeFile recipeFile);
+	public int insertFile(Connection conn, RecipeFile recipeFile);
 
 	/**
 	 * 첨부파일 정보 조회
@@ -100,21 +100,21 @@ public interface RecipeDao {
 	/**
 	 * 게시글 수정 
 	 * 
-	 * @param board - 수정할 내용을 담은 객체
+	 * @param recipe - 수정할 내용을 담은 객체
 	 */
 	public int recipeUpdate(Connection conn, Recipe recipe);
 
 	/**
 	 * 게시글 삭제
 	 * 
-	 * @param board - 삭제할 게시글번호를 담은 객체
+	 * @param recipe - 삭제할 게시글번호를 담은 객체
 	 */
 	public int recipeDelete(Connection conn, Recipe recipe);
 	
 	/**
 	 * 게시글에 첨부된 파일 기록 삭제
 	 * 
-	 * @param board - 삭제할 게시글번호를 담은 객체
+	 * @param recipe - 삭제할 게시글번호를 담은 객체
 	 */
 	public int recipeDeleteFile(Connection conn, Recipe recipe);
 	

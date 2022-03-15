@@ -47,7 +47,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public String selectNickByUserid(Connection conn, Recipe viewRecipe) {
+	public String selectNickByMemberId(Connection conn, Recipe viewRecipe) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -59,7 +59,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public int recipeInsertFile(Connection conn, RecipeFile recipeFile) {
+	public int insertFile(Connection conn, RecipeFile recipeFile) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

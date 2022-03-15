@@ -12,7 +12,8 @@ public interface RecipeService {
 	
 	/**
 	 * 게시글 전체 조회
-	 * @return 
+	 * 
+	 * @return - 게시글 전체 조회 결과 목록
 	 */
 	public List<Recipe> recipeBoard();
 	
@@ -20,9 +21,9 @@ public interface RecipeService {
 	 * 게시글 페이징 목록 조회
 	 * 
 	 * @param paging - 페이징 정보 객체
-	 * @return List<Board> - 페이징이 반영된 게시글 조회 결과 목록
+	 * @return List<Recipe> - 페이징이 반영된 게시글 조회 결과 목록
 	 */
-	public List<Recipe> getList(Paging paging);
+	public List<Recipe> recipeBoard(Paging paging);
 	
 	/**
 	 * 페이징 객체 생성
@@ -45,10 +46,10 @@ public interface RecipeService {
 	 * 
 	 * 조회된 게시글의 조회수를 1 증가시킨다
 	 * 
-	 * @param boardno - 조회할 recipeIdx를 가지고 있는 DTO객체
-	 * @return Board - 조회된 게시글 정보
+	 * @param recipeIdx - 조회할 recipeIdx를 가지고 있는 DTO객체
+	 * @return Recipe - 조회된 게시글 정보
 	 */
-	public Recipe recipeContent(Recipe recipe);
+	public Recipe recipeContent(Recipe recipeIdx);
 
 	/**
 	 * 게시글 작성
@@ -92,7 +93,8 @@ public interface RecipeService {
 
 	/**
 	 * 레시피 랭킹
-	 * @return
+	 * 
+	 * @return List<Recipe> - 레시피 랭킹 조회 결과 목록
 	 */
 	public List<Recipe> recipeRank();
 	
