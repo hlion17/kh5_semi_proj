@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main</title>
 </head>
 <body>
-메인화면
-</body>
-</html>
+
+<div>hearder</div>
