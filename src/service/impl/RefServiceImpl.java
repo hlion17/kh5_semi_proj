@@ -64,6 +64,7 @@ public class RefServiceImpl implements RefService {
 		req.setAttribute("refCode", refCode);
 	}
 
+	// 미완성 - 밑에 메서드로 대처 가능할것 같다.
 	@Override
 	public void getFilteredRefItemList(HttpServletRequest req) {
 		// 쿼리파라미터 분석
@@ -83,6 +84,7 @@ public class RefServiceImpl implements RefService {
 		req.setAttribute("filterdItemList", list);
 	}
 
+	// 미완성
 	@Override
 	public void getOrderedRefItemList(HttpServletRequest req) {
 		// 쿼리파라미터 분석
@@ -102,7 +104,7 @@ public class RefServiceImpl implements RefService {
 		logger.info("정렬과 필터링된 냉장고 품목의 목록: " + list);
 		
 		// View에 전달할 아이템 목록 저장
-		req.setAttribute("orderedAndFilteredList", list);
+		req.setAttribute("itemList", list);
 		
 	}
 
@@ -179,10 +181,10 @@ public class RefServiceImpl implements RefService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB에서 해당 번호에 해당하는 냉장고 품목 삭제
-		int result = refDao.deleteItem(conn, itemNo);
-		int result2 = refDao.deleteRef_Item(conn, itemNo);
-		logger.info("냉장고 품목 삭제 결과: " + result);
-		logger.info("냉장고 품목 맵핑테이블 삭제 결과: " + result2);
+		int result = refDao.deleteRef_Item(conn, itemNo);
+		int result2 = refDao.deleteItem(conn, itemNo);
+		logger.info("냉장고 품목 맵핑테이블 삭제 결과: " + result);
+		logger.info("냉장고 품목 삭제 결과: " + result2);
 		
 		// DB 결과에 따라 트랜잭션 처리
 		if (result > 0 && result2 > 0) {

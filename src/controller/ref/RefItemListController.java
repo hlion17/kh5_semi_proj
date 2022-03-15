@@ -19,8 +19,12 @@ public class RefItemListController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String refCode = req.getParameter("refCode");
+		
 		// 냉장고 품목 리스트를 가져오는 서비스
 		refService.getRefItemList(req);
+		
+		req.setAttribute("refCode", refCode);
 		
 		// 냉장고 메인페이지로 이동
 		req.getRequestDispatcher("/WEB-INF/views/ref/ref_main.jsp").forward(req, resp);

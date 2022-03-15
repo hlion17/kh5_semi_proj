@@ -23,7 +23,7 @@
 품목이름: <input type="text" name="itemName"><br>
 품목수량: <input type="text" name="itemQty"><br>
 보관상태: <br>
-냉장: <input type="radio" name="status" value="0">
+냉장: <input type="radio" name="status" value="0" checked="checked">
 냉동: <input type="radio" name="status" value="1">
 실온: <input type="radio" name="status" value="2">
 <br>
