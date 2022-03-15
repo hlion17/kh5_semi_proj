@@ -3,10 +3,10 @@ package dao.impl;
 import java.sql.Connection;
 import java.util.List;
 
-import dao.face.Paging;
 import dao.face.RecipeDao;
 import dto.Recipe;
 import dto.RecipeFile;
+import util.Paging;
 
 public class RecipeDaoImpl implements RecipeDao {
 
