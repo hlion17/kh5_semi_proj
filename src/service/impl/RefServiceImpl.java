@@ -61,6 +61,7 @@ public class RefServiceImpl implements RefService {
 		logger.info("조회된 냉장고 품목의 목록: " + list);
 		// View 에 전달할 아이템 목록 저장
 		req.setAttribute("itemList", list);
+		req.setAttribute("refCode", refCode);
 	}
 
 	@Override
@@ -115,15 +116,23 @@ public class RefServiceImpl implements RefService {
 		int status = Integer.parseInt(req.getParameter("status"));
 		String expireDate = req.getParameter("expireDate");  // 입력받은 날짜 형식 어떻게 변환할 껀지 생각해보기
 		String note = req.getParameter("note");
+		logger.info("품목 추가 파라미터 정보: ");
+		logger.info("refCode: " + refCode);
+		logger.info("ingrCytCode: " + ingrCtyCode);
+		logger.info("itemName: " + itemName);
+		logger.info("itemQty: " + itemQty);
+		logger.info("status: " + status);
+		logger.info("expireDate: " + expireDate);
+		logger.info("note: " + note);
 		
 		// 유통기한 날짜 String -> Data 변환
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		Date exDate = null;
-		try {
-			exDate = sdf.parse(expireDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+//		Date exDate = null;
+//		try {
+//			exDate = sdf.parse(expireDate);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
 		// 냉장고 품목 DTO 생성
 		RefItem refItem = new RefItem();
@@ -133,20 +142,28 @@ public class RefServiceImpl implements RefService {
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
-		refItem.setExpireDate(exDate);
+		refItem.setExpireDate(expireDate);
 		refItem.setNote(note);
 		
 		// DB Connection 객체 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
+		// DB에서 아이템 식별값 생성해서 가져오기
+		refDao.getRefItemNo(conn, refItem);
+		
 		// DTO 정보로 냉장고 아이템 DB에 추가
-		int result = refDao.insert(conn, refCode, refItem);
+		int result = refDao.insertItem(conn, refCode, refItem);
+		int result2 = refDao.insertRef_Item(conn, refCode, refItem);
+		logger.info("DB 품목 삽입 처리 결과 : " + result);
+		logger.info("DB 냉장고_품목 삽입 처리 결과 : " + result2);
 		
 		// DB 결과에 따라 트랜잭션 처리
-		if (result > 0) {
+		if (result > 0 && result2 > 0) {
 			JDBCTemplate.commit(conn);
+			logger.info("냉장고 품목 insert 결과 commit 됨");
 		} else {
 			JDBCTemplate.rollback(conn);
+			logger.info("냉장고 품목 insert 결과 rollback 됨 ");
 		}
 		
 		// View에 전달 할 결과 저장
@@ -156,19 +173,24 @@ public class RefServiceImpl implements RefService {
 	@Override
 	public void deleteRefItem(HttpServletRequest req) {
 		// 쿼리 파라미터 분석
-		int itemNo = Integer.parseInt(req.getParameter("item_no"));
+		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
 		
 		// Connection 객체 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB에서 해당 번호에 해당하는 냉장고 품목 삭제
-		int result = refDao.delete(conn, itemNo);
+		int result = refDao.deleteItem(conn, itemNo);
+		int result2 = refDao.deleteRef_Item(conn, itemNo);
+		logger.info("냉장고 품목 삭제 결과: " + result);
+		logger.info("냉장고 품목 맵핑테이블 삭제 결과: " + result2);
 		
 		// DB 결과에 따라 트랜잭션 처리
-		if (result > 0) {
+		if (result > 0 && result2 > 0) {
 			JDBCTemplate.commit(conn);
+			logger.info("냉장고 품목 삭제 커밋 됨");
 		} else {
 			JDBCTemplate.rollback(conn);
+			logger.info("냉장고 품목 삭제 롤백 됨");
 		}
 		
 		// View에 전달 할 결과 저장
@@ -186,13 +208,13 @@ public class RefServiceImpl implements RefService {
 		String note = req.getParameter("note");
 		
 		// 유통기한 날짜 String -> Data 변환
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		Date exDate = null;
-		try {
-			exDate = sdf.parse(expireDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+//		Date exDate = null;
+//		try {
+//			exDate = sdf.parse(expireDate);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
 		// 냉장고 품목 DTO 생성
 		RefItem refItem = new RefItem();
@@ -202,7 +224,7 @@ public class RefServiceImpl implements RefService {
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
-		refItem.setExpireDate(exDate);
+		refItem.setExpireDate(expireDate);
 		refItem.setNote(note);
 		
 		// Connection 객체 생성

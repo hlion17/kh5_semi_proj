@@ -86,8 +86,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate"));
-				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setRegDate(rs.getDate("regdate").toString());
+				refItem.setExpireDate(rs.getDate("expire_date").toString());
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -136,8 +136,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate"));
-				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setRegDate(rs.getDate("regdate").toString());
+				refItem.setExpireDate(rs.getDate("expire_date").toString());
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -200,8 +200,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate"));
-				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setRegDate(rs.getDate("regdate").toString());
+				refItem.setExpireDate(rs.getDate("expire_date").toString());
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -215,10 +215,8 @@ public class RefDaoImpl implements RefDao{
 		return list;
 	}
 
-	// ITEM INSERT
-	// REF_ITEM INSERT 하나 더 만들어야 함
 	@Override
-	public int insert(Connection conn, int refCode, RefItem refItem) {
+	public int insertItem(Connection conn, int refCode, RefItem refItem) {
 		int result = -1;
 		String sql = "";
 		sql = "INSERT INTO ITEM ("
@@ -228,17 +226,44 @@ public class RefDaoImpl implements RefDao{
 				+ "ITEM_QTY, "
 				+ "STATUS, "
 				+ "EXPIRE_DATE, "
-				+ "NOTE "
-			+ "VALUES (ITEM_SEQ.NEXTVAL, ?,?,?,?,?,?) ";
+				+ "NOTE )"
+			+ "VALUES (?, ?,?,?,?,?,?) ";
 			
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, refItem.getIngrCtyCode());
-			ps.setString(2, refItem.getItemName());
-			ps.setString(3, refItem.getItemQty());
-			ps.setInt(4, refItem.getStatus());
-			ps.setString(5, refItem.getExpireDate().toString());  // 나중에 확인해보기
-			ps.setString(6, refItem.getNote());
+			ps.setInt(1, refItem.getItemNo());
+			ps.setInt(2, refItem.getIngrCtyCode());
+			ps.setString(3, refItem.getItemName());
+			ps.setString(4, refItem.getItemQty());
+			ps.setInt(5, refItem.getStatus());
+			ps.setString(6, refItem.getExpireDate());  // 날짜형식을 어떻게 할지
+			ps.setString(7, refItem.getNote());
+			
+			result = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+				
+		return result;
+	}
+	
+	@Override
+	public int insertRef_Item(Connection conn, int refCode, RefItem refItem) {
+		int result = -1;
+		String sql = "";
+		sql = "INSERT INTO ref_item ("
+				+ "ref_item_no, "
+				+ "ref_no, "
+				+ "item_no) "
+				+ "VALUES (ref_item_seq.nextval, ? ,? )";
+			
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			ps.setInt(2, refItem.getItemNo());
 			
 			result = ps.executeUpdate();
 			
@@ -251,10 +276,28 @@ public class RefDaoImpl implements RefDao{
 		return result;
 	}
 
-	// REF_ITME 먼저 지우고 ITEM 지워야 함
-	// ITEM DELETE 하나 더 만들어야 함
 	@Override
-	public int delete(Connection conn, int itemNo) {
+	public int deleteItem(Connection conn, int itemNo) {
+		int result = -1;
+		String sql ="";
+		sql = "DELETE item "
+				+ "WHERE item_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, itemNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int deleteRef_Item(Connection conn, int itemNo) {
 		int result = -1;
 		String sql ="";
 		sql = "DELETE ref_item "
@@ -262,6 +305,7 @@ public class RefDaoImpl implements RefDao{
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, itemNo);
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -296,5 +340,31 @@ public class RefDaoImpl implements RefDao{
 		}
 		return result;
 	}
+
+	@Override
+	public RefItem getRefItemNo(Connection conn, RefItem refItem) {
+		String sql = "";
+		sql = "SELECT ITEM_SEQ.NEXTVAL itemNo FROM dual";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				refItem.setItemNo(rs.getInt("itemNo"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return refItem;  // 매개변수로 값 저장가능하면 void로 해도 되지 않나?
+	}
+
+	
+	
+
+	
 
 }
