@@ -139,10 +139,9 @@ public class MemberDaoImpl implements MemberDao {
 			
 			rs = ps.executeQuery();
 			
-			if( rs.next() || member.getMemberid().equals("") ) {
-				idCheck = 1; //이미 존재하는 회원
-			} else {
-				idCheck = 0; //가입 가능한 회원 아이디
+			while( rs.next() ) {
+				idCheck = rs.getInt(1); //1 : 존재하는 회원
+//				System.out.println("Dao - 존재하는 회원");
 			}
 			
 		} catch (SQLException e) {

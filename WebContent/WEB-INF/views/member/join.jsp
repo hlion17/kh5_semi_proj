@@ -48,9 +48,8 @@ function registerCheckFunction() {
 		type: 'POST',
 		url: '/IdCheckController',
 		data: {memberid : memberid},
-		dataType : 'json',
 		success: function(result) {
-			if(result == false) {
+			if(result == 0) {
 				$("#checkId").html('사용할 수 없는 아이디입니다.')
 				$("#checkId").attr('color', 'red');
 			} else {

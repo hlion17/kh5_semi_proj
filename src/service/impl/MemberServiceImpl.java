@@ -108,10 +108,12 @@ public class MemberServiceImpl implements MemberService {
 	public boolean checkIdDup(Member member) {
 		//아이디 중복이라 사용 불가능
 		if( memberDao.idCheck(JDBCTemplate.getConnection(), member) > 0 ) {
+//			System.out.println("checkIdDup에서 false");
 			return false;
 		}
 		
 		//아이디 중복이 아니라 사용 가능!
+//		System.out.println("checkIdDup에서 true");
 		return true;
 	}
 
