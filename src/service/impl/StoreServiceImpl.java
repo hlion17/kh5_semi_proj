@@ -44,7 +44,7 @@ public class StoreServiceImpl implements StoreService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		//게시글 조회
+		//상품 조회
 		Product product = storeDao.selectProductByProductno(conn, productNo);
 		
 		return product;

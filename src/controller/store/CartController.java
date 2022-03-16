@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.face.StoreService;
 import service.impl.StoreServiceImpl;
 
-@WebServlet("/Cart")
+@WebServlet("/cart")
 public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +19,11 @@ public class CartController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		//
+		//VIEW 지정 및 응답 - forward
+		req.getRequestDispatcher("/WEB-INF/views/store/cart.jsp").forward(req, resp);
+	
 	}
 
 }
