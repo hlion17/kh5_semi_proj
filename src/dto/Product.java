@@ -8,6 +8,7 @@ public class Product {
 	private String img_path;
 	private int price;
 	private String description;
+
 	
 	@Override
 	public String toString() {
