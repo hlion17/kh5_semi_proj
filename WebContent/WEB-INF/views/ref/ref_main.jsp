@@ -8,11 +8,8 @@
 	int refCode = Integer.parseInt((String) request.getAttribute("refCode"));
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- header page -->
+<%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 <script type="text/javascript">
 
@@ -58,5 +55,6 @@ function filterAndSort(a) {
 <br><br>
 
 <% } %>
-</body>
-</html>
+
+<!-- footer page -->
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>

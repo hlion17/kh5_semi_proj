@@ -25,8 +25,8 @@
 <nav>
     <div id="nav">
         <ul>
-            <li>냉장고</li>
-            <li>요리사전</li>
+            <li><a href="/ref/choose?memberId=test1">냉장고</a></li>
+            <li><a href="/ingr/list">요리사전</a></li>
             <li>커뮤니티</li>
             <li>상점</li>
         </ul>
