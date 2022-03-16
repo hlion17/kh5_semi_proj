@@ -8,17 +8,22 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
+import dao.face.MemberDao;
 import dao.face.RefDao;
+import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Ref;
 import dto.RefItem;
+import service.face.MemberService;
 import service.face.RefService;
 
 public class RefServiceImpl implements RefService {
 	
 	private RefDao refDao = new RefDaoImpl();
+	private MemberDao memberDao = new MemberDaoImpl();
 	private static Logger logger = Logger.getLogger(RefServiceImpl.class.getName());
 
 	@Override
@@ -244,6 +249,40 @@ public class RefServiceImpl implements RefService {
 		
 		// View에 전달할 결과 저장
 		
+	}
+
+	@Override
+	public void shareRef(HttpServletRequest req) {
+		// 요청 파라미터 분석 - 공유 대상의 냉장고 코드
+		int refCode = Integer.parseInt(req.getParameter("refCode"));
+		logger.info("refService - 요청파라미터: " + refCode);
+		
+		// 세션분석 - 로그인한 회원의 아이디
+		HttpSession session = req.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		logger.info("refService - 세션아이디: " + memberId);
+		
+		// DB Connection 객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DB에서 회원아이디에 해당하는 회원번호 조회 - MemberService 이용
+		int memberNo = memberDao.findMemberNoById(conn, memberId);
+		logger.info("refService - DB 회원번호조회 결과: " + memberNo);
+		
+		// 공유 대상 냉장고에 로그인 한 회원번호 추가
+		int result = refDao.insertSharingMember(conn, refCode, memberNo);
+		logger.info("refService - insert 결과: " + result);
+		
+		// insert 결과 트랜잭션 처리
+		if (result > 0) {
+			JDBCTemplate.commit(conn);
+			logger.info("refService - insert 트랜잭션 처리: 커밋됨");
+		} else {
+			logger.warning("refService - insert 트랜잭션 처리: 롤백됨");
+		}
+		
+		// View에 전달할 데이터 저장
+		req.setAttribute("memberId", memberId);
 	}
 	
 }

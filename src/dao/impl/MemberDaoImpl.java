@@ -89,8 +89,8 @@ public class MemberDaoImpl implements MemberDao {
 	public int insert(Connection conn, Member member) {
 		
 		String sql = "";
-		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro )";
-		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro, my_ref_code )";
+		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
 		
@@ -107,6 +107,10 @@ public class MemberDaoImpl implements MemberDao {
 			ps.setString(8, member.getZipcode());
 			ps.setString(9, member.getAddress());
 			ps.setString(10, member.getIntro());
+			// write by young
+			int hashCode = member.getMemberid().hashCode();
+			ps.setInt(11, hashCode);
+			// write by young
 			
 			res = ps.executeUpdate();
 			
@@ -118,7 +122,7 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return res;
 	}
-
+	
 	@Override
 	public int idCheck(Connection conn, Member member) {
 		
@@ -149,7 +153,58 @@ public class MemberDaoImpl implements MemberDao {
 		}
 		return idCheck;
 	}
+
+	@Override
+	public int findMemberNoById(Connection conn, String memberId) {
+		int memberNo = -1;
+		String sql = "";
+		sql = "SELECT member_no FROM member WHERE id = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, memberId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				memberNo = rs.getInt("member_no");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return memberNo;
+	}
+
+	// write by young
+	@Override
+	public Member selectrefCodeAndMemberNo(Connection conn, String memberId) {
+		Member member = new Member();
+		String sql = "";
+		sql = "SELECT member_no, my_ref_code FROM member WHERE id = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, memberId);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				member.setMemberno(rs.getInt("member_no"));
+				member.setMy_ref_code(rs.getInt("my_ref_code"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return member;
+	}
 	
-	
+	// write by young
 
 }

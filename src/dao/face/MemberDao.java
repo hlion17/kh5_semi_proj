@@ -34,6 +34,27 @@ public interface MemberDao {
 	 * @return int - INSERT 수행 결과
 	 */
 	public int insert(Connection conn, Member member);
+
+	// write by young
+	/**
+	 * 회원아이디로 회원번호를 조회하는 메서드
+	 * @param conn - DB 연결 객체
+	 * @param memberId - 회원아이디
+	 * @return memberNo - 회원번호
+	 */
+	public int findMemberNoById(Connection conn, String memberId);
+
+	// write by young
+	/**
+	 * 냉장고코드와 회원번호 가져오는 메서드
+	 * @param conn
+	 * @param memberId
+	 * @return - 내장고 코드, 회원번호 담긴 회원 DTO
+	 */
+	public Member selectrefCodeAndMemberNo(Connection conn, String memberId);
+	
+
+	
 	
 	/**
 	 * 아이디 중복 검사
