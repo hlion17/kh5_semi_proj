@@ -25,11 +25,12 @@ $(document).ready(function() {
 
 <table class="table table-striped table-hover table-condensed">
 <tr class="success">
-	<th>글번호</th>
-	<th>제목</th>
-	<th>아이디</th>
+	<th>게시글 번호</th>
+	<th>게시글 제목</th>
+	<th>글쓴이</th>
+	<th>등록일</th>
+	<th>추천수</th>
 	<th>조회수</th>
-	<th>작성일</th>
 </tr>
 
 <%	for(int i=0; i<boardList.size(); i++) { %>
@@ -37,8 +38,9 @@ $(document).ready(function() {
 	<td><%=boardList.get(i).getBoardno() %></td>
 	<td><a href="./view?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
 	<td><%=boardList.get(i).getUserid() %></td>
-	<td><%=boardList.get(i).getHit() %></td>
 	<td><%=boardList.get(i).getWriteDate() %></td>
+	<td><%=boardList.get(i).getLike() %></td>
+	<td><%=boardList.get(i).getHit() %></td>
 </tr>
 <%	} %>
 
