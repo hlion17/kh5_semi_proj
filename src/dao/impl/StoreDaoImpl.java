@@ -67,6 +67,54 @@ public class StoreDaoImpl implements StoreDao {
 	}
 	
 
+	@Override
+	public Product selectProductByProductno(Connection conn, Product productNo) {
+		
+			//SQL 작성
+			String sql = "";
+			sql += "SELECT ";
+			sql += "	pro_no";
+			sql += "	, cty_no";
+			sql += "	, name";
+			sql += "	, img_path";
+			sql += "	, price";
+			sql += "	, description";
+			sql += " FROM product";
+			sql += " WHERE pro_no = ?";
+			
+			//결과 저장할 DTO객체
+			Product product = null;
+			
+			try {
+				ps = conn.prepareStatement(sql); //SQL수행 객체
+				
+				ps.setInt(1, productNo.getPro_no());
+				
+				rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+
+				while( rs.next() ) {
+					Product pro = new Product(); //결과값 저장 객체
+					
+					//결과값 행 처리
+					pro.setPro_no(rs.getInt("pro_no"));
+					pro.setCty_no(rs.getInt("cty_no"));
+					pro.setName(rs.getString("name"));
+					pro.setImg_path(rs.getString("img_path"));
+					pro.setPrice(rs.getInt("price"));
+					pro.setDescription(rs.getString("description"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				//JDBC객체 닫기
+				JDBCTemplate.close(rs);
+				JDBCTemplate.close(ps);
+			}
+			
+			//최종 조회 결과 반환
+			return product;
+	}
 	
 	
 	
