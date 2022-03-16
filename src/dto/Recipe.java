@@ -36,7 +36,7 @@ public class Recipe {
 //	private String reg_date;		//게시글등록일		reg_date		//DB컬럼 제거요망	
 	private Date writeDate;			//게시글수정일		update_date
 	private int like;				//추천수			board_like
-	private String intro;			//게시글소개글		recipeIntro		//DB컬럼 추가요망
+	private String intro;			//게시글소개글		intro		//DB컬럼 추가요망
 	@Override
 	public String toString() {
 		return "Recipe [boardno=" + boardno + ", title=" + title + ", userid=" + userid + ", content=" + content

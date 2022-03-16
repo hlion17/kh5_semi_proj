@@ -24,14 +24,16 @@ public class RecipeDaoImpl implements RecipeDao {
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT";
-		sql += "	boardno";
+		sql += "	board_no";
+		sql += "	, member_no";
 		sql += "	, title";
-		sql += "	, userid";
 //		sql += "	, content";
+		sql += "	, updated_date";
 		sql += "	, hit";
-		sql += "	, write_date";
+//		sql += "	, board_like";
+//		sql += "	, intro";
 		sql += " FROM board";
-		sql += " ORDER BY boardno DESC";
+		sql += " ORDER BY board_no DESC";
 		
 		//결과 저장할 List
 		List<Recipe> boardList = new ArrayList<>();
@@ -45,12 +47,12 @@ public class RecipeDaoImpl implements RecipeDao {
 				Recipe b = new Recipe(); //결과값 저장 객체
 				
 				//결과값 한 행 처리
-				b.setBoardno( rs.getInt("boardno") );
+				b.setBoardno( rs.getInt("board_no") );
 				b.setTitle( rs.getString("title") );
-				b.setUserid( rs.getString("userid") );
+				b.setUserid( rs.getString("member_no") );
 //				b.setContent( rs.getString("content") );
 				b.setHit( rs.getInt("hit") );
-				b.setWriteDate( rs.getDate("write_date") );
+				b.setWriteDate( rs.getDate("updated_date") );
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);
