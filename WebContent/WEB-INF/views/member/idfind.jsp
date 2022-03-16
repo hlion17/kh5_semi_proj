@@ -19,12 +19,12 @@ function FindId() {
 		type: 'POST',
 		url: '/member/idfind',
 		data: {email : email, phone : phone},
-		success: function(result) {
-			if(result == 0) {
+		success: function(memberid) {
+			if(memberid == null) {
 				alert("일치하는 회원이 없습니다.");
 			} else {
-				alert("회원님의 아이디를 찾았습니다.")
-				$(location).attr('href', '/member/idfindsuccess') 
+				alert("회원님의 아이디는 "+ memberid +" 입니다.")
+				
 			}
 			
 		},

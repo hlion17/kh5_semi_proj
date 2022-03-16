@@ -38,18 +38,19 @@ public class IdFindController extends HttpServlet {
 		
 		String memberid = memberService.checkEmailPhone(member);
 		
+		System.out.println(memberid);
+		
 		int result = 0;
 		// 성공 여부 확인 : 개발자용
 		if(memberid == null) {
 			System.out.println("일치하는 정보가 없습니다.");
-			out.write(result + "");
+			out.write(memberid + ""); //jsp에 memberid을 +""해 String타입으로 전달
 			
 			
 		} else if (memberid != null) {
 			System.out.println("일치하는 정보가 있습니다.");
 			
-			req.setAttribute("memberid", memberid);
-			req.getRequestDispatcher("/WEB-INF/views/member/idfindsuccess.jsp").forward(req, resp);
+			out.write(memberid + "");
 		}
 		
 	}
