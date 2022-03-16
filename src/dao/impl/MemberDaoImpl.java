@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -203,7 +204,39 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return member;
 	}
-	
 	// write by young
 
+	@Override
+	public String idFind(Connection conn, Member member) {
+		
+		String sql = "";
+		sql += "SELECT id FROM member";
+		sql += " WHERE email = ?";
+		sql += "	AND phone = ?";
+		
+		String mid = null;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getEmail());
+			ps.setString(2, member.getPhone());
+			
+			rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				mid = rs.getString("id"); //1 : 일치하는 회원 있음
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		return mid;
+	}
+	
+
+	
 }

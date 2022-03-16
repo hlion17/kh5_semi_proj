@@ -58,7 +58,25 @@ public interface MemberService {
 	 * 아이디 중복처리를 위한 아이디 정보 추출하기
 	 * 
 	 * @param req - 요청 정보 객체
-	 * @return Member - 로그인 정보
+	 * @return Member - 입력한 아이디를 가진 회원의 정보
 	 */
 	public Member getIdMember(HttpServletRequest req);
+
+	/**
+	 * 아이디 찾기 처리
+	 * 
+	 * @param member - 아이디 찾기에 입력한 회원과 일치하는 정보
+	 * @return String - 일치하는 회원의 id
+	 */
+	public String checkEmailPhone(Member member);
+	
+	/**
+	 * 아이디 찾기를 위한 회원 정보 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 입력한 이메일과 전화번호와 일치하는 회원의 정보
+	 */
+	public Member getIdFindMember(HttpServletRequest req);
+
+	
 }

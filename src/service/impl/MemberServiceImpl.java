@@ -126,6 +126,32 @@ public class MemberServiceImpl implements MemberService {
 		
 		return member;
 	}
+
+	@Override
+	public String checkEmailPhone(Member member) {
+		
+		String Findedid = null;
+		// 일치하는 정보가 있음(아이디 찾기 가능)
+		if (memberDao.idFind(JDBCTemplate.getConnection(), member) != null) {
+			Findedid = memberDao.idFind(JDBCTemplate.getConnection(), member);
+		} else {
+			System.out.println("Service에서 실패함");
+		}
+		return Findedid;
+
+	}
+	
+	@Override
+	public Member getIdFindMember(HttpServletRequest req) {
+		Member member = new Member();
+		
+		member.setEmail( req.getParameter("email") );
+		member.setPhone( req.getParameter("phone") );
+		
+		
+		return member;
+	}
+
 	
 	
 	
