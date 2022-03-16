@@ -31,12 +31,12 @@ public class RecipeDaoImpl implements RecipeDao {
 //		sql += "	, content";
 		sql += "	, updated_date";
 		sql += "	, hit";
-//		sql += "	, board_like";
-//		sql += "	, intro";
+		sql += "	, board_like";
+		sql += "	, intro";
 		sql += " FROM recipe";
 		sql += " ORDER BY board_no DESC";
 		
-		System.out.println("sql : " + sql);
+//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - sql : " + sql);
 		
 		//결과 저장할 List
 		List<Recipe> boardList = new ArrayList<>();
@@ -46,18 +46,20 @@ public class RecipeDaoImpl implements RecipeDao {
 			
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
-			System.out.println( rs.next() );
+//			System.out.println( "[TEST] RecipeDaoImpl - selectAll(Connection conn) - rs.next() : " + rs.next() );
+			
 			while( rs.next() ) {
 				Recipe b = new Recipe(); //결과값 저장 객체
 				
 				//결과값 한 행 처리
 				b.setBoardno( rs.getInt("board_no") );
-				System.out.println( rs.getInt("board_no") );
+//				System.out.println( rs.getInt("board_no") );
 				b.setTitle( rs.getString("title") );
 				b.setUserid( rs.getString("member_no") );
 //				b.setContent( rs.getString("content") );
-				b.setHit( rs.getInt("hit") );
 				b.setWriteDate( rs.getDate("updated_date") );
+				b.setHit( rs.getInt("hit") );
+				b.setLike( rs.getInt("board_like") );
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);
@@ -72,6 +74,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
+//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - boardList : " + boardList);
 		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) 리턴");
 		return boardList;
 	}
