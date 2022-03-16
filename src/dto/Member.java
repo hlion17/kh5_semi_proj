@@ -12,7 +12,7 @@ public class Member {
 	private String phone;
 	private String address;
 	private String intro;
-	private String my_ref_code;
+	private int my_ref_code;  // edited by young
 	
 	@Override
 	public String toString() {
@@ -101,11 +101,11 @@ public class Member {
 		this.intro = intro;
 	}
 
-	public String getMy_ref_code() {
+	public int getMy_ref_code() {  // edited by young
 		return my_ref_code;
 	}
 
-	public void setMy_ref_code(String my_ref_code) {
+	public void setMy_ref_code(int my_ref_code) { // edited by young
 		this.my_ref_code = my_ref_code;
 	}
 	

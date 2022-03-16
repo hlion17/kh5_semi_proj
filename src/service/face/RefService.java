@@ -46,4 +46,11 @@ public interface RefService {
 	 */
 	void updateRefItem(HttpServletRequest req);
 
+	/**
+	 * 다른 회원의 냉장고를 공유할 수 있게 하는 서비스
+	 * 
+	 * @param req - 공유 대상의 냉장고 코드의 정보가 담긴 요청객체
+	 */
+	void shareRef(HttpServletRequest req);
+
 }

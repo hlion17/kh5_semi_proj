@@ -362,6 +362,50 @@ public class RefDaoImpl implements RefDao{
 		return refItem;  // 매개변수로 값 저장가능하면 void로 해도 되지 않나?
 	}
 
+	@Override
+	public int insertSharingMember(Connection conn, int refCode, int memberNo) {
+		int result = -1;
+		String sql = "";
+		sql = "INSERT INTO ref_member ("
+				+ "ref_member_no, "
+				+ "ref_code, "
+				+ "member_no) "
+			+ "Values (REF_MEBER_SEQ.NEXTVAL, ?, ?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			ps.setInt(2, memberNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		return result;
+	}
+
+	@Override
+	public int insertRef(Connection conn, int refCode, int memberNo) {
+		int result = -1;
+		String sql = "";
+		sql = "INSERT INTO ref_member (ref_code, ref_name) "
+				+ "VALUES (?,?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			ps.setString(2, "나의 냉장고");
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
 	
 	
 

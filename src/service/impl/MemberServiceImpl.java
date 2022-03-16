@@ -7,13 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import common.JDBCTemplate;
 import dao.face.MemberDao;
+import dao.face.RefDao;
 import dao.impl.MemberDaoImpl;
+import dao.impl.RefDaoImpl;
 import dto.Member;
 import service.face.MemberService;
+import service.face.RefService;
 
 public class MemberServiceImpl implements MemberService {
 
-private MemberDao memberDao = new MemberDaoImpl();
+	private MemberDao memberDao = new MemberDaoImpl();
+	private RefDao refDao = new RefDaoImpl();
 	
 	@Override
 	public Member getLoginMember(HttpServletRequest req) {
@@ -76,7 +80,20 @@ private MemberDao memberDao = new MemberDaoImpl();
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		if( memberDao.insert(conn, member) > 0 ) {
+		// edited by young
+		int result = memberDao.insert(conn, member);
+		
+		String memberId = member.getMemberid();
+		
+		Member foundMember = memberDao.selectrefCodeAndMemberNo(conn, memberId);
+		
+		int refCode = foundMember.getMy_ref_code();
+		
+		int memberNo = foundMember.getMemberno();
+		
+		int result2 = refDao.insertRef(conn, refCode, memberNo);
+		
+		if( result > 0 && result2 > 0) {
 			JDBCTemplate.commit(conn);
 			return member;
 		} else {

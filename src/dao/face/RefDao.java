@@ -95,4 +95,23 @@ public interface RefDao {
 	 */
 	RefItem getRefItemNo(Connection conn, RefItem refItem);
 
+	/**
+	 * 냉장고_멤버 매핑 테이블에 공유 대상 냉장고 코드와 로그인한 회원 번호 insert
+	 * @param conn - DB 접속 객체
+	 * @param refCode - 공유 대상 냉장고 코드
+	 * @param memberNo - 로그인 한 회원번호
+	 * @return - insert 결과 ( 1 -  성공, 0 - 실패 ) 
+	 */
+	int insertSharingMember(Connection conn, int refCode, int memberNo);
+	
+	/**
+	 * DB에 냉장고를 등록한다.
+	 * - 회원가입과 하나의 트랜잭션으로 이루어져야 한다.
+	 * @param conn - DB 접속 객체
+	 * @param refCode - 등록 할 냉장고 코드
+	 * @param memberNo - 등록 할 회원 코드
+	 * @return - insert 결과 ( 1 - 성공, 0 - 실패)
+	 */
+	int insertRef(Connection conn, int refCode, int memberNo);
+
 }
