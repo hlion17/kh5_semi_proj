@@ -9,7 +9,7 @@ public class RecipeFile {
 	private int boardno;		//게시글번호	board_no
 	private String originname;	//원본파일명	origin_name
 	private String storedname;	//저장파일명	stored_name
-	private int filesize;		//파일크기		file_size	//DB컬럼 추가요망
+	private int filesize;		//파일크기		filesize	//DB컬럼 추가요망
 	private Date writeDate;		//저장날짜		write_date	//DB컬럼 추가요망
 	private String path;		//파일경로		path
 	
