@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import common.JDBCTemplate;
 import dao.face.RecipeDao;
 import dto.Recipe;
 import dto.RecipeFile;
+import oracle.sql.DATE;
 import util.Paging;
 
 public class RecipeDaoImpl implements RecipeDao {
@@ -75,25 +77,25 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
-//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - boardList : " + boardList);
-		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) 리턴");
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
 
 	@Override
 	public List<Recipe> selectAll(Connection conn, Paging paging) {
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn, Paging paging) 호출");
 		
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
 		sql += " 		SELECT";
-		sql += "			boardno, title, userid";
-		sql += "			, hit, write_date";
-		sql += "		FROM board";
-		sql += "		ORDER BY boardno DESC";
+		sql += "			board_no, member_no, title";
+		sql += "			, updated_date, hit, board_like";
+		sql += "		FROM recipe";
+		sql += "		ORDER BY board_no DESC";
 		sql += " 	) B";
-		sql += " ) BOARD";
+		sql += " ) recipe";
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
 		//결과 저장할 List
@@ -111,12 +113,13 @@ public class RecipeDaoImpl implements RecipeDao {
 				Recipe b = new Recipe(); //결과값 저장 객체
 				
 				//결과값 한 행 처리
-				b.setBoardno( rs.getInt("boardno") );
+				b.setBoardno( rs.getInt("board_no") );
 				b.setTitle( rs.getString("title") );
-				b.setUserid( rs.getString("userid") );
+				b.setUserid( rs.getString("member_no") );
 //				b.setContent( rs.getString("content") );
 				b.setHit( rs.getInt("hit") );
-				b.setWriteDate( rs.getDate("write_date") );
+				b.setWriteDate( rs.getDate("updated_date") );
+				b.setLike( rs.getInt("board_like") );
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);
@@ -131,15 +134,17 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
 	
 	@Override
 	public int selectCntAll(Connection conn) {
+		System.out.println("[TEST] RecipeDaoImpl - selectCntAll(Connection conn) 호출");
 		
 		//SQL 작성
 		String sql = "";
-		sql += "SELECT count(*) cnt FROM board";
+		sql += "SELECT count(*) cnt FROM recipe";
 		
 		//총 게시글 수
 		int count = 0;
@@ -160,16 +165,18 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl - selectCntAll(Connection conn) - count 리턴 : " + count);
 		return count;
 	}
 	
 	@Override
 	public int updateHit(Connection conn, Recipe boardno) {
+		System.out.println("[TEST] RecipeDaoImpl - updateHit(Connection conn, Recipe boardno) 호출");
 		
 		String sql = "";
-		sql += "UPDATE board";
+		sql += "UPDATE recipe";
 		sql += " SET hit = hit + 1";
-		sql += " WHERE boardno = ?";
+		sql += " WHERE board_no = ?";
 		
 		int res = 0;
 		
@@ -185,24 +192,28 @@ public class RecipeDaoImpl implements RecipeDao {
 		} finally {
 			JDBCTemplate.close(ps);
 		}
-				
+		
+		System.out.println("[TEST] RecipeDaoImpl - updateHit(Connection conn, Recipe boardno) - res 리턴 : " + res);
 		return res;
 	}
 	
 	@Override
 	public Recipe selectBoardByBoardno(Connection conn, Recipe boardno) {
+		System.out.println("[TEST] RecipeDaoImpl - selectBoardByBoardno(Connection conn, Recipe boardno) 호출");
 		
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT";
-		sql += "	boardno";
+		sql += "	board_no";
+		sql += "	, member_no";
 		sql += "	, title";
-		sql += "	, userid";
 		sql += "	, content";
+		sql += "	, updated_date";
 		sql += "	, hit";
-		sql += "	, write_date";
-		sql += " FROM board";
-		sql += " WHERE boardno = ?";
+		sql += "	, board_like";
+		sql += "	, intro";
+		sql += " FROM recipe";
+		sql += " WHERE board_no = ?";
 		
 		//결과 저장할 DTO객체
 		Recipe board = null;
@@ -218,12 +229,12 @@ public class RecipeDaoImpl implements RecipeDao {
 				board = new Recipe(); //결과값 저장 객체
 				
 				//결과값 행 처리
-				board.setBoardno( rs.getInt("boardno") );
+				board.setBoardno( rs.getInt("board_no") );
 				board.setTitle( rs.getString("title") );
-				board.setUserid( rs.getString("userid") );
+				board.setUserid( rs.getString("member_no") );
 				board.setContent( rs.getString("content") );
 				board.setHit( rs.getInt("hit") );
-				board.setWriteDate( rs.getDate("write_date") );
+				board.setWriteDate( rs.getDate("updated_date") );
 			}
 			
 		} catch (SQLException e) {
@@ -235,15 +246,17 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectBoardByBoardno(Connection conn, Recipe boardno) - board 리턴 : " + board);
 		return board;
 	}
 
 	@Override
 	public int insert(Connection conn, Recipe board) {
+		System.out.println("[TEST] RecipeDaoImpl - insert(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "INSERT INTO board(BOARDNO, TITLE, USERID, CONTENT, HIT)";
-		sql += " VALUES (?, ?, ?, ?, 0)";
+		sql += "INSERT INTO recipe(board_no, member_id, TITLE, CONTENT, updated_date, HIT, BOARD_LIKE, intro)";
+		sql += " VALUES (?, ?, ?, ?, ?, 0, 0, ?)";
 		
 		int res = 0;
 		
@@ -264,16 +277,18 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl - insert(Connection conn, Recipe board) 리턴 res : " + res);
 		return res;
 	}
 
 	@Override
 	public String selectNickByUserid(Connection conn, Recipe viewBoard) {
+		System.out.println("[TEST] RecipeDaoImpl - selectNickByUserid(Connection conn, Recipe viewBoard) 호출");
 		
 		//SQL 작성
 		String sql = "";
-		sql += "SELECT usernick FROM member";
-		sql += " WHERE userid = ?";
+		sql += "SELECT nick FROM member";
+		sql += " WHERE member_id = ?";
 		
 		//결과 저장할 String 변수
 		String usernick = null;
@@ -299,12 +314,14 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectNickByUserid(Connection conn, Recipe viewBoard) 리턴 usernick : " + usernick);
 		return usernick;
 		
 	}
 	
 	@Override
 	public int selectBoardno(Connection conn) {
+		System.out.println("[TEST] RecipeDaoImpl - selectBoardno(Connection conn) 호출");
 		
 		//SQL 작성
 		String sql = "";
@@ -332,15 +349,17 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectBoardno(Connection conn) 리턴 nextBoardno : " + nextBoardno);
 		return nextBoardno;
 	}
 	
 	@Override
 	public int insertFile(Connection conn, RecipeFile boardFile) {
+		System.out.println("[TEST] RecipeDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 호출");
 		
 		String sql = "";
-		sql += "INSERT INTO boardfile( FILENO, BOARDNO, ORIGINNAME, STOREDNAME, FILESIZE )";
-		sql += " VALUES (boardfile_seq.nextval, ?, ?, ?, ?)";
+		sql += "INSERT INTO recipeimg( img_no, BOARD_NO, ORIGIN_NAME, STORED_NAME, PATH, FILESIZE, WRITE_DATE)";
+		sql += " VALUES (boardfile_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
 		
@@ -350,7 +369,9 @@ public class RecipeDaoImpl implements RecipeDao {
 			ps.setInt(1, boardFile.getBoardno());
 			ps.setString(2, boardFile.getOriginname());
 			ps.setString(3, boardFile.getStoredname());
-			ps.setInt(4, boardFile.getFilesize());
+			ps.setString(4, boardFile.getPath());
+			ps.setInt(5, boardFile.getFilesize());
+			ps.setDate(6, (Date) boardFile.getWriteDate());
 
 			res = ps.executeUpdate();
 			
@@ -360,23 +381,25 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 리턴 res : " + res);
 		return res;
 	}
 	
 	@Override
 	public RecipeFile selectFile(Connection conn, Recipe viewBoard) {
+		System.out.println("[TEST] RecipeDaoImpl -  selectFile(Connection conn, Recipe viewBoard) 호출");
 		
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT";
-		sql += "	fileno";
-		sql += "	, boardno";
-		sql += "	, originname";
-		sql += "	, storedname";
+		sql += "	img_no";
+		sql += "	, board_no";
+		sql += "	, origin_name";
+		sql += "	, stored_name";
 		sql += "	, filesize";
 		sql += "	, write_date";
-		sql += " FROM boardfile";
-		sql += " WHERE boardno = ?";
+		sql += " FROM recipeimg";
+		sql += " WHERE board_no = ?";
 		
 		//결과 저장할 DTO객체
 		RecipeFile boardFile = null;
@@ -392,10 +415,10 @@ public class RecipeDaoImpl implements RecipeDao {
 				boardFile = new RecipeFile(); //결과값 저장 객체
 				
 				//결과값 행 처리
-				boardFile.setFileno( rs.getInt("fileno") );
-				boardFile.setBoardno( rs.getInt("boardno") );
-				boardFile.setOriginname( rs.getString("originname") );
-				boardFile.setStoredname( rs.getString("storedname") );
+				boardFile.setFileno( rs.getInt("img_no") );
+				boardFile.setBoardno( rs.getInt("board_no") );
+				boardFile.setOriginname( rs.getString("origin_name") );
+				boardFile.setStoredname( rs.getString("stored_name") );
 				boardFile.setFilesize( rs.getInt("filesize") );
 				boardFile.setWriteDate( rs.getDate("write_date") );
 			}
@@ -409,17 +432,19 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl -  selectFile(Connection conn, Recipe viewBoard) 리턴 boardFile : " + boardFile);
 		return boardFile;
 	}
 	
 	@Override
 	public int update(Connection conn, Recipe board) {
+		System.out.println("[TEST] RecipeDaoImpl -  update(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "UPDATE board";
+		sql += "UPDATE recipe";
 		sql += " SET title = ?,";
 		sql += " 	content = ?";
-		sql += " WHERE boardno = ?";
+		sql += " WHERE board_no = ?";
 		
 		int res = -1;
 		
@@ -438,15 +463,17 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl -  update(Connection conn, Recipe board) 리턴 res" + res);
 		return res;
 	}
 
 	@Override
 	public int delete(Connection conn, Recipe board) {
+		System.out.println("[TEST] RecipeDaoImpl -  delete(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "DELETE board";
-		sql += " WHERE boardno = ?";
+		sql += "DELETE recipe";
+		sql += " WHERE board_no = ?";
 		
 		int res = -1;
 		
@@ -463,15 +490,17 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl -  delete(Connection conn, Recipe board) 리턴 res : " + res);
 		return res;
 	}
 	
 	@Override
 	public int deleteFile(Connection conn, Recipe board) {
+		System.out.println("[TEST] RecipeDaoImpl -  deleteFile(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "DELETE boardfile";
-		sql += " WHERE boardno = ?";
+		sql += "DELETE recipeimg";
+		sql += " WHERE board_no = ?";
 		
 		int res = -1;
 		
@@ -488,6 +517,7 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
+		System.out.println("[TEST] RecipeDaoImpl -  deleteFile(Connection conn, Recipe board) 리턴 res : " + res);
 		return res;
 	}
 

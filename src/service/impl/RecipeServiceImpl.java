@@ -44,6 +44,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public Paging getPaging(HttpServletRequest req) {
+		System.out.println("[TEST] RecipeDaoImpl - getPaging(HttpServletRequest req) 호출");
 
 		//전달파라미터 curPage 추출하기
 		String param = req.getParameter("curPage");
@@ -60,6 +61,7 @@ public class RecipeServiceImpl implements RecipeService {
 		//Paging 객체 생성 - 페이징 계산
 		Paging paging = new Paging(totalCount, curPage);
 		
+		System.out.println("[TEST] RecipeDaoImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
 		return paging;
 	}
 
