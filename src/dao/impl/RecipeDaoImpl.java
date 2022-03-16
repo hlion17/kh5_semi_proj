@@ -20,6 +20,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	
 	@Override
 	public List<Recipe> selectAll(Connection conn) {
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) 호출");
 		
 		//SQL 작성
 		String sql = "";
@@ -32,8 +33,10 @@ public class RecipeDaoImpl implements RecipeDao {
 		sql += "	, hit";
 //		sql += "	, board_like";
 //		sql += "	, intro";
-		sql += " FROM board";
+		sql += " FROM recipe";
 		sql += " ORDER BY board_no DESC";
+		
+		System.out.println("sql : " + sql);
 		
 		//결과 저장할 List
 		List<Recipe> boardList = new ArrayList<>();
@@ -43,11 +46,13 @@ public class RecipeDaoImpl implements RecipeDao {
 			
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
+			System.out.println( rs.next() );
 			while( rs.next() ) {
 				Recipe b = new Recipe(); //결과값 저장 객체
 				
 				//결과값 한 행 처리
 				b.setBoardno( rs.getInt("board_no") );
+				System.out.println( rs.getInt("board_no") );
 				b.setTitle( rs.getString("title") );
 				b.setUserid( rs.getString("member_no") );
 //				b.setContent( rs.getString("content") );
@@ -67,6 +72,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) 리턴");
 		return boardList;
 	}
 

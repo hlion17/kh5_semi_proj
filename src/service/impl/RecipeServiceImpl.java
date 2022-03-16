@@ -29,7 +29,8 @@ public class RecipeServiceImpl implements RecipeService {
 	
 	@Override
 	public List<Recipe> getList() {
-
+		System.out.println("[TEST] RecipeServiceImpl - getList() 호출");
+		
 		//게시글 전체 조회 결과 반환
 		return boardDao.selectAll( JDBCTemplate.getConnection() );
 	}

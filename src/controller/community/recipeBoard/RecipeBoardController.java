@@ -27,18 +27,21 @@ public class RecipeBoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] /rank/board - RecipeBoardController [GET] 호출");
 		
-		//전달파라미터에서 현재 페이징 객체 알아내기
-		Paging paging = boardService.getPaging(req);
-		System.out.println("BoardController doGet() - " + paging);
+		//게시글 전체 조회 - BoardService이용
+		List<Recipe> boardList = boardService.getList();
 		
-		//게시글 페이징 목록 조회 - BoardService이용
-		List<Recipe> boardList = boardService.getList( paging );
+//		//전달파라미터에서 현재 페이징 객체 알아내기
+//		Paging paging = boardService.getPaging(req);
+//		System.out.println("BoardController doGet() - " + paging);
+//		
+//		//게시글 페이징 목록 조회 - BoardService이용
+//		List<Recipe> boardList = boardService.getList( paging );
 		
 		//조회결과 MODEL값 전달 - req.setAttribute
 		req.setAttribute("boardList", boardList);
 		
-		//페이징 MODEL값 전달
-		req.setAttribute("paging", paging);
+//		//페이징 MODEL값 전달
+//		req.setAttribute("paging", paging);
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] recipeBoard.jsp로 포워드");
