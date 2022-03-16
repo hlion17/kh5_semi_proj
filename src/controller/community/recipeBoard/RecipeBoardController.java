@@ -42,7 +42,7 @@ public class RecipeBoardController extends HttpServlet {
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] recipeBoard.jsp로 포워드");
-		req.getRequestDispatcher("/WEB-INF/views/community/recipeBoard/recipeBoard.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/community/board/list.jsp").forward(req, resp);
 		
 	}
 
