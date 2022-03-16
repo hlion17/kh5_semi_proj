@@ -14,18 +14,11 @@
 <%	Product ProductList = (Product) request.getAttribute("productList"); %>
 
 
-<%
-	String id = request.getParameter("pro_no");
-	//id값이 없거나 값이 같을 때
-	if(id == null || id.trim().equals("")){
-		response.sendRedirect("list.jsp");
-		return;
-	}
+<%-- <% --%>
+<!-- // 	String id = request.getParameter("pro_no");	 -->
 	
-// 	//상품저장소 객체 생성
-// 	productRepository dao = productRepository.getInstance();
-// 	Product product = dao.getProductById(pro_no);
- %>
+<!-- // 	Product ProductList = (Product) request.getAttribute("productList"); -->
+<%--  %> --%>
 
 
 
@@ -77,16 +70,16 @@ $(document).ready(function() {
 </form>
 </div>
 
-<!-- <div class="text-center">	 -->
-<!-- 	<button type="button" id="btnCart" class="btn btn-cart">장바구니</button> -->
-<!-- 	<button type="button">주문</button> -->
-<!-- </div> -->
+<div class="text-center">	
+	<button type="button" id="btnCart" class="btn btn-cart">장바구니</button>
+	<button type="button">주문</button>
+</div>
 
-<p><form name="addFrom" action="./Cart.jsp?id=<%=ProductgetProductNo() %>"method="post">
-	<a href="#" class="btn btn-order" onclick="order()"> 상품 주문&raquo;</a>
-	<a href="./cart.jsp" class="btn btn-cart">장바구니&raquo;</a>
-	<a href="./list.jsp" class="btn btn-list">상품목록&raquo;</a>
-</form>
+<%-- <p><form name="addFrom" action="./Cart.jsp?id=<%=ProductgetProductNo() %>"method="post"> --%>
+<!-- 	<a href="#" class="btn btn-order" onclick="order()"> 상품 주문&raquo;</a> -->
+<!-- 	<a href="./cart.jsp" class="btn btn-cart">장바구니&raquo;</a> -->
+<!-- 	<a href="./list.jsp" class="btn btn-list">상품목록&raquo;</a> -->
+<!-- </form> -->
 
 
 <!-- 
@@ -103,15 +96,15 @@ $(document).ready(function() {
 </div>
 
 
-<!-- <script type="text/javascript"> -->
-// 	function addToCart(){
-// 		if(confirm('해당 상품을 장바구니에 추가하시겠습니까?')){
-// 			document.addForm.submit();
-// 		} else {
-// 			document.addFrom.reset();
-// 		}
-// 	}
-<!-- </script> -->
+<script type="text/javascript">
+ 	function addToCart(){
+	if(confirm('해당 상품을 장바구니에 추가하시겠습니까?')){
+		document.addForm.submit();
+	} else {
+			document.addFrom.reset();
+ 		}
+ 	}
+ </script>
 
 
 </body>
