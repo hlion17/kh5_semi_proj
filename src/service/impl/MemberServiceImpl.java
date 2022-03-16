@@ -65,6 +65,7 @@ private MemberDao memberDao = new MemberDaoImpl();
 		member.setGender(req.getParameter("gender"));
 		member.setEmail(req.getParameter("email"));
 		member.setPhone(req.getParameter("phone"));
+		member.setZipcode(req.getParameter("zipcode"));
 		member.setAddress(req.getParameter("address"));
 		member.setIntro(req.getParameter("intro"));
 		
@@ -85,5 +86,18 @@ private MemberDao memberDao = new MemberDaoImpl();
 		}
 		
 	}
+
+	@Override
+	public boolean checkIdDup(Member member) {
+		//아이디 중복이라 사용 불가능
+		if( memberDao.idCheck(JDBCTemplate.getConnection(), member) > 0 ) {
+			return false;
+		}
+		
+		//아이디 중복이 아니라 사용 가능!
+		return true;
+	}
+	
+	
 	
 }

@@ -89,8 +89,8 @@ public class MemberDaoImpl implements MemberDao {
 	public int insert(Connection conn, Member member) {
 		
 		String sql = "";
-		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, address, intro )";
-		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro )";
+		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 		
 		int res = 0;
 		
@@ -104,8 +104,9 @@ public class MemberDaoImpl implements MemberDao {
 			ps.setString(5, member.getGender());
 			ps.setString(6, member.getEmail());
 			ps.setString(7, member.getPhone());
-			ps.setString(8, member.getAddress());
-			ps.setString(9, member.getIntro());
+			ps.setString(8, member.getZipcode());
+			ps.setString(9, member.getAddress());
+			ps.setString(10, member.getIntro());
 			
 			res = ps.executeUpdate();
 			
@@ -117,5 +118,37 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return res;
 	}
+
+	@Override
+	public int idCheck(Connection conn, Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member";
+		sql += " WHERE id = ?";
+		
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getMemberid());
+			
+			rs = ps.executeQuery();
+			
+			if( rs.next() || member.getMemberid().equals("") ) {
+				return 0; //이미 존재하는 회원
+			} else {
+				return 1; //가입 가능한 회원 아이디
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		return -1; //데이터베이스 오류
+	}
+	
+	
 
 }
