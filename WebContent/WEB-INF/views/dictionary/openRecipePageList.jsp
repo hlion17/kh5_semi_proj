@@ -1,17 +1,21 @@
 <%@ page import="dto.OpenRecipe" %>
 <%@ page import="java.util.*" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <style>
-        div {
-            border: 1px solid black;
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<!-- header page -->
+<%@include file="/WEB-INF/views/layout/header.jsp" %>
+
+<main>
+<div id="main">
+    <div id="sidebar">
+        <ul>
+            <li onclick="location.href = '/ingr/search'">재료검색</li>
+            <li onclick="location.href = '/expireDate/list'">유통기한 검색</li>
+            <li onclick="location.href = '/openrecipe/pagelist'">오픈레시피 검색</li>
+        </ul>
+    </div>
+    <div id="section">
 
 <h1>공식레시피 검색 결과</h1>
 <hr>
@@ -61,7 +65,9 @@
 </div>
 <% }%>
 
+    </div>
+</div>
+</main>
 
-
-</body>
-</html>
+<!-- footer page -->
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
