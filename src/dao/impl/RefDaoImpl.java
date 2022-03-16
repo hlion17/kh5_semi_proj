@@ -389,7 +389,7 @@ public class RefDaoImpl implements RefDao{
 	public int insertRef(Connection conn, int refCode, int memberNo) {
 		int result = -1;
 		String sql = "";
-		sql = "INSERT INTO ref_member (ref_code, ref_name) "
+		sql = "INSERT INTO ref (ref_code, ref_name) "
 				+ "VALUES (?,?)";
 		
 		try {

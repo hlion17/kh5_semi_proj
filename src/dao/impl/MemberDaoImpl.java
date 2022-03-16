@@ -182,7 +182,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectrefCodeAndMemberNo(Connection conn, String memberId) {
 		Member member = new Member();
 		String sql = "";
-		sql = "SELECT member_no, my_ref_code FROM member WHERE member_id = ?";
+		sql = "SELECT member_no, my_ref_code FROM member WHERE id = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
