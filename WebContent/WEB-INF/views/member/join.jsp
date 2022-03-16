@@ -40,8 +40,32 @@ $(document).ready(function() {
 })
 
 //------------------------------------------------------------
+//아이디 중복 검사
 
-
+function registerCheckFunction() {
+	var memberid = $('#memberid').val();
+	$.ajax({
+		type: 'POST',
+		url: '/IdCheckController',
+		data: {memberid : memberid},
+		dataType : 'json',
+		success: function(result) {
+			if(result == false) {
+				$("#checkId").html('사용할 수 없는 아이디입니다.')
+				$("#checkId").attr('color', 'red');
+			} else {
+				$("#checkId").html('사용할 수 있는 아이디입니다.')
+				$("#checkId").attr('color', 'green');
+				
+			}
+			
+		},
+		error : function () {
+			alert("서버요청실패");
+		}
+		
+	})
+}
 
 
 
@@ -243,11 +267,11 @@ form {
 	<div class="form-group">
 		<label for="memberid" class="control-label col-xs-2">아이디</label>
 		<div class="col-xs-10">
-			<input type="text" id="memberid" name="memberid" class="form-control" required placeholder="필수 입력 항목입니다">
-			<button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> <!-- 중복검사 -->
-			<img id="id_check_sucess" style="display: none;">
+			<input type="text" id="memberid" name="memberid" class="form-control input_id" required placeholder="필수 입력 항목입니다">
+				<div id="warnMsgId" class="msg" ></div>
+			<button type="button" class="btn btn-primary" onclick="registerCheckFunction();">중복검사</button> <!-- 중복검사 -->
+				<font id= "checkId" size="2"></font>
 		</div>
-		<div id="warnMsgId" class="msg" ></div>
 	</div>
 
 	<div class="form-group">

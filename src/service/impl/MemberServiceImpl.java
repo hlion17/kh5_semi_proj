@@ -97,6 +97,17 @@ private MemberDao memberDao = new MemberDaoImpl();
 		//아이디 중복이 아니라 사용 가능!
 		return true;
 	}
+
+	@Override
+	public Member getIdMember(HttpServletRequest req) {
+		Member member = new Member();
+		
+		member.setMemberid( req.getParameter("memberid") );
+		
+		
+		return member;
+	}
+	
 	
 	
 	

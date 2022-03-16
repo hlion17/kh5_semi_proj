@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.face.MemberDao;
-import dao.impl.MemberDaoImpl;
 import dto.Member;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
@@ -34,10 +33,6 @@ public class MemberJoinController extends HttpServlet {
 		
 		//요청 데이터의 한글 UTF-8 처리 설정
     	req.setCharacterEncoding("UTF-8");
-    	
-
-    	
-    	
 		
 		//회원가입 전달파라미터 추출하고 가입처리하기
 		Member member = memberService.getJoinMember(req);

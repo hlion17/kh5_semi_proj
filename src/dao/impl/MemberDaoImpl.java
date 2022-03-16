@@ -126,6 +126,7 @@ public class MemberDaoImpl implements MemberDao {
 		sql += "SELECT count(*) FROM member";
 		sql += " WHERE id = ?";
 		
+		int idCheck = 0;
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -135,9 +136,9 @@ public class MemberDaoImpl implements MemberDao {
 			rs = ps.executeQuery();
 			
 			if( rs.next() || member.getMemberid().equals("") ) {
-				return 0; //이미 존재하는 회원
+				idCheck = 1; //이미 존재하는 회원
 			} else {
-				return 1; //가입 가능한 회원 아이디
+				idCheck = 0; //가입 가능한 회원 아이디
 			}
 			
 		} catch (SQLException e) {
@@ -146,7 +147,7 @@ public class MemberDaoImpl implements MemberDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
-		return -1; //데이터베이스 오류
+		return idCheck;
 	}
 	
 	
