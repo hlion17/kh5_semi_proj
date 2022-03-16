@@ -78,5 +78,21 @@ public interface MemberService {
 	 */
 	public Member getIdFindMember(HttpServletRequest req);
 
+	/**
+	 * 비밀번호 찾기 처리
+	 * 
+	 * @param member - 비밀번호 찾기에 입력한 회원과 일치하는 정보
+	 * @return String - 일치하는 회원의 pw
+	 */
+	public String checkIdEmailPhone(Member member);
+	
+	/**
+	 * 비밀번호 찾기를 위한 회원 정보 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 입력한 이메일과 전화번호와 일치하는 회원의 정보
+	 */
+	public Member getPwFindMember(HttpServletRequest req);
+
 	
 }

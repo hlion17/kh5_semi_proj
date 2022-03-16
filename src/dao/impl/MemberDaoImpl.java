@@ -225,7 +225,7 @@ public class MemberDaoImpl implements MemberDao {
 			rs = ps.executeQuery();
 			
 			if( rs.next() ) {
-				mid = rs.getString("id"); //1 : 일치하는 회원 있음
+				mid = rs.getString("id"); //찾은 id 반환
 			}
 			
 		} catch (SQLException e) {
@@ -236,6 +236,39 @@ public class MemberDaoImpl implements MemberDao {
 		}
 		return mid;
 	}
+
+	@Override
+	public String pwFind(Connection conn, Member member) {
+		String sql = "";
+		sql += "SELECT pw FROM member";
+		sql += " WHERE id = ?";
+		sql += "	AND email = ?";
+		sql += "	AND phone = ?";
+		
+		String mid = null;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getMemberid());
+			ps.setString(2, member.getEmail());
+			ps.setString(3, member.getPhone());
+			
+			rs = ps.executeQuery();
+			
+			if( rs.next() ) {
+				mid = rs.getString("pw"); //찾은 비밀번호 반환
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		return mid;
+	}
+	
 	
 
 	

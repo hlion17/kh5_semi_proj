@@ -73,5 +73,14 @@ public interface MemberDao {
 	 * @param member - 입력한 정보와 일치하는 회원 정보 객체
 	 * @return 일치하는 회원의 id
 	 */
-	public String idFind(Connection connection, Member member);
+	public String idFind(Connection conn, Member member);
+
+	/**
+	 * 비밀번호 찾기
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param member - 입력한 정보와 일치하는 회원 정보 객체
+	 * @return 일치하는 회원의 pw
+	 */
+	public String pwFind(Connection conn, Member member);
 }

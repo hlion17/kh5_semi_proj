@@ -42,6 +42,11 @@ $(document).ready(function() {
 		$(location).attr('href', '/member/idfind')
 	})
 	
+	//비밀번호찾기 버튼 클릭 시 아이디찾기 페이지로 이동
+	$("#btnPwFind").click(function() {
+		$(location).attr('href', '/member/pwfind')
+	})
+	
 })
 </script>
 

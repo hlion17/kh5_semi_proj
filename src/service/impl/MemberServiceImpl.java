@@ -152,6 +152,30 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
+	@Override
+	public String checkIdEmailPhone(Member member) {
+		String Findedpw = null;
+		// 일치하는 정보가 있음(비밀번호 찾기 가능)
+		if (memberDao.pwFind(JDBCTemplate.getConnection(), member) != null) {
+			Findedpw = memberDao.pwFind(JDBCTemplate.getConnection(), member);
+		} else {
+			System.out.println("Service에서 실패함");
+		}
+		return Findedpw;
+	}
+
+	@Override
+	public Member getPwFindMember(HttpServletRequest req) {
+		Member member = new Member();
+
+		member.setMemberid(req.getParameter("memberid"));
+		member.setEmail(req.getParameter("email"));
+		member.setPhone(req.getParameter("phone"));
+
+		return member;
+	}
+
+	
 	
 	
 	
