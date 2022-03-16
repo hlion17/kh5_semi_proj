@@ -20,6 +20,8 @@
     height: 90%;
 
     margin: 0 auto;
+    
+    overflow: auto;
 }
 .item {
 	display: inline-block;
@@ -84,4 +86,13 @@
     position: relative;
     top: -100px;
     padding: 10px;
+}
+
+.close-area {
+	position: absolute;
+	top: -10px;
+	right: 0px;
+	
+	color: red;
+	font-size: 30px;
 }

@@ -8,8 +8,8 @@ public class RefItem {
 	private String itemName;
 	private String itemQty;
 	private int status; // 0 - 냉장, 1 - 냉동, 2 - 실온
-	private String regDate;
-	private String expireDate;
+	private Date regDate;
+	private Date expireDate;
 	private String note;
 	
 	@Override
@@ -51,19 +51,19 @@ public class RefItem {
 		this.status = status;
 	}
 
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
-	public String getExpireDate() {
+	public Date getExpireDate() {
 		return expireDate;
 	}
 
-	public void setExpireDate(String expireDate) {
+	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
 	}
 

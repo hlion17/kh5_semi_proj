@@ -3,6 +3,7 @@ package service.impl;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -69,9 +70,11 @@ public class RefServiceImpl implements RefService {
 		req.setAttribute("refCode", refCode);
 	}
 
+	
 	// 미완성 - 밑에 메서드로 대처 가능할것 같다.
 	@Override
 	public void getFilteredRefItemList(HttpServletRequest req) {
+		/*
 		// 쿼리파라미터 분석
 		int refCode = Integer.parseInt(req.getParameter("refCode"));
 		int status = Integer.parseInt(req.getParameter("status"));
@@ -87,9 +90,10 @@ public class RefServiceImpl implements RefService {
 		
 		// View에 전달할 아이템 목록 저장
 		req.setAttribute("filterdItemList", list);
+		*/
 	}
+	
 
-	// 미완성
 	@Override
 	public void getOrderedRefItemList(HttpServletRequest req) {
 		// 쿼리파라미터 분석
@@ -100,13 +104,20 @@ public class RefServiceImpl implements RefService {
 		logger.info("쿼리파라미터로 전달된 냉장고 코드: " + refCode);
 		logger.info("쿼리파라미터로 전달된 정렬기준: " + orderBy);
 		
-		
 		// DB Connection 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB에서 냉장고품목을 상태코드로 필터링한 품목을 조회하여 리스트로 반환한다.
 		List<RefItem> list = refDao.findAllByFilteringAndOrdering(conn, refCode, status, orderBy);
-		logger.info("정렬과 필터링된 냉장고 품목의 목록: " + list);
+		// logger.info("정렬과 필터링된 냉장고 품목의 목록: " + list);
+		
+		System.out.println("유통기한: ");
+//		System.out.println("등록일: ");
+		for (RefItem r : list) {
+			System.out.println(r.getExpireDate());
+//			System.out.println(r.getRegDate());
+		}
+		
 		
 		// View에 전달할 아이템 목록 저장
 		req.setAttribute("itemList", list);
@@ -145,11 +156,21 @@ public class RefServiceImpl implements RefService {
 		RefItem refItem = new RefItem();
 		
 		// DTO에 정보 저장
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 유통기한 날짜 String -> Data 변환
+		Date parsedExDate = null;
+		try {
+			parsedExDate = sdf.parse(expireDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		refItem.setIngrCtyCode(ingrCtyCode);
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
-		refItem.setExpireDate(expireDate);
+		refItem.setExpireDate(parsedExDate);
 		refItem.setNote(note);
 		
 		// DB Connection 객체 생성
@@ -215,13 +236,13 @@ public class RefServiceImpl implements RefService {
 		String note = req.getParameter("note");
 		
 		// 유통기한 날짜 String -> Data 변환
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-//		Date exDate = null;
-//		try {
-//			exDate = sdf.parse(expireDate);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date parsedExDate = null;
+		try {
+			parsedExDate = sdf.parse(expireDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		// 냉장고 품목 DTO 생성
 		RefItem refItem = new RefItem();
@@ -231,7 +252,7 @@ public class RefServiceImpl implements RefService {
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
-		refItem.setExpireDate(expireDate);
+		refItem.setExpireDate(parsedExDate);
 		refItem.setNote(note);
 		
 		// Connection 객체 생성
@@ -284,5 +305,6 @@ public class RefServiceImpl implements RefService {
 		// View에 전달할 데이터 저장
 		req.setAttribute("memberId", memberId);
 	}
+	
 	
 }

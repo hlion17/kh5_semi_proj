@@ -83,7 +83,7 @@ public class StoreDaoImpl implements StoreDao {
 			sql += " WHERE pro_no = ?";
 			
 			//결과 저장할 DTO객체
-			Product product = null;
+			Product product = new Product();
 			
 			try {
 				ps = conn.prepareStatement(sql); //SQL수행 객체
@@ -91,17 +91,17 @@ public class StoreDaoImpl implements StoreDao {
 				ps.setInt(1, productNo.getPro_no());
 				
 				rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
-
+				
 				while( rs.next() ) {
-					Product pro = new Product(); //결과값 저장 객체
 					
 					//결과값 행 처리
-					pro.setPro_no(rs.getInt("pro_no"));
-					pro.setCty_no(rs.getInt("cty_no"));
-					pro.setName(rs.getString("name"));
-					pro.setImg_path(rs.getString("img_path"));
-					pro.setPrice(rs.getInt("price"));
-					pro.setDescription(rs.getString("description"));
+					product.setPro_no(rs.getInt("pro_no"));
+					product.setCty_no(rs.getInt("cty_no"));
+					product.setName(rs.getString("name"));
+					product.setImg_path(rs.getString("img_path"));
+					product.setPrice(rs.getInt("price"));
+					product.setDescription(rs.getString("description"));
+					
 				}
 				
 			} catch (SQLException e) {

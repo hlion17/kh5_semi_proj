@@ -11,7 +11,7 @@
 <body>
 
 
-<%	Product ProductList = (Product) request.getAttribute("productList"); %>
+<%	Product ProductList = (Product) request.getAttribute("viewProduct"); %>
 
 <div class="container">
 
@@ -22,12 +22,11 @@
 <form action="./cart" method="post" >
 <!-- <form name="form2" method="post" action="addProduct.jsp"> -->
 
-<!-- <table class="store_project_info"> -->
-<tr><td class="info">상품번호</td><td><%=session.getAttribute("pro_no") %></td></tr>
-<tr><td class="info">상품명</td><td><%=session.getAttribute("name") %></td></tr>
-<tr><td class="info">상품이미지</td><td><%=session.getAttribute("img_path") %></td></tr>
-<tr><td class="info">상품가격</td><td><%=session.getAttribute("price") %>원</td></tr>
-<tr><td class="info">상품설명</td><td><%=session.getAttribute("description") %></td></tr>
+<tr><td class="info">상품번호</td><td><%=ProductList.getPro_no() %></td></tr><br>
+<tr><td class="info">상품명</td><td><%=ProductList.getName() %></td></tr><br>
+<tr><td class="info">상품이미지</td><td><%=ProductList.getImg_path() %></td></tr><br>
+<tr><td class="info">상품가격</td><td><%=ProductList.getPrice() %>원</td></tr><br>
+<tr><td class="info">상품설명</td><td><%=ProductList.getDescription() %></td></tr><br>
 <!-- </table> -->
 
 

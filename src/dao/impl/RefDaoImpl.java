@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -86,8 +87,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate").toString());
-				refItem.setExpireDate(rs.getDate("expire_date").toString());
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -136,8 +137,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate").toString());
-				refItem.setExpireDate(rs.getDate("expire_date").toString());
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -158,9 +159,18 @@ public class RefDaoImpl implements RefDao{
 		String subSql = "";
 		if (status >= 0 && status <= 2) {
 			subSql = "AND i.status = ? ";
-		} else {
-			subSql = "";
 		}
+		
+		// prepareStatement 로는 order by 절에 ?으로 쓸수 없다고 한다.
+		// https://stackoverflow.com/questions/12430208/using-a-prepared-statement-and-variable-bind-order-by-in-java-with-jdbc-driver
+		int orderByInt = -1;
+		if ("expire_date".equals(orderBy)) {
+			orderByInt = 7;
+		} else if ("regDate".equals(orderBy)) {
+			orderByInt = 6;
+		}
+		
+		System.out.println("int 정렬기준: " + orderByInt);
 		
 		String sql = "";
 		sql = "SELECT "
@@ -176,18 +186,24 @@ public class RefDaoImpl implements RefDao{
 			+ "INNER JOIN item i "
 				+ "ON ri.item_no = i.item_no "
 			+ "WHERE ri.ref_no = ? "
-				+ subSql
+				+ subSql 
 			+ "ORDER BY ?";
+		
+		System.out.println(sql);
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, refCode);
 			
+			System.out.println("냉장고 코드: " + refCode);
 			if (status >= 0 && status <= 2) {
+				System.out.println("상태코드: " + status);
+				System.out.println("정렬기준: " + orderBy);
 				ps.setInt(2, status);				
-				ps.setString(3, orderBy);
+				ps.setInt(3, orderByInt);
 			} else {
-				ps.setString(2, orderBy);
+				System.out.println("정렬기준: " + orderBy);
+				ps.setInt(2, orderByInt);
 			}
 
 			rs = ps.executeQuery();
@@ -200,8 +216,8 @@ public class RefDaoImpl implements RefDao{
 				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
 				refItem.setItemQty(rs.getString("item_qty"));
 				refItem.setStatus(rs.getInt("status"));
-				refItem.setRegDate(rs.getDate("regdate").toString());
-				refItem.setExpireDate(rs.getDate("expire_date").toString());
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
 				refItem.setNote(rs.getString("note"));
 				
 				list.add(refItem);
@@ -236,7 +252,7 @@ public class RefDaoImpl implements RefDao{
 			ps.setString(3, refItem.getItemName());
 			ps.setString(4, refItem.getItemQty());
 			ps.setInt(5, refItem.getStatus());
-			ps.setString(6, refItem.getExpireDate());  // 날짜형식을 어떻게 할지
+			ps.setDate(6, new Date(refItem.getExpireDate().getTime()));  // 날짜형식을 어떻게 할지
 			ps.setString(7, refItem.getNote());
 			
 			result = ps.executeUpdate();
