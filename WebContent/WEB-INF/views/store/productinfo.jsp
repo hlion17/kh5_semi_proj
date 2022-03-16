@@ -13,27 +13,6 @@
 
 <%	Product ProductList = (Product) request.getAttribute("productList"); %>
 
-
-<%-- <% --%>
-<!-- // 	String id = request.getParameter("pro_no");	 -->
-	
-<!-- // 	Product ProductList = (Product) request.getAttribute("productList"); -->
-<%--  %> --%>
-
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-	//장바구니버튼
-	$("#btnCart").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/store/cart");
-	})
-	
-	
-});
-</script>
-
-
 <div class="container">
 
 <h3>상품 상세 정보</h3>
@@ -70,9 +49,9 @@ $(document).ready(function() {
 </form>
 </div>
 
-<div class="text-center">	
-	<button type="button" id="btnCart" class="btn btn-cart">장바구니</button>
-	<button type="button">주문</button>
+<div>
+	<button type="button" onclick="location.href='cart'">장바구니</button>
+	<button type="button" onclick="location.href='payment'">결제</button>
 </div>
 
 <%-- <p><form name="addFrom" action="./Cart.jsp?id=<%=ProductgetProductNo() %>"method="post"> --%>
@@ -96,15 +75,15 @@ $(document).ready(function() {
 </div>
 
 
-<script type="text/javascript">
- 	function addToCart(){
+<!-- <script type="text/javascript"> 
+  	function addToCart(){
 	if(confirm('해당 상품을 장바구니에 추가하시겠습니까?')){
 		document.addForm.submit();
-	} else {
+} else {
 			document.addFrom.reset();
  		}
  	}
- </script>
+ 	  </script> -->
 
 
 </body>

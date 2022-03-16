@@ -13,7 +13,7 @@ import service.face.StoreService;
 import service.impl.StoreServiceImpl;
 
 
-@WebServlet("/product/info")
+@WebServlet("/productInfo")
 public class ProductInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
