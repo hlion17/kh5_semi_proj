@@ -46,4 +46,11 @@ public interface MemberService {
 	 */
 	public Member join(Member member);
 
+	/**
+	 * 로그인 인증 처리
+	 * 
+	 * @param member - 아이디 중복 정보
+	 * @return boolean - true:중복이 아니라 사용 가능, false:중복이라 사용 불가능
+	 */
+	public boolean checkIdDup(Member member);
 }

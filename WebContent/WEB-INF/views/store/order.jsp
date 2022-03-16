@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레시피 자랑 게시판</title>
+<title>Insert title here</title>
 </head>
 <body>
+<h1>주문</h1>
 
-<h1>레시피 자랑 게시판</h1>
-<hr>
 
 </body>
 </html>

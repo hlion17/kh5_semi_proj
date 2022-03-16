@@ -88,9 +88,9 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int insert(Connection conn, Member member) {
 		
-		String sql = "";  // edited by young
-		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, address, intro, my_ref_code )";
-		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "";
+		sql += "INSERT INTO member ( member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro, my_ref_code )";
+		sql += " VALUES ( member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
 		
@@ -104,11 +104,12 @@ public class MemberDaoImpl implements MemberDao {
 			ps.setString(5, member.getGender());
 			ps.setString(6, member.getEmail());
 			ps.setString(7, member.getPhone());
-			ps.setString(8, member.getAddress());
-			ps.setString(9, member.getIntro());
+			ps.setString(8, member.getZipcode());
+			ps.setString(9, member.getAddress());
+			ps.setString(10, member.getIntro());
 			// write by young
 			int hashCode = member.getMemberid().hashCode();
-			ps.setInt(10, hashCode);
+			ps.setInt(11, hashCode);
 			// write by young
 			
 			res = ps.executeUpdate();
@@ -121,12 +122,42 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return res;
 	}
+	
+	@Override
+	public int idCheck(Connection conn, Member member) {
+		
+		String sql = "";
+		sql += "SELECT count(*) FROM member";
+		sql += " WHERE id = ?";
+		
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, member.getMemberid());
+			
+			rs = ps.executeQuery();
+			
+			if( rs.next() || member.getMemberid().equals("") ) {
+				return 0; //이미 존재하는 회원
+			} else {
+				return 1; //가입 가능한 회원 아이디
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		return -1; //데이터베이스 오류
+	}
 
 	@Override
 	public int findMemberNoById(Connection conn, String memberId) {
 		int memberNo = -1;
 		String sql = "";
-		sql = "SELECT member_no FROM member WHERE member_id = ?";
+		sql = "SELECT member_no FROM member WHERE id = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);

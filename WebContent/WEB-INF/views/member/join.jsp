@@ -39,6 +39,11 @@ $(document).ready(function() {
 	
 })
 
+//------------------------------------------------------------
+
+
+
+
 
 //form validation
 //	폼 데이터 유효성 검증
@@ -239,6 +244,8 @@ form {
 		<label for="memberid" class="control-label col-xs-2">아이디</label>
 		<div class="col-xs-10">
 			<input type="text" id="memberid" name="memberid" class="form-control" required placeholder="필수 입력 항목입니다">
+			<button type="button" class="id_overlap_button" onclick="id_overlap_check()">중복검사</button> <!-- 중복검사 -->
+			<img id="id_check_sucess" style="display: none;">
 		</div>
 		<div id="warnMsgId" class="msg" ></div>
 	</div>
@@ -276,8 +283,8 @@ form {
 	<div class="form-group">
 		<label for="gender" class="control-label col-xs-2">성별</label>
 		<div class="col-xs-10">
-			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="m" >남</label>
-			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="f" >여</label>
+			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="M" >남</label>
+			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="F" >여</label>
 		</div>
 	</div>
 	
@@ -314,7 +321,7 @@ form {
 	<div class="form-group">
 		<label for="intro" class="control-label col-xs-2">자기소개</label>
 		<div class="col-xs-10">
-			<textarea class="form-control" rows="3" id="intro" placeholder="입력하세요"></textarea>
+			<textarea class="form-control" name="intro" rows="3" id="intro" placeholder="입력하세요"></textarea>
 		</div>
 	</div>
 </div>

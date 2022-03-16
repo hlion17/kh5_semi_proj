@@ -1,4 +1,4 @@
-package controller.reviewcmt;
+package controller.review;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

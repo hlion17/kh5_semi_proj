@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 상세 정보</title>
 </head>
 <body>
+
 
 </body>
 </html>
