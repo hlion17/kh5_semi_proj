@@ -60,8 +60,18 @@ public interface MemberDao {
 	 * 아이디 중복 검사
 	 * 
 	 * @param conn - DB연결 객체
-	 * @param member - 증복되는 회원 id 정보 객체
+	 * @param member - 중복되는 회원 id 정보 객체
 	 * @return int - 0 : 중복되지 않음, 1 : 중복됨
 	 */
 	public int idCheck(Connection conn, Member member);
+	
+
+	/**
+	 * 아이디 찾기
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param member - 입력한 정보와 일치하는 회원 정보 객체
+	 * @return 일치하는 회원의 id
+	 */
+	public String idFind(Connection connection, Member member);
 }

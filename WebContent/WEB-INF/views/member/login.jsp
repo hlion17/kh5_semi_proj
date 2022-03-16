@@ -37,6 +37,11 @@ $(document).ready(function() {
 // 		location.href = "/"
 	})
 	
+	//아이디찾기 버튼 클릭 시 아이디찾기 페이지로 이동
+	$("#btnIdFind").click(function() {
+		$(location).attr('href', '/member/idfind')
+	})
+	
 })
 </script>
 
@@ -69,6 +74,11 @@ form {
 		<button type="button" id="btnLogin" class="btn btn-primary">로그인</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
+	<div class="text-center">
+		<button type="button" id="btnIdFind" class="btn btn-info">아이디찾기</button>
+		<button type="button" id="btnPwFind" class="btn btn-info">비밀번호찾기</button>
+	</div>
+	
 
 </form>
 
