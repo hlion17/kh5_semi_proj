@@ -45,7 +45,8 @@ public class RecipeBoardController extends HttpServlet {
 		req.setAttribute("paging", paging);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeBoardController - recipeBoard.jsp로 포워드");
+		System.out.println("[TEST] RecipeBoardController - list.jsp로 포워드");
+		System.out.println();
 		req.getRequestDispatcher("/WEB-INF/views/community/board/list.jsp").forward(req, resp);
 		
 	}

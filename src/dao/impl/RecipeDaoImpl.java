@@ -288,7 +288,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT nick FROM member";
-		sql += " WHERE member_id = ?";
+		sql += " WHERE member_no = ?";
 		
 		//결과 저장할 String 변수
 		String usernick = null;
@@ -302,7 +302,7 @@ public class RecipeDaoImpl implements RecipeDao {
 			
 			//조회 결과 처리
 			while(rs.next()) {
-				usernick = rs.getString("usernick");
+				usernick = rs.getString("nick");
 			}
 			
 		} catch (SQLException e) {

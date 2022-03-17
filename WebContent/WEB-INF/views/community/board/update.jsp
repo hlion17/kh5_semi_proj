@@ -78,7 +78,7 @@ $(document).ready(function() {
 <hr>
 
 <div>
-<form action="/board/update" method="post" enctype="multipart/form-data">
+<form action="/recipe/update" method="post" enctype="multipart/form-data">
 <input type="hidden" name="boardno" value="<%=updateBoard.getBoardno() %>" />
 
 <table class="table table-bordered">
@@ -94,18 +94,18 @@ $(document).ready(function() {
 
 	<div id="beforeFile">
 <%	if( boardFile != null ) { %>
-		기존 첨부파일: 
-		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-		 download="<%=boardFile.getOriginname() %>">
-			<%=boardFile.getOriginname() %>
-		</a>
+		기존 첨부파일: 시간상 추후 구현
+<%-- 		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" --%>
+<%-- 		 download="<%=boardFile.getOriginname() %>"> --%>
+<%-- 			<%=boardFile.getOriginname() %> --%>
+<!-- 		</a> -->
 		<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
 <%	} %>
 	</div>
 
 	<div id="afterFile">
 		새 첨부파일:
-		<input type="file" name="file" />
+		<input type="file" name="file" multiple="multiple"/>
 	</div>
 </div>
 

@@ -1,11 +1,3 @@
-<!-- jQuery 2.2.4 -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
-
-<!-- Bootstrap 3 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
-
 <%@page import="dto.Recipe"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -44,7 +36,7 @@ $(document).ready(function() {
 <%	for(int i=0; i<boardList.size(); i++) { %>
 <tr>
 	<td><%=boardList.get(i).getBoardno() %></td>
-	<td><a href="./view?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+	<td><a href="./content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
 	<td><%=boardList.get(i).getUserid() %></td>
 	<td><%=boardList.get(i).getWriteDate() %></td>
 	<td><%=boardList.get(i).getLike() %></td>

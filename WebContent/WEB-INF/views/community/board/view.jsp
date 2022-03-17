@@ -12,18 +12,18 @@
 $(document).ready(function() {
 	//목록버튼
 	$("#btnList").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/board/list");
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/board");
 	})
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/board/update?boardno=<%=viewBoard.getBoardno() %>");
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/update?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
-			$(location).attr("href", "<%=request.getContextPath() %>/board/delete?boardno=<%=viewBoard.getBoardno() %>");
+			$(location).attr("href", "<%=request.getContextPath() %>/recipe/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
 	})
 	
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
 <tr>
 <td class="info">조회수</td><td><%=viewBoard.getHit() %></td>
-<td class="info">추천수</td><td>[ 추후 추가 ]</td>
+<td class="info">추천수</td><td><%=viewBoard.getLike() %></td>
 </tr>
 
 <tr><td class="info" colspan="4">본문</td></tr>
