@@ -277,66 +277,7 @@ public class MemberDaoImpl implements MemberDao {
 			JDBCTemplate.close(ps);
 		}
 		return mid;
-	}
-
-	@Override
-	public Member selectMemberInfoAll(Connection conn, Member member) {
-		
-		// SQL 작성
-		String sql = "";
-		sql += "SELECT";				
-		sql += "	pw";
-		sql += "	, name";
-		sql += "	, nick";
-		sql += "	, gender";
-		sql += "	, email";
-		sql += "	, phone";
-		sql += "	, zipcode";
-		sql += "	, address";
-		sql += "	, intro";
-		sql += " FROM member";
-		sql += " WHERE id = ?";
-
-		// 조회 결과를 저장할 DTO
-		Member result = null;
-
-		try {
-			ps = conn.prepareStatement(sql); // SQL수행 객체
-			
-			ps.setString(1, member.getMemberid());
-
-			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
-
-			while (rs.next()) {
-				
-				result = new Member();
-
-				result.setMemberpw(rs.getString("pw"));
-				result.setMembername(rs.getString("name"));
-				result.setNick(rs.getString("nick"));
-				result.setGender(rs.getString("gender"));
-				result.setEmail(rs.getString("email"));
-				result.setPhone(rs.getString("phone"));
-				result.setZipcode(rs.getString("zipcode"));
-				result.setAddress(rs.getString("address"));
-				result.setIntro(rs.getString("intro"));
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// JDBC객체 닫기
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(ps);
-		}
-
-		// 최종 조회 결과 반환
-		return result;
-	}
-	
-	
-	
+	}	
 
 	
 }
