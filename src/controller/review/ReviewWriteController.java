@@ -20,12 +20,12 @@ public class ReviewWriteController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//로그인 되어있지 않으면 리다이렉트 
-		if( req.getSession().getAttribute("login") == null ) {
-			resp.sendRedirect("/");
-			
-			return;
-		}
+//		//로그인 되어있지 않으면 리다이렉트 
+//		if( req.getSession().getAttribute("login") == null ) {
+//			resp.sendRedirect("/");
+//			
+//			return;
+//		}
 		
 		//VIEW 지정
 		req.getRequestDispatcher("/WEB-INF/views/store/reviewWrite.jsp").forward(req, resp);

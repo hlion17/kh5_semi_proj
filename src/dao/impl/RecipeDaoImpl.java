@@ -57,7 +57,7 @@ public class RecipeDaoImpl implements RecipeDao {
 				b.setBoardno( rs.getInt("board_no") );			//게시글번호
 //				System.out.println( rs.getInt("board_no") );	
 				b.setTitle( rs.getString("title") );			//게시글 제목
-				b.setUserid( rs.getString("member_no") );		//글쓴이
+				b.setUserid( rs.getInt("member_no") );			//글쓴이
 //				b.setContent( rs.getString("content") );		//내용
 				b.setWriteDate( rs.getDate("updated_date") );	//등록일
 				b.setHit( rs.getInt("hit") );					//조회수
@@ -115,7 +115,7 @@ public class RecipeDaoImpl implements RecipeDao {
 				//결과값 한 행 처리
 				b.setBoardno( rs.getInt("board_no") );
 				b.setTitle( rs.getString("title") );
-				b.setUserid( rs.getString("member_no") );
+				b.setUserid( rs.getInt("member_no") );
 //				b.setContent( rs.getString("content") );
 				b.setHit( rs.getInt("hit") );
 				b.setWriteDate( rs.getDate("updated_date") );
@@ -231,7 +231,7 @@ public class RecipeDaoImpl implements RecipeDao {
 				//결과값 행 처리
 				board.setBoardno( rs.getInt("board_no") );
 				board.setTitle( rs.getString("title") );
-				board.setUserid( rs.getString("member_no") );
+				board.setUserid( rs.getInt("member_no") );
 				board.setContent( rs.getString("content") );
 				board.setHit( rs.getInt("hit") );
 				board.setWriteDate( rs.getDate("updated_date") );
@@ -255,7 +255,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		System.out.println("[TEST] RecipeDaoImpl - insert(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "INSERT INTO recipe(board_no, member_id, TITLE, CONTENT, updated_date, HIT, BOARD_LIKE, intro)";
+		sql += "INSERT INTO recipe(board_no, member_no, TITLE, CONTENT, updated_date, HIT, BOARD_LIKE, intro)";
 		sql += " VALUES (?, ?, ?, ?, ?, 0, 0, ?)";
 		
 		int res = 0;
@@ -266,8 +266,10 @@ public class RecipeDaoImpl implements RecipeDao {
 
 			ps.setInt(1, board.getBoardno());
 			ps.setString(2, board.getTitle());
-			ps.setString(3, board.getUserid());
+			ps.setInt(3, board.getUserid());
 			ps.setString(4, board.getContent());
+			ps.setDate(5, (Date)board.getWriteDate());
+			ps.setString(8, board.getIntro());
 
 			res = ps.executeUpdate();
 			
@@ -296,7 +298,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			ps = conn.prepareStatement(sql); //SQL수행 객체
 			
-			ps.setString(1, viewBoard.getUserid()); //조회할 id 적용
+			ps.setInt(1, viewBoard.getUserid()); //조회할 id 적용
 			
 			rs = ps.executeQuery(); //SQL 수행 및 결과집합 저장
 			
@@ -325,7 +327,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		//SQL 작성
 		String sql = "";
-		sql += "SELECT board_seq.nextval FROM dual";
+		sql += "SELECT recipe_seq.nextval FROM dual";
 		
 		//다음 시퀀스 번호
 		int nextBoardno = 0;
@@ -359,7 +361,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		String sql = "";
 		sql += "INSERT INTO recipeimg( img_no, BOARD_NO, ORIGIN_NAME, STORED_NAME, PATH, FILESIZE, WRITE_DATE)";
-		sql += " VALUES (boardfile_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		sql += " VALUES (recipeimg_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
 		

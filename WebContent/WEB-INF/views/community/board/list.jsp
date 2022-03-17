@@ -12,7 +12,7 @@ $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
 	$("#btnWrite").click(function() {
-		location.href="/board/write";
+		location.href="/recipe/insert";
 	});
 	
 });
@@ -56,24 +56,3 @@ $(document).ready(function() {
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

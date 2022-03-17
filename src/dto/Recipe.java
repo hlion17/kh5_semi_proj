@@ -30,7 +30,7 @@ public class Recipe {
 	//recipe 테이블
 	private int boardno;			//게시글번호		board_no	[PK]
 	private String title; 			//게시글제목		title		
-	private String userid;			//작성자			member_no	[FK]//DB는 NUMBER
+	private int userid;				//작성자			member_no	[FK]//DB는 NUMBER
 	private String content;			//게시글내용		content
 	private int hit;				//조회수			hit
 //	private String reg_date;		//게시글등록일		reg_date		//DB컬럼 제거요망	
@@ -43,55 +43,70 @@ public class Recipe {
 		return "Recipe [boardno=" + boardno + ", title=" + title + ", userid=" + userid + ", content=" + content
 				+ ", hit=" + hit + ", writeDate=" + writeDate + ", like=" + like + ", intro=" + intro + "]";
 	}
+
 	public int getBoardno() {
 		return boardno;
 	}
+
 	public void setBoardno(int boardno) {
 		this.boardno = boardno;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getUserid() {
+
+	public int getUserid() {
 		return userid;
 	}
-	public void setUserid(String userid) {
+
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public int getHit() {
 		return hit;
 	}
+
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+
 	public Date getWriteDate() {
 		return writeDate;
 	}
+
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
+
 	public int getLike() {
 		return like;
 	}
+
 	public void setLike(int like) {
 		this.like = like;
 	}
+
 	public String getIntro() {
 		return intro;
 	}
+
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-	
 	
 	
 }
