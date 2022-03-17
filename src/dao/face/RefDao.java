@@ -24,13 +24,15 @@ public interface RefDao {
 	 */
 	List<RefItem> findAllItems(Connection conn, int refCode);
 	
+	RefItem findByItemNo(Connection conn, int itemNo);
+	
 	/**
 	 * DB에서 refCode에 해당하는 냉장고 품목을 내림차순으로 조회한다.
 	 * @param conn
 	 * @param refCode
 	 * @return
 	 */
-	List<RefItem> findAllItemsDesc(Connection conn, int refCode);
+	// List<RefItem> findAllItemsDesc(Connection conn, int refCode);
 
 	/**
 	 * DB에서 상태코드로 필터링된 냉장고 품목을 조회한다.

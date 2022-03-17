@@ -9,27 +9,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <%
 	List<RefItem> list = (List<RefItem>) request.getAttribute("itemList");
 	int refCode = (Integer) request.getAttribute("refCode");
 	int status = (Integer) request.getAttribute("status");
 %>
 
-<%-- 
-	품목번호: <%= list.get(i).getItemNo() %><br> 
-	품목이름: <%= list.get(i).getItemName() %><br>
-	품목분류: <%= list.get(i).getIngrCtyCode() %><br>
-	개수: <%= list.get(i).getItemQty() %><br>
-	상태: <%= list.get(i).getStatus() %><br>
-	등록일: <%= list.get(i).getRegDate() %><br>
-	유통기한: <%= list.get(i).getExpireDate() %><br>
-	메모: <%= list.get(i).getNote() %><br>
---%>
-			
 
 <!-- header page -->
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
+
+<!-- JSP 변수 JS에서 사용해주기 위해서 선언 -->
+<script>
+	var status = <%= status %>
+	var refCode = <%= refCode %>
+</script>
 
 <!-- 냉장고 메인페이지 CSS 로드 -->
 <link rel="stylesheet" href="/resources/css/ref/ref_main.css">
@@ -37,165 +31,10 @@
 <!-- 냉장고 메인페이지 JS 로드 -->
 <script src="/resources/js/ref/ref_main.js"></script>
 
-<script type="text/javascript">
-
-// 전역변수
-
-// 상태코드
-$(document).ready(function() {
-	var status = <%= status %>
-	var refCode = <%= refCode %>	
-	console.log(status)
-	console.log(refCode)
-})
-
-
-
-<%--
-
-// 두 번 클릭해야 실행되는 문제
-$(document).ready(function() {
-	
-	// 상태코드
-	var status = <%= status %>
-	
-	// 정렬기준 
-	var select = document.getElementById("orderBy")
-	var orderBy = select.options[select.selectedIndex].value
-	
-	
-	
-	// 아이템 추가 창 띄우기
-	$("#btn-modal-item-add").click(function() {
-		
-		// 아이템추가 버튼 클릭시 모달창 활성화
-	    const modal = document.getElementById("modal")
-	    const btnModal = document.getElementById("btn-modal-item-add")
-	    btnModal.addEventListener("click", function() {
-	    	console.log("클릭")
-	        modal.style.display = "flex"
-	    })
-	    
-	    // 아이템 추가 페이지 ajax처리
-	    $.ajax({
-	    	type: "get"
-	    	, url: "/ref/item/add"
-	    	, data: {refCode: <%= refCode %>}
-	    	, dataType: "html"
-	    	, success: function(res) {
-	    		$("#modal-content-area").html(res)
-	    	}
-	    	, error: function() {
-	    		console.log("ajax 실패")
-	    	}
-	    })
-	})
-	
-	// 필터링 된 아이템 목록 보여주기
-	$(".filtering").click(function() {
-		
-		// 요청 파라미터값 추출 - 보관상태코드
-		var status = this.getAttribute("data-value")
-		// 요청 파라미터값 추출 - 정렬기준
-		var select = document.getElementById("orderBy")
-		var orderBy = select.options[select.selectedIndex].value
-		
-		// 보관상태로 필터링한 냉장고 품목 리스트 #ref-main-items에 출력(ajax)
-		$.ajax({
-			type: "get"
-			, url: "/ref/itemlist/filterAndSort"
-			, data: {refCode: <%= refCode %>, status: status, orderBy: orderBy}
-			, dataType: "html"
-			, success: function(res) {
-				$("#ref-main-items").html(res)
-			}
-			, error: function() {
-				console.log("ajax 실패")
-			}
-		})
-	})
-	
-	// "#ref-main-items" 의 값이 바뀔 때마다(ajax로 상세 아이템 조회할 때) 버튼 스타일 변경
-	var element = document.querySelector("#ref-main-items")
-	element.addEventListener("DOMSubtreeModified", function() {
-		status = $("#test").attr("data-value")
-		
-		switch (status) {
-			case "4":  
-				$(".filtering").removeClass("active")
-				$(".filtering[data-value='"+ status +"']").addClass("active")
-				break;
-			case "0":
-				$(".filtering").removeClass("active")
-				$(".filtering[data-value='"+ status +"']").addClass("active")
-				break;
-			case "1":
-				$(".filtering").removeClass("active")
-				$(".filtering[data-value='"+ status +"']").addClass("active")
-				break;
-			case "2":
-				$(".filtering").removeClass("active")
-				$(".filtering[data-value='"+ status +"']").addClass("active")
-				break;
-		}
-
-	})  // 버튼 스타일 변경 끝
-	
-	// select 박스가 변경 될 때마다 --
-	$("#orderBy").on("change", function() {
-		// 요청 파라미터값 추출 - 보관상태코드
-		// -> 전역변수 status 값 사용
-		
-		// 요청 파라미터값 추출 - 정렬기준
-		var orderBy = this.value
-		
-		// 보관상태로 필터링한 냉장고 품목 리스트 #ref-main-items에 출력(ajax)
-		
-		 $.ajax({
-			type: "get"
-			, url: "/ref/itemlist/filterAndSort"
-			, data: {refCode: <%= refCode %>, status: status, orderBy: orderBy}
-			, dataType: "html"
-			, success: function(res) {
-				$("#ref-main-items").html(res)
-			}
-			, error: function() {
-				console.log("ajax 실패")
-			}
-		}) 
-		
-		
-	})
-	
-	
-})  // onload 끝
-
---%>
-
-</script>
-
-
-
-<style>
-
-.filtering {
-	color: blue;
-	cursor: pointer;
-}
-.active {
-	color: red;
-	
-}
-</style>
-
-<style type="text/css">
-
-</style>
 </head>
 <body>
 
-
-<!-- 모달창 -->
+<!-- 아이템 추가 모달창 -->
 <div id="modal" class="modal-overlay" style="display: none;'">
     <div class="modal-window">
         <div id="modal-content-area" style="height: 90%; width: 100%;">
@@ -228,40 +67,8 @@ $(document).ready(function() {
             </div>
         </div>
         
-        
         <div id="ref-main-items">
-	
-			<%-- 품목보여주기 --%>        
-			<% for (int i = 0; i < list.size(); i++) { %>
-            <div class="item">
-            	<% 
-	            	long diff = list.get(i).getExpireDate().getTime() - System.currentTimeMillis();
-            		long dDay = diff / (24 * 60 * 60 * 1000);
-           		%>
-                	
-                	<!-- D-day 계산 -->
-               	<% if (dDay <= 0 ) { %>
-                	<div style="background: red;"><span>D-Day <%= dDay %></span></div>
-                <% } else { %>
-                	<div style="background: lime;"><span>D-Day <%= dDay %></span></div>
-                <% } %>
-                	<!-- 재료구분 코드에 따른 아이콘 불러오기 -->
-                	<img src="/resources/img/ingrCty/<%= list.get(i).getIngrCtyCode() %>.png" alt="">
-                	
-                	<!-- 보관상태에 따른 색 구분 -->
-<!-- 글자수 많으면 넘어가는거 해결하기 -->
-                <% if (list.get(i).getStatus() == 0){ %>
-                	<div style="background: yellow;"><%= list.get(i).getItemName() %></div>
-                <% } else if(list.get(i).getStatus() == 1) { %>
-                	<div style="background: blue;"><%= list.get(i).getItemName() %></div>
-                <% } else if(list.get(i).getStatus() == 2) { %>
-                	<div style="background: grey;"><%= list.get(i).getItemName() %></div>
-                <% } %>
-                <a href="/ref/item/delete?refCode=<%= refCode %>&itemNo=<%= list.get(i).getItemNo() %>">위 품목 삭제</a>
-
-            </div>
-			<% } %>
-			<%-- 품목 보여주기 끝 --%>
+		<%-- 품목보여주기(ajax) --%>        
 
         </div>
 
@@ -269,13 +76,12 @@ $(document).ready(function() {
 </div>
 
 
+<!-- 아이템 상세 정보 팝업 레이어  
+<div id="divView" class="item-holder">
+	<button id="#close">x</button>
+	<div id="detail-content-area" class="item-holder"></div>
+</div>
+-->
 
 <!-- footer page -->
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
-
-
-
-
-
-
-

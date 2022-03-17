@@ -96,3 +96,22 @@
 	color: red;
 	font-size: 30px;
 }
+.filtering {
+	color: blue;
+	cursor: pointer;
+}
+.active {
+	color: red;
+	
+}
+
+/* 품목 상세 오프셋 레이어 스타일 */
+#divView { 
+	position:absolute; 
+	display:none;
+	background-color:#ffffff; 
+	border:solid 2px #d0d0d0; 
+	width:350px; 
+	height:250px; 
+	padding:10px; 
+}
