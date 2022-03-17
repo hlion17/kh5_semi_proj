@@ -3,18 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-</head>
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
-
-<h1>결제 성공</h1>
-
 
 </body>
 </html>

@@ -20,21 +20,21 @@
     
 <script type="text/javascript">
 	$("#check_module").click(function() {
-// 		vam IMP = window.IMP;
+// 		var IMP = window.IMP;
 		IMP.init('imp37543068');
 	
    		IMP.request_pay({
-        	pg : 'kakaopay',
+        	pg : 'html5_inicis',
         	pay_method : 'card',
         	merchant_uid : 'merchant_' + new Date().getTime(),
         	name : '사과',
-        	amount : 30000,
+        	amount : 100,
         	buyer_email : 'dss2@naver.com',
          	buyer_name : 'hee',
          	buyer_tel : '010-000-0000' ,
          	buyer_addr : '서울시',
-         	buyer_postcode : '123-456'
-			//m_redirect_url : 'http://www.naver.com'
+         	buyer_postcode : '123-456',
+			m_redirect_url : 'http://www.naver.com'
      }, function(rsp) {
       	console.log(rsp);
           if ( rsp.success ) {

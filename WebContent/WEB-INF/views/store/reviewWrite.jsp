@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 상세 정보</title>
+<title>Insert title here</title>
 </head>
 <body>
-
+<h1>리뷰쓰기</h1>
 
 </body>
 </html>
