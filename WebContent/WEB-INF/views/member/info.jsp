@@ -1,12 +1,9 @@
+<%@page import="dto.Member"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<%	List<Member> MemberInfoList = (List) request.getAttribute("MemberInfoList"); %>
 
 
 <!-- jQuery 2.2.4 -->
@@ -26,9 +23,46 @@ $(document).ready(function() {
 	})
 })	
 </script>
+
+
+
+<div class="container">
+
+<h1>회원정보</h1>
+<hr>
+
+<table class="table table-striped table-hover table-condensed">
+<tr class="success">
+	<th>이름</th>
+	<th>이메일</th>
+	<th>전화번호</th>
+	<th>우편번호</th>
+	<th>주소</th>
+	<th>자기소개</th>
+</tr>
+
+<%	for(int i=0; i<MemberInfoList.size(); i++) { %>
+<tr>
+	<td><%=MemberInfoList.get(i).getMembername() %></td>
+	<td><%=MemberInfoList.get(i).getEmail() %></td>
+	<td><%=MemberInfoList.get(i).getPhone() %></td>
+	<td><%=MemberInfoList.get(i).getZipcode() %></td>
+	<td><%=MemberInfoList.get(i).getAddress() %></td>
+	<td><%=MemberInfoList.get(i).getIntro() %></td>
+</tr>
+<%	} %> 
+
+</table>
+
+<!-- 글쓰기 버튼 -->
+<div id="btnBox" class="pull-left"> <!-- float: left; 와 같음(왼쪽에 버튼 떠다니게) -->
+	<button id="btnWrite" class="btn btn-primary">글쓰기</button> <!-- btn-primary -> 파란색 버튼 -->
+</div>
+
 <div>
 		<button type="button" id="btnUpdateInfo" class="btn btn-info">회원정보 수정</button>
 </div>
+</div><!-- .container -->
 
 
 

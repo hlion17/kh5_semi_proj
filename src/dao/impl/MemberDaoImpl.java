@@ -283,11 +283,11 @@ public class MemberDaoImpl implements MemberDao {
 		sql += "	, gender";
 		sql += "	, email";
 		sql += "	, phone";
+		sql += "	, zipcode";
 		sql += "	, address";
 		sql += "	, intro";
 		sql += " FROM member";
 		sql += " WHERE id = ?";
-		sql += " AND pw = ?";
 
 		// 결과 저장할 List
 		List<Member> MemberInfoList = new ArrayList<>();
@@ -296,7 +296,6 @@ public class MemberDaoImpl implements MemberDao {
 			ps = conn.prepareStatement(sql); // SQL수행 객체
 			
 			ps.setString(1, member.getMemberid());
-			ps.setString(2, member.getMemberpw());
 
 			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
 
@@ -310,6 +309,7 @@ public class MemberDaoImpl implements MemberDao {
 				m.setGender(rs.getString("gender"));
 				m.setEmail(rs.getString("email"));
 				m.setPhone(rs.getString("phone"));
+				m.setZipcode(rs.getString("zipcode"));
 				m.setAddress(rs.getString("address"));
 				m.setIntro(rs.getString("intro"));
 				
