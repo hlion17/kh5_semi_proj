@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
 import dao.face.RecipeDao;
@@ -265,12 +269,14 @@ public class RecipeDaoImpl implements RecipeDao {
 			ps = conn.prepareStatement(sql);
 
 			System.out.println("getBoardno : " + board.getBoardno());
-			System.out.println("getTitle : " + board.getTitle());
 			System.out.println("getUserid : " + board.getUserid());
+			System.out.println("getTitle : " + board.getTitle());
+			System.out.println("getContent : " + board.getContent());
+			System.out.println("getIntro : " + board.getIntro());
 			
 			ps.setInt(1, board.getBoardno());
-			ps.setString(2, board.getTitle());
-			ps.setInt(3, board.getUserid());
+			ps.setInt(2, board.getUserid());
+			ps.setString(3, board.getTitle());
 			ps.setString(4, board.getContent());
 			ps.setString(5, board.getIntro());
 

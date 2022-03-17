@@ -246,6 +246,7 @@ public class RecipeServiceImpl implements RecipeService {
 		if(board.getTitle()==null || "".equals(board.getTitle())) {
 			board.setTitle("(제목없음)");
 		}
+		
 		System.out.println("req : " + req.getSession().getAttribute("memberno"));
 		System.out.println("int : " + (int)req.getSession().getAttribute("memberno"));
 		board.setUserid( (int)req.getSession().getAttribute("memberno") );
