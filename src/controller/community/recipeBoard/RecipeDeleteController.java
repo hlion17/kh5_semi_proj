@@ -27,7 +27,7 @@ public class RecipeDeleteController extends HttpServlet {
 		boardService.delete(board);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeDeleteController - list.jsp로 리다이렉트");
+		System.out.println("[TEST] RecipeDeleteController - /recipe/board로 리다이렉트");
 		System.out.println();
 		resp.sendRedirect("/recipe/board");
 	}

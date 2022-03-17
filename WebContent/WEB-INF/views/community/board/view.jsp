@@ -27,6 +27,15 @@ $(document).ready(function() {
 		}
 	})
 	
+// 	//팔로우버튼
+// 	$("#btnFollow").click(function() {
+<%-- 		$(location).attr("href", "<%= %>"); --%>
+// 	})
+	
+// 	//추천버튼
+// 	$("#btnLike").click(function() {
+		
+// 	})
 });
 </script>
 
@@ -73,6 +82,9 @@ $(document).ready(function() {
 	<button id="btnList" class="btn btn-primary">목록</button>
 	<button id="btnUpdate" class="btn btn-info">수정</button>
 	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	
+	<button id="btnFollow" class="btn btn-success">팔로우</button>
+	<button id="btnLike" class="btn btn-success">추천</button>
 </div>
 
 </div><!-- .container -->
