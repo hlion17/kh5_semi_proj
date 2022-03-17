@@ -287,7 +287,7 @@ public class MemberDaoImpl implements MemberDao {
 		sql += "	, address";
 		sql += "	, intro";
 		sql += " FROM member";
-		sql += " WHERE id = ?";
+		sql += " WHERE id = ?";		
 
 		// 결과 저장할 List
 		List<Member> MemberInfoList = new ArrayList<>();
@@ -314,6 +314,7 @@ public class MemberDaoImpl implements MemberDao {
 				m.setIntro(rs.getString("intro"));
 				
 
+				System.out.println("dao: "+m);
 				// 리스트객체에 조회한 행 객체 저장
 				MemberInfoList.add(m);
 			}
