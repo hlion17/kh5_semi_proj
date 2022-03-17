@@ -53,7 +53,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMemberByMemberid(Connection conn, Member member) {
 
 		String sql = "";
-		sql += "SELECT id, pw, name, nick, gender, email, phone, zipcode, address, intro";
+		sql += "SELECT member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro";
 		sql += " FROM member";
 		sql += " WHERE id = ?";
 		
@@ -70,6 +70,7 @@ public class MemberDaoImpl implements MemberDao {
 			while( rs.next() ) {
 				result = new Member();
 				
+				result.setMemberno( rs.getInt("member_no") );
 				result.setMemberid( rs.getString("id") );
 				result.setMemberpw( rs.getString("pw") );
 				result.setMembername( rs.getString("name") );

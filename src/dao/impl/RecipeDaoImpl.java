@@ -255,8 +255,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		System.out.println("[TEST] RecipeDaoImpl - insert(Connection conn, Recipe board) 호출");
 		
 		String sql = "";
-		sql += "INSERT INTO recipe(board_no, member_no, TITLE, CONTENT, updated_date, HIT, BOARD_LIKE, intro)";
-		sql += " VALUES (?, ?, ?, ?, ?, 0, 0, ?)";
+		sql += "INSERT INTO recipe(board_no, member_no, TITLE, CONTENT, HIT, BOARD_LIKE, intro)";
+		sql += " VALUES (?, ?, ?, ?, 0, 0, ?)";
 		
 		int res = 0;
 		
@@ -264,12 +264,15 @@ public class RecipeDaoImpl implements RecipeDao {
 			//DB작업
 			ps = conn.prepareStatement(sql);
 
+			System.out.println("getBoardno : " + board.getBoardno());
+			System.out.println("getTitle : " + board.getTitle());
+			System.out.println("getUserid : " + board.getUserid());
+			
 			ps.setInt(1, board.getBoardno());
 			ps.setString(2, board.getTitle());
 			ps.setInt(3, board.getUserid());
 			ps.setString(4, board.getContent());
-			ps.setDate(5, (Date)board.getWriteDate());
-			ps.setString(8, board.getIntro());
+			ps.setString(5, board.getIntro());
 
 			res = ps.executeUpdate();
 			
