@@ -9,7 +9,15 @@
 	int status = (Integer) request.getAttribute("status");
 %>
 
-<div id="test"><%= status %></div>
+<script>
+window.onload = function() {
+	var status = document.querySeletor("#test").innerText
+
+}
+	
+</script>
+
+<div id="test" data-value="<%= status %>" style="display: hidden;"></div>
 
 <%-- 품목보여주기 --%>        
 <% for (int i = 0; i < list.size(); i++) { %>

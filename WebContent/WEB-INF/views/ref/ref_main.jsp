@@ -12,10 +12,8 @@
 
 <%
 	List<RefItem> list = (List<RefItem>) request.getAttribute("itemList");
-	// int refCode = Integer.parseInt((String) request.getAttribute("refCode"));
 	int refCode = (Integer) request.getAttribute("refCode");
 	int status = (Integer) request.getAttribute("status");
-	
 %>
 
 <%-- 
@@ -41,13 +39,31 @@
 
 <script type="text/javascript">
 
-// function filterAndSort(a) {
-//	var status = a.getAttribute("data-value")
-<%-- 	location.href = '/ref/itemlist/filterAndSort?refCode=<%= refCode %>&status=' + status + '&orderBy='+ orderBy.options[orderBy.selectedIndex].value --%> 
-//}
+// 전역변수
+
+// 상태코드
+$(document).ready(function() {
+	var status = <%= status %>
+	var refCode = <%= refCode %>	
+	console.log(status)
+	console.log(refCode)
+})
+
+
+
+<%--
 
 // 두 번 클릭해야 실행되는 문제
 $(document).ready(function() {
+	
+	// 상태코드
+	var status = <%= status %>
+	
+	// 정렬기준 
+	var select = document.getElementById("orderBy")
+	var orderBy = select.options[select.selectedIndex].value
+	
+	
 	
 	// 아이템 추가 창 띄우기
 	$("#btn-modal-item-add").click(function() {
@@ -99,23 +115,85 @@ $(document).ready(function() {
 		})
 	})
 	
-	
+	// "#ref-main-items" 의 값이 바뀔 때마다(ajax로 상세 아이템 조회할 때) 버튼 스타일 변경
+	var element = document.querySelector("#ref-main-items")
+	element.addEventListener("DOMSubtreeModified", function() {
+		status = $("#test").attr("data-value")
 		
-})
+		switch (status) {
+			case "4":  
+				$(".filtering").removeClass("active")
+				$(".filtering[data-value='"+ status +"']").addClass("active")
+				break;
+			case "0":
+				$(".filtering").removeClass("active")
+				$(".filtering[data-value='"+ status +"']").addClass("active")
+				break;
+			case "1":
+				$(".filtering").removeClass("active")
+				$(".filtering[data-value='"+ status +"']").addClass("active")
+				break;
+			case "2":
+				$(".filtering").removeClass("active")
+				$(".filtering[data-value='"+ status +"']").addClass("active")
+				break;
+		}
 
-function test() {
-	var test = document.querySelector("#test").innerText
-	alert(test)
-}
+	})  // 버튼 스타일 변경 끝
+	
+	// select 박스가 변경 될 때마다 --
+	$("#orderBy").on("change", function() {
+		// 요청 파라미터값 추출 - 보관상태코드
+		// -> 전역변수 status 값 사용
+		
+		// 요청 파라미터값 추출 - 정렬기준
+		var orderBy = this.value
+		
+		// 보관상태로 필터링한 냉장고 품목 리스트 #ref-main-items에 출력(ajax)
+		
+		 $.ajax({
+			type: "get"
+			, url: "/ref/itemlist/filterAndSort"
+			, data: {refCode: <%= refCode %>, status: status, orderBy: orderBy}
+			, dataType: "html"
+			, success: function(res) {
+				$("#ref-main-items").html(res)
+			}
+			, error: function() {
+				console.log("ajax 실패")
+			}
+		}) 
+		
+		
+	})
+	
+	
+})  // onload 끝
+
+--%>
+
 </script>
+
+
+
+<style>
+
+.filtering {
+	color: blue;
+	cursor: pointer;
+}
+.active {
+	color: red;
+	
+}
+</style>
+
 <style type="text/css">
-	.filtering {
-		color: blue;
-		cursor: pointer;
-	}
+
 </style>
 </head>
 <body>
+
 
 <!-- 모달창 -->
 <div id="modal" class="modal-overlay" style="display: none;'">
@@ -135,11 +213,10 @@ function test() {
     <div id="ref-main">
         <div id="ref-main-nav">
             <div id="ref-main-nav-left">
-                <button class="filtering" data-value="4">전체목록</button>
+                <button class="filtering active" data-value="4">전체목록</button>
                 <button class="filtering" data-value="0">냉장</button>
                 <button class="filtering" data-value="1">냉동</button>
                 <button class="filtering" data-value="2">상온</button>
-                <button onclick="test()">test</button>
             </div>
             <div id="ref-main-right">
                 <button id="btn-modal-item-add">폼목 추가하기</button>
