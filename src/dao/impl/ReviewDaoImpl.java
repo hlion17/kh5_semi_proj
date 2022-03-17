@@ -48,7 +48,7 @@ public class ReviewDaoImpl implements ReviewDao {
 				review.setReview_no(rs.getInt("review_no"));
 				review.setPro_no(rs.getInt("pro_no"));
 				review.setMember_no(rs.getInt("member_no"));
-				review.setTitle(rs.getNString("title"));
+				review.setTitle(rs.getString("title"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
 				
@@ -102,7 +102,7 @@ public class ReviewDaoImpl implements ReviewDao {
 					review.setReview_no(rs.getInt("review_no"));
 					review.setPro_no(rs.getInt("pro_no"));
 					review.setMember_no(rs.getInt("member_no"));
-//					review.setTitle(rs.getNString("title"));
+					review.setTitle(rs.getString("title"));
 					review.setRegdate(rs.getDate("regdate"));
 					review.setHit(rs.getInt("hit"));
 					
@@ -183,7 +183,7 @@ public class ReviewDaoImpl implements ReviewDao {
 				review.setReview_no(rs.getInt("review_no"));
 				review.setPro_no(rs.getInt("pro_no"));
 				review.setMember_no(rs.getInt("member_no"));
-				review.setTitle(rs.getNString("title"));
+				review.setTitle(rs.getString("title"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
 			}
@@ -263,7 +263,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int insert(Connection conn, Review review) {
 		String sql = "";
 		sql += "INSERT INTO reivew(REVIEW_NO, PRO_NO, MEMBER_NO, TITLE, CONTENT, HIT)";
-		sql += " VALUES (?, ?, ?, ?, ?,  0)";
+		sql += " VALUES (?, ?, ?, ?, ?, 0)";
 		
 		int res = 0;
 		
@@ -339,7 +339,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 	
 	@Override
-	public Object selectNickByUserid(Connection conn, Review viewReview) {
+	public String selectNickByUserid(Connection conn, Review viewReview) {
 
 		//SQL 작성
 		String sql = "";
@@ -372,6 +372,44 @@ public class ReviewDaoImpl implements ReviewDao {
 		//최종 결과 반환
 		return memberid;
 	}
+	
+	
+	@Override
+	public String selectidByUserid(Connection conn, Review viewReview) {
+	
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT id FROM member";
+		sql += " WHERE id = ?";
+		
+		//결과 저장할 String 변수
+		String memberid = null;
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setInt(1, viewReview.getMember_no()); //조회할 id 적용
+			
+			rs = ps.executeQuery(); //SQL 수행 및 결과집합 저장
+			
+			//조회 결과 처리
+			while(rs.next()) {
+				memberid = rs.getString("member_id");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//DB객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 결과 반환
+		return memberid;
+	}
+	
+	
 	
 	@Override
 	public int delete(Connection conn, Review review) {

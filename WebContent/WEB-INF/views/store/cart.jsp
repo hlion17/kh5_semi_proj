@@ -7,14 +7,7 @@
    
 <% List<Cart> cartList = (List)request.getAttribute("cartList"); %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="/css/bootstrap.min.css" />
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
 <table class="table table-hover">
 	<tr>
@@ -41,5 +34,4 @@
 <button type="button" onclick="location.href='payment'">결제</button>
 <button type="button" onclick="location.href='store'">쇼핑하기</button>
 
-</body>
-</html>
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>

@@ -39,6 +39,7 @@
             <li><a href="/ingr/list">요리사전</a></li>
             <li>커뮤니티</li>
             <li>상점</li>
+<!--             <li><a href="/store">상점</li> -->
         </ul>
     </div>
 </nav>

@@ -14,7 +14,7 @@ import service.face.ReviewService;
 import service.impl.ReviewServiceImpl;
 
 
-@WebServlet("/review/info")
+@WebServlet("/review/Info")
 public class ReviewInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

@@ -87,7 +87,17 @@ public interface ReviewDao {
 	 * @param viewBoard - 조회할 id를 가진 객체
 	 * @return String - 작성자 닉네임
 	 */
-	public Object selectNickByUserid(Connection conn, Review viewReview);
+	public String selectNickByUserid(Connection conn, Review viewReview);
+	
+	/**
+	 * id을 조회한다
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param viewBoard - 조회할 id를 가진 객체
+	 * @return String - 작성자 아이디
+	 */
+	public String selectidByUserid(Connection conn, Review viewReview );
+
 
 	/**
 	 * 게시글에 첨부된 파일 기록 삭제
@@ -112,6 +122,7 @@ public interface ReviewDao {
 	 * @return int - INSERT 쿼리 수행 결과
 	 */
 	public int insertFile(Connection conn, ReviewFile reviewFile);
+
 
 
 	

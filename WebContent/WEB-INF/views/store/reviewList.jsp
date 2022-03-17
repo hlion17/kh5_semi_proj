@@ -2,13 +2,8 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+    
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
 <%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %>
 
@@ -33,8 +28,7 @@
 	<td><%=ReviewList.get(i).getReview_no() %></td>
 	<td><%=ReviewList.get(i).getPro_no() %></td>
 	<td><%=ReviewList.get(i).getMember_no() %></td>
-	<td><%=ReviewList.get(i).getTitle() %></td>
-<%-- 	<td><%=ReviewList.get(i).getContent() %></td> --%>
+	<td><a href="./Info?reviewno=<%=ReviewList.get(i).getReview_no()%>"><%=ReviewList.get(i).getTitle() %></td>
 	<td><%=ReviewList.get(i).getRegdate() %></td>
 	<td><%=ReviewList.get(i).getHit() %></td>
 </tr>
@@ -49,5 +43,4 @@
 </div><!-- .container -->
 
 
-</body>
-</html>
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>

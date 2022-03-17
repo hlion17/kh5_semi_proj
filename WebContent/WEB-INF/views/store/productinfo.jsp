@@ -1,14 +1,11 @@
+<!-- /productList -->
+
 <%@page import="dto.Product"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
 
 <%	Product ProductList = (Product) request.getAttribute("viewProduct"); %>
@@ -19,8 +16,6 @@
 <hr>
 
 <div>
-<form action="./cart" method="post" >
-
 
 <tr><td class="info">상품번호</td><td><%=ProductList.getPro_no() %></td></tr><br>
 <tr><td class="info">상품명</td><td><%=ProductList.getName() %></td></tr><br>
@@ -28,8 +23,6 @@
 <tr><td class="info">상품가격</td><td><%=ProductList.getPrice() %>원</td></tr><br>
 <tr><td class="info">상품설명</td><td><%=ProductList.getDescription() %></td></tr><br>
 
-
-</form>
 </div>
 
 <div>
@@ -52,5 +45,5 @@
  	  </script> 
 
 
-</body>
-</html>
+
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>
