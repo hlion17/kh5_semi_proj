@@ -100,9 +100,9 @@ public interface MemberService {
 	/**
 	 * 회원정보 전체 조회
 	 * 
-	 * @return List<Member> - 회원 정보 조회 결과 목록
+	 * @return Member - 회원 정보 조회 결과 목록
 	 */
-	public List<Member> getInfoList(HttpServletRequest req);
+	public Member getInfoList(HttpServletRequest req);
 
 	
 }

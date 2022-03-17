@@ -53,7 +53,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMemberByMemberid(Connection conn, Member member) {
 
 		String sql = "";
-		sql += "SELECT id, pw, nick";
+		sql += "SELECT id, pw, name, nick, gender, email, phone, zipcode, address, intro";
 		sql += " FROM member";
 		sql += " WHERE id = ?";
 		
@@ -72,7 +72,14 @@ public class MemberDaoImpl implements MemberDao {
 				
 				result.setMemberid( rs.getString("id") );
 				result.setMemberpw( rs.getString("pw") );
+				result.setMembername( rs.getString("name") );
 				result.setNick( rs.getString("nick") );
+				result.setGender( rs.getString("gender") );
+				result.setEmail( rs.getString("email") );
+				result.setPhone( rs.getString("phone") );
+				result.setZipcode( rs.getString("zipcode") );
+				result.setAddress( rs.getString("address") );
+				result.setIntro( rs.getString("intro") );
 			}
 			
 		} catch (SQLException e) {
@@ -273,12 +280,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Member> selectMemberInfoAll(Connection conn, Member member) {
+	public Member selectMemberInfoAll(Connection conn, Member member) {
 		
 		// SQL 작성
 		String sql = "";
-		sql += "SELECT";
-		sql += "	name";
+		sql += "SELECT";				
+		sql += "	pw";
+		sql += "	, name";
 		sql += "	, nick";
 		sql += "	, gender";
 		sql += "	, email";
@@ -289,8 +297,8 @@ public class MemberDaoImpl implements MemberDao {
 		sql += " FROM member";
 		sql += " WHERE id = ?";
 
-		// 결과 저장할 List
-		List<Member> MemberInfoList = new ArrayList<>();
+		// 조회 결과를 저장할 DTO
+		Member result = null;
 
 		try {
 			ps = conn.prepareStatement(sql); // SQL수행 객체
@@ -300,22 +308,19 @@ public class MemberDaoImpl implements MemberDao {
 			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
 
 			while (rs.next()) {
-				Member m = new Member(); // 결과값 저장 객체
-
-				// 결과값 한 행 처리
-
-				m.setMembername(rs.getString("membername"));
-				m.setNick(rs.getString("nick"));
-				m.setGender(rs.getString("gender"));
-				m.setEmail(rs.getString("email"));
-				m.setPhone(rs.getString("phone"));
-				m.setZipcode(rs.getString("zipcode"));
-				m.setAddress(rs.getString("address"));
-				m.setIntro(rs.getString("intro"));
 				
+				result = new Member();
 
-				// 리스트객체에 조회한 행 객체 저장
-				MemberInfoList.add(m);
+				result.setMemberpw(rs.getString("pw"));
+				result.setMembername(rs.getString("name"));
+				result.setNick(rs.getString("nick"));
+				result.setGender(rs.getString("gender"));
+				result.setEmail(rs.getString("email"));
+				result.setPhone(rs.getString("phone"));
+				result.setZipcode(rs.getString("zipcode"));
+				result.setAddress(rs.getString("address"));
+				result.setIntro(rs.getString("intro"));
+
 			}
 
 		} catch (SQLException e) {
@@ -327,7 +332,7 @@ public class MemberDaoImpl implements MemberDao {
 		}
 
 		// 최종 조회 결과 반환
-		return MemberInfoList;
+		return result;
 	}
 	
 	

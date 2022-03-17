@@ -50,7 +50,14 @@ public class MemberLoginController extends HttpServlet {
 			session.setAttribute("login", isLogin);
 			session.setAttribute("memberid", member.getMemberid());
 			session.setAttribute("memberpw", member.getMemberpw());
+			session.setAttribute("membername", member.getMembername());
 			session.setAttribute("nick", member.getNick());
+			session.setAttribute("gender", member.getGender());
+			session.setAttribute("email", member.getEmail());
+			session.setAttribute("phone", member.getPhone());
+			session.setAttribute("zipcode", member.getZipcode());
+			session.setAttribute("address", member.getAddress());
+			session.setAttribute("intro", member.getIntro());
 			
 			System.out.println("로그인 컨트롤러 - 로그인 성공");
 			

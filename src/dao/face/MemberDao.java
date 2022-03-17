@@ -93,5 +93,5 @@ public interface MemberDao {
 	 * @param member - 로그인한 회원
 	 * @return List<Member> - 회원정보 전체 조회 결과 목록
 	 */
-	public List<Member> selectMemberInfoAll(Connection conn, Member member);
+	public Member selectMemberInfoAll(Connection conn, Member member);
 }
