@@ -32,15 +32,16 @@ public class ReviewListController extends HttpServlet {
 		
 		//게시글 페이징 목록 조회 - 
 		List<Review> reviewList = reviewService.getList( paging );
+		System.out.println(reviewList);
 		
 		//조회결과 MODEL값 전달 - req.setAttribute
-		req.setAttribute("reviewService", reviewService);
+		req.setAttribute("reviewList", reviewList);
 		
 		//페이징 MODEL값 전달
 		req.setAttribute("paging", paging);
 		
 		//VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/store/list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/store/reviewList.jsp").forward(req, resp);
 		
 	}
 	

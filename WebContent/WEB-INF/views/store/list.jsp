@@ -30,8 +30,7 @@
 <tr>
 	<td><%=productList.get(i).getPro_no() %></td>
 	<td><%=productList.get(i).getCty_no() %></td>
-	<td><a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>">
-	<%=productList.get(i).getName() %></a></td>
+	<td><%=productList.get(i).getName() %></td>
 	<td><%=productList.get(i).getImg_path() %></td>
 	<td><%=productList.get(i).getPrice() %></td>
 	<td><%=productList.get(i).getDescription() %></td>
