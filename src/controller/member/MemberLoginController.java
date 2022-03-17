@@ -48,6 +48,7 @@ public class MemberLoginController extends HttpServlet {
 			HttpSession session = req.getSession();
 			
 			session.setAttribute("login", isLogin);
+			session.setAttribute("memberno", member.getMemberno());
 			session.setAttribute("memberid", member.getMemberid());
 			session.setAttribute("memberpw", member.getMemberpw());
 			session.setAttribute("nick", member.getNick());
