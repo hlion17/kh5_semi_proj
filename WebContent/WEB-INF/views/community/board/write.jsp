@@ -51,7 +51,7 @@ function submitContents( elClickedObj ) {
 <hr>
 
 <div>
-<form action="./write" method="post" enctype="multipart/form-data">
+<form action="./insert" method="post" enctype="multipart/form-data">
 
 <table class="table table-bordered">
 <tr><td class="info">아이디</td><td><%=session.getAttribute("userid") %></td></tr>

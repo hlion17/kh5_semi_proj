@@ -21,7 +21,7 @@ public class RecipeUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeBoardController( /rank/update ) [GET] 호출");
+		System.out.println("[TEST] RecipeUpdateController( /recipe/update ) [GET] 호출");
 		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
@@ -45,14 +45,14 @@ public class RecipeUpdateController extends HttpServlet {
 		req.setAttribute("boardFile", boardFile);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeBoardController - update.jsp로 포워드");
+		System.out.println("[TEST] RecipeUpdateController - update.jsp로 포워드");
 		System.out.println();
 		req.getRequestDispatcher("/WEB-INF/views/community/board/update.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeUpdateController( /rank/update ) [POST] 호출");
+		System.out.println("[TEST] RecipeUpdateController( /recipe/update ) [POST] 호출");
 		
 		//수정된 결과를 목록에 반영
 		boardService.update(req);

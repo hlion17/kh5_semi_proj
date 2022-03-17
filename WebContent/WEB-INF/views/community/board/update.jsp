@@ -94,18 +94,18 @@ $(document).ready(function() {
 
 	<div id="beforeFile">
 <%	if( boardFile != null ) { %>
-		기존 첨부파일: 시간상 추후 구현
-<%-- 		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" --%>
-<%-- 		 download="<%=boardFile.getOriginname() %>"> --%>
-<%-- 			<%=boardFile.getOriginname() %> --%>
-<!-- 		</a> -->
+		기존 첨부파일: 
+		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+		 download="<%=boardFile.getOriginname() %>">
+			<%=boardFile.getOriginname() %>
+		</a>
 		<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
 <%	} %>
 	</div>
 
 	<div id="afterFile">
 		새 첨부파일:
-		<input type="file" name="file" multiple="multiple"/>
+		<input type="file" name="file""/>
 	</div>
 </div>
 

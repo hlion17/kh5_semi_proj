@@ -359,7 +359,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		String sql = "";
 		sql += "INSERT INTO recipeimg( img_no, BOARD_NO, ORIGIN_NAME, STORED_NAME, PATH, FILESIZE, WRITE_DATE)";
-		sql += " VALUES (boardfile_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		sql += " VALUES (recipeimg_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		
 		int res = 0;
 		
