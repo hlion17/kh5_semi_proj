@@ -56,24 +56,3 @@ $(document).ready(function() {
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

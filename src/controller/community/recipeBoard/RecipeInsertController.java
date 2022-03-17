@@ -22,11 +22,11 @@ public class RecipeInsertController extends HttpServlet {
 		System.out.println("[TEST] RecipeInsertController( /recipe/insert ) [GET] 호출");
 		
 		//로그인 되어있지 않으면 리다이렉트 
-//		if( req.getSession().getAttribute("login") == null ) {
-//			resp.sendRedirect("/");
-//			
-//			return;
-//		}
+		if( req.getSession().getAttribute("login") == null ) {
+			resp.sendRedirect("/");
+			
+			return;
+		}
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] RecipeInsertController - write.jsp로 포워드");
@@ -44,7 +44,7 @@ public class RecipeInsertController extends HttpServlet {
 		//목록으로 리다이렉션
 		System.out.println("[TEST] RecipeInsertController - list.jsp로 리다이렉션");
 		System.out.println();
-		resp.sendRedirect("/recipe/list");
+		resp.sendRedirect("/recipe/board");
 		
 	}
 }

@@ -246,7 +246,8 @@ public class RecipeServiceImpl implements RecipeService {
 		if(board.getTitle()==null || "".equals(board.getTitle())) {
 			board.setTitle("(제목없음)");
 		}
-		board.setUserid( (String) req.getSession().getAttribute("userid") );
+		board.setUserid( (int) req.getSession().getAttribute("userid") );
+//		board.setUserid( "1" );
 		
 		if( boardDao.insert(conn, board) > 0 ) {
 			JDBCTemplate.commit(conn);
