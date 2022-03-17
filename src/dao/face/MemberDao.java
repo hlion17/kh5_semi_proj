@@ -86,12 +86,4 @@ public interface MemberDao {
 	public String pwFind(Connection conn, Member member);
 
 	
-	/**
-	 * Member의 정보 전체 조회
-	 * 
-	 * @param conn - DB연결 객체
-	 * @param member - 로그인한 회원
-	 * @return List<Member> - 회원정보 전체 조회 결과 목록
-	 */
-	public Member selectMemberInfoAll(Connection conn, Member member);
 }

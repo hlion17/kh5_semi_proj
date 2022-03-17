@@ -177,19 +177,6 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
-	@Override
-	public Member getInfoList(HttpServletRequest req) {
-
-		Member member = new Member();
-		
-		HttpSession session = req.getSession();
-		member.setMemberid((String)session.getAttribute("memberid")); 
-		
-		System.out.println("서비스: " + member);
-		//회원정보 전체 조회 결과 반환
-		return memberDao.selectMemberInfoAll(JDBCTemplate.getConnection(), member);
-	}
-
 	
 	
 	

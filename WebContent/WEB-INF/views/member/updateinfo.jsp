@@ -8,7 +8,54 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <%-- 카카오 우편번호 API --%> 
+
+<script>
+function kakaopost() { //우편번호 검색 함수 with 카카오
+    new daum.Postcode({
+        oncomplete: function(data) {
+           document.querySelector("#zipcode").value = data.zonecode; //우편번호
+           document.querySelector("#address").value =  data.address //주소
+        }
+    }).open();
+}
+</script> 
+<script type="text/javascript" >
+//페이지 접속 시 첫 입력창으로 포커스 이동
+$("input").eq(0).focus();
+
+
+//아이디 찾기
+
+function UpdateInfo() {
+	var memberpw = $('#memberpw').val();
+	var membername = $('#membername').val();
+	var membername = $('#nick').val();
+	var membername = $('#gender').val();
+	var membername = $('#email').val();
+	var membername = $('#phone').val();
+	var membername = $('#zipcode').val();
+	var membername = $('#address').val();
+	var membername = $('#intro').val();
+	$.ajax({
+		type: 'POST',
+		url: '/member/updateinfo',
+		data: {email : email, phone : phone},
+		success: function(memberid) {
+			if(memberid === "") {
+				alert("일치하는 회원이 없습니다.");
+			} else  {
+				alert("회원님의 아이디는 "+ memberid +" 입니다.")
+			}
+			
+		},
+		error : function () {
+			alert("서버요청실패");
+		}
+		
+	})
+}
+
 </script>
 
 
@@ -22,79 +69,80 @@
 	<tr>
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
-				<td><%=session.getAttribute("memberpw") %>
-				<input type="text" name="memberpw" value="<%=session.getAttribute("memberpw") %>"></td>
+				<%-- <td><%=session.getAttribute("memberpw") %> --%>
+				<input type="text" name="memberpw" id="memberpw" value="<%=session.getAttribute("memberpw") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="membername" class="control-label col-xs-2">이름</label>
-				<td><%=session.getAttribute("membername") %></td>
-				<input type="text" name="membername" value="<%=session.getAttribute("membername") %>"></td>
+				<%-- <td><%=session.getAttribute("membername") %></td> --%>
+				<input type="text" name="membername" id="membername" value="<%=session.getAttribute("membername") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="nick" class="control-label col-xs-2">닉네임</label>
-				<td><%=session.getAttribute("nick") %></td>
-				<input type="text" name="nick" value="<%=session.getAttribute("nick") %>"></td>
+				<%-- <td><%=session.getAttribute("nick") %></td> --%>
+				<input type="text" name="nick" id="nick" value="<%=session.getAttribute("nick") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="gender" class="control-label col-xs-2">성별</label>
-				<td><%=session.getAttribute("gender") %></td>
-				<input type="text" name="gender" value="<%=session.getAttribute("gender") %>"></td>
+				<%-- <td><%=session.getAttribute("gender") %></td> --%>
+				<input type="text" name="gender" id="gender" value="<%=session.getAttribute("gender") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">이메일</label>
-				<td><%=session.getAttribute("email") %></td>
-				<input type="text" name="memberpw" value="<%=session.getAttribute("email") %>"></td>
+				<%-- <td><%=session.getAttribute("email") %></td> --%>
+				<input type="text" name="memberpw" id="email" value="<%=session.getAttribute("email") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="phone" class="control-label col-xs-2">전화번호</label>
-				<td><%=session.getAttribute("phone") %></td>
-				<input type="text" name="phone" value="<%=session.getAttribute("phone") %>"></td>
+				<%-- <td><%=session.getAttribute("phone") %></td> --%>
+				<input type="text" name="phone" id="phone" value="<%=session.getAttribute("phone") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="zipcode" class="control-label col-xs-2">우편번호</label>
-				<td><%=session.getAttribute("zipcode") %></td>
-				<input type="text" name="zipcode" value="<%=session.getAttribute("zipcode") %>"></td>
+				<%-- <td><%=session.getAttribute("zipcode") %></td> --%>
+				<input type="text" name="zipcode" id="zipcode" value="<%=session.getAttribute("zipcode") %>"></td>
+				<input type="button" value="우편번호찾기" onclick="kakaopost()">
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="address" class="control-label col-xs-2">주소</label>
-				<td><%=session.getAttribute("address") %></td>
-				<input type="text" name="address" value="<%=session.getAttribute("address") %>"></td>
+				<%-- <td><%=session.getAttribute("address") %></td> --%>
+				<input type="text" name="address" id="address" value="<%=session.getAttribute("address") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
 	<tr>
 		<div class="form-group">
 			<label for="intro" class="control-label col-xs-2">자기소개</label>
-				<td><%=session.getAttribute("intro") %></td>
-				<input type="text" name="intro" value="<%=session.getAttribute("intro") %>"></td>
+				<%-- <td><%=session.getAttribute("intro") %></td> --%>
+				<input type="text" name="intro" id="intro" value="<%=session.getAttribute("intro") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr> 
 
 	
 	<div class="text-center">
-		<button type="submit" id="btnUpdateInfo" class="btn btn-primary">수정 완료</button>
+		<button type="submit" id="btnUpdateInfo" class="btn btn-primary" onclick="UpdateInfo();">수정 완료</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
 
