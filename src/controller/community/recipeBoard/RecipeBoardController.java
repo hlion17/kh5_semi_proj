@@ -25,7 +25,7 @@ public class RecipeBoardController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeBoardController( /rank/board ) [GET] 호출");
+		System.out.println("[TEST] RecipeBoardController( /recipe/board ) [GET] 호출");
 		
 		
 		//전달파라미터에서 현재 페이징 객체 알아내기
