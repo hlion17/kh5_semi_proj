@@ -54,8 +54,9 @@ public class RefDaoImpl implements RefDao{
 		return list;
 	}
 
+	// 전체 아이템 조회(기본정렬: 유통기한 오름차순)
 	@Override
-	public List<RefItem> getItemListByRefCode(Connection conn, int refCode) {
+	public List<RefItem> findAllItems(Connection conn, int refCode) {
 		
 		List<RefItem> list = new ArrayList<>();
 		
@@ -72,7 +73,8 @@ public class RefDaoImpl implements RefDao{
 			+ "FROM ref_item ri "
 			+ "INNER JOIN item i "
 				+ "ON ri.item_no = i.item_no "
-			+ "WHERE ri.ref_no = ?";
+			+ "WHERE ri.ref_no = ? "
+			+ "ORDER BY expire_date";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -103,7 +105,58 @@ public class RefDaoImpl implements RefDao{
 		
 		return list;
 	}
+	
+	// 전체 아이템 등록일 내림차순 조회
+	@Override
+	public List<RefItem> findAllItemsDesc(Connection conn, int refCode) {
+		List<RefItem> list = new ArrayList<>();
+		
+		String sql = "";
+		sql = "SELECT "
+				+ "ri.item_no, "
+				+ "item_name, "
+				+ "ingr_cty_code, "
+				+ "item_qty, "
+				+ "status, "
+				+ "regdate, "
+				+ "expire_date, "
+				+ "note "
+			+ "FROM ref_item ri "
+			+ "INNER JOIN item i "
+				+ "ON ri.item_no = i.item_no "
+			+ "WHERE ri.ref_no = ? "
+			+ "ORDER BY refDate desc";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				RefItem refItem = new RefItem();
+				
+				refItem.setItemNo(rs.getInt("item_no"));
+				refItem.setItemName(rs.getString("item_name"));
+				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
+				refItem.setItemQty(rs.getString("item_qty"));
+				refItem.setStatus(rs.getInt("status"));
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setNote(rs.getString("note"));
+				
+				list.add(refItem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return list;
+	}
 
+	// 삭제 예정
 	@Override
 	public List<RefItem> findAllByFiltering(Connection conn, int refCode, int status) {
 		List<RefItem> list = new ArrayList<RefItem>();
@@ -152,8 +205,9 @@ public class RefDaoImpl implements RefDao{
 		return list;
 	}
 
+	// 상태코드로 필터링한 냉장고 아이템 조회(기본정렬: 유통기한 오름차순)
 	@Override
-	public List<RefItem> findAllByFilteringAndOrdering(Connection conn, int refCode, int status, String orderBy) {
+	public List<RefItem> findFilteredItems(Connection conn, int refCode, int status) {
 		List<RefItem> list = new ArrayList<RefItem>();
 		
 		String subSql = "";
@@ -162,16 +216,10 @@ public class RefDaoImpl implements RefDao{
 		}
 		
 		// prepareStatement 로는 order by 절에 ?으로 쓸수 없다고 한다.
+		// dataType 을 가지는 데이터만 파라미터로 사용할 수 있음
+		// 테이블명, 컬럼명 같은 것 사용불가
 		// https://stackoverflow.com/questions/12430208/using-a-prepared-statement-and-variable-bind-order-by-in-java-with-jdbc-driver
-		int orderByInt = -1;
-		if ("expire_date".equals(orderBy)) {
-			orderByInt = 7;
-		} else if ("regDate".equals(orderBy)) {
-			orderByInt = 6;
-		}
-		
-		System.out.println("int 정렬기준: " + orderByInt);
-		
+
 		String sql = "";
 		sql = "SELECT "
 				+ "ri.item_no, "
@@ -187,23 +235,74 @@ public class RefDaoImpl implements RefDao{
 				+ "ON ri.item_no = i.item_no "
 			+ "WHERE ri.ref_no = ? "
 				+ subSql 
-			+ "ORDER BY ?";
-		
-		System.out.println(sql);
+			+ "ORDER BY expire_date";
 		
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, refCode);
 			
-			System.out.println("냉장고 코드: " + refCode);
 			if (status >= 0 && status <= 2) {
-				System.out.println("상태코드: " + status);
-				System.out.println("정렬기준: " + orderBy);
 				ps.setInt(2, status);				
-				ps.setInt(3, orderByInt);
-			} else {
-				System.out.println("정렬기준: " + orderBy);
-				ps.setInt(2, orderByInt);
+			}
+
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				RefItem refItem = new RefItem();
+				
+				refItem.setItemNo(rs.getInt("item_no"));
+				refItem.setItemName(rs.getString("item_name"));
+				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
+				refItem.setItemQty(rs.getString("item_qty"));
+				refItem.setStatus(rs.getInt("status"));
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setNote(rs.getString("note"));
+				
+				list.add(refItem);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		return list;
+	}
+	
+	// 상태코드로 필터링된 냉장고 품목 조회(등록일 기준 내림차순 정렬)
+	@Override
+	public List<RefItem> findFileredItemsOrderByRegDateDesc(Connection conn, int refCode, int status) {
+		List<RefItem> list = new ArrayList<RefItem>();
+		
+		String subSql = "";
+		if (status >= 0 && status <= 2) {
+			subSql = "AND i.status = ? ";
+		}
+
+		String sql = "";
+		sql = "SELECT "
+				+ "ri.item_no, "
+				+ "item_name, "
+				+ "ingr_cty_code, "
+				+ "item_qty, "
+				+ "status, "
+				+ "regdate, "
+				+ "expire_date, "
+				+ "note "
+			+ "FROM ref_item ri "
+			+ "INNER JOIN item i "
+				+ "ON ri.item_no = i.item_no "
+			+ "WHERE ri.ref_no = ? "
+				+ subSql 
+			+ "ORDER BY regDate DESC";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			
+			if (status >= 0 && status <= 2) {
+				ps.setInt(2, status);				
 			}
 
 			rs = ps.executeQuery();
@@ -421,6 +520,8 @@ public class RefDaoImpl implements RefDao{
 		
 		return result;
 	}
+
+
 
 	
 	
