@@ -1,5 +1,7 @@
 package service.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
@@ -93,6 +95,14 @@ public interface MemberService {
 	 * @return Member - 입력한 이메일과 전화번호와 일치하는 회원의 정보
 	 */
 	public Member getPwFindMember(HttpServletRequest req);
+	
+	
+	/**
+	 * 회원정보 전체 조회
+	 * 
+	 * @return List<Member> - 회원 정보 조회 결과 목록
+	 */
+	public List<Member> getInfoList(HttpServletRequest req);
 
 	
 }

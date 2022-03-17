@@ -2,9 +2,12 @@ package dao.impl;
 
 import java.sql.Connection;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.JDBCTemplate;
 import dao.face.MemberDao;
@@ -268,6 +271,65 @@ public class MemberDaoImpl implements MemberDao {
 		}
 		return mid;
 	}
+
+	@Override
+	public List<Member> selectMemberInfoAll(Connection conn, Member member) {
+		
+		// SQL 작성
+		String sql = "";
+		sql += "SELECT";
+		sql += "	name";
+		sql += "	, nick";
+		sql += "	, gender";
+		sql += "	, email";
+		sql += "	, phone";
+		sql += "	, address";
+		sql += "	, intro";
+		sql += " FROM member";
+		sql += " WHERE id = ?";
+		sql += " AND pw = ?";
+
+		// 결과 저장할 List
+		List<Member> MemberInfoList = new ArrayList<>();
+
+		try {
+			ps = conn.prepareStatement(sql); // SQL수행 객체
+			
+			ps.setString(1, member.getMemberid());
+			ps.setString(2, member.getMemberpw());
+
+			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
+
+			while (rs.next()) {
+				Member m = new Member(); // 결과값 저장 객체
+
+				// 결과값 한 행 처리
+
+				m.setMembername(rs.getString("membername"));
+				m.setNick(rs.getString("nick"));
+				m.setGender(rs.getString("gender"));
+				m.setEmail(rs.getString("email"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setIntro(rs.getString("intro"));
+				
+
+				// 리스트객체에 조회한 행 객체 저장
+				MemberInfoList.add(m);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		// 최종 조회 결과 반환
+		return MemberInfoList;
+	}
+	
 	
 	
 

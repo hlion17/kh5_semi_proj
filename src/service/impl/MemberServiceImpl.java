@@ -1,9 +1,12 @@
 package service.impl;
 
 import java.io.UnsupportedEncodingException;
+
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
 import dao.face.MemberDao;
@@ -12,7 +15,6 @@ import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Member;
 import service.face.MemberService;
-import service.face.RefService;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -173,6 +175,19 @@ public class MemberServiceImpl implements MemberService {
 		member.setPhone(req.getParameter("phone"));
 
 		return member;
+	}
+
+	@Override
+	public List<Member> getInfoList(HttpServletRequest req) {
+
+		Member member = new Member();
+		
+		HttpSession session = req.getSession();
+		member.setMemberid(session.getAttribute("memberid"));
+		member.setMemberpw(session.getAttribute("memberpw"));
+		
+		//회원정보 전체 조회 결과 반환
+		return memberDao.selectMemberInfoAll(JDBCTemplate.getConnection(), member);
 	}
 
 	

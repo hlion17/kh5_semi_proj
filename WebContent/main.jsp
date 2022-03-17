@@ -26,7 +26,9 @@
 <%-- 로그인 상태 --%>
 <%	if( session.getAttribute("login") != null && (boolean) session.getAttribute("login") ) { %>
 <strong><%=session.getAttribute("nick") %>님, 환영합니다</strong><br><br>
-<button onclick="location.href='<%=request.getContextPath() %>/board/list'">게시판 가기</button>
+
+<button onclick="location.href='<%=request.getContextPath() %>/member/info'">회원정보</button>
+<button onclick="location.href='<%=request.getContextPath() %>/board/notice'">공지사항 가기</button>
 <button onclick="location.href='<%=request.getContextPath() %>/member/logout'">로그아웃</button>
 <%	} %>
 
