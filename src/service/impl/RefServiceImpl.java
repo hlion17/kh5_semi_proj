@@ -27,6 +27,7 @@ public class RefServiceImpl implements RefService {
 	private MemberDao memberDao = new MemberDaoImpl();
 	private static Logger logger = Logger.getLogger(RefServiceImpl.class.getName());
 
+	// 냉장고 선택
 	@Override
 	public void chooseRef(HttpServletRequest req) {
 		// 쿼리파리미터 값 받아오기
@@ -53,77 +54,91 @@ public class RefServiceImpl implements RefService {
 				
 	}
 
+	// 전체 냉장고 품목 리스트(기본:유통기한 기준 오름차순)
 	@Override
-	public void getRefItemList(HttpServletRequest req) {
+	public void getAllItems(HttpServletRequest req) {
 		// 쿼리파라미터 분석
 		int refCode = Integer.parseInt(req.getParameter("refCode"));
-		logger.info("쿼리파라미터로 전달된 냉장고 코드: " + refCode);
+		logger.info("/ref/itemlist 파라미터 - refCode: " + refCode);
 		
 		// DB Connection 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB 에서 냉장고 코드에 해당하는 품목들을 조회하여 리스트로 반환한다.
-		List<RefItem> list = refDao.getItemListByRefCode(conn, refCode);
-		logger.info("조회된 냉장고 품목의 목록: " + list);
-		// View 에 전달할 아이템 목록 저장
+		List<RefItem> list = refDao.findAllItems(conn, refCode);
+		logger.info("아이템 리스트: " + list);
+		
+		// View에 전달 할 결과 저장
 		req.setAttribute("itemList", list);
-		req.setAttribute("refCode", refCode);
-	}
-
-	
-	// 미완성 - 밑에 메서드로 대처 가능할것 같다.
-	@Override
-	public void getFilteredRefItemList(HttpServletRequest req) {
-		/*
-		// 쿼리파라미터 분석
-		int refCode = Integer.parseInt(req.getParameter("refCode"));
-		int status = Integer.parseInt(req.getParameter("status"));
-		logger.info("쿼리파라미터로 전달된 상태코드: " + status);
-		logger.info("쿼리파라미터로 전달된 냉장고 코드: " + refCode);
-				
-		// DB Connection 생성
-		Connection conn = JDBCTemplate.getConnection();
-		
-		// DB에서 냉장고품목을 상태코드로 필터링한 품목을 조회하여 리스트로 반환한다.
-		List<RefItem> list = refDao.findAllByFiltering(conn, refCode, status);
-		logger.info("상태코드로 필터링된 냉장고 품목의 목록: " + list);
-		
-		// View에 전달할 아이템 목록 저장
-		req.setAttribute("filterdItemList", list);
-		*/
+		req.setAttribute("refCode", refCode);  // 페이지 간 전달 할 냉장고 코드
+		req.setAttribute("status", 4);
 	}
 	
-
+	// 필요없을 듯
+	// 전체 냉장고 품목 리스트(등록일 기준 내림차순)
 	@Override
-	public void getOrderedRefItemList(HttpServletRequest req) {
+	public void getAllItemsDesc(HttpServletRequest req) {
 		// 쿼리파라미터 분석
 		int refCode = Integer.parseInt(req.getParameter("refCode"));
-		int status = Integer.parseInt(req.getParameter("status"));
-		String orderBy = req.getParameter("orderBy");
-		logger.info("쿼리파라미터로 전달된 상태코드: " + status);
-		logger.info("쿼리파라미터로 전달된 냉장고 코드: " + refCode);
-		logger.info("쿼리파라미터로 전달된 정렬기준: " + orderBy);
+		logger.info("/ref/itemlist 파라미터 - refCode: " + refCode);
 		
 		// DB Connection 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
-		// DB에서 냉장고품목을 상태코드로 필터링한 품목을 조회하여 리스트로 반환한다.
-		List<RefItem> list = refDao.findAllByFilteringAndOrdering(conn, refCode, status, orderBy);
-		// logger.info("정렬과 필터링된 냉장고 품목의 목록: " + list);
+		// DB 에서 냉장고 코드에 해당하는 품목들을 조회하여 리스트로 반환한다.
+		List<RefItem> list = refDao.findAllItemsDesc(conn, refCode);
+		logger.info("DB조회결과 - 아이템 리스트: " + list);
 		
-		System.out.println("유통기한: ");
-//		System.out.println("등록일: ");
-		for (RefItem r : list) {
-			System.out.println(r.getExpireDate());
-//			System.out.println(r.getRegDate());
-		}
-		
-		
-		// View에 전달할 아이템 목록 저장
+		// View에 전달 할 결과 저장
 		req.setAttribute("itemList", list);
-		
+		req.setAttribute("refCode", refCode);  // 페이지 간 전달 할 냉장고 코드
 	}
 
+	// 보관상태로 필터링 된 냉장고 품목 리스트
+	@Override
+	public void getFilteredItems(HttpServletRequest req) {
+		// 쿼리파라미터 분석
+		int refCode = Integer.parseInt(req.getParameter("refCode"));
+		int status = Integer.parseInt(req.getParameter("status"));
+		logger.info("/ref/itemlist/filterAndSort 파라미터 - status: " + status);
+		logger.info("/ref/itemlist/filterAndSort 파라미터 - refCode: " + refCode);
+
+		// DB Connection 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DB에서 냉장고품목을 상태코드로 필터링한 품목을 조회하여 리스트로 반환한다.
+		List<RefItem> list = refDao.findFilteredItems(conn, refCode, status);
+		logger.info("DB조회결과 - 아이템 리스트(fitered): " + list);
+		
+		// View에 전달할 아이템 목록 저장
+		req.setAttribute("refCode", refCode); // 페이지 간 전달 할 냉장고 코드 
+		req.setAttribute("itemList", list);
+		req.setAttribute("status", status);
+	}
+	
+	// 보관상태로 필터링 된 냉장고 품목 리스트(등록일 내림차순 정렬)
+	@Override
+	public void getFilteredItemsOrderByRegDate(HttpServletRequest req) {
+		// 쿼리파라미터 분석
+		int refCode = Integer.parseInt(req.getParameter("refCode"));
+		int status = Integer.parseInt(req.getParameter("status"));
+		logger.info("/ref/itemlist/filterAndSort 파라미터 - status: " + status);
+		logger.info("/ref/itemlist/filterAndSort 파라미터 - refCode: " + refCode);
+		
+		// DB Connection 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DB에서 냉장고품목을 상태코드로 필터링한 품목을 조회하여 리스트로 반환한다.
+		List<RefItem> list = refDao.findFileredItemsOrderByRegDateDesc(conn, refCode, status);
+		logger.info("DB조회결과 - 아이템 리스트(fitered,OderByregDate): " + list);
+		
+		// View에 전달할 아이템 목록 저장
+		req.setAttribute("refCode", refCode);  // 페이지 간 전달 할 냉장고 코드
+		req.setAttribute("itemList", list);
+		req.setAttribute("status", status);
+	}
+
+	// 냉장고 아이템 추가
 	@Override
 	public void addRefItem(HttpServletRequest req) {
 		// 쿼리파라미터 분석
@@ -198,6 +213,7 @@ public class RefServiceImpl implements RefService {
 		
 	}
 
+	// 냉장고 품목 삭제
 	@Override
 	public void deleteRefItem(HttpServletRequest req) {
 		// 쿼리 파라미터 분석
@@ -225,6 +241,7 @@ public class RefServiceImpl implements RefService {
 		
 	}
 
+	// 냉장고 품목 수정
 	@Override
 	public void updateRefItem(HttpServletRequest req) {
 		// 쿼리 파라미터 분석
@@ -272,6 +289,7 @@ public class RefServiceImpl implements RefService {
 		
 	}
 
+	// 냉장고 공유
 	@Override
 	public void shareRef(HttpServletRequest req) {
 		// 요청 파라미터 분석 - 공유 대상의 냉장고 코드
@@ -305,6 +323,8 @@ public class RefServiceImpl implements RefService {
 		// View에 전달할 데이터 저장
 		req.setAttribute("memberId", memberId);
 	}
+
+	
 	
 	
 }

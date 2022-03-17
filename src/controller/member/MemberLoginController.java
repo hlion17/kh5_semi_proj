@@ -49,6 +49,7 @@ public class MemberLoginController extends HttpServlet {
 			
 			session.setAttribute("login", isLogin);
 			session.setAttribute("memberid", member.getMemberid());
+			session.setAttribute("memberpw", member.getMemberpw());
 			session.setAttribute("nick", member.getNick());
 			
 			System.out.println("로그인 컨트롤러 - 로그인 성공");

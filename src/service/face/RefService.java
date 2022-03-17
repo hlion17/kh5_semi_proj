@@ -11,22 +11,29 @@ public interface RefService {
 	void chooseRef(HttpServletRequest req);
 
 	/**
-	 * 해당 냉장고의 품목 리스트를 보여준다.
+	 * 해당 냉장고의 품목 리스트를 보여준다. (기본정렬: 유통기한 오름차순)
 	 * @param req - 냉장고 코드 정보가 담긴 요청 객체
 	 */
-	void getRefItemList(HttpServletRequest req);
+	void getAllItems(HttpServletRequest req);
 	
+	// 필요없을 듯
 	/**
-	 * 해당 냉장고의 모든 품목 리스트를 보관상태로 필터링한다.
-	 * @param req - 냉장고 코드 정보, 보관상태코드가 담긴 요청 객체
+	 * 냉장고의 품목 리스트를 내림차순으로 보여준다.
+	 * @param req - 조회 할 냉장고 코드 정보가 담긴 요청 객체
 	 */
-	void getFilteredRefItemList(HttpServletRequest req);
+	void getAllItemsDesc(HttpServletRequest req);
 	
 	/**
 	 * 해당 냉장고의 품목 리스트를 정렬 기준에 따라 정렬한다.
 	 * @param req - 냉장고 코드 정보, 보관상태, 정렬기준이 담긴 요청 객체
 	 */
-	void getOrderedRefItemList(HttpServletRequest req);
+	void getFilteredItems(HttpServletRequest req);
+	
+	/**
+	 * 해당 냉장고의 품목을 상태코드로 필터링하고 등록일 기준으로 내림차순 정렬한다.
+	 * @param req - 냉장고 코드, 보관상태 정보가 담긴 요청 객체
+	 */
+	void getFilteredItemsOrderByRegDate(HttpServletRequest req);
 	
 	/**
 	 * 해당 냉장고에 품목을 추가한다.

@@ -17,15 +17,24 @@ public interface RefDao {
 	List<Ref> findByMemberId(Connection conn, String memberId);
 
 	/**
-	 * DB에서 refCode에 해당하는 냉장고의 품목을 조회한다.
+	 * DB에서 refCode에 해당하는 냉장고의 품목을 조회한다. (기본정렬: 오름차순)
 	 * @param conn - DB접속 객체
 	 * @param refCode - 조회할 냉장고 코드
 	 * @return
 	 */
-	List<RefItem> getItemListByRefCode(Connection conn, int refCode);
+	List<RefItem> findAllItems(Connection conn, int refCode);
+	
+	/**
+	 * DB에서 refCode에 해당하는 냉장고 품목을 내림차순으로 조회한다.
+	 * @param conn
+	 * @param refCode
+	 * @return
+	 */
+	List<RefItem> findAllItemsDesc(Connection conn, int refCode);
 
 	/**
 	 * DB에서 상태코드로 필터링된 냉장고 품목을 조회한다.
+	 * (삭제예정)
 	 * @param conn - DB 접속 객체
 	 * @param status - 품목의 상태코드
 	 * @return
@@ -33,14 +42,23 @@ public interface RefDao {
 	List<RefItem> findAllByFiltering(Connection conn, int refCode, int status);
 
 	/**
-	 * DB에서 상태코드로 필터링하고 정렬기준으로 정렬한 냉장고 품목의 목록을 반환한다.
+	 * DB에서 상태코드로 필터링하고 정렬기준으로 정렬한 냉장고 품목의 목록을 반환한다.(기본정렬: 유통기한 오름차순)
 	 * @param conn - DB 접속 객체
 	 * @param status - 필터링할 상태 코드
 	 * @param orderBy - 정렬할 정렬기준
 	 * @return
 	 */
-	List<RefItem> findAllByFilteringAndOrdering(Connection conn, int reqCode, int status, String orderBy);
+	List<RefItem> findFilteredItems(Connection conn, int reqCode, int status);
 
+	/**
+	 * DB에서 상태코드로 필터링하고 등록일 기준으로 내림차순 정렬한 냉장고 품목의 목록을 반환한다.
+	 * @param conn - DB 접속 객체
+	 * @param reqCode - 조회 할 냉장고 코드
+	 * @param status - 필터링 할 상태코드
+	 * @return
+	 */
+	List<RefItem> findFileredItemsOrderByRegDateDesc(Connection conn, int reqCode, int status);
+	
 	/**
 	 * DB에 냉장고 품목을 추가한다.
 	 * - insertRef_Item과 하나의 트랜잭션으로 처리되어야 한다.
