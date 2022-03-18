@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
-<div class="container">
+<div id="section">
 
-<h1>기본 템플릿</h1>
-<hr>
+	<h1>기본 템플릿</h1>
+	<hr>
 
+</div><!-- #section -->
 
-</div><!-- .container -->
-
-<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

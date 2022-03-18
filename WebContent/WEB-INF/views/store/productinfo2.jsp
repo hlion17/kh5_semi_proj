@@ -26,7 +26,7 @@
 </div>
 
 <div>
-	<button type="button" onclick="location.href='cart'">장바구니</button>
+<!-- 	<button type="button" onclick="location.href='cart'">장바구니</button> -->
 	<button type="button" onclick="payment()">결제</button>
 </div>
 
@@ -34,15 +34,28 @@
 </div>
 
 
- <script type="text/javascript"> 
-  	function payment(){
-	if(confirm('해당 상품을 주문 하시겠습니까?')){
-		location.href='payment';
-} else {
-			document.addFrom.reset();
- 		}
- 	}
- 	  </script> 
+<script type="text/javascript">
+
+	function addToCart(){
+		// 확인 true 취소 false
+		if(confirm("상품을 장바구니에 추가하시겠습니까?")){ // 확인
+			document.addForm.submit();
+		}else{ // 취소
+			document.addForm.reset();
+		}
+	}
+</script>
+
+<p>
+	<form name ="addForm" method="post" action="[test]addCart.jsp?id=${product.productId}">
+	<a href="#" class="btn btn-info" onclick="addToCart()">
+	상품주문 &raquo;</a>
+	<a href="cart.jsp" class="btn btn-warning">
+        장바구니&raquo;</a>
+	<a href="products.jsp" class="btn btn-secondary">
+        상품목록&raquo;</a>	
+	</form>
+</p>
 
 
 

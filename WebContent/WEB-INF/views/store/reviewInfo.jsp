@@ -1,14 +1,14 @@
+<%@page import="java.util.List"%>
 <%@page import="dto.ReviewFile"%>
 <%@page import="dto.Review"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>리뷰 상세 내용</title>
-</head>
-<body>
+
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+
 
 <%	Review viewReview = (Review) request.getAttribute("viewReview"); %>
 <%	ReviewFile reviewFile = (ReviewFile) request.getAttribute("reviewFile"); %>
@@ -17,41 +17,40 @@
 $(document).ready(function() {
 	//목록버튼
 	$("#btnList").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/board/list");
+		$(location).attr("href", "<%=request.getContextPath() %>/review/list");
 	})
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/board/update?reviewno=<%=viewReview.getReview_no() %>");
+		$(location).attr("href", "<%=request.getContextPath() %>/review/update?reviewno=<%=viewReview.getReview_no() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
-			$(location).attr("href", "<%=request.getContextPath() %>/board/delete?reviewno=<%=viewReview.getReview_no() %>");
+			$(location).attr("href", "<%=request.getContextPath() %>/review/delete?reviewno=<%=viewReview.getReview_no() %>");
 		}
 	})
 	
 });
+
+
 </script>
 
 <div class="container">
 
 <h1>게시글 상세보기</h1>
 <hr>
+
+
 <table class="table table-bordered">
-
-<tr>
-<td class="info">글번호</td><td colspan="3"><%=viewReview.getReview_no() %></td>
-</tr>
-
-<tr>
-<td class="info">제목</td><td colspan="3"><%=viewReview.getTitle() %></td>
-</tr>
+<tr><td class="info">글번호</td><td colspan="3"><%=viewReview.getReview_no() %></td></tr>
+<tr><td class="info">제목</td><td colspan="3"><%=viewReview.getTitle() %></td></tr>
 
 <tr>
 <td class="info">회원번호</td><td><%=viewReview.getMember_no() %></td>
-<td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td>
+<td class="info">닉네임</td><td>[로그인과 연동]</td>
+<%-- <td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td> --%>
 </tr>
 
 <tr>
@@ -84,5 +83,4 @@ $(document).ready(function() {
 
 
 
-</body>
-</html>
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>

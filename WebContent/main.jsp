@@ -30,6 +30,8 @@
 <button onclick="location.href='<%=request.getContextPath() %>/member/info'">회원정보</button>
 <button onclick="location.href='<%=request.getContextPath() %>/notice/list'">공지사항 가기</button>
 <button onclick="location.href='<%=request.getContextPath() %>/recipe/board'">레시피 자랑 게시판</button>
+<button onclick="location.href='<%=request.getContextPath() %>/review/list'">리뷰게시판</button>
+<button onclick="location.href='<%=request.getContextPath() %>/store'">상점</button>
 <button onclick="location.href='<%=request.getContextPath() %>/member/logout'">로그아웃</button>
 <%	} %>
 

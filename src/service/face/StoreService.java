@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Cart;
 import dto.Product;
 import util.Paging;
 
@@ -31,6 +32,18 @@ public interface StoreService {
 	 * @return Product - 조회된 상품 정보
 	 */
 	public Product view(Product productNo);
+
+
+	/**
+	 * 요청 파라미터 얻어오기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Cart - 전달파라미터에 cart_no(상품번호)값을 포함한 DTO객체
+	 */
+	public Cart getCartno(HttpServletRequest req);
+
+
+
 
 
 	

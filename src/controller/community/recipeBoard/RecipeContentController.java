@@ -33,6 +33,9 @@ public class RecipeContentController extends HttpServlet {
 		//조회결과 MODEL값 전달
 		req.setAttribute("viewBoard", viewBoard);
 		
+		//boardno 계승을 위해
+		req.setAttribute("board_no", viewBoard.getBoardno());
+		System.out.println("setAttribute : " + viewBoard.getBoardno());
 		
 		//닉네임 전달
 		req.setAttribute("writerNick", boardService.getNick(viewBoard));
@@ -49,4 +52,33 @@ public class RecipeContentController extends HttpServlet {
 		System.out.println();
 		req.getRequestDispatcher("/WEB-INF/views/community/board/view.jsp").forward(req, resp);
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("[TEST] RecipeContentController( /recipe/content ) [POST] 호출");
+		
+		int board_no_check = Integer.parseInt( req.getParameter("board_no") );
+		System.out.println("board_no_check : " + board_no_check);
+		
+		
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

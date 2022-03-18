@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <!-- 스마트에디터2 설치 -->
 <script type="text/javascript" src="../resources/se2/js/service/HuskyEZCreator.js"></script>
@@ -45,36 +45,33 @@ function submitContents( elClickedObj ) {
 }
 </style>
 
-<div class="container">
+<div id="section">
 
-<h3>게시글 쓰기</h3>
-<hr>
+	<h3>게시글 쓰기</h3>
+	<hr>
 
-<div>
-<form action="./insert" method="post" enctype="multipart/form-data">
+	<div>
+		<form action="./insert" method="post" enctype="multipart/form-data">
+		
+			<table class="table table-bordered">
+				<tr><td class="info">아이디</td><td><%=session.getAttribute("memberid") %></td></tr>
+				<tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
+				<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
+				<tr><td class="info" colspan="2">본문</td></tr>
+				<tr><td colspan="2"><textarea id="content" name="content"></textarea></td></tr>
+			</table>
+			
+			첨부파일 <input type="file" name="file">
+		
+		</form>
+	</div>
 
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td><%=session.getAttribute("memberid") %></td></tr>
-<tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
-<tr><td colspan="2"><textarea id="content" name="content"></textarea></td></tr>
-</table>
+	<div class="text-center">	
+		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
+		<button type="buttont" id="btnCancel" class="btn btn-danger">취소</button>
+	</div>
 
-첨부파일 <input type="file" name="file">
-
-</form>
-</div>
-
-<div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-	<button type="buttont" id="btnCancel" class="btn btn-danger">취소</button>
-</div>
-
-<!-- .container -->
-</div>
-
-
+</div><!-- #section -->
 
 <!-- <textarea>태그에 스마트에디터2를 스킨 적용하는 스크립트 -->
 <script type="text/javascript">
@@ -87,27 +84,4 @@ nhn.husky.EZCreator.createInIFrame({
 })
 </script>
 
-
-
-<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

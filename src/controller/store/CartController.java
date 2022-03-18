@@ -22,6 +22,13 @@ public class CartController extends HttpServlet {
  
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		//로그인 되어있지 않으면 리다이렉트 
+//		if( req.getSession().getAttribute("login") == null ) {
+//			resp.sendRedirect("/");
+//			
+//			return;
+//		}
+		
 		//카트 내역 전체 보여주기
 		List<Cart> cartList = cartService.getList();
 		

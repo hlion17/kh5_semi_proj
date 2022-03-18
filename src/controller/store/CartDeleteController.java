@@ -1,29 +1,36 @@
 package controller.store;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Recipe;
+import dto.Cart;
+import dto.Product;
 import service.face.StoreService;
 import service.impl.StoreServiceImpl;
-import util.Paging;
 
-@WebServlet("/main")
-public class MainController extends HttpServlet {
+@WebServlet("/cart/delete")
+public class CartDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private StoreService storeService = new StoreServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		//전달파라미터 얻기 - cart(장바구니번호)
+		Cart cart = storeService.getCartno(req);
 		
-	//VIEW 지정 및 응답 - forward
-	req.getRequestDispatcher("/main.jsp").forward(req, resp);
+//		storeService.delete(cart);
+		
+		//목록으로 리다이렉트
+		resp.sendRedirect("/board/list");	
+
 	}
 	
-}
+	
+
+    }

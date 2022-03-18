@@ -22,12 +22,14 @@ public class RecipeDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeDeleteController( /recipe/delete ) [GET] 호출");
 		
+		//전달파라미터 얻기 - boardno
 		Recipe board = boardService.getBoardno(req);
 		
+		//삭제된 결과를 목록에 반영
 		boardService.delete(board);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeDeleteController - list.jsp로 리다이렉트");
+		System.out.println("[TEST] RecipeDeleteController - /recipe/board로 리다이렉트");
 		System.out.println();
 		resp.sendRedirect("/recipe/board");
 	}

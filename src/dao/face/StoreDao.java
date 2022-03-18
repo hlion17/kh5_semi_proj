@@ -3,6 +3,7 @@ package dao.face;
 import java.sql.Connection;
 import java.util.List;
 
+import dto.Cart;
 import dto.Product;
 import dto.Recipe;
 
@@ -25,7 +26,9 @@ public interface StoreDao {
 	 * @return Product - 조회된 게시글의 상세정보 DTO객체
 	 */
 	Product selectProductByProductno(Connection conn, Product productNo);
-	
+
+
+//	public static int delete(Connection conn, Cart cart);
 	
 	
 

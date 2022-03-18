@@ -106,8 +106,6 @@ public class ReviewServiceImpl implements ReviewService {
 			return;
 		}
 
-
-
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
 		//메모리에서 처리 사이즈 설정
@@ -236,7 +234,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if(review.getTitle()==null || "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-		review.setMember_no( (int) req.getSession().getAttribute("memberno") );
+		review.setMember_no( (int) req.getSession().getAttribute("member_no") );
 
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -260,8 +258,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 	@Override
-	public Object getNick(Review updateReview) {
-		return reviewDao.selectNickByUserid(JDBCTemplate.getConnection(), updateReview);
+	public String getNick(Review viewReview) {
+		return reviewDao.selectNickByUserid(JDBCTemplate.getConnection(), viewReview);
+	}
+	
+	
+	@Override
+	public String getid(Review viewReview) {
+		return reviewDao.selectidByUserid(JDBCTemplate.getConnection(), viewReview);
 	}
 
 	@Override

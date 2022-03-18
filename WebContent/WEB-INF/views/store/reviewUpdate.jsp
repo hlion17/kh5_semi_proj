@@ -2,13 +2,8 @@
 <%@page import="dto.Review"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+    
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
 
 <%	Review updateReview = (Review) request.getAttribute("updateReview"); %>
@@ -141,5 +136,4 @@ nhn.husky.EZCreator.createInIFrame({
 </script>
 
 
-</body>
-</html>
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>

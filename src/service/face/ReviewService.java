@@ -68,13 +68,21 @@ public interface ReviewService {
 	 * @param viewBoard - 조회할 게시글 정보
 	 * @return String - 게시글 작성자의 닉네임
 	 */
-	public Object getNick(Review updateReview);
+	public String getNick(Review viewReview);
+	
+	/**
+	 * 전달된 Board 객체의 id 를 이용한 아이디 조회
+	 * 
+	 * @param viewBoard - 조회할 게시글 정보
+	 * @return String - 게시글 작성자의 아이디
+	 */
+	public String getid(Review viewReview);
 
 	/**
 	 * 첨부파일 정보 조회하기
 	 * 
-	 * @param viewBoard - 첨부파일과 연결된 게시글의 번호
-	 * @return BoardFile - 첨부파일 정보 DTO객체
+	 * @param updateReview - 첨부파일과 연결된 게시글의 번호
+	 * @return ReviewFile - 첨부파일 정보 DTO객체
 	 */
 	public ReviewFile viewFile(Review updateReview);
 

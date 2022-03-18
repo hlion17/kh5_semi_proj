@@ -1,15 +1,17 @@
+<%@page import="dto.RecipeFile"%>
+<%@page import="dto.Recipe"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>멤버 순위</title>
-</head>
-<body>
+    
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
-<h1>멤버순위</h1>
+<div id="section">
+
+<h1>레시피 자랑 게시판</h1>
 <hr>
 
-</body>
-</html>
+
+</div><!-- #section -->
+
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

@@ -53,6 +53,27 @@ public class RefServiceImpl implements RefService {
 		req.setAttribute("list", list);
 				
 	}
+	
+	// 특정 냉장고 품목 상세 내용 가져오기
+	@Override
+	public void getItemDetail(HttpServletRequest req) {
+		// 파라미터 분석
+		int refCode = Integer.parseInt(req.getParameter("refCode"));
+		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
+		logger.info("/ref/items/detail 파라미터 - 냉장고 코드:" + refCode);
+		logger.info("/ref/items/detail 파라미터 - 냉장고 품목 번호: " + itemNo);
+		
+		// DB접속 객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// 냉장고 품목 번호로 조회
+		RefItem refItem = refDao.findByItemNo(conn, itemNo);
+		logger.info("품목 상세조회 결과: " + refItem);
+		
+		// View로 전달할 정보 저장
+		req.setAttribute("refCode", refCode);
+		req.setAttribute("refItem", refItem);
+	}
 
 	// 전체 냉장고 품목 리스트(기본:유통기한 기준 오름차순)
 	@Override
@@ -76,6 +97,7 @@ public class RefServiceImpl implements RefService {
 	
 	// 필요없을 듯
 	// 전체 냉장고 품목 리스트(등록일 기준 내림차순)
+	/*
 	@Override
 	public void getAllItemsDesc(HttpServletRequest req) {
 		// 쿼리파라미터 분석
@@ -93,6 +115,7 @@ public class RefServiceImpl implements RefService {
 		req.setAttribute("itemList", list);
 		req.setAttribute("refCode", refCode);  // 페이지 간 전달 할 냉장고 코드
 	}
+	*/
 
 	// 보관상태로 필터링 된 냉장고 품목 리스트
 	@Override
@@ -245,7 +268,7 @@ public class RefServiceImpl implements RefService {
 	@Override
 	public void updateRefItem(HttpServletRequest req) {
 		// 쿼리 파라미터 분석
-		int ingrCtyCode = Integer.parseInt(req.getParameter("ingrCtyCode"));
+		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
 		String itemName = req.getParameter("itemName");
 		String itemQty = req.getParameter("itemQty");
 		int status = Integer.parseInt(req.getParameter("status"));
@@ -253,7 +276,7 @@ public class RefServiceImpl implements RefService {
 		String note = req.getParameter("note");
 		
 		// 유통기한 날짜 String -> Data 변환
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date parsedExDate = null;
 		try {
 			parsedExDate = sdf.parse(expireDate);
@@ -265,24 +288,29 @@ public class RefServiceImpl implements RefService {
 		RefItem refItem = new RefItem();
 		
 		// DTO에 정보 저장
-		refItem.setIngrCtyCode(ingrCtyCode);
+		refItem.setItemNo(itemNo);
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
 		refItem.setExpireDate(parsedExDate);
 		refItem.setNote(note);
+		logger.info("품목 수정 할 내용: " + refItem);
 		
 		// Connection 객체 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB에서 DTO 정보에 해당하는 냉장고 품목 수정
 		int result = refDao.update(conn, refItem);
+		logger.info("품목 수정 결과: " + result);
 		
 		// DB 결과에 따른 트랜잭션 처리
-		if (result > 0) {
+		if (result == 1) {  
+			// 하나의 항목만 수정하니깐 1이 맞음, where절 안넣고 > 0 으로 했다가 피봄
 			JDBCTemplate.commit(conn);
+			logger.info("품목 수정 커밋 됨");
 		} else {
 			JDBCTemplate.rollback(conn);
+			logger.warning("품목 수정 롤백 됨");
 		}
 		
 		// View에 전달할 결과 저장

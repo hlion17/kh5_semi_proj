@@ -28,6 +28,13 @@ public interface RecipeDao {
 	public List<Recipe> selectAll(Connection conn, Paging paging);
 	
 	/**
+	 * Recipe테이블 전체 조회 - 추천순
+	 * @param connection
+	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
+	 */
+	public List<Recipe> selectAllRank(Connection connection);
+	
+	/**
 	 * 총 게시글 수 조회
 	 * 
 	 * @param conn - DB연결 객체
@@ -117,6 +124,5 @@ public interface RecipeDao {
 	 * @param board - 삭제할 게시글번호를 담은 객체
 	 */
 	public int deleteFile(Connection conn, Recipe board);
-	
-	
+
 }
