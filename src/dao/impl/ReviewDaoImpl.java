@@ -166,10 +166,12 @@ public class ReviewDaoImpl implements ReviewDao {
 		sql += "	, regdate";
 		sql += "	, hit";
 		sql += " FROM Review";
-		sql += "WHERE review_no = ?";
+		sql += " WHERE review_no = ?";
 		
+		System.out.println("sql : " + sql);
 		//결과 저장할 DTO객체
 		Review review = new Review();
+		
 		
 		try {
 			ps = conn.prepareStatement(sql); //SQL수행 객체
@@ -195,6 +197,7 @@ public class ReviewDaoImpl implements ReviewDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
+		System.out.println("review: " + review);
 		
 		//최종 조회 결과 반환
 		return review;
@@ -262,8 +265,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public int insert(Connection conn, Review review) {
 		String sql = "";
-		sql += "INSERT INTO reivew(REVIEW_NO, PRO_NO, MEMBER_NO, TITLE, CONTENT, HIT)";
-		sql += " VALUES (?, ?, ?, ?, ?, 0)";
+		sql += "INSERT INTO review(REVIEW_NO, PRO_NO, MEMBER_NO, TITLE, CONTENT, HIT, regdate)";
+		sql += " VALUES (?, ?, ?, ?, ?, 0, ?)";
 		
 		int res = 0;
 		
@@ -276,6 +279,8 @@ public class ReviewDaoImpl implements ReviewDao {
 			ps.setInt(3, review.getMember_no());
 			ps.setString(4, review.getTitle());
 			ps.setString(5, review.getContent());
+			ps.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
+//			ps.setDate(6, (Date) review.getRegdate());
 			
 			res = ps.executeUpdate();
 			
