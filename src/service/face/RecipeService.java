@@ -47,6 +47,14 @@ public interface RecipeService {
 	 * @return Recipe - 전달파라미터 boardno값을 포함한 DTO객체
 	 */
 	public Recipe getBoardno(HttpServletRequest req);
+	
+//	/**
+//	 * 요청 파라미터 얻어오기
+//	 * 
+//	 * @param req - 요청 정보 객체
+//	 * @return Recipe - 전달파라미터 like값을 포함한 DTO객체
+//	 */
+//	public Recipe getLike(HttpServletRequest req);
 
 	/**
 	 * 전달된 boardno를 이용하여 게시글을 조회한다
@@ -96,11 +104,5 @@ public interface RecipeService {
 	 * @param board - 삭제할 게시글 번호를 가진 객체
 	 */
 	public void delete(Recipe board);
-
-	/**
-	 * 레시피 랭킹
-	 * 
-	 * @return List<Recipe> - 레시피 랭킹 조회 결과 목록
-	 */
 	
 }

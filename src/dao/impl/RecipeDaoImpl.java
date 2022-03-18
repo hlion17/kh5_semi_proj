@@ -299,6 +299,7 @@ public class RecipeDaoImpl implements RecipeDao {
 				board.setUserid( rs.getInt("member_no") );
 				board.setContent( rs.getString("content") );
 				board.setHit( rs.getInt("hit") );
+				board.setLike( rs.getInt("board_like") );
 				board.setWriteDate( rs.getDate("updated_date") );
 			}
 			
