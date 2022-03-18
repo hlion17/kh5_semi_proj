@@ -2,6 +2,7 @@ package controller.member;
 
 import java.io.IOException;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,12 +25,31 @@ public class UpdateInfoController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		//전달 파라미터 얻기
+		Member member = memberService.getUpdateInfoMember(req);
+		
+		System.out.println(member);
+		
+		//상세 결과 조회
+		Member updateMember = memberService.info(member);
+		
+		// 조회결과 MODEL값 전달
+		req.setAttribute("updateMember", updateMember);
+		
+		// VIEW 지정 및 응답 - forward
+		req.getRequestDispatcher("/WEB-INF/views/member/updateinfo.jsp").forward(req, resp);
+		
+//		Member member = memberService.getUpdateInfoMember(req);
+//		
+//		
+		memberService.updateMember(member); 
+		
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/member/updateinfo.jsp").forward(req, resp);
+		doGet(req, resp);
+		
 	}
 }

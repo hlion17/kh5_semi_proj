@@ -85,5 +85,14 @@ public interface MemberDao {
 	 */
 	public String pwFind(Connection conn, Member member);
 
+	/**
+	 * 회원정보 수정
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param member - 수정을 요청하는 회원 정보 객체
+	 * @return 수정가능 여부 1: 가능, 0: 불가능
+	 */
+	public int updateInfo(Connection conn, Member member);
+
 	
 }

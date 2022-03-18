@@ -6,9 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import common.JDBCTemplate;
 import dao.face.MemberDao;
 import dto.Member;
@@ -278,7 +275,43 @@ public class MemberDaoImpl implements MemberDao {
 			JDBCTemplate.close(ps);
 		}
 		return mid;
-	}	
+	}
 
+	@Override
+	public int updateInfo(Connection conn, Member member) {
+
+		String sql = "";
+		sql += "UPDATE member SET pw = ?, name = ?, nick = ?, phone = ?";
+		sql += "		, zipcode = ?, address = ?, intro = ?";
+		sql += " WHERE id = ?";
+
+		int res = 0;
+
+		try {
+
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getMemberpw());
+			ps.setString(2, member.getMembername());
+			ps.setString(3, member.getNick());
+//			ps.setString(4, member.getEmail());
+			ps.setString(4, member.getPhone());
+			ps.setString(5, member.getZipcode());
+			ps.setString(6, member.getAddress());
+			ps.setString(7, member.getIntro());
+			ps.setString(8, member.getMemberid());
+
+			res = ps.executeUpdate();
+			System.out.println("회원정보 수정 성공");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		return res;
+	}
 	
 }

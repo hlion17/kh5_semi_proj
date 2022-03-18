@@ -177,6 +177,41 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 
+	@Override
+	public Member updateMember(Member member) {
+		
+		
+		// 일치하는 정보가 있음(비밀번호 찾기 가능)
+		if (memberDao.updateInfo(JDBCTemplate.getConnection(), member) > 0) {
+
+		}
+		return member;
+	}
+	
+	@Override
+	public Member getUpdateInfoMember(HttpServletRequest req) {
+		
+		
+		Member member = new Member();
+
+		HttpSession session = req.getSession();
+		
+		
+		member.setMemberpw(req.getParameter("memberpw"));
+		member.setMembername(req.getParameter("membername"));
+		member.setNick(req.getParameter("nick"));
+		member.setEmail(req.getParameter("email"));
+		member.setPhone(req.getParameter("phone"));
+		member.setZipcode(req.getParameter("zipcode"));
+		member.setAddress(req.getParameter("address"));
+		member.setIntro(req.getParameter("intro"));
+		member.setMemberid((String)session.getAttribute("memberid"));
+		
+		
+		return member;
+	}
+
+
 	
 	
 	

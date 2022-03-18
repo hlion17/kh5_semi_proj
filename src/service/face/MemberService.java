@@ -96,5 +96,22 @@ public interface MemberService {
 	 */
 	public Member getPwFindMember(HttpServletRequest req);
 
+	/**
+	 * 회원정보 수정 처리
+	 * 
+	 * @param member - 회원정보 수정에 접속한 회원과 일치하는 정보
+	 * @return Member - 수정한 회원의 정보
+	 */
+	public Member updateMember(Member member);
+	
+	/**
+	 * 회원 정보 수정을 위한 회원 정보 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 회원정보 수정을 요청하는 회원의 정보
+	 */
+	public Member getUpdateInfoMember(HttpServletRequest req);
+
+
 	
 }
