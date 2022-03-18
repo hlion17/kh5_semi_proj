@@ -5,6 +5,7 @@
     
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
+
 <%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %>
 
 
@@ -42,5 +43,6 @@
 
 </div><!-- .container -->
 
+<%@ include file="../layout/paging.jsp" %>
 
 <%@include file = "/WEB-INF/views/layout/footer.jsp" %>

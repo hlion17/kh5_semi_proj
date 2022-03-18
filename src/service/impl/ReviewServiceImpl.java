@@ -429,11 +429,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public void delete(Review review) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		if( reviewDao.deleteFile(conn, review) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
 
 		if( reviewDao.delete(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
