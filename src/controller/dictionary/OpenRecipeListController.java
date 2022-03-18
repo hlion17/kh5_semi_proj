@@ -12,7 +12,7 @@ import service.face.OpenRecipeService;
 import service.impl.OpenRecipeServiceImpl;
 
 @WebServlet("/openrecipe/list")
-public class OpenRecipePageListController extends HttpServlet {
+public class OpenRecipeListController extends HttpServlet {
 
     private OpenRecipeService openRecipeService = new OpenRecipeServiceImpl();
 
@@ -22,7 +22,7 @@ public class OpenRecipePageListController extends HttpServlet {
         if ("y".equals(req.getParameter("post"))) {
             doPost(req, resp);
         } else {
-            req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipe/openRecipePageSearch.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipe/openRecipeSearch.jsp").forward(req, resp);
         }
     }
 
@@ -30,7 +30,7 @@ public class OpenRecipePageListController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	System.out.println("포스트 확인");
         // 파리미터 정보
-        String itemName = req.getParameter("item");
+        String itemName = req.getParameter("itemName");
         String paramCurPage = req.getParameter("curPage");
 
         // 공식레시피 조회 서비스 - 페이지에 표시될 레시피 목록

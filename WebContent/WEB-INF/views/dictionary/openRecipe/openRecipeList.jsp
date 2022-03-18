@@ -3,16 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<!-- header page -->
-<%@include file="/WEB-INF/views/layout/header.jsp" %>
 
-<main>
-<div id="main">
-
-	<!-- 사전 사이드바 -->
-    <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %>
-    
-    <div id="section">
 
 <h1>공식레시피 검색 결과</h1>
 <hr>
@@ -22,7 +13,7 @@
     총 페이지 개수: <%= pageCnt %>
 <ul>
     <% for (int i = 1; i <= pageCnt; i++) {%>
-    <a href="/openrecipe/pagelist?post=y&curPage=<%= i %>&item=<%= request.getAttribute("item") %>"><li style="display: inline-block"><%= i %></li></a>
+    <a href="/openrecipe/list?post=y&curPage=<%= i %>&itemName=<%= request.getAttribute("item") %>"><li style="display: inline-block"><%= i %></li></a>
     <% } %>
 </ul>
 
@@ -62,9 +53,3 @@
 </div>
 <% }%>
 
-    </div>
-</div>
-</main>
-
-<!-- footer page -->
-<%@include file="/WEB-INF/views/layout/footer.jsp" %>

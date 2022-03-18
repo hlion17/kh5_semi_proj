@@ -26,7 +26,7 @@ public class ExDateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String itemName = req.getParameter("item");
+        String itemName = req.getParameter("itemName");
 
         // 제품 유통기한 검색 서비스
         List<ExpireDate> result = expireDateService.getList(itemName);

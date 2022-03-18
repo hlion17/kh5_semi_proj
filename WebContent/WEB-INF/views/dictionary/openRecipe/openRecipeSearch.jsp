@@ -1,23 +1,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <style>
-        div {
-            border: 1px solid black;
-            margin: 10px 0;
-        }
-    </style>
-</head>
-<body>
 
+<script>
+
+$(document).ready(function() {
+	
+	// 검색 클릭시 결과 페이지 #ExDate-search-result 에 출력
+	$("#btn-openRecipe-search").click(function() {
+		$.ajax({
+			type: "POST"
+			, url: "/openrecipe/list"
+			, dataType: "html"
+			, data: {itemName: $("input[name=itemName]").val()}
+			, success: function(res) {
+				$("#ExDate-search-result").html(res)
+			}
+			, error: function() {
+				console.log("ajax 실패")
+			}
+		})	 
+	})
+	
+})
+
+</script>
+
+<div>
 <h1>공식 레시피 조회</h1>
-<hr>
-<form action="/openrecipe/list" method="post">
-    <input type="text" name="item">
-    <button>검색</button>
-</form>
-
-
-</body>
-</html>
+	<hr>
+	<input type="text" name="itemName">
+	<button id="btn-openRecipe-search">검색</button>
+</div>
+<div id="ExDate-search-result"></div>
