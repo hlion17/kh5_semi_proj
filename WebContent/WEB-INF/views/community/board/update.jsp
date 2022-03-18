@@ -60,6 +60,10 @@ $(document).ready(function() {
 	$("#delFile").click(function() {
 		$("#beforeFile").toggle();
 		$("#afterFile").toggle();
+		//이걸 눌렀을때 원본이나 추가파일 둘다 삭제되어야함 추후 구현
+		//제일 좋은건 기존 첨부파일과 새로 첨부파일을 동시에 보여주고
+		//그걸 여러파일로 할 수 있게 구현하고
+		//필요한것만 삭제를 바로바로 반영할수있게 하는것
 	})
 
 });
@@ -95,6 +99,8 @@ $(document).ready(function() {
 	<div id="beforeFile">
 <%	if( boardFile != null ) { %>
 		기존 첨부파일: 
+		<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+		alt="그림을 불러오지못함"><br>
 		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
 		 download="<%=boardFile.getOriginname() %>">
 			<%=boardFile.getOriginname() %>
@@ -105,7 +111,7 @@ $(document).ready(function() {
 
 	<div id="afterFile">
 		새 첨부파일:
-		<input type="file" name="file""/>
+		<input type="file" name="file" accept="image/*" />
 	</div>
 </div>
 

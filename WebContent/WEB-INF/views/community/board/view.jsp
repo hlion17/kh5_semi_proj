@@ -27,15 +27,6 @@ $(document).ready(function() {
 		}
 	})
 	
-// 	//팔로우버튼
-// 	$("#btnFollow").click(function() {
-<%-- 		$(location).attr("href", "<%= %>"); --%>
-// 	})
-	
-// 	//추천버튼
-// 	$("#btnLike").click(function() {
-		
-// 	})
 });
 </script>
 
@@ -71,10 +62,12 @@ $(document).ready(function() {
 <!-- 첨부파일 -->
 <div>
 <%	if( boardFile != null ) { %>
-<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
- download="<%=boardFile.getOriginname() %>">
-	<%=boardFile.getOriginname() %>
-</a>
+	<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+		alt="그림을 불러오지못함"><br>
+	<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+		download="<%=boardFile.getOriginname() %>">
+		<%=boardFile.getOriginname() %>
+	</a>
 <%	} %>
 </div>
 
