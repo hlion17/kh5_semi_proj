@@ -34,6 +34,14 @@ public class RecipeServiceImpl implements RecipeService {
 		//게시글 전체 조회 결과 반환
 		return boardDao.selectAll( JDBCTemplate.getConnection() );
 	}
+	
+	@Override
+	public List<Recipe> getListRank() {
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
+		
+		//게시글 전체 조회 결과 반환
+		return boardDao.selectAllRank( JDBCTemplate.getConnection() );
+	}
 
 	@Override
 	public List<Recipe> getList(Paging paging) {
@@ -463,12 +471,6 @@ public class RecipeServiceImpl implements RecipeService {
 			JDBCTemplate.rollback(conn);
 		}
 		
-	}
-
-	@Override
-	public List<Recipe> recipeRank() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

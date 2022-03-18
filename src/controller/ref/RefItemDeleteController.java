@@ -30,11 +30,5 @@ public class RefItemDeleteController extends HttpServlet {
 		// 냉장고 품목 삭제 후 냉장고 메인페이지로 리다이렉트
 		resp.sendRedirect("/ref/itemlist?refCode=" + refCode);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
 
 }

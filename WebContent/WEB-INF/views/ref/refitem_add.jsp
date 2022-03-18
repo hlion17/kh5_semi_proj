@@ -17,6 +17,11 @@
 	<option value="10">채소류</option>
 	<option value="20">과일류</option>
 	<option value="30">곡류</option>
+	<option value="40">해조류</option>
+	<option value="50">어패류</option>
+	<option value="60">견과류</option>
+	<option value="70">육류</option>
+	<option value="80">버섯류</option>
 	<option value="90">기타</option>
 </select>
 <br>

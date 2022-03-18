@@ -12,6 +12,7 @@ import common.JDBCTemplate;
 import dao.face.RefDao;
 import dto.Ref;
 import dto.RefItem;
+import sun.reflect.generics.visitor.Reifier;
 
 public class RefDaoImpl implements RefDao{
 
@@ -52,6 +53,49 @@ public class RefDaoImpl implements RefDao{
 		}
 
 		return list;
+	}
+	
+	// 특정 냉장고 품목의 상세 내용 조회
+	@Override
+	public RefItem findByItemNo(Connection conn, int itemNo) {
+		RefItem refItem = new RefItem();
+		
+		String sql = "";
+		sql = "SELECT "
+				+ "item_no, "
+				+ "ingr_cty_code, "
+				+ "item_name, "
+				+ "item_qty, "
+				+ "status, "
+				+ "regdate, "
+				+ "expire_date, "
+				+ "note "
+			+ "FROM item "
+			+ "WHERE item_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, itemNo);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				refItem.setItemNo(rs.getInt("item_no"));
+				refItem.setIngrCtyCode(rs.getInt("ingr_cty_code"));
+				refItem.setItemName(rs.getString("item_name"));
+				refItem.setItemQty(rs.getString("item_qty"));
+				refItem.setStatus(rs.getInt("status"));
+				refItem.setRegDate(rs.getDate("regdate"));
+				refItem.setExpireDate(rs.getDate("expire_date"));
+				refItem.setNote(rs.getString("note"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return refItem;
 	}
 
 	// 전체 아이템 조회(기본정렬: 유통기한 오름차순)
@@ -107,6 +151,7 @@ public class RefDaoImpl implements RefDao{
 	}
 	
 	// 전체 아이템 등록일 내림차순 조회
+	/*
 	@Override
 	public List<RefItem> findAllItemsDesc(Connection conn, int refCode) {
 		List<RefItem> list = new ArrayList<>();
@@ -155,6 +200,7 @@ public class RefDaoImpl implements RefDao{
 		
 		return list;
 	}
+	*/
 
 	// 삭제 예정
 	@Override
@@ -411,6 +457,7 @@ public class RefDaoImpl implements RefDao{
 		return result;
 	}
 	
+	// 냉장고_품목 매핑 테이블 품목 삭제
 	@Override
 	public int deleteRef_Item(Connection conn, int itemNo) {
 		int result = -1;
@@ -431,22 +478,28 @@ public class RefDaoImpl implements RefDao{
 		return result;
 	}
 
+	// 품목 내용 수정
 	@Override
 	public int update(Connection conn, RefItem refItem) {
 		int result = -1;
 		String sql = "";
 		sql = "UPDATE item "
 				+ "SET "
-				+ "ingr_cty_code = ?, "
 				+ "item_name = ?, "
 				+ "item_qty = ?, "
 				+ "status = ?, "
-				+ "regdate = ?, "
 				+ "expire_date = ?, "
-				+ "note = ? ";
+				+ "note = ? "
+				+ "WHERE item_no = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setString(1, refItem.getItemName());
+			ps.setString(2, refItem.getItemQty());
+			ps.setInt(3, refItem.getStatus());
+			ps.setDate(4, new Date(refItem.getExpireDate().getTime()));
+			ps.setString(5, refItem.getNote());
+			ps.setInt(6, refItem.getItemNo());
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -520,12 +573,5 @@ public class RefDaoImpl implements RefDao{
 		
 		return result;
 	}
-
-
-
-	
-	
-
-	
 
 }

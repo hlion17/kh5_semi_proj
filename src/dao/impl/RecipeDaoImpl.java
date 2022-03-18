@@ -143,6 +143,67 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 	
 	@Override
+	public List<Recipe> selectAllRank(Connection conn) {
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT";
+		sql += "	board_no";
+		sql += "	, member_no";
+		sql += "	, title";
+//		sql += "	, content";
+		sql += "	, updated_date";
+		sql += "	, hit";
+		sql += "	, board_like";
+		sql += "	, intro";
+		sql += " FROM recipe";
+		sql += " ORDER BY board_like DESC";
+		
+//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - sql : " + sql);
+		
+		//결과 저장할 List
+		List<Recipe> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+
+//			System.out.println( "[TEST] RecipeDaoImpl - selectAll(Connection conn) - rs.next() : " + rs.next() );
+			
+			while( rs.next() ) {
+				Recipe b = new Recipe(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setBoardno( rs.getInt("board_no") );			//게시글번호
+//				System.out.println( rs.getInt("board_no") );	
+				b.setTitle( rs.getString("title") );			//게시글 제목
+				b.setUserid( rs.getInt("member_no") );			//글쓴이
+//				b.setContent( rs.getString("content") );		//내용
+				b.setWriteDate( rs.getDate("updated_date") );	//등록일
+				b.setHit( rs.getInt("hit") );					//조회수
+				b.setLike( rs.getInt("board_like") );			//추천수
+				b.setIntro( rs.getString("intro") );			//소개글
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
+	
+	@Override
 	public int selectCntAll(Connection conn) {
 		System.out.println("[TEST] RecipeDaoImpl - selectCntAll(Connection conn) 호출");
 		
