@@ -20,7 +20,7 @@ public class ExDateController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/dictionary/expireDateSearch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/dictionary/ExDate/expireDateSearch.jsp").forward(req, resp);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ExDateController extends HttpServlet {
         // 요청 속성에 결과 저장
         req.setAttribute("list", result);
 
-        req.getRequestDispatcher("/WEB-INF/views/dictionary/expireDateList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/dictionary/ExDate/expireDateList.jsp").forward(req, resp);
     }
 
 }

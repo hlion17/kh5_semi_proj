@@ -11,22 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import service.face.OpenRecipeService;
 import service.impl.OpenRecipeServiceImpl;
 
-@WebServlet("/openrecipe/pagelist")
+@WebServlet("/openrecipe/list")
 public class OpenRecipePageListController extends HttpServlet {
 
     private OpenRecipeService openRecipeService = new OpenRecipeServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	System.out.println("확인");
         if ("y".equals(req.getParameter("post"))) {
             doPost(req, resp);
         } else {
-            req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipePageSearch.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipe/openRecipePageSearch.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	System.out.println("포스트 확인");
         // 파리미터 정보
         String itemName = req.getParameter("item");
         String paramCurPage = req.getParameter("curPage");
@@ -35,6 +37,6 @@ public class OpenRecipePageListController extends HttpServlet {
         openRecipeService.getPageList(req, itemName, paramCurPage);
 
         // View
-        req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipePageList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/dictionary/openRecipe/openRecipeList.jsp").forward(req, resp);
     }
 }

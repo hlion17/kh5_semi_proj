@@ -24,7 +24,7 @@ public class IngrDetailController extends HttpServlet {
 		ingrService.getIngrDetail(req);
 		
 		// View - 재료상세페이지
-		req.getRequestDispatcher("/WEB-INF/views/dictionary/ingrDetail.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/dictionary/ingr/ingr_detail.jsp").forward(req, resp);
 	}
 	
 	@Override

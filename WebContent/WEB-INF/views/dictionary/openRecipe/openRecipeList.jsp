@@ -8,13 +8,10 @@
 
 <main>
 <div id="main">
-    <div id="sidebar">
-        <ul>
-            <li onclick="location.href = '/ingr/search'">재료검색</li>
-            <li onclick="location.href = '/expireDate/list'">유통기한 검색</li>
-            <li onclick="location.href = '/openrecipe/pagelist'">오픈레시피 검색</li>
-        </ul>
-    </div>
+
+	<!-- 사전 사이드바 -->
+    <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %>
+    
     <div id="section">
 
 <h1>공식레시피 검색 결과</h1>

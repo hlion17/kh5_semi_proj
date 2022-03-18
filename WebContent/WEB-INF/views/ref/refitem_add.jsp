@@ -3,15 +3,36 @@
 
 <% String refCode = (String) request.getAttribute("refCode"); %>
 
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body> -->
+<script>
 
-<form action="/ref/item/add?refCode=<%= refCode %>" method="post">
+// 품목 추가 입력값 검증
+$(document).ready(function () {
+  
+  $("#btn-add-submit").click(function () {
+    const itemName = $("input[name='itemName']").val()
+    const itemCty = $("input[name='itemQty']").val()
+    const status = $("input[name='status']").val()
+    const expireDate = $("input[name='expireDate']").val()
+
+    if (!emptyChk(itemName, "품목이름")) return
+    if (!emptyChk(itemCty, "수량")) return
+    if (!emptyChk(status, "보관상태")) return
+    if (!emptyChk(expireDate, "유통기한")) return
+  })
+
+// 품목 추가 입력값 검증
+  function emptyChk(val, msg) {
+    if (val === "" || val === 0) {
+      alert(msg + "을(를) 입력해주세요.")
+      return false
+    }
+    return true
+  }
+})
+
+</script>
+
+<form action="/ref/item/add?refCode=<%= refCode %>" method="post" name="item-add-form">
 분류코드: 
 <select name="ingrCtyCode">
 	<option value="10">채소류</option>
@@ -37,6 +58,3 @@
 
 <button>제출</button>
 </form>
-
-<!-- </body>
-</html> -->

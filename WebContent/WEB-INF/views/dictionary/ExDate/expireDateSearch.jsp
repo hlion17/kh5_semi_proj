@@ -6,21 +6,22 @@
 
 <main>
 <div id="main">
-    <div id="sidebar">
-        <ul>
-            <li onclick="location.href = '/ingr/search'">재료검색</li>
-            <li onclick="location.href = '/expireDate/list'">유통기한 검색</li>
-            <li onclick="location.href = '/openrecipe/pagelist'">오픈레시피 검색</li>
-        </ul>
-    </div>
+
+	<!-- 사전 사이드바 -->
+    <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %>
+    
     <div id="section">
 
-<h1>공식 레시피 조회</h1>
+
+<h1>식품 유통기한 검색</h1>
 <hr>
-<form action="/openrecipe/pagelist" method="post">
+<form action="/expireDate/list" method="post">
     <input type="text" name="item">
     <button>검색</button>
 </form>
+
+
+
 
 
     </div>
@@ -29,3 +30,4 @@
 
 <!-- footer page -->
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+

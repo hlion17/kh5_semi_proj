@@ -48,6 +48,7 @@ public class IngrServiceImpl implements IngrService {
 	public void findByIngrName(HttpServletRequest req) {
 		// 요청파라미터 분석
 		String ingrName = req.getParameter("ingrName");
+    	logger.info("[POST]/ingr/list - 요청 파라미터 ingrName: " + ingrName);
 		
 		// DB Connection 생성
 		Connection conn = JDBCTemplate.getConnection();
