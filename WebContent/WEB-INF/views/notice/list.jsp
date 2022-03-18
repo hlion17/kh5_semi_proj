@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h1>게시글 목록</h1>
+<h1>공지사항</h1>
 <hr>
 
 <table class="table table-striped table-hover table-condensed">
@@ -36,7 +36,7 @@ $(document).ready(function() {
 <%	for(int i=0; i<boardList.size(); i++) { %>
 <tr>
 	<td><%=boardList.get(i).getBoardno() %></td>
-	<td><a href="./view?Noticeboardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+	<td><a href="./view?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
 	<td><%=boardList.get(i).getMemberid() %></td>
 	<td><%=boardList.get(i).getHit() %></td>
 	<td><%=boardList.get(i).getWriteDate() %></td>
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 </div><!-- .container -->
 
-<%@ include file="../layout/paging.jsp" %>
+<%@ include file="./layout/paging.jsp" %>
 
 <%@ include file="../layout/footer.jsp" %>
 

@@ -268,7 +268,7 @@ private NoticeDao boardDao = new NoticeDaoImpl();
 		if(board.getTitle()==null || "".equals(board.getTitle())) {
 			board.setTitle("(제목없음)");
 		}
-		board.setMemberid( (String) req.getSession().getAttribute("memberid") );
+		board.setMemberno( (Integer) req.getSession().getAttribute("memberno") );
 		
 		if( boardDao.insert(conn, board) > 0 ) {
 			JDBCTemplate.commit(conn);

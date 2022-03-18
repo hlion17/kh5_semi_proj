@@ -53,6 +53,7 @@ public class NoticeDaoImpl implements NoticeDao {
 
 				// 리스트객체에 조회한 행 객체 저장
 				NoticeList.add(n);
+				
 			}
 
 		} catch (SQLException e) {
@@ -63,6 +64,7 @@ public class NoticeDaoImpl implements NoticeDao {
 			JDBCTemplate.close(ps);
 		}
 
+		
 		// 최종 조회 결과 반환
 		return NoticeList;
 	}
@@ -82,6 +84,8 @@ public class NoticeDaoImpl implements NoticeDao {
 		sql += " 	) B";
 		sql += " ) BOARD";
 		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+//		System.out.println(sql);
 
 		// 결과 저장할 List
 		List<Notice> NoticeList = new ArrayList<>();
@@ -188,6 +192,8 @@ public class NoticeDaoImpl implements NoticeDao {
 		sql += " FROM notice, member";
 		sql += " WHERE notice.member_no = member.member_no";
 		sql += " AND board_no = ?";
+		
+//		System.out.println(sql);
 
 		// 결과 저장할 DTO객체
 		Notice notice = null;
@@ -209,6 +215,7 @@ public class NoticeDaoImpl implements NoticeDao {
 				notice.setContent(rs.getString("content"));
 				notice.setHit(rs.getInt("hit"));
 				notice.setWriteDate(rs.getDate("updated_date"));
+				
 			}
 
 		} catch (SQLException e) {
@@ -237,7 +244,7 @@ public class NoticeDaoImpl implements NoticeDao {
 
 			ps.setInt(1, notice.getBoardno());
 			ps.setString(2, notice.getTitle());
-			ps.setInt(3, notice.getMemberno()); // 멤버넘버를 넣고 셀렉트할때 조인해서 id 보여주기
+			ps.setInt(3, notice.getMemberno()); 
 			ps.setString(4, notice.getContent());
 
 			res = ps.executeUpdate();
@@ -251,12 +258,12 @@ public class NoticeDaoImpl implements NoticeDao {
 		return res;
 	}
 
-	public String selectNickByMemberid(Connection conn, Notice viewBoard) {
+	public String selectNickByMemberid(Connection conn, Notice viewBoard) { 
 
 		// SQL 작성
 		String sql = "";
 		sql += "SELECT nick FROM member";
-		sql += " WHERE id = ?";
+		sql += " WHERE member_no = ?";
 
 		// 결과 저장할 String 변수
 		String nick = null;
@@ -264,10 +271,11 @@ public class NoticeDaoImpl implements NoticeDao {
 		try {
 			ps = conn.prepareStatement(sql); // SQL수행 객체
 
-			ps.setString(1, viewBoard.getMemberid()); // 조회할 id 적용
+			ps.setInt(1, viewBoard.getMemberno()); // 조회할 id 적용
 
 			rs = ps.executeQuery(); // SQL 수행 및 결과집합 저장
 
+			
 			// 조회 결과 처리
 			while (rs.next()) {
 				nick = rs.getString("nick");
@@ -320,7 +328,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	public int insertFile(Connection conn, NoticeFile noticeFile) {
 
 		String sql = "";
-		sql += "INSERT INTO noticefile( FILENO, board_no, ORIGIN_NAME, STORED_NAME, FILESIZE )";
+		sql += "INSERT INTO noticefile( FILE_NO, board_no, ORIGIN_NAME, STORED_NAME, FILESIZE )";
 		sql += " VALUES (noticefile_seq.nextval, ?, ?, ?, ?)";
 
 		int res = 0;
@@ -349,16 +357,18 @@ public class NoticeDaoImpl implements NoticeDao {
 		// SQL 작성
 		String sql = "";
 		sql += "SELECT";
-		sql += "	fileno";
-		sql += "	, board_no";
+		sql += "	file_no";
+		sql += "	, noticefile.board_no";
 		sql += "	, origin_name";
 		sql += "	, stored_name";
 		sql += "	, filesize";
 		sql += "	, updated_date";
-		sql += " FROM noticefile";
+		sql += " FROM noticefile, notice";
+		sql += " WHERE notice.board_no = noticefile.board_no";
+		sql += " AND noticefile.board_no = ?";
 
-		sql += " WHERE board_no = ?";
-
+		
+		
 		// 결과 저장할 DTO객체
 		NoticeFile NoticeFile = null;
 
@@ -373,7 +383,7 @@ public class NoticeDaoImpl implements NoticeDao {
 				NoticeFile = new NoticeFile(); // 결과값 저장 객체
 
 				// 결과값 행 처리
-				NoticeFile.setFileno(rs.getInt("fileno"));
+				NoticeFile.setFileno(rs.getInt("file_no"));
 				NoticeFile.setBoardno(rs.getInt("board_no"));
 				NoticeFile.setOriginname(rs.getString("origin_name"));
 				NoticeFile.setStoredname(rs.getString("stored_name"));
