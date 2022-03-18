@@ -1,10 +1,18 @@
-@charset "UTF-8";\
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>shopping Cart</title>
+</head>
 
-* {
+<style type="text/css">
+
+*{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -15,6 +23,7 @@ header {
 	height: 150px;
 	position: relative;
 }
+
 
 .overlay {
 	position: absolute;
@@ -107,94 +116,68 @@ li a {
 	padding: 10px;
 	text-decoration: none;
 }
-
-/*--------------------CART PAGE -----------------*/
-
-.products-container {
-	max-width: 650px;
-	justify-content: space-around;
-	margin: 0 auto;
-	margin-top: 50px; 
-}
-
-.products-container ion-icon {
-	font-size: 25px;
-	color: blue;
-	margin-left: 10px;
-	margin-right: 10px;
-	cursor: pointer;
-}
-
-.product-header {
-	width: 100%;
-	max-width: 650px;
-	display: flex;
-	justify-content: flex-start;
-	border-bottom: 4px solid lightgrey;
-	margin: 0 auto;
-}
-
-.product-title{
-	width: 45%;
-}
-
-.price {
-	width: 15%;
-	border-bottom: 1px solid lightgray;
-	display: flex;
-	align-items: center;
-}
-
-.quantity {
-	width: 30%;
-	border-bottom: 1px solid lightgray;
-	display: flex;
-	align-items: center;
-}
-
-.total {
-	width: 10%;
-	border-bottom: 1px solid lightgray;
-	display: flex;
-	align-items: center;
-}
-
-.product {
-	width: 45%;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	padding: 10px 0;	
-	border-bottom: 1px solid lightgrey;
-}
-
-.product ion-icon {
-	cursor: pointer;
-}
-
-.products {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.products img {
-	width: 75px;
-}
-
-.basketTotalContainer {
-	display: flex;
-	justify-content: flex-end;
-	width: 100%;
-	padding: 10px 0;
-	
-}
+</style>
 
 
-.basketTotalTitle{
-	width: 30%;
-}
 
-.basketTotal {
-	width: 10%;
-}
+
+<meta charset="UTF-8">
+<title>store</title>
+</head>
+
+
+<body>
+	<header>
+		<div class="overlay"></div>
+		<nav>
+			<h2>냉스타그램</h2>
+			<ul>
+				<li><a href="index.html">HOME</a></li>
+				<li><a href="#">About</a></li>
+				<li class="cart"><a href="cart.html"> <ion-icon name="cart"></ion-icon>Cart<span>0</span>
+				</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="container">
+		<div class="image">
+			<img src="../resources/img/store/cherry.jpg" alt="cherry">
+			<h3>cherry</h3>
+			<h3>1000</h3>
+			<a class="add-cart cart1" href="#">Add Cart</a>
+		</div>
+
+		<div class="image">
+			<img src="../resources/img/store/fineapple.jpg" alt="fineapple">
+			<h3>fineapple</h3>
+			<h3>2000</h3>
+			<a class="add-cart cart2" href="#">Add Cart</a>
+		</div>
+
+
+		<div class="image">
+			<img src="../resources/img/store/banana.jpg" alt="banana">
+			<h3>banana</h3>
+			<h3>3000</h3>
+			<a class="add-cart cart3" href="#">Add Cart</a>
+		</div>
+
+		<div class="image">
+			<img src="../resources/img/store/onion.jpg" alt="onion">
+			<h3>onion</h3>
+			<h3>4000</h3>
+			<a class="add-cart cart4" href="#">Add Cart</a>
+		</div>
+	</div><!-- container end -->
+
+
+	<!-- ioicons사용 url -->
+	<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+	<script src="main.js"></script>
+
+</body>
+
+
+</html>

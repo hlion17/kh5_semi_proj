@@ -11,14 +11,12 @@ public class Review {
 	private String content;
 	private Date regdate;
 	private int hit;
-	
+	private int memberno;
 	@Override
 	public String toString() {
-		return "review [review_no=" + review_no + ", pro_no=" + pro_no + ", member_no=" + member_no + ", title=" + title
-				+ ", content=" + content + ", regdate=" + regdate + ", hit=" + hit + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Review [review_no=" + review_no + ", pro_no=" + pro_no + ", member_no=" + member_no + ", title=" + title
+				+ ", content=" + content + ", regdate=" + regdate + ", hit=" + hit + ", memberno=" + memberno + "]";
 	}
-	
 	public int getReview_no() {
 		return review_no;
 	}
@@ -61,8 +59,12 @@ public class Review {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
-	
-	
+	public int getMemberno() {
+		return memberno;
+	}
+	public void setMemberno(int memberno) {
+		this.memberno = memberno;
+	}
 
+	
 }

@@ -2,23 +2,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width" , initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+	rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
 	<title>shopping Cart</title>
-<!-- ionicons사용 -->
-<link
-	href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<!-- 폰트적용 -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Hubballi&family=Hurricane&family=Roboto:wght@300&display=swap"
-	rel="stylesheet">
-
-
 </head>
 <body>
 	<header>
@@ -28,48 +17,29 @@
 			<ul>
 				<li><a href="index.html">HOME</a></li>
 				<li><a href="#">About</a></li>
-				<li class="cart"><a href="cart.html"> <ion-icon name="cart"></ion-icon>Cart<span>0</span>
-				</a></li>
+				<li class="cart">
+					<a href="cart.html">
+						<ion-icon name="basket"></ion-icon>Cart<span>0</span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 	</header>
-
-	<div class="container">
-		<div class="image">
-			<img src="../resources/img/store/cherry.jpg" alt="onion">
-			<h3>cherry</h3>
-			<h3>1,000</h3>
-			<a class="add-cart cart1" href="#">Add Cart</a>
+	
+	<div class="products-container">
+		<div class="product-header">
+			<h5 class="product-title">PRODUCT</h5>
+			<h5 class="price">PRICE</h5>
+			<h5 class="quantity">QUANTITY</h5>
+			<h5 class="total">TOTAL</h5>
 		</div>
-
-		<div class="image">
-			<img src="../resources/img/store/fineapple.jpg" alt="onion">
-			<h3>fineapple</h3>
-			<h3>1,000</h3>
-			<a class="add-cart cart2" href="#">Add Cart</a>
+		<div class="products">
+		
 		</div>
-
-
-		<div class="image">
-			<img src="../resources/img/store/banana.jpg" alt="onion">
-			<h3>banana</h3>
-			<h3>1,000</h3>
-			<a class="add-cart cart3" href="#">Add Cart</a>
-		</div>
-
-		<div class="image">
-			<img src="../resources/img/store/onion.jpg" alt="onion">
-			<h3>onion</h3>
-			<h3>1,000</h3>
-			<a class="add-cart cart4" href="#">Add Cart</a>
-		</div>
-	</div><!-- container end -->
-
-
-	<!-- ioicons사용 url -->
-	<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-
+	</div>
+	
 	<script src="main.js"></script>
+	<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
 </body>
 </html>

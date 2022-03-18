@@ -63,7 +63,7 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 
 		//게시글 조회
-		Review review = reviewDao.selectReviewByReviewno(conn, review_no);
+		Review review = reviewDao.selectBoardByBoardno(conn, review_no);
 
 		return review;
 	}
@@ -99,40 +99,40 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void write(HttpServletRequest req) {
 		//--- 첨부파일 추가하여 게시글 처리하기 ---
-
+		
 		//파일업로드형식 인코딩이 맞는지 검사
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-
+		
 		//multipart/form-data 형식이 아닐 경우 파일업로드 처리 중단
 		if( !isMultipart ) {
 			System.out.println("[ERROR] 파일 업로드 형식 데이터가 아님");
 			return;
 		}
-
+		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
-
+		
 		//메모리에서 처리 사이즈 설정
 		int maxMem = 1 * 1024 * 1024; // 1MB == 1048576B
 		factory.setSizeThreshold(maxMem);
-
+		
 		//서블릿컨텍스트 객체
 		ServletContext context = req.getServletContext();
-
+		
 		//임시파일 폴더
 		String path = context.getRealPath("tmp");
 		File tmpRepository = new File(path);
 		tmpRepository.mkdir();
 		factory.setRepository(tmpRepository);
-
+		
 		//파일업로드 수행 객체
 		ServletFileUpload upload = new ServletFileUpload(factory);
-
+		
 		//파일 업로드 용량 제한 사이즈 설정
 		int maxFile = 10 * 1024 * 1024; //10MB
 		upload.setFileSizeMax(maxFile);
-
-
-
+		
+		
+		
 		//파일 업로드된 데이터 파싱
 		List<FileItem> items = null;
 		try {
@@ -142,60 +142,61 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 
 
-
 		//게시글 정보 DTO객체
 		Review review = new Review();
-
+		
 		//첨부파일 정보 DTO객체
 		ReviewFile reviewFile = new ReviewFile();
+	
 
+		
 		//파일아이템 반복자
 		Iterator<FileItem> iter = items.iterator();
-
+		
 		while( iter.hasNext() ) {
 			FileItem item = iter.next();
-
+			
 			//--- 1) 빈 파일에 대한 처리 ---
 			if( item.getSize() <= 0 ) {
-
+				
 				//빈 파일은 무시하고 다음 FileItem처리로 넘어간다
 				continue;
 			}
-
-
+			
+			
 			//--- 2) 폼 필드에 대한 처리 ---
 			if( item.isFormField() ) {
-
+				
 				//키 추출하기
 				String key = item.getFieldName();
-
+				
 				//값 추출하기
 				String value = null;
 				try {
-					value = item.getString("UTF-8");
+					 value = item.getString("UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-
+				
 				//key에 맞게 value를 DTO에 삽입
 				if( "title".equals(key) ) {
 					review.setTitle(value);
-
+					
 				} else if ( "content".equals(key) ) {
 					review.setContent(value);
-
+					
 				}
-
+				
 			} //if( item.isFormField() ) end
-
-
-
+			
+			
+			
 			//--- 3) 파일에 대한 처리 ---
 			if( !item.isFormField() ) {
-
+				
 				//UUID생성
 				String uid = UUID.randomUUID().toString().split("-")[0]; //8자리 UUID
-
+				
 				//파일 업로드 폴더
 				File uploadFolder = new File( context.getRealPath("upload") );
 				uploadFolder.mkdir();
@@ -203,72 +204,72 @@ public class ReviewServiceImpl implements ReviewService {
 				//파일명 처리
 				String origin = item.getName();
 				String stored = uid;
-
+				
 				//업로드할 파일 객체 생성하기
 				File up = new File(uploadFolder, stored);
-
+				
 				try {
 					item.write(up); // 임시파일 -> 실제 업로드 파일
 					item.delete(); // 임시파일 제거
-
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
+				
 				//업로드된 파일의 정보를 DTO객체에 저장하기
 				reviewFile.setOrigin_name(origin);
 				reviewFile.setStored_name(stored);
-
+				reviewFile.setFilesize( (int)item.getSize() );
+				
 			} //if( !item.isFormField() ) end
-
+			
 		} //while( iter.hasNext() ) end
-
-
-
+		
+		
 		//DB연결 객체
 		Connection conn = JDBCTemplate.getConnection();
-
+		
 		//게시글 번호 생성
-		int reviewno = reviewDao.selectReviewno(conn);
-
-
+		int review_no = reviewDao.selectBoardno(conn);
+		
+		
 		//게시글 정보 삽입
-		review.setReview_no(reviewno);
+		review.setReview_no(review_no);
 		if(review.getTitle()==null || "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-		review.setMember_no( (int) req.getSession().getAttribute("memberno") );
-
+		review.setMemberno((Integer) req.getSession().getAttribute("memberno"));
+		
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
-
-
+		
+		
 		//첨부파일 정보 삽입
 		if( reviewFile.getFilesize() != 0 ) {
-			reviewFile.setReview_no(reviewno);
-
+			reviewFile.setReview_no(review_no);
+			
 			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}
 		}
-
+		
 	}
 
 
 	@Override
 	public String getNick(Review viewReview) {
-		return reviewDao.selectNickByUserid(JDBCTemplate.getConnection(), viewReview);
+		return reviewDao.selectNickByMemberid(JDBCTemplate.getConnection(), viewReview);
 	}
 	
 	
 	@Override
 	public String getid(Review viewReview) {
-		return reviewDao.selectidByUserid(JDBCTemplate.getConnection(), viewReview);
+		return reviewDao.selectNickByMemberid(JDBCTemplate.getConnection(), viewReview);
 	}
 
 	@Override
@@ -404,7 +405,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Connection conn = JDBCTemplate.getConnection();
 
 		//게시글 번호 생성
-		int reviewno = reviewDao.selectReviewno(conn);
+		int reviewno = reviewDao.selectBoardno(conn);
 
 
 		//게시글 정보 삽입
