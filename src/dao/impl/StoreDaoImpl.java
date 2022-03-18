@@ -9,6 +9,7 @@ import java.util.List;
 
 import common.JDBCTemplate;
 import dao.face.StoreDao;
+import dto.Cart;
 import dto.Product;
 import dto.Recipe;
 
@@ -117,7 +118,29 @@ public class StoreDaoImpl implements StoreDao {
 	}
 	
 	
-	
+//	@Override
+//	public int delete(Connection conn, Cart cart) {
+//		String sql = "";
+//		sql += "DELETE cart";
+//		sql += " WHERE cart_no = ?";
+//		
+//		int res = -1;
+//		
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			ps.setInt(1, cart.getCart_no());
+//
+//			res = ps.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			
+//		} finally {
+//			JDBCTemplate.close(ps);
+//		}
+//		
+//		return res;
+//	}
 	
 
 
