@@ -18,9 +18,7 @@ import util.Paging;
 @WebServlet("/recipe/board")
 public class RecipeBoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	//=BoardListController
-	
+
 	private RecipeService boardService = new RecipeServiceImpl();
 	
 	@Override

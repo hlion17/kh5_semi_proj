@@ -7,7 +7,7 @@
 
 <%	Recipe viewBoard = (Recipe) request.getAttribute("viewBoard"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
-<%	int board_no = (int) request.getAttribute("board_no"); %>
+<%-- <%	int board_no = (int) request.getAttribute("board_no"); %> --%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -31,38 +31,42 @@ $(document).ready(function() {
 	//팔로우버튼
 	$("#btnFollow").click(function() {
 		console.log("#btnFollow clicked")
-<%-- 		$(location).attr("href", "<%= %>"); --%>
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//추천버튼
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+		
 <%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/content?boardno=<%=viewBoard.getBoardno() %>&like=<%=viewBoard.getLike()+1 %>"); --%>
 <%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/content?boardno=<%=viewBoard.getBoardno() %>"); --%>
 <%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>"); --%>
 		
-		//AJAX 처리
-		$.ajax({
-			type: "post" //요청메소드
-			, url: "/recipe/content" //요청 URL
-			, data: { //요청 파라미터
-				board_no : <%= board_no %>
-// 				, like : $("#like").val()+1
-<%-- 				, like : <%=viewBoard.getLike()+1 %> --%>
-			}
-			, dataType: "text" //응답 데이터의 형식
-			, success: function( res ) {
-				console.log("AJAX 성공")
+// 		//AJAX 처리
+// 		$.ajax({
+// 			type: "post" //요청메소드
+// 			, url: "/recipe/content" //요청 URL
+// 			, data: { //요청 파라미터
+<%-- 				boardno : <%=viewBoard.getBoardno() %> --%>
+<%-- <%-- 				boardno : <%= board_no %> --%> 
+// 				, like : 1
+// // 				, like : $("#like").val()+1
+<%-- <%-- 				, like : <%=viewBoard.getLike() %> --%>
+// 			}
+// 			, dataType: "html" //응답 데이터의 형식
+// 			, success: function( res ) {
+// 				console.log("AJAX 성공")
 				
-				//응답 데이터 반영하기
-				$("#like").text( res )
+// 				//응답 데이터 반영하기
+// 				$("#like").html( res )
 				
-			}
-			, error: function() {
-				console.log("AJAX 실패")
+// 			}
+// 			, error: function() {
+// 				console.log("AJAX 실패")
 		
-			}
-		})
+// 			}
+// 		})
 
 	})
 	

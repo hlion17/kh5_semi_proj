@@ -89,6 +89,22 @@ public class RecipeServiceImpl implements RecipeService {
 		return boardno;
 	}
 
+//	@Override
+//	public Recipe getLike(HttpServletRequest req) {
+//		
+//		//전달파라미터 boardno를 저장할 DTO객체 생성
+//		Recipe boardno = new Recipe();
+//		
+//		String param = req.getParameter("like");
+//		if( param != null && !"".equals( param ) ) {
+//			boardno.setLike( Integer.parseInt(param) );
+//		} else {
+//			System.out.println("[WARN] RecipeService getBoardno() - like값이 null이거나 비어있음");
+//		}
+//		
+//		return boardno;
+//	}
+	
 	@Override
 	public Recipe view(Recipe boardno) {
 		
