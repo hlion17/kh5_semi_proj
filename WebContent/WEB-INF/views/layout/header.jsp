@@ -24,12 +24,23 @@
     <ul>
         <li><a href="/main.jsp" >Home</a></li>
     </ul>
+<%	if( session.getAttribute("login") == null ) { %>
     <ul>
-        <li>로그인</li>
-        <li>회원가입</li>
+        <li><a href="<%=request.getContextPath() %>/member/login">로그인</a></li>
+        <li><a href="<%=request.getContextPath() %>/member/join">회원가입</a></li>
         <li>고객센터</li>
     </ul>
 </div>
+<% 	} %>
+
+<%	if( session.getAttribute("login") != null && (boolean) session.getAttribute("login") ) { %>
+    <ul>
+        <li><a href="<%=request.getContextPath() %>/member/login">로그아웃</a></li>
+        <li><a href="<%=request.getContextPath() %>/member/info">회원정보</a></li>
+        <li>고객센터</li>
+    </ul>
+</div>
+<% 	} %>
 </header>
 
 <nav>

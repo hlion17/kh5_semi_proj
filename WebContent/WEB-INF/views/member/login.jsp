@@ -59,6 +59,11 @@ form {
 
 <div class="container">
 
+<%-- 비로그인 상태 --%>
+<%	if( session.getAttribute("login") == null ) { %>
+<%	} %>
+
+
 <form action="./login" method="post" class="form-horizontal">
 
 	<div class="form-group">
@@ -84,6 +89,8 @@ form {
 		<button type="button" id="btnPwFind" class="btn btn-info">비밀번호찾기</button>
 	</div>
 	
+
+
 
 </form>
 

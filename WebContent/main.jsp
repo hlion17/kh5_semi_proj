@@ -28,13 +28,14 @@
 <strong><%=session.getAttribute("nick") %>님, 환영합니다</strong><br><br>
 
 <button onclick="location.href='<%=request.getContextPath() %>/member/info'">회원정보</button>
-<button onclick="location.href='<%=request.getContextPath() %>/notice/list'">공지사항 가기</button>
-<button onclick="location.href='<%=request.getContextPath() %>/recipe/board'">레시피 자랑 게시판</button>
-<button onclick="location.href='<%=request.getContextPath() %>/review/list'">리뷰게시판</button>
-<button onclick="location.href='<%=request.getContextPath() %>/store'">상점</button>
-<button onclick="location.href='/ref/choose?memberId=test1'">냉장고, 요리사전</button>
 <button onclick="location.href='<%=request.getContextPath() %>/member/logout'">로그아웃</button>
 <%	} %>
+<button onclick="location.href='<%=request.getContextPath() %>/notice/list'">공지사항 가기</button>
+<button onclick="location.href='<%=request.getContextPath() %>/qa/list'">Q&A</button>
+<button onclick="location.href='<%=request.getContextPath() %>/recipe/board'">레시피 자랑 게시판</button>
+<button onclick="location.href='<%=request.getContextPath() %>/store'">상점</button>
+<button onclick="location.href='<%=request.getContextPath() %>/review/list'">리뷰게시판</button>
+<button onclick="location.href='/ref/choose?memberId=test1'">냉장고, 요리사전</button>
 
 
 </div>
