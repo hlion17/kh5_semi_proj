@@ -23,6 +23,8 @@ public class NoticeUpdateController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		System.out.println(req.getParameter("boardno"));
+		
 		//전달파라미터 얻기 - boardno
 		Notice boardno = boardService.getBoardno(req);
 
@@ -46,7 +48,7 @@ public class NoticeUpdateController extends HttpServlet {
 		
 		
 		//VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/board/update.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/notice/update.jsp").forward(req, resp);
 
 	}
 	

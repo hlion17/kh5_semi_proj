@@ -17,13 +17,13 @@ $(document).ready(function() {
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/notice/update?Noticeboardno=<%=viewBoard.getBoardno() %>");
+		$(location).attr("href", "<%=request.getContextPath() %>/notice/update?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
-			$(location).attr("href", "<%=request.getContextPath() %>/notice/delete?Noticeboardno=<%=viewBoard.getBoardno() %>");
+			$(location).attr("href", "<%=request.getContextPath() %>/notice/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
 	})
 	
@@ -68,7 +68,6 @@ $(document).ready(function() {
 </a>
 <%	} %>
 </div>
-<img alt="첨부파일" src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>">
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>

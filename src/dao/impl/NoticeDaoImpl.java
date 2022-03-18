@@ -263,7 +263,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		// SQL 작성
 		String sql = "";
 		sql += "SELECT nick FROM member";
-		sql += " WHERE member_no = ?";
+		sql += " WHERE id = ?";
 
 		// 결과 저장할 String 변수
 		String nick = null;
@@ -271,7 +271,8 @@ public class NoticeDaoImpl implements NoticeDao {
 		try {
 			ps = conn.prepareStatement(sql); // SQL수행 객체
 
-			ps.setInt(1, viewBoard.getMemberno()); // 조회할 id 적용
+			ps.setString(1, viewBoard.getMemberid()); // 조회할 id 적용
+			
 
 			rs = ps.executeQuery(); // SQL 수행 및 결과집합 저장
 

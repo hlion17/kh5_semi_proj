@@ -26,13 +26,14 @@ public class NoticeViewController extends HttpServlet {
 		
 		//전달파라미터 얻기 - boardno
 		Notice boardno = boardService.getBoardno(req);
-
 		
+		System.out.println(boardno);
+	
 		
 		//상세보기 결과 조회
 		Notice viewBoard = boardService.view(boardno); 
 		
-		
+		System.out.println("상세보기 결과 조회" + viewBoard);
 		
 		//조회결과 MODEL값 전달
 		req.setAttribute("viewBoard", viewBoard);

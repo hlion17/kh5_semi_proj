@@ -70,7 +70,9 @@ private NoticeDao boardDao = new NoticeDaoImpl();
 		//전달파라미터 boardno를 저장할 DTO객체 생성
 		Notice boardno = new Notice();
 		
+		
 		String param = req.getParameter("boardno");
+//		System.out.println(param);
 		if( param != null && !"".equals( param ) ) {
 			boardno.setBoardno( Integer.parseInt(param) );
 		} else {
