@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+#ingr-short-container {
+	display: flex;
+	flex-flow: row wrap;
+	
+}
+.ingr-short {
+	display: flex;
+	flex-flow: column wrap;
+	
+	width: 40%;
+	height: 100px;
+}
+.ingr-short :nth-child(2) {
+	width: 30%;
+	height: 100%;
+	
+	text-align: center;
+}
+.ingr-short :nth-child(3) {
+	width: 70%;
+	height: 100%;
+}

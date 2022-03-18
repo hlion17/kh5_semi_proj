@@ -130,11 +130,11 @@ public class IngrDaoImpl implements IngrDao {
 				+ "DETAIL9, "
 				+ "DETAIL10 "
 			+ "FROM INGR "
-			+ "WHERE INGR_NAME = ?";
+			+ "WHERE INGR_NAME LIKE ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, ingrName);
+			ps.setString(1, "%" + ingrName + "%");
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
