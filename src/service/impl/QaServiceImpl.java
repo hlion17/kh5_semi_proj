@@ -16,19 +16,19 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import common.JDBCTemplate;
-import dao.face.NoticeDao;
-import dao.impl.NoticeDaoImpl;
-import dto.Notice;
-import dto.NoticeFile;
-import service.face.NoticeService;
+import dao.face.QaDao;
+import dao.impl.QaDaoImpl;
+import dto.Qa;
+import dto.QaFile;
+import service.face.QaService;
 import util.Paging;
 
-public class NoticeServiceImpl implements NoticeService {
-	
-	private NoticeDao boardDao = new NoticeDaoImpl();
+public class QaServiceImpl implements QaService {
+
+	private QaDao boardDao = new QaDaoImpl();
 
 	@Override
-	public List<Notice> getList() {
+	public List<Qa> getList() {
 
 		// 게시글 전체 조회 결과 반환
 		return boardDao.selectAll(JDBCTemplate.getConnection());
@@ -36,7 +36,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> getList(Paging paging) {
+	public List<Qa> getList(Paging paging) {
 
 		// 페이징 적용해서 조회 결과 반환
 		return boardDao.selectAll(JDBCTemplate.getConnection(), paging);
@@ -65,10 +65,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Notice getBoardno(HttpServletRequest req) {
+	public Qa getBoardno(HttpServletRequest req) {
 
 		// 전달파라미터 boardno를 저장할 DTO객체 생성
-		Notice boardno = new Notice();
+		Qa boardno = new Qa();
 
 		String param = req.getParameter("boardno");
 //		System.out.println(param);
@@ -82,7 +82,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public Notice view(Notice boardno) {
+	public Qa view(Qa boardno) {
 
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -94,7 +94,7 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 
 		// 게시글 조회
-		Notice board = boardDao.selectBoardByBoardno(conn, boardno);
+		Qa board = boardDao.selectBoardByBoardno(conn, boardno);
 
 		return board;
 	}
@@ -165,10 +165,10 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 
 		// 게시글 정보 DTO객체
-		Notice board = new Notice();
+		Qa board = new Qa();
 
 		// 첨부파일 정보 DTO객체
-		NoticeFile boardFile = new NoticeFile();
+		QaFile boardFile = new QaFile();
 
 		// 파일아이템 반복자
 		Iterator<FileItem> iter = items.iterator();
@@ -275,12 +275,12 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public String getNick(Notice viewBoard) {
+	public String getNick(Qa viewBoard) {
 		return boardDao.selectNickByMemberid(JDBCTemplate.getConnection(), viewBoard);
 	}
 
 	@Override
-	public NoticeFile viewFile(Notice viewBoard) {
+	public QaFile viewFile(Qa viewBoard) {
 		return boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard);
 	}
 
@@ -327,10 +327,10 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 
 		// 게시글 정보 DTO객체
-		Notice board = new Notice();
+		Qa board = new Qa();
 
 		// 첨부파일 정보 DTO객체
-		NoticeFile boardFile = new NoticeFile();
+		QaFile boardFile = new QaFile();
 
 		// 파일아이템 반복자
 		Iterator<FileItem> iter = items.iterator();
@@ -434,7 +434,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void delete(Notice board) {
+	public void delete(Qa board) {
 		Connection conn = JDBCTemplate.getConnection();
 
 		if (boardDao.deleteFile(conn, board) > 0) { // boardFile이 board를 참조하고 있기 때문에 boardFile 먼저 지워줘야함
@@ -450,5 +450,4 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 
 	}
-
 }

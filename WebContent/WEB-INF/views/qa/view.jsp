@@ -1,29 +1,29 @@
-<%@page import="dto.NoticeFile"%>
-<%@page import="dto.Notice"%>
+<%@page import="dto.QaFile"%>
+<%@page import="dto.Qa"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp" %>
 
-<%	Notice viewBoard = (Notice) request.getAttribute("viewBoard"); %>
-<%	NoticeFile boardFile = (NoticeFile) request.getAttribute("boardFile"); %>
+<%	Qa viewBoard = (Qa) request.getAttribute("viewBoard"); %>
+<%	QaFile boardFile = (QaFile) request.getAttribute("boardFile"); %>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	//목록버튼
 	$("#btnList").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/notice/list");
+		$(location).attr("href", "<%=request.getContextPath() %>/qa/list");
 	})
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "<%=request.getContextPath() %>/notice/update?boardno=<%=viewBoard.getBoardno() %>");
+		$(location).attr("href", "<%=request.getContextPath() %>/qa/update?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
-			$(location).attr("href", "<%=request.getContextPath() %>/notice/delete?boardno=<%=viewBoard.getBoardno() %>");
+			$(location).attr("href", "<%=request.getContextPath() %>/qa/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
 	})
 	
