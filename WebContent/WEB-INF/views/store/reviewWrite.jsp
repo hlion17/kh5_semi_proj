@@ -52,7 +52,10 @@ function submitContents( elClickedObj ) {
 <div>
 <form action="./write" method="post" enctype="multipart/form-data">
 
+
 <table class="table table-bordered">
+
+
 <tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
 <tr><td class="info">상품번호</td><td>20</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>

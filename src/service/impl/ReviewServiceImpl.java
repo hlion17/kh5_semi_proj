@@ -413,7 +413,8 @@ public class ReviewServiceImpl implements ReviewService {
 			review.setTitle("(제목없음)");
 		}
 		review.setMember_no( (int) req.getSession().getAttribute("memberno") );
-
+		review.setPro_no(20);
+		
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
 		} else {
