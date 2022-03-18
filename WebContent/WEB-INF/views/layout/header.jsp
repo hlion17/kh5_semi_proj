@@ -38,8 +38,7 @@
             <li><a href="/ref/choose?memberId=test1">냉장고</a></li>
             <li><a href="/dictionary/main">요리사전</a></li>
             <li><a href="<%=request.getContextPath() %>/recipe/board">커뮤니티</a></li>
-            <li>상점</li>
-<!--             <li><a href="/store">상점</li> -->
+            <li><a href="/store">상점</a></li>
         </ul>
     </div>
 </nav>

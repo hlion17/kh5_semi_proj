@@ -4,7 +4,7 @@ let products = [
 	{
 		name: 'Onion',
 		tag: 'onion',
-		price: 1000,
+		price: 2000,
 		inCart : 0		
 	},
 	{
@@ -16,13 +16,13 @@ let products = [
 	{
 		name: 'banana',
 		tag: 'banana',
-		price: 1000,
+		price: 31000,
 		inCart : 0		
 	},
 		{
 		name: 'Orange',
 		tag: 'orange',
-		price: 1000,
+		price: 2200,
 		inCart : 0		
 	}
 	
@@ -31,6 +31,7 @@ let products = [
 for(let i=0; i<carts.length; i++) {
 	carts[i].addEventListener('click', () => {
 		cartNumbers(products[i]);
+		totalCost(products[i])
 	}) 
 	
 }
@@ -72,7 +73,7 @@ function setItems(product){
 	
 	if(cartItems != null) {
 //		cartItems['banana']
-		if(cartItems[Product.tag] == undefined){
+		if(cartItems[product.tag] == undefined){
 			cartItems = {
 				cartItems,
 				[product.tag]: product
@@ -83,13 +84,20 @@ function setItems(product){
 		product.inCart = 1;
 		cartItems ={
 			[product.tag]: product
-		}
+		} 
 	}
-	
-	
 	localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 
 }
+
+	function totalCost(product){
+//		console.log("The product price is", product.price);
+		let cartCost = localStorage.getItem('totalCost');
+		console.log("My cartCost is ", cartCost);
+	
+		localStorage.setItem("totlaCost", product.price);
+	}
+
 
 onLoadCartNumbers();
 

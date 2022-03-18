@@ -38,20 +38,23 @@ public class ReviewServiceImpl implements ReviewService {
 		//전달파라미터 review_no를 저장할 DTO객체 생성
 		Review review_no = new Review();
 
-		String param = req.getParameter("reviewno");
+		String param = req.getParameter("reviewno");	
+		System.out.println("param : " + param);
+		
 		if( param != null && !"".equals( param ) ) {
 			review_no.setReview_no( Integer.parseInt(param) );
 		} else {
 			System.out.println("[WARN] ReviewService getreview_no() - review_no값이 null이거나 비어있음");
 		}
 
+		System.out.println("review_no: " + review_no);
 		return review_no;
 	}
 
 	@Override
 	public Review view(Review review_no) {
 		Connection conn = JDBCTemplate.getConnection();
-
+		
 		//조회수 증가
 		if( reviewDao.updateHit(conn, review_no) > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -234,7 +237,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if(review.getTitle()==null || "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-		review.setMember_no( (int) req.getSession().getAttribute("member_no") );
+		review.setMember_no( (int) req.getSession().getAttribute("memberno") );
 
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -429,11 +432,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public void delete(Review review) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		if( reviewDao.deleteFile(conn, review) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
 
 		if( reviewDao.delete(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);

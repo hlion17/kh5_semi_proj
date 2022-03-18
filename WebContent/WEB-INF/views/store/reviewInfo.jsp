@@ -49,13 +49,15 @@ $(document).ready(function() {
 
 <tr>
 <td class="info">회원번호</td><td><%=viewReview.getMember_no() %></td>
+</tr>
+
+<tr>
 <td class="info">닉네임</td><td>[로그인과 연동]</td>
 <%-- <td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td> --%>
 </tr>
 
 <tr>
 <td class="info">조회수</td><td><%=viewReview.getHit() %></td>
-<td class="info">추천수</td><td>[ 추후 추가 ]</td>
 </tr>
 
 <tr><td class="info" colspan="4">본문</td></tr>

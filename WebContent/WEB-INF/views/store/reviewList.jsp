@@ -5,6 +5,7 @@
     
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
+
 <%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %>
 
 
@@ -28,6 +29,7 @@
 	<td><%=ReviewList.get(i).getReview_no() %></td>
 	<td><%=ReviewList.get(i).getPro_no() %></td>
 	<td><%=ReviewList.get(i).getMember_no() %></td>
+	<!-- doGet방식 -->
 	<td><a href="./Info?reviewno=<%=ReviewList.get(i).getReview_no()%>"><%=ReviewList.get(i).getTitle() %></td>
 	<td><%=ReviewList.get(i).getRegdate() %></td>
 	<td><%=ReviewList.get(i).getHit() %></td>
@@ -42,5 +44,6 @@
 
 </div><!-- .container -->
 
+<%@ include file="./layout/reviewPaging.jsp" %>
 
 <%@include file = "/WEB-INF/views/layout/footer.jsp" %>
