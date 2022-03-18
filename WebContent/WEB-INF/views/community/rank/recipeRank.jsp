@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
 <%-- <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %> --%>
@@ -33,7 +33,7 @@
 <%-- 			<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"	 --%>
 <%-- 			download="<%=boardFile.getOriginname() %>">	<%=boardFile.getOriginname() %></a> --%>
 <%-- 		<%	} %></td> --%>
-	<td><a href="./recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+	<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
 	<td><%=boardList.get(i).getHit() %></td>
 	<td><%=boardList.get(i).getLike() %></td>
 	<td><%=boardList.get(i).getWriteDate() %></td>
@@ -44,6 +44,6 @@
 
 </table>
 
-</div><!-- .container -->
+</div><!-- #section -->
 
-<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

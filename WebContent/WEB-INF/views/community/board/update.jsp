@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	Recipe updateBoard = (Recipe) request.getAttribute("updateBoard"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
@@ -76,56 +76,53 @@ $(document).ready(function() {
 }
 </style>
 
-<div class="container">
+<div id="section">
 
-<h3>게시글 쓰기</h3>
-<hr>
+	<h3>게시글 쓰기</h3>
+	<hr>
 
-<div>
-<form action="/recipe/update" method="post" enctype="multipart/form-data">
-<input type="hidden" name="boardno" value="<%=updateBoard.getBoardno() %>" />
-
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td><%=updateBoard.getUserid() %></td></tr>
-<tr><td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td></tr>
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateBoard.getTitle() %>"/></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
-<tr><td colspan="2"><textarea id="content" name="content"><%=updateBoard.getContent() %></textarea></td></tr>
-</table>
-
-<!-- 첨부파일 -->
-<div>
-
-	<div id="beforeFile">
-<%	if( boardFile != null ) { %>
-		기존 첨부파일: 
-		<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
-		alt="그림을 불러오지못함"><br>
-		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-		 download="<%=boardFile.getOriginname() %>">
-			<%=boardFile.getOriginname() %>
-		</a>
-		<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-<%	} %>
+	<div>
+		<form action="/recipe/update" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="boardno" value="<%=updateBoard.getBoardno() %>" />
+			
+			<table class="table table-bordered">
+				<tr><td class="info">아이디</td><td><%=updateBoard.getUserid() %></td></tr>
+				<tr><td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td></tr>
+				<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateBoard.getTitle() %>"/></td></tr>
+				<tr><td class="info" colspan="2">본문</td></tr>
+				<tr><td colspan="2"><textarea id="content" name="content"><%=updateBoard.getContent() %></textarea></td></tr>
+			</table>
+			
+			<!-- 첨부파일 -->
+			<div>
+				<div id="beforeFile">
+					<%	if( boardFile != null ) { %>
+							기존 첨부파일: 
+							<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+							alt="그림을 불러오지못함"><br>
+							<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+							 download="<%=boardFile.getOriginname() %>">
+								<%=boardFile.getOriginname() %>
+							</a>
+							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
+					<%	} %>
+				</div>
+			
+				<div id="afterFile">
+					새 첨부파일:
+					<input type="file" name="file" accept="image/*" />
+				</div>
+			</div>
+			<br>
+		</form>
 	</div>
 
-	<div id="afterFile">
-		새 첨부파일:
-		<input type="file" name="file" accept="image/*" />
+	<div class="text-center">	
+		<button type="button" id="btnUpdate" class="btn btn-info">수정</button>
+		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
-</div>
 
-<br>
-</form>
-</div>
-
-<div class="text-center">	
-	<button type="button" id="btnUpdate" class="btn btn-info">수정</button>
-	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
-</div>
-
-<!-- .container -->
-</div>
+</div><!-- #section -->
 
 
 <script type="text/javascript">
@@ -138,4 +135,4 @@ nhn.husky.EZCreator.createInIFrame({
 })
 </script>
 
-<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

@@ -1,9 +1,10 @@
-<%@page import="dto.Recipe"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@page import="dto.Recipe"%>
+<%@page import="java.util.List"%>
 
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
 
@@ -18,41 +19,44 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="container">
 
-<h1>레시피 자랑 게시판</h1>
-<hr>
+<div id="section">
 
-<table class="table table-striped table-hover table-condensed">
-<tr class="success">
-	<th>게시글 번호</th>
-	<th>게시글 제목</th>
-	<th>글쓴이</th>
-	<th>등록일</th>
-	<th>추천수</th>
-	<th>조회수</th>
-</tr>
+	<h1>레시피 자랑 게시판</h1>
+	<hr>
 
-<%	for(int i=0; i<boardList.size(); i++) { %>
-<tr>
-	<td><%=boardList.get(i).getBoardno() %></td>
-	<td><a href="./content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
-	<td><%=boardList.get(i).getUserid() %></td>
-	<td><%=boardList.get(i).getWriteDate() %></td>
-	<td><%=boardList.get(i).getLike() %></td>
-	<td><%=boardList.get(i).getHit() %></td>
-</tr>
-<%	} %>
-
-</table>
-
-<!-- 글쓰기 버튼 -->
-<div id="btnBox" class="pull-left">
-	<button id="btnWrite" class="btn btn-primary">글쓰기</button>
-</div>
-
-</div><!-- .container -->
+	<div>
+		<table class="table table-striped table-hover table-condensed">
+			<tr class="success">
+				<th>게시글 번호</th>
+				<th>게시글 제목</th>
+				<th>글쓴이</th>
+				<th>등록일</th>
+				<th>추천수</th>
+				<th>조회수</th>
+			</tr>
+			
+			<%	for(int i=0; i<boardList.size(); i++) { %>
+			<tr>
+				<td><%=boardList.get(i).getBoardno() %></td>
+				<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+				<td><%=boardList.get(i).getUserid() %></td>
+				<td><%=boardList.get(i).getWriteDate() %></td>
+				<td><%=boardList.get(i).getLike() %></td>
+				<td><%=boardList.get(i).getHit() %></td>
+			</tr>
+			<%	} %>
+		
+		</table>
+	</div>
+	
+	<!-- 글쓰기 버튼 -->
+	<div id="btnBox" class="pull-left">
+		<button id="btnWrite" class="btn btn-primary">글쓰기</button>
+	</div>
+	
+</div><!-- #section -->
 
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
 
-<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

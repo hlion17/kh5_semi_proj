@@ -22,7 +22,7 @@
 <header>
 <div id="header">
     <ul>
-        <li>Home</li>
+        <li><a href="/main.jsp" >Home</a></li>
     </ul>
     <ul>
         <li>로그인</li>
@@ -37,7 +37,7 @@
         <ul>
             <li><a href="/ref/choose?memberId=test1">냉장고</a></li>
             <li><a href="/ingr/list">요리사전</a></li>
-            <li>커뮤니티</li>
+            <li><a href="<%=request.getContextPath() %>/recipe/board">커뮤니티</a></li>
             <li>상점</li>
         </ul>
     </div>
