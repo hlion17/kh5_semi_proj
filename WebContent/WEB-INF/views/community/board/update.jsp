@@ -99,9 +99,10 @@ $(document).ready(function() {
 					<%	if( boardFile != null ) { %>
 							기존 첨부파일: 
 							<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
-							alt="그림을 불러오지못함"><br>
+									alt="그림을 불러오지못함" width="100%" height="100%">
+							<br>
 							<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-							 download="<%=boardFile.getOriginname() %>">
+							 		download="<%=boardFile.getOriginname() %>">
 								<%=boardFile.getOriginname() %>
 							</a>
 							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>

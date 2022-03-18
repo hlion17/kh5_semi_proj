@@ -444,6 +444,8 @@ public class RecipeDaoImpl implements RecipeDao {
 			ps.setString(4, boardFile.getPath());
 			ps.setInt(5, boardFile.getFilesize());
 			ps.setDate(6, (Date) boardFile.getWriteDate());
+//			new Date(refItem.getExpireDate().getTime())
+//			new java.sql.Date(new java.util.Date().getTime())
 
 			res = ps.executeUpdate();
 			

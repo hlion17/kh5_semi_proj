@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
     
 <!-- header page -->
-<%@include file="/WEB-INF/views/layout/header.jsp" %>
+<%-- <%@include file="/WEB-INF/views/layout/header.jsp" %> --%>
 
 <main>
 <div id="main">
 
 	<!-- 사전 사이드바 -->
-    <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %>
+    <%-- <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %> --%>
     
     <div id="section">
 
@@ -25,4 +25,4 @@
 </main>
 
 <!-- footer page -->
-<%@include file="/WEB-INF/views/layout/footer.jsp" %>
+<%-- <%@include file="/WEB-INF/views/layout/footer.jsp" %> --%>

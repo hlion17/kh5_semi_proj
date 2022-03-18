@@ -24,21 +24,6 @@ function goIngrList() {
 		}
 	})
 }
-//재료 검색 페이지로 이동
-function goIngrList() {
-	$.ajax({
-		type: "GET"
-		, url: "/ingr/list"
-		, dataType: "html"
-		, data: ""
-		, success: function(res) {
-			$("#section").html(res)
-		}
-		, error: function() {
-			console.log("ajax 실패")
-		}
-	})
-}
 //유통기한 검색 페이지로 이동
 function goExDateList() {
 	$.ajax({
