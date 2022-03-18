@@ -80,9 +80,8 @@ public class NoticeDaoImpl implements NoticeDao {
 		sql += " 		WHERE notice.member_no = member.member_no";
 		sql += "		ORDER BY board_no DESC";
 		sql += " 	) B";
-		sql += " ) notice, member";		
-		sql += " WHERE notice.member_no = member.member_no";
-		sql += " 	AND (rnum BETWEEN ? AND ?)";
+		sql += " ) BOARD";
+		sql += " WHERE rnum BETWEEN ? AND ?";
 
 		// 결과 저장할 List
 		List<Notice> NoticeList = new ArrayList<>();

@@ -13,7 +13,7 @@ $(document).ready(function() {
 	
 	//글쓰기 버튼 누르면 이동
 	$("#btnWrite").click(function() {
-		location.href="/board/write";
+		location.href="/notice/write";
 	});
 	
 });
