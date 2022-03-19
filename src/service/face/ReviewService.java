@@ -21,11 +21,22 @@ public interface ReviewService {
 	 * 요청 파라미터 얻어오기
 	 * 
 	 * @param req - 요청 정보 객체
-	 * @return Board - 전달파라미터 review_no값을 포함한 DTO객체
+	 * @return Review - 전달파라미터 review_no값을 포함한 DTO객체
 	 */
 	public Review getreview_no(HttpServletRequest req);
+	
+	
+	//추가- 리뷰목록에 nick받아오기 test
+	/**
+	 * 전달된 Board 객체의 id 를 이용한 아이디 조회
+	 * 
+	 * @param viewBoard - 조회할 게시글 정보
+	 * @return String - 게시글 작성자의 아이디
+	 */
+	public String getnick(Review ReviewList);
 
-
+	
+	
 	/**
 	 * 전달된 pro_no를 이용하여 게시글을 조회한다
 	 * 

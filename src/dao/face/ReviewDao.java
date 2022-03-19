@@ -117,6 +117,13 @@ public interface ReviewDao {
 	 */
 	public int deleteFile(Connection conn, Review Review);
 
+	
+	//추가
+	public String selectNickBymemeberno(Connection connection, Review reviewList);
+	
+	
+	
+
 }
 
 

@@ -440,6 +440,15 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
-
 	}
+	
+	//추가- 리뷰목록에 nick받아오기 test
+	@Override
+	public String getnick(Review ReviewList) {
+		return reviewDao.selectNickBymemeberno(JDBCTemplate.getConnection(), ReviewList);
+	}
+	
+	
+	
 }
+	

@@ -488,5 +488,40 @@ public class ReviewDaoImpl implements ReviewDao {
 		return res;
 	}
 
+	
+	
+	///추가- 리뷰목록에 nick받아오기 test -> XXXXX
+	@Override
+	public String selectNickBymemeberno(Connection connection, Review reviewList) {
+		// SQL 작성
+				String sql = "";
+				sql += " SELECT nick FROM member, review ";
+				sql += " WHERE review.member_no = member.member_no";
+				
+				System.out.println("sql : " + sql);
+				
+				// 결과 저장할 String 변수
+				String nick = null;
+
+				try {
+					ps = connection.prepareStatement(sql); // SQL수행 객체
+					rs = ps.executeQuery(); // SQL 수행 및 결과집합 저장
+					// 조회 결과 처리
+					while (rs.next()) {
+						nick = rs.getString("nick");
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					// DB객체 닫기
+					JDBCTemplate.close(rs);
+					JDBCTemplate.close(ps);
+				}
+
+				// 최종 결과 반환
+				return nick;
+	}
+	
 }
 
