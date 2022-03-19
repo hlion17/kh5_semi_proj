@@ -36,8 +36,8 @@ $(document).ready(function() {
 	//추천버튼
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
+		if( <%=request.getAttribute("msg_like_negative") %> )	alert("추천할 수 없는 상태입니다");			
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
-		if( <%=request.getAttribute("msg_already_like") %> ) alert("이미 추천하셨습니다");
 	})
 	
 });

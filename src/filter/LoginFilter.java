@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter({"/ref/choose", "/review/write", "/cart", "/payment"} )
+@WebFilter({"/ref/choose", "/review/write", "/cart", "/payment", 
+	"/recipe/delete", "/recipe/follow", "/recipe/insert", "/recipe/like", "/recipe/update", 
+	"/social/recipe", "/social/followee", "/social/follower", "/social/member"} )
 public class LoginFilter implements Filter {
 
 	@Override

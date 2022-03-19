@@ -30,28 +30,20 @@ public class RecipeLikeController extends HttpServlet {
 			return;
 		}
 		
+		//함부로 추천할수없게 기본적으로 막아놓기
+		req.setAttribute("msg_like_negative", true);
+		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
 		
 		//해당 로그인 유저가 이미 이 게시글을 추천한적이 있는지 체크
 		String likeFlag = "like_" + boardno.getBoardno(); //추천한적이 있다면 like_해당글번호 키값이 true로 존재
-		req.getSession().setAttribute(likeFlag, false); //
 		boolean flag = (boolean)req.getSession().getAttribute(likeFlag);
-		System.out.println("flag : " + flag);
-//		try {
-			if( flag ) {
-				
-				//recipe테이블에 like값 1증가, 해당세션에 중복추천 방지용 플래그생성
-				boardService.addLike(boardno, req);
-				
-			} else {
-				//이미 해당글을 추천하셨습니다 알람 띄울 플래그전달
-				req.setAttribute("msg_already_like", true);
-			}
-//		} catch (NullPointerException e) {
-//			//이미 해당글을 추천하셨습니다 알람 띄울 플래그전달
-//			req.setAttribute("msg_already_like", true);
-//		}
+		if( !flag ) {
+			//recipe테이블에 like값 1증가, 해당세션에 중복추천 방지용 플래그생성
+			System.out.println("추천한다아아아아아아아아아아아아");
+			boardService.addLike(boardno, req);
+		}
 
 		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno); 

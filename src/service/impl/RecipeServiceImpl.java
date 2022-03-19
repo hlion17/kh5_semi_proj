@@ -32,6 +32,7 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - getList() 호출");
 		
 		//게시글 전체 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getList() 리턴 boardDao.selectAll( JDBCTemplate.getConnection() ) : " + boardDao.selectAll( JDBCTemplate.getConnection() ));
 		return boardDao.selectAll( JDBCTemplate.getConnection() );
 	}
 	
@@ -40,19 +41,22 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
 		
 		//게시글 전체 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 리턴 boardDao.selectAllRank( JDBCTemplate.getConnection() ) : " + boardDao.selectAllRank( JDBCTemplate.getConnection() ));
 		return boardDao.selectAllRank( JDBCTemplate.getConnection() );
 	}
 
 	@Override
 	public List<Recipe> getList(Paging paging) {
-
+		System.out.println("[TEST] RecipeServiceImpl - getList(Paging paging) 호출");
+		
 		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getList(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
 		return boardDao.selectAll( JDBCTemplate.getConnection(), paging );
 	}
 
 	@Override
 	public Paging getPaging(HttpServletRequest req) {
-		System.out.println("[TEST] RecipeDaoImpl - getPaging(HttpServletRequest req) 호출");
+		System.out.println("[TEST] RecipeServiceImpl - getPaging(HttpServletRequest req) 호출");
 
 		//전달파라미터 curPage 추출하기
 		String param = req.getParameter("curPage");
@@ -69,13 +73,13 @@ public class RecipeServiceImpl implements RecipeService {
 		//Paging 객체 생성 - 페이징 계산
 		Paging paging = new Paging(totalCount, curPage);
 		
-		System.out.println("[TEST] RecipeDaoImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
+		System.out.println("[TEST] RecipeServiceImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
 		return paging;
 	}
 
 	@Override
 	public Recipe getBoardno(HttpServletRequest req) {
-
+		System.out.println("[TEST] RecipeServiceImpl - getBoardno(HttpServletRequest req) 호출");
 		//전달파라미터 boardno를 저장할 DTO객체 생성
 		Recipe boardno = new Recipe();
 		
@@ -85,7 +89,8 @@ public class RecipeServiceImpl implements RecipeService {
 		} else {
 			System.out.println("[WARN] RecipeService getBoardno() - boardno값이 null이거나 비어있음");
 		}
-
+		
+		System.out.println("[TEST] RecipeServiceImpl - getBoardno(HttpServletRequest req) 리턴 boardno : " + boardno);
 		return boardno;
 	}
 
@@ -107,7 +112,7 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public void addLike(Recipe boardno, HttpServletRequest req) {
-		
+		System.out.println("[TEST] RecipeServiceImpl - addLike(Recipe boardno, HttpServletRequest req) 호출");
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//조회수 증가
@@ -116,11 +121,14 @@ public class RecipeServiceImpl implements RecipeService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - addLike(Recipe boardno, HttpServletRequest req) 리턴");
+		return;
 	}
 	
 	@Override
 	public Recipe view(Recipe boardno) {
-		
+		System.out.println("[TEST] RecipeServiceImpl - view(Recipe boardno) 호출");
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//조회수 증가
@@ -133,11 +141,13 @@ public class RecipeServiceImpl implements RecipeService {
 		//게시글 조회
 		Recipe board = boardDao.selectBoardByBoardno(conn, boardno);
 		
+		System.out.println("[TEST] RecipeServiceImpl - view(Recipe boardno) 리턴 board : " + board);
 		return board;
 	}
 
 	@Override
 	public void write(HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - write(HttpServletRequest req) 호출");
 		
 		//--- 첨부파일 추가하여 게시글 처리하기 ---
 		
@@ -307,20 +317,29 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 		}	
 		
+		System.out.println("[TEST] RecipeServiceImpl - write(HttpServletRequest req) 리턴");
+		return;
 	}
 
 	@Override
 	public String getNick(Recipe viewBoard) {
+		System.out.println("[TEST] RecipeServiceImpl - getNick(Recipe viewBoard) 호출");
+		
+		System.out.println("[TEST] RecipeServiceImpl - getNick(Recipe viewBoard) 리턴 boardDao.selectNickByUserid(JDBCTemplate.getConnection(), viewBoard) : " + boardDao.selectNickByUserid(JDBCTemplate.getConnection(), viewBoard));
 		return boardDao.selectNickByUserid(JDBCTemplate.getConnection(), viewBoard);
 	}
 
 	@Override
 	public RecipeFile viewFile(Recipe viewBoard) {
+		System.out.println("[TEST] RecipeServiceImpl - viewFile(Recipe viewBoard) 호출");
+		
+		System.out.println("[TEST] RecipeServiceImpl - viewFile(Recipe viewBoard) 리턴 boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard) : " + boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard));
 		return boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard);
 	}
 
 	@Override
 	public void update(HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - update(HttpServletRequest req) 호출");
 		
 		//파일업로드형식 인코딩이 맞는지 검사
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
@@ -482,10 +501,14 @@ public class RecipeServiceImpl implements RecipeService {
 			}
 		}
 		
+		System.out.println("[TEST] RecipeServiceImpl - update(HttpServletRequest req) 리턴");
+		return;
 	}
 	
 	@Override
 	public void delete(Recipe board) {
+		System.out.println("[TEST] RecipeServiceImpl - delete(Recipe board) 호출");
+		
 		Connection conn = JDBCTemplate.getConnection();
 		
 		if( boardDao.deleteFile(conn, board) > 0 ) {
@@ -500,6 +523,8 @@ public class RecipeServiceImpl implements RecipeService {
 			JDBCTemplate.rollback(conn);
 		}
 		
+		System.out.println("[TEST] RecipeServiceImpl - delete(Recipe board) 리턴");
+		return;
 	}
 	
 }
