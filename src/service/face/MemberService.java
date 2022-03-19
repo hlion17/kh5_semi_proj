@@ -112,6 +112,4 @@ public interface MemberService {
 	 */
 	public Member getUpdateInfoMember(HttpServletRequest req);
 
-
-	
 }
