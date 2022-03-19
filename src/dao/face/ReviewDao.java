@@ -118,7 +118,7 @@ public interface ReviewDao {
 	public int deleteFile(Connection conn, Review Review);
 
 	
-	//추가
+	//추가- 리뷰목록에 nick받아오기 test
 	public String selectNickBymemeberno(Connection connection, Review reviewList);
 	
 	
