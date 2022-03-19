@@ -181,7 +181,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member updateMember(Member member) {
 		
 		
-		// 일치하는 정보가 있음(비밀번호 찾기 가능)
+		// 일치하는 정보가 있음
 		if (memberDao.updateInfo(JDBCTemplate.getConnection(), member) > 0) {
 
 		}
