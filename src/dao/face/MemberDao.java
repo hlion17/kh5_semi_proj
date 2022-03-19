@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import dto.Member;
+import dto.ProfileFile;
 import util.Paging;
 
 
@@ -113,5 +114,13 @@ public interface MemberDao {
 	 */
 	public Member findeByRefCode(Connection conn, int refCode);
 
+	/**
+	 * 프로필 이미지 삽입
+	 * 
+	 * @param conn      - DB연결 객체
+	 * @param profileFile - 첨부파일 정보
+	 * @return int - INSERT 쿼리 수행 결과
+	 */
+	public int insertProFile(Connection conn, ProfileFile profileFile);
 	
 }
