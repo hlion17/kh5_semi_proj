@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.RecipeFile;
 import dto.Review;
 import dto.ReviewFile;
 import service.face.ReviewService;
@@ -31,6 +32,11 @@ public class ReviewInfoController extends HttpServlet {
 			Review viewReview = reviewService.view(pro_no); 
 			//조회결과 MODEL값 전달
 			req.setAttribute("viewReview", viewReview);
+			
+			//첨부파일 정보 조회
+			ReviewFile reviewFile = reviewService.viewFile(viewReview);
+			//첨부파일 정보 MODEL값 전달
+			req.setAttribute("reviewFile", reviewFile);
 			
 			//VIEW 지정 및 응답 - forward
 			req.getRequestDispatcher("/WEB-INF/views/store/reviewInfo.jsp").forward(req, resp);

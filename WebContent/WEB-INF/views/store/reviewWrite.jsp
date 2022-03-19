@@ -9,6 +9,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
+<%	ReviewFile reviewFile = (ReviewFile) request.getAttribute("reviewFile"); %>
+
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -63,6 +66,7 @@ function submitContents( elClickedObj ) {
 <tr><td class="info">상품번호</td><td>14</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">본문</td></tr>
+
 <tr><td colspan="4"></td></tr>
 </table>
 

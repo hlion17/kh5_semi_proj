@@ -38,7 +38,7 @@ public class ReviewUpdateController extends HttpServlet {
 		//첨부파일 정보 MODEL값 전달
 		req.setAttribute("reviewFile", reviewFile);
 		//VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/board/store/reviewUpdate.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/store/reviewUpdate.jsp").forward(req, resp);
 	}
 	
 

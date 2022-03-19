@@ -234,11 +234,14 @@ public class ReviewServiceImpl implements ReviewService {
 		//게시글 번호 생성
 		int review_no = reviewDao.selectReviewno(conn);
 		
+		
+		//회원번호 세션 설정
 		HttpSession session = req.getSession();
 		int memberno =  (Integer) session.getAttribute("memberno");
 		review.setMember_no(memberno);
-		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
-		review.setPro_no(pro_no);
+//		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
+//		review.setPro_no(pro_no);
+		
 		
 		//게시글 정보 삽입
 			if(review.getTitle()==null || "".equals(review.getTitle())) {
@@ -286,8 +289,6 @@ public class ReviewServiceImpl implements ReviewService {
 			return;
 		}
 
-
-
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
 		//메모리에서 처리 사이즈 설정
@@ -319,8 +320,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-
-
 
 		//게시글 정보 DTO객체
 		Review review = new Review();
@@ -436,8 +435,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewFile viewFile(Review updateReview) {
-		return reviewDao.selectFile(JDBCTemplate.getConnection(), updateReview);
+	public ReviewFile viewFile(Review viewReview) {
+		return reviewDao.selectFile(JDBCTemplate.getConnection(), viewReview);
 	}
 
 
