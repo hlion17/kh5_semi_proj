@@ -23,8 +23,6 @@ import dao.face.RefDao;
 import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Member;
-import dto.Notice;
-import dto.NoticeFile;
 import dto.Recipe;
 import service.face.MemberService;
 import util.Paging;
@@ -306,8 +304,6 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 
-		// 게시글 정보 DTO객체
-		Notice board = new Notice();
 
 		// 첨부파일 정보 DTO객체
 		NoticeFile boardFile = new NoticeFile();
