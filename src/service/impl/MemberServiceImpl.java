@@ -180,12 +180,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member updateMember(Member member) {
 		
+		Connection conn = JDBCTemplate.getConnection();
 		
 		// 일치하는 정보가 있음
-		if (memberDao.updateInfo(JDBCTemplate.getConnection(), member) > 0) {
-
+		if (memberDao.updateInfo(conn, member) > 0) {
+			JDBCTemplate.commit(conn);
+			return member;
+		} else {
+			JDBCTemplate.rollback(conn);
+			return null;
 		}
-		return member;
 	}
 	
 	@Override
@@ -201,6 +205,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setMembername(req.getParameter("membername"));
 		member.setNick(req.getParameter("nick"));
 		member.setEmail(req.getParameter("email"));
+		member.setGender(req.getParameter("gender"));
 		member.setPhone(req.getParameter("phone"));
 		member.setZipcode(req.getParameter("zipcode"));
 		member.setAddress(req.getParameter("address"));
@@ -209,9 +214,35 @@ public class MemberServiceImpl implements MemberService {
 		
 		
 		return member;
+		
 	}
 
 
+	
+	public Member getMemberInfoBySession(HttpServletRequest req) {
+
+		System.out.println("getMemberInfoSession 메소드 진입");
+		Member member = new Member();
+
+		HttpSession session = req.getSession();
+
+		member.setMemberid((String) session.getAttribute("memberid"));
+		member.setMemberpw((String) session.getAttribute("memberpw"));
+		member.setMembername((String) session.getAttribute("membername"));
+		member.setNick((String) session.getAttribute("nick"));
+		member.setEmail((String) session.getAttribute("email"));
+		member.setGender((String) session.getAttribute("gender"));
+		member.setPhone((String) session.getAttribute("phone"));
+		member.setZipcode((String) session.getAttribute("zipcode"));
+		member.setAddress((String) session.getAttribute("address"));
+		member.setIntro((String) session.getAttribute("intro"));
+		
+		System.out.println("getMemberInfoSession 메소드 리턴값" + member);
+		return member;
+		
+	}
+	
+		
 	
 	
 	

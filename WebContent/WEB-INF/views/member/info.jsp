@@ -40,7 +40,7 @@ $("#btnUpdateInfo").click(function() {
 
 <div class="container">
 
-<form action="./updateinfo" method="post" class="form-horizontal">
+<form action="/member/updateinfo" method="post" class="form-horizontal">
 
 	<tr>
 		<div class="form-group">

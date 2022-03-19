@@ -112,6 +112,12 @@ public interface MemberService {
 	 */
 	public Member getUpdateInfoMember(HttpServletRequest req);
 
-
+	/**
+	 * 세션을 저장되어있는 회원 정보 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 회원정보 수정을 요청하는 회원의 정보
+	 */
+	public Member getMemberInfoBySession(HttpServletRequest req);
 	
 }

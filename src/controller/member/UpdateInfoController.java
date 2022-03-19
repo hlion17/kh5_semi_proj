@@ -1,7 +1,7 @@
 package controller.member;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +32,9 @@ public class UpdateInfoController extends HttpServlet {
 		// 조회결과 MODEL값 전달
 //		req.setAttribute("updateMember", updateMember);
 		
-		// VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/member/info.jsp").forward(req, resp);
 		
+		// VIEW 지정 및 응답 - forward
+		//req.getRequestDispatcher("/WEB-INF/views/member/info.jsp").forward(req, resp);
 		
 		
 		
@@ -43,17 +43,24 @@ public class UpdateInfoController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("/member/updateinfo Controller [POST] ");
+		
 		//전달 파라미터 얻기
 		Member member = memberService.getUpdateInfoMember(req);
 		
 		System.out.println("추출한 회원 " +  member);
 		
-		memberService.updateMember(member); 
+		Member result = memberService.updateMember(member); 
 		
-		System.out.println("수정한 회원 정보" + member);
+
+//		System.out.println(member);
+
+		req.setAttribute("result", result);
 		
-		//메인페이지로 리다이렉트
-		resp.sendRedirect("/member/infoView");
+        req.getRequestDispatcher("/WEB-INF/views/member/infoView.jsp").forward(req, resp);
+        
+//		//메인페이지로 리다이렉트
+//		resp.sendRedirect("/main");
 		
 	}
 }
