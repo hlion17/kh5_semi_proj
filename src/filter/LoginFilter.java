@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 	"/recipe/delete", "/recipe/follow", "/recipe/insert", "/recipe/like", "/recipe/update", 
 	"/social/recipe", "/social/followee", "/social/follower", "/social/member", 
 	"/member/info", "/member/infoView", "/member/updateinfo", 
-	"/notice/delete", "/notice/update" ,"notice/write",
-	"/qa/delete", "/qa/view", "/qa/update", "qa/write"} )
+	"/notice/delete", "/notice/update" ,"/notice/write",
+	"/qa/delete", "/qa/view", "/qa/update", "/qa/write"} )
 public class LoginFilter implements Filter {
 
 	@Override
