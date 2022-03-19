@@ -59,6 +59,16 @@ public interface RecipeService {
 	/**
 	 * 전달된 boardno를 이용하여 게시글을 조회한다
 	 * 
+	 * 조회된 게시글의 추천수를 1 증가시킨다
+	 * 
+	 * @param boardno - 조회할 boardno를 가지고 있는 DTO객체
+	 * @return Recipe - 조회된 게시글 정보
+	 */
+	public void addLike(Recipe boardno, HttpServletRequest req);
+	
+	/**
+	 * 전달된 boardno를 이용하여 게시글을 조회한다
+	 * 
 	 * 조회된 게시글의 조회수를 1 증가시킨다
 	 * 
 	 * @param boardno - 조회할 boardno를 가지고 있는 DTO객체

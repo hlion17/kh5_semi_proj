@@ -7,6 +7,7 @@
 
 <%	Recipe viewBoard = (Recipe) request.getAttribute("viewBoard"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
+<%-- <%	int board_no = (int) request.getAttribute("board_no"); %> --%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -37,7 +38,36 @@ $(document).ready(function() {
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
-		if( <%=request.getAttribute("msg_already_like") %> ) alert("이미 추천하셨습니다");
+		
+<%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/content?boardno=<%=viewBoard.getBoardno() %>&like=<%=viewBoard.getLike()+1 %>"); --%>
+<%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/content?boardno=<%=viewBoard.getBoardno() %>"); --%>
+<%-- 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>"); --%>
+		
+// 		//AJAX 처리
+// 		$.ajax({
+// 			type: "post" //요청메소드
+// 			, url: "/recipe/content" //요청 URL
+// 			, data: { //요청 파라미터
+<%-- 				boardno : <%=viewBoard.getBoardno() %> --%>
+<%-- <%-- 				boardno : <%= board_no %> --%> 
+// 				, like : 1
+// // 				, like : $("#like").val()+1
+<%-- <%-- 				, like : <%=viewBoard.getLike() %> --%>
+// 			}
+// 			, dataType: "html" //응답 데이터의 형식
+// 			, success: function( res ) {
+// 				console.log("AJAX 성공")
+				
+// 				//응답 데이터 반영하기
+// 				$("#like").html( res )
+				
+// 			}
+// 			, error: function() {
+// 				console.log("AJAX 실패")
+		
+// 			}
+// 		})
+
 	})
 	
 });
@@ -46,6 +76,7 @@ $(document).ready(function() {
 
 <div id="section">
 
+	<%-- <h1><%= board_no %></h1> --%>
 	<h1>게시글 상세보기</h1>
 	
 	<div>

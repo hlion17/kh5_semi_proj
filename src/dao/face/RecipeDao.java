@@ -3,6 +3,8 @@ package dao.face;
 import java.sql.Connection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import dto.Recipe;
 import dto.RecipeFile;
 import util.Paging;
@@ -50,6 +52,15 @@ public interface RecipeDao {
 	 * @return int - UPDATE 쿼리 수행 결과
 	 */
 	public int updateHit(Connection conn, Recipe boardno);
+	
+	/**
+	 * 조회된 게시글의 추천수 증가시키기
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param boardno - 조회할 게시글의 boardno를 가진 DTO객체
+	 * @return int - UPDATE 쿼리 수행 결과
+	 */
+	public int updateLike(Connection conn, Recipe boardno, HttpServletRequest req);
 
 	/**
 	 * 지정된 boardno의 게시글 조회하기

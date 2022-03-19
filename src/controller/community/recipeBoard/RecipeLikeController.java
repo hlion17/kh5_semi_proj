@@ -21,7 +21,7 @@ public class RecipeLikeController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeContentController( /recipe/content ) [GET] 호출");
+		System.out.println("[TEST] RecipeLikeController( /recipe/content ) [GET] 호출");
 		
 		//로그인 되어있지 않으면 리다이렉트 
 		if( req.getSession().getAttribute("login") == null ) {
@@ -32,6 +32,26 @@ public class RecipeLikeController extends HttpServlet {
 		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
+		
+		//해당 로그인 유저가 이미 이 게시글을 추천한적이 있는지 체크
+		String likeFlag = "like_" + boardno.getBoardno(); //추천한적이 있다면 like_해당글번호 키값이 true로 존재
+		req.getSession().setAttribute(likeFlag, false); //
+		boolean flag = (boolean)req.getSession().getAttribute(likeFlag);
+		System.out.println("flag : " + flag);
+//		try {
+			if( flag ) {
+				
+				//recipe테이블에 like값 1증가, 해당세션에 중복추천 방지용 플래그생성
+				boardService.addLike(boardno, req);
+				
+			} else {
+				//이미 해당글을 추천하셨습니다 알람 띄울 플래그전달
+				req.setAttribute("msg_already_like", true);
+			}
+//		} catch (NullPointerException e) {
+//			//이미 해당글을 추천하셨습니다 알람 띄울 플래그전달
+//			req.setAttribute("msg_already_like", true);
+//		}
 
 		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno); 
@@ -49,26 +69,9 @@ public class RecipeLikeController extends HttpServlet {
 		req.setAttribute("boardFile", boardFile);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeContentController - view.jsp로 포워드");
+		System.out.println("[TEST] RecipeLikeController - view.jsp로 포워드");
 		System.out.println();
 		req.getRequestDispatcher("/WEB-INF/views/community/board/view.jsp").forward(req, resp);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

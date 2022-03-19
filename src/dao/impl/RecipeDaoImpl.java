@@ -263,6 +263,36 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 	
 	@Override
+	public int updateLike(Connection conn, Recipe boardno, HttpServletRequest req) {
+		System.out.println("[TEST] RecipeDaoImpl - updateLike(Connection conn, Recipe boardno) 호출");
+		
+		String sql = "";
+		sql += "UPDATE recipe";
+		sql += " SET board_like = board_like + 1";
+		sql += " WHERE board_no = ?";
+		
+		int res = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, boardno.getBoardno());
+			
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		String likeFlag = "like_" + boardno.getBoardno();
+		req.getSession().setAttribute(likeFlag, true);
+		
+		System.out.println("[TEST] RecipeDaoImpl - updateLike(Connection conn, Recipe boardno) - res 리턴 : " + res);
+		return res;
+	}
+	
+	@Override
 	public Recipe selectBoardByBoardno(Connection conn, Recipe boardno) {
 		System.out.println("[TEST] RecipeDaoImpl - selectBoardByBoardno(Connection conn, Recipe boardno) 호출");
 		
