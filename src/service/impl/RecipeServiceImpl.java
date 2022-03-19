@@ -104,6 +104,19 @@ public class RecipeServiceImpl implements RecipeService {
 //		
 //		return boardno;
 //	}
+
+	@Override
+	public void addLike(Recipe boardno, HttpServletRequest req) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//조회수 증가
+		if( boardDao.updateLike(conn, boardno, req) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+	}
 	
 	@Override
 	public Recipe view(Recipe boardno) {

@@ -21,7 +21,7 @@ public class RecipeFollowController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeContentController( /recipe/content ) [GET] 호출");
+		System.out.println("[TEST] RecipeFollowController( /recipe/content ) [GET] 호출");
 		
 		//로그인 되어있지 않으면 리다이렉트 
 		if( req.getSession().getAttribute("login") == null ) {
@@ -49,7 +49,7 @@ public class RecipeFollowController extends HttpServlet {
 		req.setAttribute("boardFile", boardFile);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeContentController - view.jsp로 포워드");
+		System.out.println("[TEST] RecipeFollowController - view.jsp로 포워드");
 		System.out.println();
 		req.getRequestDispatcher("/WEB-INF/views/community/board/view.jsp").forward(req, resp);
 	}
