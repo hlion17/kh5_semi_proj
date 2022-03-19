@@ -20,7 +20,6 @@ $(document).ready(function() {
 </script>
 
 <div class="container">
-
 <h1>공지사항</h1>
 <hr>
 
@@ -50,8 +49,7 @@ $(document).ready(function() {
 	<button id="btnWrite" class="btn btn-primary">글쓰기</button> <!-- btn-primary -> 파란색 버튼 -->
 </div>
 
-</div><!-- .container -->
-
+</div>
 <%@ include file="./layout/paging.jsp" %>
 
 <%@ include file="../layout/footer.jsp" %>

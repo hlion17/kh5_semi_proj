@@ -4,6 +4,7 @@
 
 <%	Paging paging = (Paging) request.getAttribute("paging"); %>
 
+<div id=section-alone>
 <div class="text-center">
 
 <ul class="pagination">
@@ -85,4 +86,5 @@
 	
 </ul>
 
+</div>
 </div>
