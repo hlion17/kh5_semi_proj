@@ -41,6 +41,10 @@ public class OpenRecipeApi {
         // 레시피 정보를 담을 컬렉션
         List<OpenRecipe> list = new ArrayList<>();
 
+        if (result == null) {
+        	return null;
+        }
+        
         // 분석결과 컬렉션에 저장
         for (Object o : result) {
             // 상세 조리결과, 이미지를 담을 컬렉션
@@ -124,7 +128,7 @@ public class OpenRecipeApi {
 
         // json 계층 1단계
         JSONObject rcp_way2 = (JSONObject) jsonObject.get(apiName);
-        System.out.println("총 검색결과: " + rcp_way2.get("total_count"));
+        //System.out.println("총 검색결과: " + rcp_way2.get("total_count"));
         this.totalCount = (String) rcp_way2.get("total_count");
 
         // 검색 결과 가져오기(배열)

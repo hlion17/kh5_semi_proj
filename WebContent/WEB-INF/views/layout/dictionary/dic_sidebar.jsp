@@ -43,7 +43,7 @@ function goExDateList() {
 function goOpenRecipe() {
 	$.ajax({
 		type: "GET"
-		, url: "/openrecipe/list"
+		, url: "/openRecipe/search"
 		, dataType: "html"
 		, data: ""
 		, success: function(res) {

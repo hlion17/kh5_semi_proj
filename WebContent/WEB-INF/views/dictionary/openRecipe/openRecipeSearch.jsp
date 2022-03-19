@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$("#btn-openRecipe-search").click(function() {
 		$.ajax({
 			type: "POST"
-			, url: "/openrecipe/list"
+			, url: "/openRecipe/search"
 			, dataType: "html"
 			, data: {itemName: $("input[name=itemName]").val()}
 			, success: function(res) {

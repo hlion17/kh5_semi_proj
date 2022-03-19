@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import service.face.OpenRecipeService;
 import service.impl.OpenRecipeServiceImpl;
 
-@WebServlet("/openrecipe/list")
-public class OpenRecipeListController extends HttpServlet {
+@WebServlet("/openrecipe/list999999")
+public class OpenRecipeListController_deprecated extends HttpServlet {
 
     private OpenRecipeService openRecipeService = new OpenRecipeServiceImpl();
 
