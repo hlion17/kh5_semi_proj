@@ -40,7 +40,7 @@ $("#btnUpdateInfo").click(function() {
 
 <div class="container">
 
-<form action="./updateinfo" method="post" class="form-horizontal">
+<form action="/member/updateinfo" method="post" class="form-horizontal">
 
 	<tr>
 		<div class="form-group">
@@ -66,14 +66,14 @@ $("#btnUpdateInfo").click(function() {
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
-	<tr>
+	<%-- <tr>
 		<div class="form-group">
 			<label for="gender" class="control-label col-xs-2">성별</label>
-<%-- 				<td><%=session.getAttribute("gender") %></td>
- --%>				<input type="text" name="gender" value="<%=session.getAttribute("gender") %>"></td>
+				<td><%=session.getAttribute("gender") %></td>
+				<input type="text" name="gender" value="<%=session.getAttribute("gender") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
-	</tr>
+	</tr> --%>
 	<tr>
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">이메일</label>

@@ -40,8 +40,8 @@ $("input").eq(0).focus();
 	<tr>
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
-				<%--  <td><%=session.getAttribute("memberpw") %>  --%>
-				<input type="text" name="memberpw" id="memberpw" class="form-control"   value="<%=session.getAttribute("memberpw") %>" > ></td>
+				<%--  <td><%=session.getAttribute("memberpw") --%>  
+				<input type="text" name="memberpw" id="memberpw" class="form-control"   value="<%=session.getAttribute("memberpw") %>"  ></td>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
@@ -104,10 +104,10 @@ $("input").eq(0).focus();
 	</tr> 
 
 	
-	<div class="text-center">
+	<!-- <div class="text-center">
 		<button type="submit" id="btnUpdateInfo" class="btn btn-primary" onclick="UpdateInfo();">수정 완료</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
-	</div>
+	</div> -->
 
 </form>
 

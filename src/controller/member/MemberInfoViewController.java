@@ -23,12 +23,21 @@ public class MemberInfoViewController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("MemberInfoView [POST]");
 		
+		Member member = memberService.getMemberInfoBySession(req);
 		
-
+		System.out.println(member);
+		
+		Member result = memberService.info(member);
+		
+		req.setAttribute("result", result);
+		
 		// VIEW 지정 및 응답 - forward
 		req.getRequestDispatcher("/WEB-INF/views/member/infoView.jsp").forward(req, resp);
+		
+
 	}
-	
+
 
 }

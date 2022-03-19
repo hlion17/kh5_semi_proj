@@ -26,26 +26,14 @@ public interface ReviewService {
 	public Review getreview_no(HttpServletRequest req);
 	
 	
-	//추가- 리뷰목록에 nick받아오기 test
 	/**
-	 * 전달된 Board 객체의 id 를 이용한 아이디 조회
-	 * 
-	 * @param viewBoard - 조회할 게시글 정보
-	 * @return String - 게시글 작성자의 아이디
-	 */
-	public String getnick(Review ReviewList);
-
-	
-	
-	/**
-	 * 전달된 pro_no를 이용하여 게시글을 조회한다
-	 * 
+	 * 전달된 review_no를 이용하여 게시글을 조회한다
 	 * 조회된 리뷰 조회수를 1 증가시킨다
 	 * 
-	 * @param boardno - 조회할 pro_no를 가지고 있는 DTO객체
-	 * @return Board - 조회된 리뷰 정보
+	 * @param review_no - 조회할 review_no를 가지고 있는 DTO객체
+	 * @return Review - 조회된 리뷰 정보
 	 */
-	public Review view(Review pro_no);
+	public Review view(Review review_no);
 
 	/**
 	 * 페이징 객체 생성
