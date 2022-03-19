@@ -134,6 +134,7 @@ li a {
 			<ul>
 				<li><a href="index.html">HOME</a></li>
 				<li><a href="#">About</a></li>
+				<li><a href="/cart">cart</a></li>
 				<li class="cart"><a href="cart.html"> <ion-icon name="cart"></ion-icon>Cart<span>0</span>
 				</a></li>
 			</ul>

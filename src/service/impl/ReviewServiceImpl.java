@@ -238,7 +238,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if(review.getTitle()==null || "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-		review.setMemberno((Integer) req.getSession().getAttribute("memberno"));
+		review.setMember_no((Integer) req.getSession().getAttribute("memberno"));
 		
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -440,6 +440,15 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
-
 	}
+	
+	//추가- 리뷰목록에 nick받아오기 test
+	@Override
+	public String getnick(Review ReviewList) {
+		return reviewDao.selectNickBymemeberno(JDBCTemplate.getConnection(), ReviewList);
+	}
+	
+	
+	
 }
+	

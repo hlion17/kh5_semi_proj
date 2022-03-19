@@ -112,6 +112,9 @@ footer {
     height: 150px;
     margin: 5px 5px;
 }
+#section-alone {
+	margin: 0 auto;
+}
 #section {
     float: right;
 
