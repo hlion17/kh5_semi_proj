@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import dto.Member;
+import util.Paging;
 
 
 public interface MemberDao {
