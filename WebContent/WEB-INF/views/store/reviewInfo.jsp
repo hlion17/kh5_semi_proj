@@ -20,12 +20,12 @@ $(document).ready(function() {
 		$(location).attr("href", "<%=request.getContextPath() %>/review/list");
 	})
 	
-	//수정버튼
+	수정버튼
 	$("#btnUpdate").click(function() {
 		$(location).attr("href", "<%=request.getContextPath() %>/review/update?reviewno=<%=viewReview.getReview_no() %>");
 	})
 	
-	//삭제버튼
+	삭제버튼
 	$("#btnDelete").click(function() {
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
 			$(location).attr("href", "<%=request.getContextPath() %>/review/delete?reviewno=<%=viewReview.getReview_no() %>");
@@ -42,18 +42,19 @@ $(document).ready(function() {
 <h1>게시글 상세보기</h1>
 <hr>
 
-
 <table class="table table-bordered">
-<tr><td class="info">글번호</td><td colspan="3"><%=viewReview.getReview_no() %></td></tr>
-<tr><td class="info">제목</td><td colspan="3"><%=viewReview.getTitle() %></td></tr>
 
 <tr>
-<td class="info">회원번호</td><td><%=viewReview.getMember_no() %></td>
+<td class="info">글번호</td><td colspan="3"><%=viewReview.getReview_no() %></td>
 </tr>
 
 <tr>
-<td class="info">닉네임</td><td>[로그인과 연동]</td>
-<%-- <td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td> --%>
+<td class="info">제목</td><td colspan="3"><%=viewReview.getTitle() %></td>
+</tr>
+
+<tr>
+<td class="info">상품명</td><td><%=viewReview.getName() %></td>
+<td class="info">닉네임</td><td><%=viewReview.getNick() %></td>
 </tr>
 
 <tr>

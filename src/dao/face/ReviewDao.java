@@ -41,16 +41,16 @@ public interface ReviewDao {
 	 * @param boardno - 조회할 게시글의 Reviewno를 가진 DTO객체
 	 * @return int - UPDATE 쿼리 수행 결과
 	 */
-	public int updateHit(Connection conn, Review boardno);
+	public int updateHit(Connection conn, Review review_no);
 
 	/**
-	 * 지정된 Reviewno의 게시글 조회하기
+	 * 지정된 review_no의 게시글 조회하기
 	 * 
 	 * @param conn    - DB연결 객체
-	 * @param boardno - 조회할 게시글의 Reviewno를 가진 DTO객체
+	 * @param review_no - 조회할 게시글의 review_no를 가진 DTO객체
 	 * @return Review - 조회된 게시글의 상세정보 DTO객체
 	 */
-	public Review selectBoardByBoardno(Connection conn, Review boardno);
+	public Review selectReviewByReviewno(Connection conn, Review review_no);
 
 	/**
 	 * 게시글 입력
@@ -68,15 +68,24 @@ public interface ReviewDao {
 	 * @param viewReview - 조회할 id를 가진 객체
 	 * @return String - 작성자 닉네임
 	 */
-	public String selectNickByMemberid(Connection conn, Review viewBoard);
+	public String selectNickByMember(Connection conn, Review viewBoard);
 
+	/**
+	 * id를 이용해 id을 조회한다
+	 * 
+	 * @param conn      - DB연결 객체
+	 * @param viewReview - 조회할 id를 가진 객체
+	 * @return String - 작성자 아이디
+	 */
+	public String selectMemberNoByMember(Connection conn, Review viewBoard);
+	
 	/**
 	 * 시퀀스를 이용하여 다음 게시글 번호를 조회한다
 	 * 
 	 * @param conn - DB연결 객체
 	 * @return int - 다음 게시글 번호
 	 */
-	public int selectBoardno(Connection conn);
+	public int selectReviewno(Connection conn);
 
 	/**
 	 * 첨부파일 삽입
@@ -117,10 +126,6 @@ public interface ReviewDao {
 	 */
 	public int deleteFile(Connection conn, Review Review);
 
-	
-	//추가- 리뷰목록에 nick받아오기 test
-	public String selectNickBymemeberno(Connection connection, Review reviewList);
-	
 	
 	
 

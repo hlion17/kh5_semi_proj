@@ -159,20 +159,19 @@ public class ReviewDaoImpl implements ReviewDao {
 		return count;
 	}
 
-	public int updateHit(Connection conn, Review boardno) {
+	public int updateHit(Connection conn, Review review_no) {
 
 		String sql = "";
 		sql += "UPDATE review";
 		sql += " SET hit = hit + 1";
-		sql += " WHERE board_no = ?";
+		sql += " WHERE review_no = ?";
 
 		int res = 0;
 
 		try {
 			ps = conn.prepareStatement(sql);
 
-			//?
-			ps.setInt(1, boardno.getMember_no());
+			ps.setInt(1, review_no.getReview_no());
 
 			res = ps.executeUpdate();
 
@@ -185,45 +184,34 @@ public class ReviewDaoImpl implements ReviewDao {
 		return res;
 	}
 
-	public Review selectBoardByBoardno(Connection conn, Review boardno) {
+	public Review selectReviewByReviewno(Connection conn, Review review_no) {
 
 		// SQL 작성
 		String sql = "";
-		sql += "SELECT";
-		sql += "	review_no";
-		sql += "	, pro_no";
-		sql += "	, member_no";
-		sql += "	, title";
-		sql += "	, regdate";
-		sql += "	, hit";
-		sql += " FROM review, member";
+		sql += " SELECT review_no, product.name, nick, title, regdate, hit";
+		sql += " FROM review, MEMBER, product";
 		sql += " WHERE review.member_no = member.member_no";
-		sql += " AND board_no = ?";
+		sql += " 	AND review.pro_no = product.pro_no";
+		sql += " 	AND review_no = ?";
 		
-//		System.out.println(sql);
-
 		// 결과 저장할 DTO객체
-		Review review = null;
-
+//		Review review = null;
+		Review review = new Review(); // 결과값 저장 객체
 		try {
-			ps = conn.prepareStatement(sql); // SQL수행 객체
-
-			//?
-			ps.setInt(1, boardno.getMember_no());
-
-			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, review_no.getReview_no());
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
 			while (rs.next()) {
-				review = new Review(); // 결과값 저장 객체
+//				review = new Review(); // 결과값 저장 객체
 
-				// 결과값 행 처리
+				// 결과값 한 행 처리
 				review.setReview_no(rs.getInt("review_no"));
-				review.setPro_no(rs.getInt("pro_no"));
-				review.setMember_no(rs.getInt("member_no"));
+				review.setName(rs.getString("name"));
+				review.setNick(rs.getString("nick"));
 				review.setTitle(rs.getString("title"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
-				
 			}
 
 		} catch (SQLException e) {
@@ -241,9 +229,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int insert(Connection conn, Review review) {
 
 		String sql = "";
-		//regdate 삭제
-		sql += "INSERT INTO review(REVIEW_NO, PRO_NO, MEMBER_NO, TITLE, CONTENT, HIT)";
-		sql += " VALUES (?, ?, ?, ?, ?, 0)";
+		sql += " INSERT INTO review (review_no, pro_no, member_no, title, content, regdate, hit)";
+		sql += " VALUES (?, ?, ?, ?, ?, sysdate, 0)";
 		
 		int res = 0;
 
@@ -256,7 +243,6 @@ public class ReviewDaoImpl implements ReviewDao {
 			ps.setInt(3, review.getMember_no());
 			ps.setString(4, review.getTitle());
 			ps.setString(5, review.getContent());
-			ps.setInt(6, review.getHit());
 
 			res = ps.executeUpdate();
 
@@ -270,7 +256,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	//상세보기
-	public String selectNickByMemberid(Connection conn, Review viewBoard) { 
+	public String selectNickByMember(Connection conn, Review viewBoard) { 
 
 		// SQL 작성
 		String sql = "";
@@ -304,8 +290,46 @@ public class ReviewDaoImpl implements ReviewDao {
 		return nick;
 
 	}
+	
+	
+	public String selectMemberNoByMember(Connection conn, Review viewBoard) { 
 
-	public int selectBoardno(Connection conn) {
+		// SQL 작성
+		String sql = "";
+		sql += "SELECT member_no FROM member";
+		sql += " WHERE nick = ?";
+
+		//결과 저장할 String 변수
+		String usernick = null;
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setString(1, viewBoard.getNick()); //조회할 id 적용
+			
+			rs = ps.executeQuery(); //SQL 수행 및 결과집합 저장
+			
+			//조회 결과 처리
+			while(rs.next()) {
+				usernick = rs.getString("nick");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// DB객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		// 최종 결과 반환
+		return usernick;
+
+	}
+	
+	
+
+	public int selectReviewno(Connection conn) {
 
 		// SQL 작성
 		String sql = "";
@@ -488,40 +512,6 @@ public class ReviewDaoImpl implements ReviewDao {
 		return res;
 	}
 
-	
-	
-	///추가- 리뷰목록에 nick받아오기 test -> XXXXX
-	@Override
-	public String selectNickBymemeberno(Connection connection, Review reviewList) {
-		// SQL 작성
-				String sql = "";
-				sql += " SELECT nick FROM member, review ";
-				sql += " WHERE review.member_no = member.member_no";
-				
-				System.out.println("sql : " + sql);
-				
-				// 결과 저장할 String 변수
-				String nick = null;
-
-				try {
-					ps = connection.prepareStatement(sql); // SQL수행 객체
-					rs = ps.executeQuery(); // SQL 수행 및 결과집합 저장
-					// 조회 결과 처리
-					while (rs.next()) {
-						nick = rs.getString("nick");
-					}
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					// DB객체 닫기
-					JDBCTemplate.close(rs);
-					JDBCTemplate.close(ps);
-				}
-
-				// 최종 결과 반환
-				return nick;
-	}
 	
 }
 

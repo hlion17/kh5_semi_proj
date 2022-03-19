@@ -55,9 +55,12 @@ function submitContents( elClickedObj ) {
 
 <table class="table table-bordered">
 
+<!-- 임시용  -->
+<input type="text" name="pro_no">
 
+<tr><td class="info">회원번호</td><td><%=session.getAttribute("member_no") %></td></tr>
 <tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
-<tr><td class="info">상품번호</td><td>20</td></tr>
+<tr><td class="info">상품번호</td><td>14</td></tr>
 <tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%"/></td></tr>
 <tr><td class="info" colspan="2">본문</td></tr>
 <tr><td colspan="4"></td></tr>

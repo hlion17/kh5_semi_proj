@@ -3,12 +3,14 @@ package service.impl;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -63,7 +65,7 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 
 		//게시글 조회
-		Review review = reviewDao.selectBoardByBoardno(conn, review_no);
+		Review review = reviewDao.selectReviewByReviewno(conn, review_no);
 
 		return review;
 	}
@@ -230,46 +232,47 @@ public class ReviewServiceImpl implements ReviewService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//게시글 번호 생성
-		int review_no = reviewDao.selectBoardno(conn);
+		int review_no = reviewDao.selectReviewno(conn);
 		
+		HttpSession session = req.getSession();
+		int memberno =  (Integer) session.getAttribute("memberno");
+		review.setMember_no(memberno);
+		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
+		review.setPro_no(pro_no);
 		
 		//게시글 정보 삽입
-		review.setReview_no(review_no);
-		if(review.getTitle()==null || "".equals(review.getTitle())) {
-			review.setTitle("(제목없음)");
-		}
-		review.setMember_no((Integer) req.getSession().getAttribute("memberno"));
-		
-		if( reviewDao.insert(conn, review) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		
-		//첨부파일 정보 삽입
-		if( reviewFile.getFilesize() != 0 ) {
-			reviewFile.setReview_no(review_no);
-			
-			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
+			if(review.getTitle()==null || "".equals(review.getTitle())) {
+				review.setTitle("(제목없음)");
+			}
+			if( reviewDao.insert(conn, review) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}
-		}
-		
-	}
+			
+			
+			//첨부파일 정보 삽입
+			if( reviewFile.getFilesize() != 0 ) {
+				reviewFile.setReview_no(review.getReview_no());
+				
+				if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
+					JDBCTemplate.commit(conn);
+				} else {
+					JDBCTemplate.rollback(conn);
+				}
+			}
 
+	}
 
 	@Override
 	public String getNick(Review viewReview) {
-		return reviewDao.selectNickByMemberid(JDBCTemplate.getConnection(), viewReview);
+		return reviewDao.selectNickByMember(JDBCTemplate.getConnection(), viewReview);
 	}
 	
 	
 	@Override
 	public String getid(Review viewReview) {
-		return reviewDao.selectNickByMemberid(JDBCTemplate.getConnection(), viewReview);
+		return reviewDao.selectMemberNoByMember(JDBCTemplate.getConnection(), viewReview);
 	}
 
 	@Override
@@ -405,21 +408,29 @@ public class ReviewServiceImpl implements ReviewService {
 		Connection conn = JDBCTemplate.getConnection();
 
 		//게시글 번호 생성
-		int reviewno = reviewDao.selectBoardno(conn);
+		int reviewno = reviewDao.selectReviewno(conn);
 
 
 		//게시글 정보 삽입
-		review.setReview_no(reviewno);
 		if(review.getTitle()==null || "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-		review.setMember_no( (int) req.getSession().getAttribute("memberno") );
-		review.setPro_no(20);
-		
-		if( reviewDao.insert(conn, review) > 0 ) {
+		if( reviewDao.update(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		//첨부파일 정보 삽입
+		if( reviewFile.getFilesize() != 0 ) {
+			reviewFile.setReview_no(review.getReview_no());
+			
+			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
 		}
 
 	}
@@ -440,12 +451,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
-	}
-	
-	//추가- 리뷰목록에 nick받아오기 test
-	@Override
-	public String getnick(Review ReviewList) {
-		return reviewDao.selectNickBymemeberno(JDBCTemplate.getConnection(), ReviewList);
 	}
 	
 	

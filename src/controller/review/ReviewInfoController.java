@@ -14,7 +14,7 @@ import service.face.ReviewService;
 import service.impl.ReviewServiceImpl;
 
 
-@WebServlet("/review/Info")
+@WebServlet("/review/info")
 public class ReviewInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,6 +31,7 @@ public class ReviewInfoController extends HttpServlet {
 			Review viewReview = reviewService.view(pro_no); 
 			//조회결과 MODEL값 전달
 			req.setAttribute("viewReview", viewReview);
+			
 			//VIEW 지정 및 응답 - forward
 			req.getRequestDispatcher("/WEB-INF/views/store/reviewInfo.jsp").forward(req, resp);
 		

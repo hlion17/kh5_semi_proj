@@ -23,7 +23,7 @@ public class StoreMainController extends HttpServlet {
 
 		
 	//VIEW 지정 및 응답 - forward
-	req.getRequestDispatcher("/WEB-INF/views/store/store.jsp").forward(req, resp);
+	req.getRequestDispatcher("/WEB-INF/views/store/storeList.jsp").forward(req, resp);
 	
 	}
 	
