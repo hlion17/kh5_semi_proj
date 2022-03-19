@@ -13,6 +13,7 @@ import dao.face.RefDao;
 import dto.Member;
 import dto.Ref;
 import dto.RefItem;
+import oracle.net.aso.l;
 
 public class RefDaoImpl implements RefDao{
 
@@ -538,7 +539,7 @@ public class RefDaoImpl implements RefDao{
 				+ "ref_member_no, "
 				+ "ref_code, "
 				+ "member_no) "
-			+ "Values (REF_MEBER_SEQ.NEXTVAL, ?, ?)";
+			+ "VALUES (REF_MEMBER_SEQ.NEXTVAL, ?, ?)";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -592,6 +593,47 @@ public class RefDaoImpl implements RefDao{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<Ref> findAllMemberByRefCode(Connection conn, int myRefCode) {
+		List<Ref> list = new ArrayList<Ref>();;
+		String sql = "";
+		sql = "SELECT ref_member_no, myRefCode, yourMemberNo, yourRefCode, ref_name "
+				+ "FROM ("
+					+ "SELECT rm.ref_member_no, rm.ref_code myRefCode, rm.member_no yourMemberNo, m.my_ref_code yourRefCode "
+					+ "FROM ref_member rm "
+					+ "INNER JOIN member m "
+						+ "ON rm.member_no = m.member_no"
+					+ ") xx "
+				+ "INNER JOIN ref yy "
+					+ "ON xx.yourRefCode = yy.ref_code "
+				+ "WHERE myRefCode = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, myRefCode);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Ref ref = new Ref();
+				
+				ref.setRefMemberNo(rs.getInt("ref_member_no"));
+				ref.setRefCode(rs.getInt("yourRefCode"));
+				ref.setRefName(rs.getString("ref_name"));
+				ref.setYourMemberNo(rs.getInt("yourMemberNo"));
+				
+				list.add(ref);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return list;
 	}
 
 }

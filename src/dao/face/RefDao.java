@@ -15,7 +15,7 @@ public interface RefDao {
 	 * @param memberId - 조회할 회원 아이디
 	 * @return - 회원이 가지고 있는 냉장고 목록
 	 */
-	List<Ref> findByMemberId(Connection conn, String memberId);
+	List<Ref> findByMemberId(Connection conn, String memberId); // 사용하지 않는 메서드 확인하고 지우기
 
 	/**
 	 * DB에서 refCode에 해당하는 냉장고의 품목을 조회한다. (기본정렬: 오름차순)
@@ -142,5 +142,13 @@ public interface RefDao {
 	 * @return insert 결과 (1 - 성공, 0 - 실패)
 	 */
 	int insertRef_Member(Connection conn, Member member);
+
+	/**
+	 * 로그인한 회원의 냉장고를 공유하고 있는 모든 회원을 조회
+	 * @param conn - DB 접속 객체
+	 * @param myRefCode - 로그인한 회원의 냉장고 코드
+	 * @return - List<Ref> - 로그인한 회원이 공유하고 있는 냉장고 목록
+	 */
+	List<Ref> findAllMemberByRefCode(Connection conn, int myRefCode);
 
 }

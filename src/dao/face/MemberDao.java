@@ -94,5 +94,13 @@ public interface MemberDao {
 	 */
 	public int updateInfo(Connection conn, Member member);
 
+	/** 
+	 * 회원 DB에서 냉장고 코드로 회원 정보를 찾는 메서드 
+	 * @param conn - DB 연결 객체
+	 * @param refCode - 찾을 냉장고 번호
+	 * @return - 냉장고 코드로 찾은 회원 정보
+	 */
+	public Member findeByRefCode(Connection conn, int refCode);
+
 	
 }

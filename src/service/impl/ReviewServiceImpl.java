@@ -187,6 +187,8 @@ public class ReviewServiceImpl implements ReviewService {
 				} else if ( "content".equals(key) ) {
 					review.setContent(value);
 					
+				} else if ("pro_no".equals(key)) {
+					review.setPro_no(Integer.parseInt(value));
 				}
 				
 			} //if( item.isFormField() ) end
@@ -237,8 +239,8 @@ public class ReviewServiceImpl implements ReviewService {
 		HttpSession session = req.getSession();
 		int memberno =  (Integer) session.getAttribute("memberno");
 		review.setMember_no(memberno);
-		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
-		review.setPro_no(pro_no);
+//		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
+//		review.setPro_no(pro_no);
 		
 		//게시글 정보 삽입
 			if(review.getTitle()==null || "".equals(review.getTitle())) {
