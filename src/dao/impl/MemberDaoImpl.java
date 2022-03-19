@@ -117,7 +117,7 @@ public class MemberDaoImpl implements MemberDao {
 			ps.setString(9, member.getAddress());
 			ps.setString(10, member.getIntro());
 			// write by young
-			int hashCode = member.getMemberid().hashCode();
+			int hashCode = Math.abs(member.getMemberid().hashCode());
 			ps.setInt(11, hashCode);
 			// write by young
 			

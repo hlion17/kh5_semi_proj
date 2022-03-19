@@ -580,14 +580,15 @@ public class RefDaoImpl implements RefDao{
 		String sql = "";
 		sql = "INSERT INTO ref_member (ref_member_no, ref_code, member_no) "
 				+ "VALUES (REF_MEMBER_SEQ.NEXTVAL, ?, ?)";
-		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, rs.getInt(member.getMy_ref_code()));
-			ps.setInt(2, rs.getInt(member.getMemberno()));
+			ps.setInt(1, member.getMy_ref_code());
+			ps.setInt(2, member.getMemberno());
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
 		}
 		
 		return result;

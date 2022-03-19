@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 		int result3 = refDao.insertRef_Member(conn, foundMember);
 		
 		// '회원가입, 냉장고 생성, 냉장고_회원 매핑 테이블에 관련 정보 삽입'이 하나의 트랜잭션으로 관리되도록 처리
-		if( result == 1 && result2 == 1 && result3 == 1) {
+		if(result == 1 && result2 == 1 && result3 == 1) {
 			JDBCTemplate.commit(conn);
 			return member;
 		} else {
