@@ -59,6 +59,7 @@ public class MemberLoginController extends HttpServlet {
 			session.setAttribute("zipcode", member.getZipcode());
 			session.setAttribute("address", member.getAddress());
 			session.setAttribute("intro", member.getIntro());
+			session.setAttribute("refCode", member.getMy_ref_code());
 			
 			System.out.println("로그인 컨트롤러 - 로그인 성공");
 			

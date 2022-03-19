@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.util.List;
 
 import dto.Member;
-import dto.Recipe;
-import util.Paging;
 
 
 public interface MemberDao {
@@ -95,7 +93,7 @@ public interface MemberDao {
 	 * @return 수정가능 여부 1: 가능, 0: 불가능
 	 */
 	public int updateInfo(Connection conn, Member member);
-
+	
 	/**
 	 * Recipe테이블 전체 조회
 	 * 	-> 페이징 처리 추가
@@ -105,6 +103,14 @@ public interface MemberDao {
 	 * @return List<Member> - Recipe테이블 전체 조회 결과 목록
 	 */
 	public List<Member> selectAll(Connection conn, Paging paging);
+
+	/** 
+	 * 회원 DB에서 냉장고 코드로 회원 정보를 찾는 메서드 
+	 * @param conn - DB 연결 객체
+	 * @param refCode - 찾을 냉장고 번호
+	 * @return - 냉장고 코드로 찾은 회원 정보
+	 */
+	public Member findeByRefCode(Connection conn, int refCode);
 
 	
 }

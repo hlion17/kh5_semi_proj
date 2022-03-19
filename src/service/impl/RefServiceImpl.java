@@ -16,6 +16,7 @@ import dao.face.MemberDao;
 import dao.face.RefDao;
 import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
+import dto.Member;
 import dto.Ref;
 import dto.RefItem;
 import service.face.MemberService;
@@ -31,25 +32,16 @@ public class RefServiceImpl implements RefService {
 	@Override
 	public void chooseRef(HttpServletRequest req) {
 		// 쿼리파리미터 값 받아오기
-		// 일단 쿼리파라터로 멤버 아이디 받아 오는 것으로 처리
-		// 이후에 세션 처리
-		//String memberId = req.getParameter("memberId");
 		HttpSession session = req.getSession();
-		String memberId = (String) session.getAttribute("memberid");
-		logger.info("쿼리파라미터로 전달된 회원아이디: " + memberId);
-		
-		// 쿼리파라미터 검증
-		if ("".equals(memberId) || memberId == null) {
-			// 일단 로그남기는 처리만 해놓음
-			logger.warning("회원아이디가 없음");
-		}
+		int myRefCode = (Integer) session.getAttribute("refCode");
+		logger.info("로그인세션에서 가져온 냉장고 코드: " + myRefCode);
 		
 		// DB Connection 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DB 에서 냉장고 데이터 리스트로 가져오기 
-		List<Ref> list = refDao.findByMemberId(conn, memberId);
-		logger.info("회원 아이디로 조회된 냉장고 목록: " + list);
+		List<Ref> list = refDao.findAllMemberByRefCode(conn, myRefCode);
+		logger.info("로그인한 회원의 냉장고코드로 조회된 냉장고 목록: " + list);
 		
 		// View 에 전달할 데이터 저장
 		req.setAttribute("list", list);
@@ -324,26 +316,26 @@ public class RefServiceImpl implements RefService {
 	public void shareRef(HttpServletRequest req) {
 		// 요청 파라미터 분석 - 공유 대상의 냉장고 코드
 		int refCode = Integer.parseInt(req.getParameter("refCode"));
-		logger.info("refService - 요청파라미터: " + refCode);
-		
-		// 세션분석 - 로그인한 회원의 아이디
-		HttpSession session = req.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		logger.info("refService - 세션아이디: " + memberId);
+		logger.info("요청파라미터 - 공유 대상의 냉장고 코드: " + refCode);
 		
 		// DB Connection 객체 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
-		// DB에서 회원아이디에 해당하는 회원번호 조회 - MemberService 이용
-		int memberNo = memberDao.findMemberNoById(conn, memberId);
-		logger.info("refService - DB 회원번호조회 결과: " + memberNo);
+		// 공유 대상의 냉장고 코드로 공유 대상의 회원 번호 조회
+		Member targetMember = memberDao.findeByRefCode(conn, refCode);
+		logger.info("DB조회결과 - 공유대상 회원정보: " + targetMember);
+		
+		// 세션분석 - 로그인 한 회원의 냉장고 코드
+		HttpSession session = req.getSession();
+		int myRefCode = (Integer) session.getAttribute("refCode");
+		logger.info("세션에서 가져온 냉장고 코드: " + myRefCode);
 		
 		// 공유 대상 냉장고에 로그인 한 회원번호 추가
-		int result = refDao.insertSharingMember(conn, refCode, memberNo);
-		logger.info("refService - insert 결과: " + result);
+		int result = refDao.insertSharingMember(conn, myRefCode, targetMember.getMemberno());
+		logger.info("냉장고 공유 결과: " + result);
 		
 		// insert 결과 트랜잭션 처리
-		if (result > 0) {
+		if (result == 1) {
 			JDBCTemplate.commit(conn);
 			logger.info("refService - insert 트랜잭션 처리: 커밋됨");
 		} else {
@@ -351,7 +343,12 @@ public class RefServiceImpl implements RefService {
 		}
 		
 		// View에 전달할 데이터 저장
-		req.setAttribute("memberId", memberId);
+	}
+
+	@Override
+	public void cancelSharingRef(HttpServletRequest req) {
+		// 요청 파라미터 분석
+		
 	}
 
 	
