@@ -14,12 +14,15 @@ import dao.face.RefDao;
 import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Member;
+import dto.Recipe;
 import service.face.MemberService;
+import util.Paging;
 
 public class MemberServiceImpl implements MemberService {
 
 	private MemberDao memberDao = new MemberDaoImpl();
 	private RefDao refDao = new RefDaoImpl();
+	private MemberDao boardDao = new MemberDaoImpl();
 	
 	@Override
 	public Member getLoginMember(HttpServletRequest req) {
@@ -240,6 +243,15 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("getMemberInfoSession 메소드 리턴값" + member);
 		return member;
 		
+	}
+
+	@Override
+	public List<Member> getList(Paging paging) {
+		System.out.println("[TEST] MemberServiceImpl - getList(Paging paging) 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] MemberServiceImpl - getList(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
+		return boardDao.selectAll( JDBCTemplate.getConnection(), paging );
 	}
 	
 		

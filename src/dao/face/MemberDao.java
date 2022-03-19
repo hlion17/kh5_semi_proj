@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import dto.Member;
+import dto.Recipe;
+import util.Paging;
 
 
 public interface MemberDao {
@@ -93,6 +95,16 @@ public interface MemberDao {
 	 * @return 수정가능 여부 1: 가능, 0: 불가능
 	 */
 	public int updateInfo(Connection conn, Member member);
+
+	/**
+	 * Recipe테이블 전체 조회
+	 * 	-> 페이징 처리 추가
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Member> - Recipe테이블 전체 조회 결과 목록
+	 */
+	public List<Member> selectAll(Connection conn, Paging paging);
 
 	
 }

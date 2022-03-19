@@ -40,8 +40,14 @@ public class RecipeBoardController extends HttpServlet {
 		//게시글 페이징 목록 조회 - BoardService이용
 		List<Recipe> boardList = boardService.getList( paging );
 		
+		//게시글(멤버) 페이징 목록 조회 - memberService이용
+		List<Member> memberList = memberService.getList( paging );
+
 		//조회결과 MODEL값 전달 - req.setAttribute
 		req.setAttribute("boardList", boardList);
+
+		//조회결과 MODEL값 전달 - req.setAttribute
+		req.setAttribute("memberList", memberList);
 		
 		//페이징 MODEL값 전달
 		req.setAttribute("paging", paging);
