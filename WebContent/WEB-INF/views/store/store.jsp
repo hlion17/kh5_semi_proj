@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@include file = "/WEB-INF/views/layout/header.jsp" %>
+
+<!--  
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>shopping Cart</title>
 </head>
+ -->
 
 <style type="text/css">
+
 
 *{
 	margin: 0;
@@ -15,6 +21,7 @@
 	box-sizing: border-box;
 }
 
+/*
 header {
 	background-image:url('https://i.pinimg.com/564x/a4/24/19/a42419e6aca6d3ae031d668245aa7292.jpg');
 	background-repeat: no-repeat;
@@ -66,6 +73,7 @@ li a {
 	background-color: #fff;
 	text-decoration: none;
 }
+*/
 
 .cart ion-icon {
 	vertical-align: bottom;
@@ -127,6 +135,7 @@ li a {
 
 
 <body>
+<!-- 
 	<header>
 		<div class="overlay"></div>
 		<nav>
@@ -140,6 +149,7 @@ li a {
 			</ul>
 		</nav>
 	</header>
+ -->
 
 	<div class="container">
 		<div class="image">
@@ -178,7 +188,9 @@ li a {
 
 	<script src="main.js"></script>
 
-</body>
+<!-- </body> -->
 
 
-</html>
+<!-- </html> -->
+
+<%@include file = "/WEB-INF/views/layout/footer.jsp" %>
