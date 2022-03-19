@@ -6,9 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import common.JDBCTemplate;
 import dao.face.MemberDao;
 import dto.Member;
+import util.Paging;
 
 public class MemberDaoImpl implements MemberDao {
 	private PreparedStatement ps = null; //SQL수행 객체
@@ -424,5 +428,5 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return member;
 	}
-	
+
 }
