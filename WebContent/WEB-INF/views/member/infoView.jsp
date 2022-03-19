@@ -52,14 +52,14 @@
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
-	<tr>
+	<%-- <tr>
 		<div class="form-group">
 			<label for="gender" class="control-label col-xs-2">성별</label>
 				<td><%=m.getGender() %></td>
 				<input type="hidden" name="gender" value="<%=session.getAttribute("gender") %>"></td>
 			<div class="col-xs-10"></div>
 		</div>
-	</tr>
+	</tr> --%>
 	<tr>
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">이메일</label>

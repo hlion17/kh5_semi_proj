@@ -34,5 +34,6 @@ private MemberService memberService = new MemberServiceImpl();
 		
 		// VIEW 지정 및 응답 - forward
 		req.getRequestDispatcher("/WEB-INF/views/member/info.jsp").forward(req, resp);
+		
 	}
 }
