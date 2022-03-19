@@ -22,7 +22,7 @@
 		<th>조회수</th>
 		<th>추천수</th>
 		<th>작성일</th>
-		<th>소개글</th>
+<!-- 		<th>소개글</th> -->
 	<!-- 	<th>게시글 번호</th>	 -->
 	</tr>
 	
@@ -37,7 +37,7 @@
 		<td><%=boardList.get(i).getHit() %></td>
 		<td><%=boardList.get(i).getLike() %></td>
 		<td><%=boardList.get(i).getWriteDate() %></td>
-		<td><%=boardList.get(i).getIntro() %></td>
+<%-- 		<td><%=boardList.get(i).getIntro() %></td> --%>
 	<%-- 	<td><%=boardList.get(i).getBoardno() %></td> --%>
 	</tr>
 	<%	} %>
