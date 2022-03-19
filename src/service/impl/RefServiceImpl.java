@@ -33,7 +33,9 @@ public class RefServiceImpl implements RefService {
 		// 쿼리파리미터 값 받아오기
 		// 일단 쿼리파라터로 멤버 아이디 받아 오는 것으로 처리
 		// 이후에 세션 처리
-		String memberId = req.getParameter("memberId");
+		//String memberId = req.getParameter("memberId");
+		HttpSession session = req.getSession();
+		String memberId = (String) session.getAttribute("memberid");
 		logger.info("쿼리파라미터로 전달된 회원아이디: " + memberId);
 		
 		// 쿼리파라미터 검증

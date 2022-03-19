@@ -19,15 +19,10 @@ public class RefChooseController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// 로그인한 회원의 냉장고 선택
 		refService.chooseRef(req);
 		
 		req.getRequestDispatcher("/WEB-INF/views/ref/ref_choose.jsp").forward(req, resp);
 	}
-	
-	// 여긴 post 요청 없음
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
+
 }

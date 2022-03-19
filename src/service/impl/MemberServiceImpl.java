@@ -84,19 +84,19 @@ public class MemberServiceImpl implements MemberService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// edited by young
+		// 회원가입 처리
 		int result = memberDao.insert(conn, member);
 		
+		// 회원 ID를 얻어와 냉장고와 매핑 테이블에 insert 할 정보를 얻어온다.
 		String memberId = member.getMemberid();
-		
 		Member foundMember = memberDao.selectrefCodeAndMemberNo(conn, memberId);
 		
-		int refCode = foundMember.getMy_ref_code();
+		// 냉장고, 냉장고_매핑 테이블에 회원정보 insert
+		int result2 = refDao.insertRef(conn, foundMember);
+		int result3 = refDao.insertRef_Member(conn, foundMember);
 		
-		int memberNo = foundMember.getMemberno();
-		
-		int result2 = refDao.insertRef(conn, refCode, memberNo);
-		
-		if( result > 0 && result2 > 0) {
+		// '회원가입, 냉장고 생성, 냉장고_회원 매핑 테이블에 관련 정보 삽입'이 하나의 트랜잭션으로 관리되도록 처리
+		if( result == 1 && result2 == 1 && result3 == 1) {
 			JDBCTemplate.commit(conn);
 			return member;
 		} else {

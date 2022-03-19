@@ -3,6 +3,7 @@ package dao.face;
 import java.sql.Connection;
 import java.util.List;
 
+import dto.Member;
 import dto.Ref;
 import dto.RefItem;
 
@@ -128,10 +129,18 @@ public interface RefDao {
 	 * DB에 냉장고를 등록한다.
 	 * - 회원가입과 하나의 트랜잭션으로 이루어져야 한다.
 	 * @param conn - DB 접속 객체
-	 * @param refCode - 등록 할 냉장고 코드
-	 * @param memberNo - 등록 할 회원 코드
+	 * @param member - 등록 할 냉장고 코드, 회원번호, 회원닉네임(냉장고이름에 사용) 정보가 담긴 Member DTO
 	 * @return - insert 결과 ( 1 - 성공, 0 - 실패)
 	 */
-	int insertRef(Connection conn, int refCode, int memberNo);
+	int insertRef(Connection conn, Member member);
+	
+	/**
+	 * 회원가입 insert, 냉장고 insert 할 때 회원_냉장고 매핑 테이블에 정보 추가
+	 * - 하나의 트랜잭션으로 관리
+	 * @param conn - DB 접속 객체
+	 * @param member - 회원ID, 냉장고 코드, 회원 닉네임이 담긴 회원 DTO
+	 * @return insert 결과 (1 - 성공, 0 - 실패)
+	 */
+	int insertRef_Member(Connection conn, Member member);
 
 }

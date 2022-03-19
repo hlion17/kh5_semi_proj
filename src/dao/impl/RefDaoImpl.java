@@ -10,9 +10,9 @@ import java.util.List;
 
 import common.JDBCTemplate;
 import dao.face.RefDao;
+import dto.Member;
 import dto.Ref;
 import dto.RefItem;
-import sun.reflect.generics.visitor.Reifier;
 
 public class RefDaoImpl implements RefDao{
 
@@ -554,7 +554,7 @@ public class RefDaoImpl implements RefDao{
 	}
 
 	@Override
-	public int insertRef(Connection conn, int refCode, int memberNo) {
+	public int insertRef(Connection conn, Member member) {
 		int result = -1;
 		String sql = "";
 		sql = "INSERT INTO ref (ref_code, ref_name) "
@@ -562,13 +562,32 @@ public class RefDaoImpl implements RefDao{
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, refCode);
-			ps.setString(2, "나의 냉장고");
+			ps.setInt(1, member.getMy_ref_code());
+			ps.setString(2, member.getNick() + "의 냉장고");
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int insertRef_Member(Connection conn, Member member) {
+		int result = -1;
+		String sql = "";
+		sql = "INSERT INTO ref_member (ref_member_no, ref_code, member_no) "
+				+ "VALUES (REF_MEMBER_SEQ.NEXTVAL, ?, ?)";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, rs.getInt(member.getMy_ref_code()));
+			ps.setInt(2, rs.getInt(member.getMemberno()));
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return result;

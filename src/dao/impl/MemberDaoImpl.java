@@ -191,7 +191,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectrefCodeAndMemberNo(Connection conn, String memberId) {
 		Member member = new Member();
 		String sql = "";
-		sql = "SELECT member_no, my_ref_code FROM member WHERE id = ?";
+		sql = "SELECT member_no, my_ref_code, nick FROM member WHERE id = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -201,6 +201,7 @@ public class MemberDaoImpl implements MemberDao {
 			while (rs.next()) {
 				member.setMemberno(rs.getInt("member_no"));
 				member.setMy_ref_code(rs.getInt("my_ref_code"));
+				member.setNick(rs.getString("nick"));
 			}
 			
 		} catch (SQLException e) {
