@@ -244,27 +244,36 @@ public class ReviewServiceImpl implements ReviewService {
 //		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
 //		review.setPro_no(pro_no);
 		
+		
 		//게시글 정보 삽입
-			if(review.getTitle()==null || "".equals(review.getTitle())) {
-				review.setTitle("(제목없음)");
-			}
-			if( reviewDao.insert(conn, review) > 0 ) {
+		review.setReview_no(review_no);
+		if(review.getTitle()==null 	|| "".equals(review.getTitle())) {
+			review.setTitle("(제목없음)");
+		}
+//		review.setMember_no( (int)req.getSession().getAttribute("member_no") );
+		
+		
+		
+		if( reviewDao.insert(conn, review) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+			
+		//첨부파일 정보 삽입
+		if( reviewFile.getFilesize() != 0 ) {
+			reviewFile.setReview_no(review_no);
+			
+			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}
-			
-			
-			//첨부파일 정보 삽입
-			if( reviewFile.getFilesize() != 0 ) {
-				reviewFile.setReview_no(review.getReview_no());
-				
-				if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
-					JDBCTemplate.commit(conn);
-				} else {
-					JDBCTemplate.rollback(conn);
-				}
-			}
+		}
+		
+		System.out.println("@@@@@@@@review: " + review);
+
 
 	}
 
