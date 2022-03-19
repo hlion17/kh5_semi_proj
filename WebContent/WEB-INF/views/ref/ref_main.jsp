@@ -83,5 +83,14 @@
 </div>
 -->
 
+<div>
+냉장고 공유 테스트 레이어<br>
+나의 냉장고 코드 : <% int myRefCode = (Integer)session.getAttribute("refCode"); %><%= myRefCode %>
+<form action="/ref/share" method="post">
+	<label>공유하기<input type="text" name="refCode"></label>
+	<button>제출</button>
+</form>
+</div>
+
 <!-- footer page -->
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>

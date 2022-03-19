@@ -40,7 +40,7 @@ $(document).ready(function() {
 			<tr>
 				<td><%=boardList.get(i).getBoardno() %></td>
 				<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
-				<td><%=request.getAttribute("writerNick") %></td>
+				<td><%=boardList.get(i).getNick() %></td>
 				<td><%=boardList.get(i).getWriteDate() %></td>
 				<td><%=boardList.get(i).getLike() %></td>
 				<td><%=boardList.get(i).getHit() %></td>

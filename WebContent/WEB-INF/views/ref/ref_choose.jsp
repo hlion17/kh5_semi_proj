@@ -15,6 +15,7 @@
 
 <% for (int i = 0; i < refList.size(); i++) { %>
 <button onclick="location.href='/ref/itemlist?refCode=<%= refList.get(i).getRefCode() %>'"><%= refList.get(i).getRefName() %></button>
+<button>공유취소</button>
 <% } %>
 
 </div>

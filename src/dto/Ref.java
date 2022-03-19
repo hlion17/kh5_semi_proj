@@ -5,11 +5,12 @@ public class Ref {
 	private int refCode;
 	private int MemberNo;
 	private String refName;
+	private int yourMemberNo;
 	
 	@Override
 	public String toString() {
 		return "Ref [refMemberNo=" + refMemberNo + ", refCode=" + refCode + ", MemberNo=" + MemberNo + ", refName="
-				+ refName + "]";
+				+ refName + ", yourMemberNo=" + yourMemberNo + "]";
 	}
 
 	public int getRefMemberNo() {
@@ -42,6 +43,14 @@ public class Ref {
 
 	public void setRefName(String refName) {
 		this.refName = refName;
+	}
+
+	public int getYourMemberNo() {
+		return yourMemberNo;
+	}
+
+	public void setYourMemberNo(int yourMemberNo) {
+		this.yourMemberNo = yourMemberNo;
 	}
 	
 	

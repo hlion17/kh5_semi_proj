@@ -129,4 +129,13 @@ public interface MemberService {
 	 * @return List<Member> - 페이징이 반영된 게시글 조회 결과 목록
 	 */
 	public List<Member> getList(Paging paging);
+	
+	/**
+	 * 프로필 작성
+	 * 	지정한 프로필 사진을 DB에 저장
+	 * 
+	 * @param req - 요청정보 객체(첨부파일)
+	 * 
+	 */
+	public void uploadProfil(HttpServletRequest req);
 }

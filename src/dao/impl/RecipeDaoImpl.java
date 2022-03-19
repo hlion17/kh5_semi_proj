@@ -94,9 +94,11 @@ public class RecipeDaoImpl implements RecipeDao {
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
 		sql += " 		SELECT";
-		sql += "			board_no, member_no, title";
-		sql += "			, updated_date, hit, board_like";
-		sql += "		FROM recipe";
+//		sql += "			board_no, member_no, title";
+//		sql += "			, updated_date, hit, board_like";
+		sql += "			RECIPE.*, MEMBER.NICK";
+		sql += "		FROM recipe, MEMBER";
+		sql += "		WHERE MEMBER.MEMBER_NO = RECIPE.MEMBER_NO";
 		sql += "		ORDER BY board_no DESC";
 		sql += " 	) B";
 		sql += " ) recipe";
@@ -124,6 +126,7 @@ public class RecipeDaoImpl implements RecipeDao {
 				b.setHit( rs.getInt("hit") );
 				b.setWriteDate( rs.getDate("updated_date") );
 				b.setLike( rs.getInt("board_like") );
+				b.setNick( rs.getString("nick"));
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);

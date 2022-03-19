@@ -12,7 +12,6 @@ import java.util.List;
 import common.JDBCTemplate;
 import dao.face.MemberDao;
 import dto.Member;
-import dto.Recipe;
 import util.Paging;
 
 public class MemberDaoImpl implements MemberDao {
@@ -55,7 +54,7 @@ public class MemberDaoImpl implements MemberDao {
 	public Member selectMemberByMemberid(Connection conn, Member member) {
 
 		String sql = "";
-		sql += "SELECT member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro";
+		sql += "SELECT member_no, id, pw, name, nick, gender, email, phone, zipcode, address, intro, my_ref_code";
 		sql += " FROM member";
 		sql += " WHERE id = ?";
 		
@@ -83,6 +82,7 @@ public class MemberDaoImpl implements MemberDao {
 				result.setZipcode( rs.getString("zipcode") );
 				result.setAddress( rs.getString("address") );
 				result.setIntro( rs.getString("intro") );
+				result.setMy_ref_code(rs.getInt("my_ref_code"));
 			}
 			
 		} catch (SQLException e) {
@@ -318,7 +318,7 @@ public class MemberDaoImpl implements MemberDao {
 
 		return res;
 	}
-
+	
 	public List<Member> selectAll(Connection conn, Paging paging) {
 		System.out.println("[TEST] MemberDaoImpl - selectAll(Connection conn, Paging paging) 호출");
 		
@@ -379,6 +379,54 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("[TEST] MemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
-	
+
+	@Override
+	public Member findeByRefCode(Connection conn, int refCode) {
+		Member member = null;
+		String sql = "";
+		sql = "SELECT "
+				+ "member_no"
+				+ ", id"
+				+ ", pw"
+				+ ", name"
+				+ ", nick"
+				+ ", gender"
+				+ ", email"
+				+ ", phone"
+				+ ", address"
+				+ ", intro"
+				+ ", my_ref_code"
+				+ ", zipcode "
+				+ "FROM member "
+				+ "WHERE my_ref_code = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, refCode);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				member = new Member();
+				
+				member.setMemberno( rs.getInt("member_no") );
+				member.setMemberid( rs.getString("id") );
+				member.setMemberpw( rs.getString("pw") );
+				member.setMembername( rs.getString("name") );
+				member.setNick( rs.getString("nick") );
+				member.setGender( rs.getString("gender") );
+				member.setEmail( rs.getString("email") );
+				member.setPhone( rs.getString("phone") );
+				member.setZipcode( rs.getString("zipcode") );
+				member.setAddress( rs.getString("address") );
+				member.setIntro( rs.getString("intro") );
+				member.setMy_ref_code(rs.getInt("my_ref_code"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return member;
+	}
 	
 }
