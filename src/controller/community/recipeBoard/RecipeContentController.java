@@ -25,7 +25,13 @@ public class RecipeContentController extends HttpServlet {
 		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
-
+		
+		//로그인 되어있으면 미리 추천플래그 생성 
+		if( req.getSession().getAttribute("login") != null ) {
+			String likeFlag = "like_" + boardno.getBoardno();
+			req.getSession().setAttribute(likeFlag, false);
+		}
+		
 		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno); 
 		

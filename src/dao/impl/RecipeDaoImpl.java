@@ -280,13 +280,14 @@ public class RecipeDaoImpl implements RecipeDao {
 			
 			res = ps.executeUpdate();
 			
+			String likeFlag = "like_" + boardno.getBoardno();
+			req.getSession().setAttribute(likeFlag, true);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(ps);
 		}
-		String likeFlag = "like_" + boardno.getBoardno();
-		req.getSession().setAttribute(likeFlag, true);
 		
 		System.out.println("[TEST] RecipeDaoImpl - updateLike(Connection conn, Recipe boardno) - res 리턴 : " + res);
 		return res;
