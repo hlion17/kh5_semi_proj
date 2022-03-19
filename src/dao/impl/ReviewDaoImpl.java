@@ -230,7 +230,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
 		String sql = "";
 		sql += " INSERT INTO review (review_no, pro_no, member_no, title, content, regdate, hit)";
-		sql += " VALUES (?, ?, ?, ?, ?, sysdate, 0)";
+		sql += " VALUES (review_seq.nextval, ?, ?, ?, ?, sysdate, 0)";
 		
 		int res = 0;
 
@@ -238,11 +238,11 @@ public class ReviewDaoImpl implements ReviewDao {
 			// DB작업
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, review.getReview_no());
-			ps.setInt(2, review.getPro_no());
-			ps.setInt(3, review.getMember_no());
-			ps.setString(4, review.getTitle());
-			ps.setString(5, review.getContent());
+//			ps.setInt(1, review.getReview_no());
+			ps.setInt(1, review.getPro_no());
+			ps.setInt(2, review.getMember_no());
+			ps.setString(3, review.getTitle());
+			ps.setString(4, review.getContent());
 
 			res = ps.executeUpdate();
 
@@ -363,20 +363,19 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int insertFile(Connection conn, ReviewFile reviewFile) {
 
 		String sql = "";
-		sql += "INSERT INTO boardfile( img_no, origin_name, stored_name, path, filesize, review_no,)";
-		sql += " VALUES (img_no_seq.nextval, ?, ?, ?, ?, ?)";
+		sql += " INSERT INTO reviewfile( img_no, origin_name, stored_name, path, filesize, review_no)";
+		sql += "	values (reviewfile_seq.nextval, ?, ?, ?, ?, ?)";
 
 		int res = 0;
 
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, reviewFile.getReview_no());
-			ps.setString(2, reviewFile.getOrigin_name());
-			ps.setString(3, reviewFile.getStored_name());
-			ps.setString(4, reviewFile.getPath());
-			ps.setInt(5, reviewFile.getFilesize());
-			ps.setInt(6, reviewFile.getReview_no());
+			ps.setString(1, reviewFile.getOrigin_name());
+			ps.setString(2, reviewFile.getStored_name());
+			ps.setString(3, reviewFile.getPath());
+			ps.setInt(4, reviewFile.getFilesize());
+			ps.setInt(5, reviewFile.getReview_no());
 
 			res = ps.executeUpdate();
 
@@ -400,8 +399,8 @@ public class ReviewDaoImpl implements ReviewDao {
 		sql += "	, path";
 		sql += "	, filesize";
 		sql += "	, review_no";
-		sql += " FROM boardfile";
-		sql += " WHERE img_no = ?";
+		sql += " FROM reviewfile";
+		sql += " WHERE review_no = ?";
 		
 		//결과 저장할 DTO객체
 		ReviewFile reviewFile = null;
@@ -418,10 +417,11 @@ public class ReviewDaoImpl implements ReviewDao {
 
 				//결과값 행 처리
 				reviewFile.setImg_no(rs.getInt("img_no"));
-				reviewFile.setReview_no(rs.getInt("review_no")); 
 				reviewFile.setOrigin_name(rs.getString("orgin_name"));
 				reviewFile.setStored_name(rs.getString("stored_name"));
 				reviewFile.setPath(rs.getString("path"));
+				reviewFile.setFilesize(rs.getInt("filesize"));
+				reviewFile.setReview_no(rs.getInt("review_no")); 
 			}
 
 		} catch (SQLException e) {
@@ -468,7 +468,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
 		String sql = "";
 		sql += "DELETE review";
-		sql += " WHERE board_no = ?";
+		sql += " WHERE review_no = ?";
 
 		int res = -1;
 

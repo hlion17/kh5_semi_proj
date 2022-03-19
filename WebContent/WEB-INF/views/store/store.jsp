@@ -3,78 +3,8 @@
 
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
-<!--  
-<!DOCTYPE html>
-<html>
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>shopping Cart</title>
-</head>
- -->
 
 <style type="text/css">
-
-
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-/*
-header {
-	background-image:url('https://i.pinimg.com/564x/a4/24/19/a42419e6aca6d3ae031d668245aa7292.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	height: 150px;
-	position: relative;
-}
-
-
-.overlay {
-	position: absolute;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	height: 100px;
-	right: 0;
-	botton: 0;
-	padding: 0; ! important;
-	margin: 0; ! important;
-	background-color: rgba(10, 10, 10, 0, 3);
-}
-
-nav {
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	z-index: 2;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 50px 60px 0 60px;
-}
-
-nav li {
-	list-style: none;
-	display: inline-block;
-	padding-right: 10px;
-	padding-left: 10px;
-}
-
-nav li span {
-	padding-left: 5px;
-}
-
-li a {
-	padding: 5px;
-	background-color: #fff;
-	text-decoration: none;
-}
-*/
-
 .cart ion-icon {
 	vertical-align: bottom;
 	font-size: 20px;
@@ -135,21 +65,14 @@ li a {
 
 
 <body>
-<!-- 
-	<header>
-		<div class="overlay"></div>
-		<nav>
-			<h2>냉스타그램</h2>
-			<ul>
-				<li><a href="index.html">HOME</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="/cart">cart</a></li>
+
+<li><a href="/cart">cart</a></li>
 				<li class="cart"><a href="cart.html"> <ion-icon name="cart"></ion-icon>Cart<span>0</span>
 				</a></li>
 			</ul>
 		</nav>
 	</header>
- -->
+
 
 	<div class="container">
 		<div class="image">

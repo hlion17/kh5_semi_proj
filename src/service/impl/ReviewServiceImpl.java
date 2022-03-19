@@ -236,33 +236,44 @@ public class ReviewServiceImpl implements ReviewService {
 		//게시글 번호 생성
 		int review_no = reviewDao.selectReviewno(conn);
 		
+		
+		//회원번호 세션 설정
 		HttpSession session = req.getSession();
 		int memberno =  (Integer) session.getAttribute("memberno");
 		review.setMember_no(memberno);
 //		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
 //		review.setPro_no(pro_no);
 		
+		
 		//게시글 정보 삽입
-			if(review.getTitle()==null || "".equals(review.getTitle())) {
-				review.setTitle("(제목없음)");
-			}
-			if( reviewDao.insert(conn, review) > 0 ) {
+		review.setReview_no(review_no);
+		if(review.getTitle()==null 	|| "".equals(review.getTitle())) {
+			review.setTitle("(제목없음)");
+		}
+//		review.setMember_no( (int)req.getSession().getAttribute("member_no") );
+		
+		
+		
+		if( reviewDao.insert(conn, review) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+			
+		//첨부파일 정보 삽입
+		if( reviewFile.getFilesize() != 0 ) {
+			reviewFile.setReview_no(review_no);
+			
+			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}
-			
-			
-			//첨부파일 정보 삽입
-			if( reviewFile.getFilesize() != 0 ) {
-				reviewFile.setReview_no(review.getReview_no());
-				
-				if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
-					JDBCTemplate.commit(conn);
-				} else {
-					JDBCTemplate.rollback(conn);
-				}
-			}
+		}
+		
+		System.out.println("@@@@@@@@review: " + review);
+
 
 	}
 
@@ -287,8 +298,6 @@ public class ReviewServiceImpl implements ReviewService {
 			System.out.println("[ERROR] 파일 업로드 형식 데이터가 아님");
 			return;
 		}
-
-
 
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
@@ -321,8 +330,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-
-
 
 		//게시글 정보 DTO객체
 		Review review = new Review();
@@ -438,8 +445,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewFile viewFile(Review updateReview) {
-		return reviewDao.selectFile(JDBCTemplate.getConnection(), updateReview);
+	public ReviewFile viewFile(Review viewReview) {
+		return reviewDao.selectFile(JDBCTemplate.getConnection(), viewReview);
 	}
 
 
