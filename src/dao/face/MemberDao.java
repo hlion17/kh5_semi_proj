@@ -93,6 +93,16 @@ public interface MemberDao {
 	 * @return 수정가능 여부 1: 가능, 0: 불가능
 	 */
 	public int updateInfo(Connection conn, Member member);
+	
+	/**
+	 * Recipe테이블 전체 조회
+	 * 	-> 페이징 처리 추가
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Member> - Recipe테이블 전체 조회 결과 목록
+	 */
+	public List<Member> selectAll(Connection conn, Paging paging);
 
 	/** 
 	 * 회원 DB에서 냉장고 코드로 회원 정보를 찾는 메서드 

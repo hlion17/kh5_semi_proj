@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
+import dto.Recipe;
+import util.Paging;
 
 public interface MemberService {
 
@@ -112,6 +114,28 @@ public interface MemberService {
 	 */
 	public Member getUpdateInfoMember(HttpServletRequest req);
 
-
+	/**
+	 * 세션을 저장되어있는 회원 정보 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 회원정보 수정을 요청하는 회원의 정보
+	 */
+	public Member getMemberInfoBySession(HttpServletRequest req);
 	
+	/**
+	 * 게시글 페이징 목록 조회
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Member> - 페이징이 반영된 게시글 조회 결과 목록
+	 */
+	public List<Member> getList(Paging paging);
+	
+	/**
+	 * 프로필 작성
+	 * 	지정한 프로필 사진을 DB에 저장
+	 * 
+	 * @param req - 요청정보 객체(첨부파일)
+	 * 
+	 */
+	public void uploadProfil(HttpServletRequest req);
 }

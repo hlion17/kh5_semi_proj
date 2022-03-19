@@ -53,7 +53,7 @@ $(document).ready(function() {
 			<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
 			<tr><td class="info">제목</td><td colspan="3"><%=viewBoard.getTitle() %></td></tr>
 			<tr>
-				<td class="info">아이디</td><td><%=viewBoard.getUserid() %></td>
+				<td class="info">회원번호</td><td><%=viewBoard.getUserid() %></td>
 				<td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td>
 			</tr>
 			

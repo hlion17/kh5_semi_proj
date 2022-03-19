@@ -44,7 +44,7 @@
 <strong><%=session.getAttribute("nick") %>님, 환영합니다</strong>
 <ul>
     <li><a href="<%=request.getContextPath() %>/member/logout">로그아웃</a></li>
-    <li><a href="<%=request.getContextPath() %>/member/info">회원정보</a></li>
+    <li><a href="<%=request.getContextPath() %>/member/infoView">회원정보</a></li>
     <li><a href="<%=request.getContextPath() %>/notice/list">공지사항</a></li>
     <li><a href="<%=request.getContextPath() %>/qa/list">Q&A</a></li>
 </ul>
