@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.Member;
 import dto.Recipe;
@@ -44,7 +45,7 @@ public class RecipeBoardController extends HttpServlet {
 		
 		//페이징 MODEL값 전달
 		req.setAttribute("paging", paging);
-
+		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] RecipeBoardController - list.jsp로 포워드");
 		System.out.println();

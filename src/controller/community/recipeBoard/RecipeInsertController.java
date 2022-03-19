@@ -30,7 +30,7 @@ public class RecipeInsertController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeInsertController( /recipe/insert ) [POST] 호출");
-		
+				
 		//로그인 되어있지 않으면 리다이렉트 
 		if( req.getSession().getAttribute("login") == null ) {
 			resp.sendRedirect("/main.jsp");

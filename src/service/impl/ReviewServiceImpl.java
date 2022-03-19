@@ -48,8 +48,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {
 			System.out.println("[WARN] ReviewService getreview_no() - review_no값이 null이거나 비어있음");
 		}
-
-		System.out.println("review_no: " + review_no);
 		return review_no;
 	}
 
@@ -237,10 +235,10 @@ public class ReviewServiceImpl implements ReviewService {
 		int review_no = reviewDao.selectReviewno(conn);
 		
 		
-		//회원번호 세션 설정
-		HttpSession session = req.getSession();
-		int memberno =  (Integer) session.getAttribute("memberno");
-		review.setMember_no(memberno);
+//		//회원번호 세션 설정
+//		HttpSession session = req.getSession();
+//		int memberno =  (Integer) session.getAttribute("memberno");
+//		review.setMember_no(memberno);
 //		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
 //		review.setPro_no(pro_no);
 		
@@ -250,9 +248,8 @@ public class ReviewServiceImpl implements ReviewService {
 		if(review.getTitle()==null 	|| "".equals(review.getTitle())) {
 			review.setTitle("(제목없음)");
 		}
-//		review.setMember_no( (int)req.getSession().getAttribute("member_no") );
-		
-		
+		review.setMember_no( (int)req.getSession().getAttribute("memberno") );
+//		review.setPro_no( Integer.parseInt( req.getParameter("pro_no") ) );
 		
 		if( reviewDao.insert(conn, review) > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -271,10 +268,6 @@ public class ReviewServiceImpl implements ReviewService {
 				JDBCTemplate.rollback(conn);
 			}
 		}
-		
-		System.out.println("@@@@@@@@review: " + review);
-
-
 	}
 
 	@Override

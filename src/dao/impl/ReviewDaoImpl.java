@@ -82,8 +82,8 @@ public class ReviewDaoImpl implements ReviewDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, R.* FROM (";
-		sql += " 		SELECT review_no, product.name, nick, title,regdate, hit";
-		sql += "		FROM review, MEMBER, product";
+		sql += " 		SELECT review.*, nick, member.name name, product.name pro_name";
+		sql += "		FROM review, member, product";
 		sql += " 		WHERE review.member_no = member.member_no";
 		sql += "			    and review.pro_no = product.pro_no";
 		sql += " 		ORDER BY review_no desc ";
@@ -109,11 +109,15 @@ public class ReviewDaoImpl implements ReviewDao {
 
 				// 결과값 한 행 처리
 				review.setReview_no(rs.getInt("review_no"));
-				review.setName(rs.getString("name"));
-				review.setNick(rs.getString("nick"));
+				review.setPro_no(rs.getInt("pro_no"));
+				review.setMember_no(rs.getInt("member_no"));
 				review.setTitle(rs.getString("title"));
+				review.setTitle(rs.getString("content"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
+				review.setNick(rs.getString("nick"));
+				review.setName(rs.getString("name"));
+				review.setPro_name(rs.getString("pro_name"));
 
 				// 리스트객체에 조회한 행 객체 저장
 				ReviewList.add(review);
@@ -188,7 +192,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
 		// SQL 작성
 		String sql = "";
-		sql += " SELECT review_no, product.name, nick, title, regdate, hit";
+		sql += " SELECT review.*, nick, member.name name, product.name pro_name";
 		sql += " FROM review, MEMBER, product";
 		sql += " WHERE review.member_no = member.member_no";
 		sql += " 	AND review.pro_no = product.pro_no";
@@ -207,9 +211,12 @@ public class ReviewDaoImpl implements ReviewDao {
 
 				// 결과값 한 행 처리
 				review.setReview_no(rs.getInt("review_no"));
+				review.setPro_no(rs.getInt("pro_no"));
+				review.setPro_name(rs.getString("pro_name"));
 				review.setName(rs.getString("name"));
 				review.setNick(rs.getString("nick"));
 				review.setTitle(rs.getString("title"));
+				review.setContent(rs.getString("content"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
 			}
@@ -230,7 +237,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
 		String sql = "";
 		sql += " INSERT INTO review (review_no, pro_no, member_no, title, content, regdate, hit)";
-		sql += " VALUES (review_seq.nextval, ?, ?, ?, ?, sysdate, 0)";
+		sql += " VALUES (?, ?, ?, ?, ?, sysdate, 0)";
 		
 		int res = 0;
 
@@ -238,11 +245,11 @@ public class ReviewDaoImpl implements ReviewDao {
 			// DB작업
 			ps = conn.prepareStatement(sql);
 
-//			ps.setInt(1, review.getReview_no());
-			ps.setInt(1, review.getPro_no());
-			ps.setInt(2, review.getMember_no());
-			ps.setString(3, review.getTitle());
-			ps.setString(4, review.getContent());
+			ps.setInt(1, review.getReview_no());
+			ps.setInt(2, review.getPro_no());
+			ps.setInt(3, review.getMember_no());
+			ps.setString(4, review.getTitle());
+			ps.setString(5, review.getContent());
 
 			res = ps.executeUpdate();
 

@@ -32,7 +32,7 @@ public class ReviewListController extends HttpServlet {
 		
 		//게시글 페이징 목록 조회 - 
 		List<Review> reviewList = reviewService.getList( paging );
-		System.out.println(reviewList);
+		System.out.println("/review/list - reviewList : " + reviewList);
 		
 		//조회결과 MODEL값 전달 - req.setAttribute
 		req.setAttribute("reviewList", reviewList);

@@ -68,7 +68,7 @@ function submitContents( elClickedObj ) {
 
 	<div class="text-center">	
 		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-		<button type="buttont" id="btnCancel" class="btn btn-danger">취소</button>
+		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
 
 </div><!-- #section -->
