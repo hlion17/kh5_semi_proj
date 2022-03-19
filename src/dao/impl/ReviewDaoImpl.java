@@ -19,20 +19,20 @@ public class ReviewDaoImpl implements ReviewDao {
 	private PreparedStatement ps = null; // SQL수행 객체
 	private ResultSet rs = null; // SQL조회 결과 객체
 
+	
+	
 	public List<Review> selectAll(Connection conn) {
 
 		// SQL 작성
 		String sql = "";
-		sql += "SELECT";
-		sql += "	review_no";
-		sql += "	, pro_no";
-		sql += "	, member_no";
-		sql += "	, title";
-		sql += "	, regdate";
-		sql += "	, hit";
-		sql += " FROM Review, member";
-		sql += " WHERE review.member_no = member.member_no";
-		sql += " ORDER BY review_no DESC";
+		sql += " SELECT review_no, product.name, nick, title, regdate, hit ";
+		sql += " FROM review, MEMBER, product ";
+		sql += " WHERE review.member_no = member.member_no ";
+		sql += "	and review.pro_no = product.pro_no ";
+		sql += " ORDER BY review_no desc ";
+		
+		
+		System.out.println(sql);
 
 
 		// 결과 저장할 List
@@ -71,25 +71,27 @@ public class ReviewDaoImpl implements ReviewDao {
 		// 최종 조회 결과 반환
 		return ReviewList;
 	}
+	
+	
+	
 
+	//페이징 객체와 함께 리뷰list 전부 조회하기
 	public List<Review> selectAll(Connection conn, Paging paging) {
 
 		//SQL 작성
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, R.* FROM (";
-		sql += " 		SELECT";
-		sql += "			review_no, pro_no, member_no, title";
-		sql += "			,regdate, hit";
-		sql += "		FROM review, member";
+		sql += " 		SELECT review_no, product.name, nick, title,regdate, hit";
+		sql += "		FROM review, MEMBER, product";
 		sql += " 		WHERE review.member_no = member.member_no";
-		sql += "		ORDER BY review_no DESC";
+		sql += "			    and review.pro_no = product.pro_no";
+		sql += " 		ORDER BY review_no desc ";
 		sql += " 	) R";
 		sql += " ) REVIEW";
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
-		
-//		System.out.println(sql);
+		System.out.println(sql);
 
 		// 결과 저장할 List
 		List<Review> ReviewList = new ArrayList<>();
@@ -107,8 +109,8 @@ public class ReviewDaoImpl implements ReviewDao {
 
 				// 결과값 한 행 처리
 				review.setReview_no(rs.getInt("review_no"));
-				review.setPro_no(rs.getInt("pro_no"));
-				review.setMember_no(rs.getInt("member_no"));
+				review.setName(rs.getString("name"));
+				review.setNick(rs.getString("nick"));
 				review.setTitle(rs.getString("title"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
@@ -267,6 +269,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		return res;
 	}
 
+	//상세보기
 	public String selectNickByMemberid(Connection conn, Review viewBoard) { 
 
 		// SQL 작성
@@ -280,10 +283,7 @@ public class ReviewDaoImpl implements ReviewDao {
 		try {
 			ps = conn.prepareStatement(sql); // SQL수행 객체
 
-			//string이었는데 int로 변경
-			ps.setInt(1, viewBoard.getMemberno());
-			
-
+			ps.setString(1, viewBoard.getNick());
 			rs = ps.executeQuery(); // SQL 수행 및 결과집합 저장
 
 			
