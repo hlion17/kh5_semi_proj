@@ -94,8 +94,9 @@ public class RecipeDaoImpl implements RecipeDao {
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
 		sql += " 		SELECT";
-		sql += "			board_no, member_no, title";
-		sql += "			, updated_date, hit, board_like";
+//		sql += "			board_no, member_no, title";
+//		sql += "			, updated_date, hit, board_like";
+		sql += "			*";
 		sql += "		FROM recipe";
 		sql += "		ORDER BY board_no DESC";
 		sql += " 	) B";
