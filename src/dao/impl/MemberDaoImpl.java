@@ -1,8 +1,6 @@
 package dao.impl;
 
 import java.sql.Connection;
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +10,7 @@ import java.util.List;
 import common.JDBCTemplate;
 import dao.face.MemberDao;
 import dto.Member;
+import dto.ProfileFile;
 import util.Paging;
 
 public class MemberDaoImpl implements MemberDao {
@@ -428,5 +427,35 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return member;
 	}
+	
+	public int insertProFile(Connection conn, ProfileFile profileFile) {
+
+		String sql = "";
+		sql += "INSERT INTO prfimg( image_NO, member_no, ORIGIN_NAME, STORED_NAME, FILESIZE )";
+		sql += " VALUES (prfimg_seq.nextval, ?, ?, ?, ?)";
+
+		int res = 0;
+
+		try {
+			// DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, profileFile.getMemberno());
+			ps.setString(2, profileFile.getOriginname());
+			ps.setString(3, profileFile.getStoredname());
+			ps.setInt(4, profileFile.getFilesize());
+
+			res = ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+
+		return res;
+	}
+
+	
+	
 	
 }
