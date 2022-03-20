@@ -5,34 +5,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
-<% List<Cart> cartList = (List)request.getAttribute("cartList"); %>
+   
+<% List<Cart> cartList = (List)request.getAttribute("ProductList.getPro_no()"); %>
+<%out.println(session.getAttribute("id")); %>
+
 
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
-<table class="table table-hover">
+<%=session.getAttribute(".info") %>님 반갑습니다:D<br>
 
-	<tr>
-		<th>상품</th><br>
-<!-- 		<th>장바구니번호</th><br> -->
-<!-- 		<th>회원번호</th><br> -->
-<!-- 		<th>상품번호</th><br> -->
-		<th>상품수량</th><br>
-		<th>가격</th><br>
-	</tr>
 
-	<%	for(int i=0; i<cartList.size(); i++) { %>
-	<tr>
-		
-		<td><img alt="onion" src="../resources/img/store/onion.jpg" width="200" height="200"></td><br>
-<%-- 		<td><%=cartList.get(i).getCart_no() %></td><br> --%>
-<%-- 		<td><%=cartList.get(i).getMember_no() %></td><br> --%>
-<%-- 		<td><%=cartList.get(i).getPro_no() %></td><br> --%>
-		<td><%=cartList.get(i).getQuantity() %></td><br>
-		<td><%=cartList.get(i).getPrice() %></td><br>
-	</tr>
-	<%	} %> 
-	
-	</table>
+<%out.println(session.getAttribute("ProductList.setPro_no()")); %>
+
+<% request.setCharacterEncoding("UTF-8"); %>
+ 
+    <% ArrayList<String> arrr = (ArrayList) (session.getAttribute("productList")); %>
+    <center>
+        <h1>상품 결과</h1>
+        <hr>
+        <%=session.getAttribute("login")%>님의 장바구니 목록
+        <hr>
+        <% if (arrr == null) { %>
+        장바구니에 넣은 상품이 없습니다.
+        <% } else {
+                for (String i : arrr) {
+                    out.println(i); %><br>
+                <% }
+        } %>
+        <br><br><hr>
+    </center>
+
+
 
 <button type="button" onclick="location.href='payment'">결제</button>
 <button type="button" onclick="location.href='store'">쇼핑하기</button>

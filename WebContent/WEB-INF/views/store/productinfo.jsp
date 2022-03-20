@@ -14,10 +14,14 @@
 
 <h3>상품 상세 정보</h3>
 <hr>
+<%=session.getAttribute("id") %>님 반갑습니다<br>
+<%out.println(session.getAttribute("id")); %>
+
+
 
 <div>
 
-<tr><td class="info">상품번호</td><td><%=ProductList.getPro_no() %></td></tr><br>
+<tr><td class="info">상품번호</td><td><%="ProductList.getPro_no() %></td></tr><br>
 <tr><td class="info">상품명</td><td><%=ProductList.getName() %></td></tr><br>
 <tr><td class="info">상품이미지</td><td><%=ProductList.getImg_path() %></td></tr><br>
 <tr><td class="info">상품가격</td><td><%=ProductList.getPrice() %>원</td></tr><br>
@@ -25,8 +29,12 @@
 
 </div>
 
+
+
+
 <div>
-	<button type="button" onclick="location.href='cart'">장바구니</button>
+<!-- 	<button type="button" onclick="location.href='test'">장바구니</button> -->
+	<button type="button" action=add.jsp">장바구니</button>
 	<button type="button" onclick="payment()">결제</button>
 </div>
 

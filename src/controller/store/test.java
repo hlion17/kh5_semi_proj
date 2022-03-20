@@ -15,7 +15,7 @@ public class test extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		req.getRequestDispatcher("/WEB-INF/views/store/main2.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/store/cartaddtest.jsp").forward(req, resp);
 	
 	}
 }
