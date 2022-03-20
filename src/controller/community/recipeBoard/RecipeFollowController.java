@@ -29,6 +29,15 @@ public class RecipeFollowController extends HttpServlet {
 		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno);
 		
+		//전달할 파라미터 선언
+		
+		
+		//체크 - 자기자신을 팔로우할때
+		
+		
+		//체크 - 이미 팔로우한 사람을 팔로우하려할때
+		
+		
 		//글작성자를 이용자가 팔로우
 		System.out.println("[TEST]팔로위 : " + viewBoard.getUserid());
 		System.out.println("[TEST]팔로어 : " + (int)req.getSession().getAttribute("memberno"));
