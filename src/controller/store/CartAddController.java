@@ -1,31 +1,29 @@
 package controller.store;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Cart;
-import dto.Product;
 import service.face.CartService;
-import service.face.StoreService;
 import service.impl.CartServiceImpl;
-import service.impl.StoreServiceImpl;
 
-@WebServlet("/cart/delete")
-public class CartDeleteController extends HttpServlet {
+@WebServlet("/cart/add")
+public class CartAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private CartService cartService = new CartServiceImpl();
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 장바구니 품목 삭제하는 서비스
-		cartService.deleteCartItem(req);
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 카트에 상품 추가 서비스
+		cartService.addCartItem(req);
 		
-		// 장바구니 페이지로 리다이렉트
+		// 쇼핑계속하기, 장바구니로 가기에 따라
+		// redirect 위치 선택 기능 생각해보기
 		resp.sendRedirect("/cart");
 	}
-
 }

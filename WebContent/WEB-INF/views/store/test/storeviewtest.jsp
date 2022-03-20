@@ -64,12 +64,15 @@
 	
 </script>
 
+<%-- 에러나서 주석처리 해놓음
+
 <%
 	//상품 코드 받기
 	String productCode = request.getParameter("pdCode");
 	int pdCode = Integer.parseInt(productCode);
 	
 	//상품정보 가져오기
+	// 에러나서 주석처리함
 	UserMenuDAO dao = new UserMenuDAO();
 	String productImg1 = dao.getCateThumbImg(pdCode); //이미지 가져오기
 	Product dto = dao.productInfo(pdCode); //상품이름, 가격 가져오기
@@ -77,6 +80,7 @@
 	List color = null; 
 	size = dao.pdSize(pdCode);
 	color = dao.pdColor(pdCode); //상품 옵션 가져오기
+	
 %>
 
 <main>
@@ -135,6 +139,8 @@
 			</td>
 		</tr>
 	</table>
+
+--%>
 
 </main>
 </div>

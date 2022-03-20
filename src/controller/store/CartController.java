@@ -22,19 +22,9 @@ public class CartController extends HttpServlet {
  
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		//로그인 되어있지 않으면 리다이렉트 
-//		if( req.getSession().getAttribute("login") == null ) {
-//			resp.sendRedirect("/");
-//			
-//			return;
-//		}
-		
-		//카트 내역 전체 보여주기
-		List<Cart> cartList = cartService.getList();
-		
-		//조회값 model 전달
-		req.setAttribute("cartList", cartList);
-		
+		// 로그인한 회원번호에 해당하는 카트 품목 조회
+		cartService.getAllCartItemByMemberId(req);
+	
 		//VIEW 지정 및 응답 - forward
 		req.getRequestDispatcher("/WEB-INF/views/store/cart.jsp").forward(req, resp);
 	}
