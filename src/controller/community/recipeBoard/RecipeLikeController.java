@@ -23,26 +23,21 @@ public class RecipeLikeController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeLikeController( /recipe/content ) [GET] 호출");
 		
-		//로그인 되어있지 않으면 리다이렉트 
-		if( req.getSession().getAttribute("login") == null ) {
-			resp.sendRedirect("/main.jsp");
-			
-			return;
-		}
-		
-		//함부로 추천할수없게 기본적으로 막아놓기
-		req.setAttribute("msg_like_negative", true);
+//		System.out.println("[TEST]/like-GET - like_msg_flag : " + req.getAttribute("like_msg_flag"));
 		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
 		
-		//해당 로그인 유저가 이미 이 게시글을 추천한적이 있는지 체크
+		//해당 로그인 유저가 지금 세션에서 이글을 추천한적이 없으면 추천+1
 		String likeFlag = "like_" + boardno.getBoardno(); //추천한적이 있다면 like_해당글번호 키값이 true로 존재
 		boolean flag = (boolean)req.getSession().getAttribute(likeFlag);
 		if( !flag ) {
 			//recipe테이블에 like값 1증가, 해당세션에 중복추천 방지용 플래그생성
 			System.out.println("추천한다아아아아아아아아아아아아");
 			boardService.addLike(boardno, req);
+			
+//			req.setAttribute("like_msg_flag", false);
+//			System.out.println("[TEST]/like-GET(추천했을때) - like_msg_flag : " + req.getAttribute("like_msg_flag"));
 		}
 
 		//상세보기 결과 조회

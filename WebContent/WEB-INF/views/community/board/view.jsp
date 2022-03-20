@@ -36,8 +36,18 @@ $(document).ready(function() {
 	//추천버튼
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
-		if( <%=request.getAttribute("msg_like_negative") %> )	alert("추천할 수 없는 상태입니다");			
+		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+		
+<%-- 		<% System.out.println("[TEST]view.jsp - like_msg_flag : " + request.getAttribute("like_msg_flag")); %> --%>
+<%-- 		if( <%=request.getAttribute("like_msg_flag") %> ) { --%>
+// 			alert("추천할 수 없는 상태입니다");			
+// 		} else {
+// 			alert("추천가능상태");
+// 		}
+
+<%-- 		<% System.out.println("[TEST]view.jsp - likeFlag : " + request.getSession().getAttribute("like_" + viewBoard.getBoardno()) ); %> --%>
+		if( <%=request.getSession().getAttribute( "like_" + viewBoard.getBoardno() ) %> ) alert("추천불가상태");
 	})
 	
 });
@@ -47,7 +57,6 @@ $(document).ready(function() {
 <div id="section">
 
 	<h1>게시글 상세보기</h1>
-	
 	<div>
 		<table class="table table-bordered">
 			<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>

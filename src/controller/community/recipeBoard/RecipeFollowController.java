@@ -23,8 +23,13 @@ public class RecipeFollowController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeFollowController( /recipe/content ) [GET] 호출");
 		
+		//함부로 추천할수없게 기본적으로 막아놓기
+		req.setAttribute("msg_like_negative", true);
+		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
+		
+		//해당글을 쓴사람을 지금 로그인한 사람이 팔로우 한다는 정보를 db에 넣고 팔로우로 이동하시겠습니까 알람
 
 		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno); 

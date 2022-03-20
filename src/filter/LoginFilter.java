@@ -31,7 +31,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = ((HttpServletRequest) request);
 
         Boolean login = (Boolean) session.getAttribute("login");
-
+        
         if (login == null || login == false) {
             // 로그인 페이지로 이동
             response.setContentType("text/html;charset=UTF-8");

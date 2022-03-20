@@ -16,6 +16,10 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		req.setCharacterEncoding("UTF-8");
+		
+//		//함부로 추천할수없게 기본적으로 막아놓기
+//      	req.setAttribute("like_msg_flag", true);
+		
 		chain.doFilter(req, resp);
 		
 	}
