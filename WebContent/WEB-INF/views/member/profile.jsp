@@ -6,10 +6,10 @@
 <%@ include file="../layout/header.jsp" %>
 
 <script>
-/* //회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
- $("#btnUpdateInfo").click(function() {
-	$(location).attr('href', '/member/info')
-})  */
+//회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
+ $("#btnUpdateProfile").click(function() {
+	$(location).attr('href', '/member/profile')
+})  
 
 </script> 
 
@@ -55,25 +55,24 @@
 --%>
 	<tr>
 		<div class="form-group">
-			<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
+			<label for="memberpw" class="control-label col-xs-2"></label>
 				 <span class="btn btn-default btn-file">
 				 	이미지를 업로드하세요.<input type="file" name="userProfile">
 				 </span>
 			<div class="col-xs-10"></div>
 		</div>
 	</tr>
-	
-	
-	
+
 
 	
 	<div class="text-center">
-		<button type="submit" id="btnUpdateInfo" class="btn btn-info">등록</button>
+		<button type="submit" id="btnUpdateProfile" class="btn btn-info">등록</button>
 		<a href="/main">홈으로</a>
 	</div>
 
 </form>
 
+</div>
 </div><!-- .container -->
 
 

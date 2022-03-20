@@ -45,4 +45,10 @@ public class ProfileViewController extends HttpServlet {
 		req.getRequestDispatcher("/WEB-INF/views/member/profileView.jsp").forward(req, resp);
 
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		// 프로필 삽입
+//		memberService.uploadProfil(req);
+	}
 }

@@ -45,6 +45,7 @@
 <ul>
     <li><a href="<%=request.getContextPath() %>/member/logout">로그아웃</a></li>
     <li><a href="<%=request.getContextPath() %>/member/infoView">회원정보</a></li>
+    <li><a href="<%=request.getContextPath() %>/member/profileView">프로필</a></li>
     <li><a href="<%=request.getContextPath() %>/notice/list">공지사항</a></li>
     <li><a href="<%=request.getContextPath() %>/qa/list">Q&A</a></li>
 </ul>
