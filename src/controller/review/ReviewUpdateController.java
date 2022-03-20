@@ -24,6 +24,9 @@ public class ReviewUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("/review/update - [GET]");
+		
+		System.out.println("reviewno : " + req.getParameter("reviewno"));
 		
 		//전달파라미터 얻기 - review_no
 		Review review_no = reviewService.getreview_no(req);
@@ -46,7 +49,7 @@ public class ReviewUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		reviewService.update(req);
-		resp.sendRedirect("/board/list");
+		resp.sendRedirect("/review/list");
 		
 	}
 }

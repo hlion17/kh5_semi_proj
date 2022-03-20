@@ -359,12 +359,17 @@ public class ReviewServiceImpl implements ReviewService {
 				}
 
 				//key에 맞게 value를 DTO에 삽입
-				if( "title".equals(key) ) {
-					review.setTitle(value);
+				if( "review_no".equals(key) ) {
+					review.setReview_no( Integer.parseInt(value) );
 
+				} else if( "title".equals(key) ) {
+					review.setTitle(value);
+					
 				} else if ( "content".equals(key) ) {
 					review.setContent(value);
 
+				} else if ( "pro_no".equals(key) ) {
+					review.setPro_no(Integer.parseInt(value));
 				}
 
 			} //if( item.isFormField() ) end
@@ -399,6 +404,7 @@ public class ReviewServiceImpl implements ReviewService {
 				//업로드된 파일의 정보를 DTO객체에 저장하기
 				reviewFile.setOrigin_name(origin);
 				reviewFile.setStored_name(stored);
+				reviewFile.setFilesize( (int)item.getSize() );
 
 			} //if( !item.isFormField() ) end
 
@@ -409,8 +415,8 @@ public class ReviewServiceImpl implements ReviewService {
 		//DB연결 객체
 		Connection conn = JDBCTemplate.getConnection();
 
-		//게시글 번호 생성
-		int reviewno = reviewDao.selectReviewno(conn);
+//		//게시글 번호 생성
+//		int reviewno = reviewDao.selectReviewno(conn);
 
 
 		//게시글 정보 삽입

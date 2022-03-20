@@ -23,7 +23,7 @@
 	<th>작성자</th>
 	<th>등록일</th>
 	<th>조회수</th>
-	<th></th>>
+<!-- 	<th></th> -->
 </tr>
 
 <%	for(int i=0; i<ReviewList.size(); i++) { %>

@@ -27,7 +27,7 @@ public class ReviewInfoController extends HttpServlet {
 			
 			//전달파라미터 얻기 - pro_no
 			Review pro_no = reviewService.getreview_no(req);
-			System.out.println("pro_no : " +pro_no);
+			System.out.println("pro_no파라미터만 넣은 review객체 : " + pro_no);
 			//상세보기 결과 조회
 			Review viewReview = reviewService.view(pro_no); 
 			//조회결과 MODEL값 전달
