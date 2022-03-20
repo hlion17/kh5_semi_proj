@@ -27,23 +27,24 @@ public class RecipeLikeController extends HttpServlet {
 		Recipe boardno = boardService.getBoardno(req);
 		
 		//recipe테이블에 like값 1증가, 해당세션에 중복추천 방지용 플래그생성
-		//추천한적이 있다면 like_해당글번호 키값이 true로 존재
 		String like = "like_" + boardno.getBoardno();
-		
 		Object lf = req.getSession().getAttribute(like);;
-		
 		System.out.println("lf : " + lf);
-		if ( lf == null ) {
+		if ( lf == null ) { //처음 추천시 해당 세션속성이 아직 없어 null 값임 
 			req.getSession().setAttribute(like, false);
 			lf = req.getSession().getAttribute(like);
 			System.out.println("false lf : " + lf);
 			
 			boardService.addLike(boardno, req);
 		} else {
+			//추천한적이 있다면 like_해당글번호 키값이 true로 존재
 			req.getSession().setAttribute(like, true);
 			lf = req.getSession().getAttribute(like);
 			System.out.println("true lf : " + lf);
 		}
+		
+		//재조회 조회수증가방지
+		boardService.downHit(boardno.getBoardno());
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] RecipeLikeController - /recipe/content로 포워드");

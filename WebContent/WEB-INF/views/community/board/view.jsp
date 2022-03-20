@@ -34,6 +34,17 @@ $(document).ready(function() {
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		
 		//팔로우완료 알람띄우기
+		<%	try {
+				System.out.println("[TEST]follow_error_msg(?) : " + request.getAttribute("follow_error_msg"));
+				if ( (boolean)request.getAttribute("follow_error_msg") ){
+ 					request.setAttribute("follow_error_msg", false); %>
+					<% System.out.println("[TEST]follow_error_msg(false) : " + request.getAttribute("follow_error_msg")); %>
+					alert("팔로우 할 수 없습니다");
+		<%		}
+ 			} catch (NullPointerException e) { %>
+				alert("팔로우하셨습니다 :)")
+				request.setAttribute("follow_error_msg", false);
+		<%	} %>
 	})
 	
 	//추천버튼
@@ -44,9 +55,9 @@ $(document).ready(function() {
 		
 		<%	try { %> 
 		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
-				alert("추천불가");
+				alert("추천할 수 없습니다!");
 		<%	} catch (NullPointerException e) { %>
-			alert("추천완료")
+			alert("추천하셨습니다 :)")
 		<%	} %>	
 	})
 	

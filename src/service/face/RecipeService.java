@@ -122,5 +122,11 @@ public interface RecipeService {
 	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
 	 */
 	public void setFollow(int followee, int follower);
+
+	/**
+	 * 조회수 역카운트
+	 * @param boardno - 게시글 번호
+	 */
+	public void downHit(int boardno);
 	
 }
