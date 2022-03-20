@@ -347,7 +347,28 @@ public class RefServiceImpl implements RefService {
 
 	@Override
 	public void cancelSharingRef(HttpServletRequest req) {
-		// 요청 파라미터 분석
+		// 요청파라미터 분석
+		int myRefCode = Integer.parseInt(req.getParameter("myRefCode"));
+		int targetMemberNo = Integer.parseInt(req.getParameter("targetMemberNo"));
+		logger.info("/ref/share/delete 요청 파라미터 - 로그인 한 회원의 냉장고 코드: " + myRefCode);
+		logger.info("/ref/share/delete 요청 파라미터 - 공유 취소할 회원 번호: " + targetMemberNo);
+		
+		// DB Connection 객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// 냉장고_회원 매핑 테이블 데이터 삭제(나의 냉장고 코드, 공유 취소 대상 회원 번호)
+		int result = refDao.deleteRef_Member(conn, myRefCode, targetMemberNo);
+		
+		// DB 삭제 결과 확인 및 트랜잭션 처리
+		if (result == 1) {
+			JDBCTemplate.commit(conn);
+			logger.info("삭제 결과 커밋 됨");
+		} else {
+			JDBCTemplate.rollback(conn);
+			logger.warning("삭제 결과 롤백 됨");
+		}
+		
+		// View에 전달할 결과 저장
 		
 	}
 

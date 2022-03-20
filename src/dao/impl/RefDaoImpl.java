@@ -636,4 +636,25 @@ public class RefDaoImpl implements RefDao{
 		return list;
 	}
 
+	// 냉장고 공유 취소, Ref_Member 매핑 테이블 데이터 삭제
+	@Override
+	public int deleteRef_Member(Connection conn, int myRefCode, int targetMemberNo) {
+		int result = -1;
+		String sql = "";
+		sql = "DELETE ref_member WHERE ref_code = ? AND member_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, myRefCode);
+			ps.setInt(2, targetMemberNo);
+				result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
 }

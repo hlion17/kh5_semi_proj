@@ -151,4 +151,13 @@ public interface RefDao {
 	 */
 	List<Ref> findAllMemberByRefCode(Connection conn, int myRefCode);
 
+	/**
+	 * 냉장고 공유 취소, Ref_Member 매핑 테이블 데이터를 삭제 한다.
+	 * @param conn - DB 접속 객체 
+	 * @param myRefCode - 로그인한 회원의 냉장고 번호
+	 * @param targetMemberNo - 공유를 취소할 대상의 회원번호
+	 * @return DB 삭제 결과 (1 - 성공, 0 - 취소)
+	 */
+	int deleteRef_Member(Connection conn, int myRefCode, int targetMemberNo);
+
 }
