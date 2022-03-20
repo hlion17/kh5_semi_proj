@@ -21,6 +21,7 @@ import service.impl.MemberServiceImpl;
 /**
  * Servlet implementation class ProfilController
  */
+
 @WebServlet("/member/profile")
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

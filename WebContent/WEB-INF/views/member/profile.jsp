@@ -6,10 +6,10 @@
 <%@ include file="../layout/header.jsp" %>
 
 <script>
-//회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
+/* //회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
  $("#btnUpdateInfo").click(function() {
 	$(location).attr('href', '/member/info')
-}) 
+})  */
 
 </script> 
 

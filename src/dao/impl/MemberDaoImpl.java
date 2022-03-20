@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -455,6 +456,54 @@ public class MemberDaoImpl implements MemberDao {
 		return res;
 	}
 	
+	public ProfileFile selectProfileByMemberno(Connection conn, Member memberno) {
+
+		// SQL 작성
+		String sql = "";
+		sql += "SELECT";
+		sql += "	image_no";
+		sql += "	, origin_name";
+		sql += "	, stored_name";
+		sql += "	, filesize";
+		sql += " FROM prfimg";
+		sql += " WHERE member_no = ? ";
+		
+//		System.out.println(sql);
+
+		// 결과 저장할 DTO객체
+		ProfileFile profile = null;
+
+		try {
+			ps = conn.prepareStatement(sql); // SQL수행 객체
+
+			ps.setInt(1, memberno.getMemberno());
+
+			rs = ps.executeQuery(); // SQL수행 및 결과집합 저장
+
+			while (rs.next()) {
+				profile = new ProfileFile(); // 결과값 저장 객체
+
+				// 결과값 행 처리
+				profile.setFileno(rs.getInt("image_no"));
+				profile.setOriginname(rs.getString("origin_name"));
+				profile.setStoredname(rs.getString("stored_name"));
+				profile.setFilesize(rs.getInt("filesize"));
+
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		// 최종 조회 결과 반환
+		return profile;
+	}
+
 	
 
 	

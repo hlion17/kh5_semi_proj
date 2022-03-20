@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.io.File;
+
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.util.Iterator;
@@ -392,8 +393,33 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-
 	
+	public Member getMembernoBySession(HttpServletRequest req) {
+
+		System.out.println("getMembernoBySession 메소드 진입");
+		Member member = new Member();
+
+		HttpSession session = req.getSession();
+
+		member.setMemberno((Integer) session.getAttribute("memberno"));
+	
+		
+		System.out.println("getMembernoBySession 메소드 리턴값" + member);
+		return member;
+		
+	}
+
+
+	public ProfileFile view(Member memberno) {
+
+		Connection conn = JDBCTemplate.getConnection();
+
+
+		// 게시글 조회
+		ProfileFile profile = memberDao.selectProfileByMemberno(conn, memberno);
+
+		return profile;
+	}
 
 	
 

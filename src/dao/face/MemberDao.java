@@ -123,4 +123,13 @@ public interface MemberDao {
 	 */
 	public int insertProFile(Connection conn, ProfileFile profileFile);
 	
+	/**
+	 * 회원번호에 따른 프로필이미지정보 조회
+	 * 
+	 * @param conn      - DB연결 객체
+	 * @param memberno - 회원넘버
+	 * @return ProfileFile - 프로필이미지객체
+	 */
+	public ProfileFile selectProfileByMemberno(Connection conn, Member memberno);
+	
 }
