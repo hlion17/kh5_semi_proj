@@ -79,7 +79,7 @@ $(document).ready(function() {
 <hr>
 
 <div>
-<form action="/board/update" method="post" enctype="multipart/form-data">
+<form action="/review/update" method="post" enctype="multipart/form-data">
 <input type="hidden" name="boardno" value="<%=updateReview.getReview_no() %>"/>
 
 <table class="table table-bordered">

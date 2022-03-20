@@ -112,7 +112,7 @@ public class ReviewDaoImpl implements ReviewDao {
 				review.setPro_no(rs.getInt("pro_no"));
 				review.setMember_no(rs.getInt("member_no"));
 				review.setTitle(rs.getString("title"));
-				review.setTitle(rs.getString("content"));
+				review.setContent(rs.getString("content"));
 				review.setRegdate(rs.getDate("regdate"));
 				review.setHit(rs.getInt("hit"));
 				review.setNick(rs.getString("nick"));
