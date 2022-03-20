@@ -630,4 +630,32 @@ public class RecipeDaoImpl implements RecipeDao {
 		return res;
 	}
 
+	@Override
+	public int setFollow(Connection conn, int followee_memberno, int follower_memberno) {
+		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  호출");
+		
+		String sql = "";
+		sql += "INSERT INTO follow( followee, follower )";
+		sql += " VALUES (?, ?)";
+		
+		int res = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee_memberno);
+			ps.setInt(2, follower_memberno);
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  리턴 res : " + res);
+		return res;
+	}
+
 }

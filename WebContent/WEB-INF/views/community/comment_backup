@@ -1,0 +1,20 @@
+
+view.jsp 0320 1913-------------------------------------------------
+1	//추천버튼
+	$("#btnLike").click(function() {
+		console.log("#btnLike clicked")
+		
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+		
+<%-- 		<% System.out.println("[TEST]view.jsp - like_msg_flag : " + request.getAttribute("like_msg_flag")); %> --%>
+<%-- 		if( <%=request.getAttribute("like_msg_flag") %> ) { --%>
+// 			alert("추천할 수 없는 상태입니다");			
+// 		} else {
+// 			alert("추천가능상태");
+// 		}
+
+<%-- 		<% System.out.println("[TEST]view.jsp - likeFlag : " + request.getSession().getAttribute("like_" + viewBoard.getBoardno()) ); %> --%>
+		if( <%=request.getSession().getAttribute( "like_" + viewBoard.getBoardno() ) %> ) {
+			alert("추천불가상태");
+		}
+	})

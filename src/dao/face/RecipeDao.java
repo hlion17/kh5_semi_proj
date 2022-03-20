@@ -136,4 +136,14 @@ public interface RecipeDao {
 	 */
 	public int deleteFile(Connection conn, Recipe board);
 
+	/**
+	 * 팔로우
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param followee_memberno - 팔로우당하는 사람
+	 * @param follower_memberno - 팔로우하는 사람
+	 * @return DB 수행 결과
+	 */
+	public int setFollow(Connection conn, int followee_memberno, int follower_memberno);
+
 }

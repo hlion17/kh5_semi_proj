@@ -523,5 +523,21 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - delete(Recipe board) 리턴");
 		return;
 	}
+
+	@Override
+	public void setFollow(int followee_memberno, int follower_memberno) {
+		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 호출");
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		if( boardDao.setFollow(conn, followee_memberno, follower_memberno) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 리턴");
+		return;
+	}
 	
 }

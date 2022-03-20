@@ -115,4 +115,12 @@ public interface RecipeService {
 	 */
 	public void delete(Recipe board);
 	
+	/**
+	 * 팔로우
+	 * 
+	 * @param followee - 팔로우당하는 사람, 해당 글작성자 memberno
+	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
+	 */
+	public void setFollow(int followee, int follower);
+	
 }

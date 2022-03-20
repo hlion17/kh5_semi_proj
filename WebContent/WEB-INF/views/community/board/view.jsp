@@ -31,6 +31,8 @@ $(document).ready(function() {
 	$("#btnFollow").click(function() {
 		console.log("#btnFollow clicked")
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
+		
+		//팔로우완료 알람띄우기
 	})
 	
 	//추천버튼
@@ -39,15 +41,9 @@ $(document).ready(function() {
 		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
 		
-<%-- 		<% System.out.println("[TEST]view.jsp - like_msg_flag : " + request.getAttribute("like_msg_flag")); %> --%>
-<%-- 		if( <%=request.getAttribute("like_msg_flag") %> ) { --%>
-// 			alert("추천할 수 없는 상태입니다");			
-// 		} else {
-// 			alert("추천가능상태");
-// 		}
-
-<%-- 		<% System.out.println("[TEST]view.jsp - likeFlag : " + request.getSession().getAttribute("like_" + viewBoard.getBoardno()) ); %> --%>
-		if( <%=request.getSession().getAttribute( "like_" + viewBoard.getBoardno() ) %> ) alert("추천불가상태");
+		if( <%=request.getSession().getAttribute( "like_" + viewBoard.getBoardno() ) %> ) {
+			alert("추천불가상태");
+		}
 	})
 	
 });
