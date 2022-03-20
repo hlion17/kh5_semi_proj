@@ -14,7 +14,6 @@ public class Member {
 	private String address;
 	private String intro;
 	private int my_ref_code;
-	
 	@Override
 	public String toString() {
 		return "Member [memberno=" + memberno + ", memberid=" + memberid + ", memberpw=" + memberpw + ", membername="
@@ -88,17 +87,11 @@ public class Member {
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
-
 	public int getMy_ref_code() {
 		return my_ref_code;
 	}
-
 	public void setMy_ref_code(int my_ref_code) {
 		this.my_ref_code = my_ref_code;
 	}
 	
-	
-	
-	
 }
-
