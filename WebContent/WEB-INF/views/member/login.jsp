@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<!DOCTYPE html>
-<html>
-<head>
 
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- header page -->
+<%@include file="/WEB-INF/views/layout/header.jsp" %>
 
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<!-- login page JS -->
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -29,6 +22,11 @@ $(document).ready(function() {
 	//로그인 버튼 클릭 시 submit하도록 한다
 	$("#btnLogin").click(function() {
 		$(this).parents("form").submit();
+	})
+	
+	//로그인 버튼 클릭 시 회원가입 페이지로 이동한다
+	$("#btnJoin").click(function() {
+		$(location).attr('href', '/member/join')
 	})
 	
 	//취소 버튼 클릭 시 뒤로가기
@@ -50,21 +48,71 @@ $(document).ready(function() {
 })
 </script>
 
-<style type="text/css">
-form {
-	width: 600px;
-	margin: 0 auto;
-}
+<!-- login page CSS -->
+<style>
+    #section-login {
+        width: 100%;
+        height: 1000px;
+    }
+    .login-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 100px;
+    }
+    .login-container .form-signin{
+        width: 400px;
+    }
+    .login-container .form-signin > *{
+        margin: 10px auto;
+    }
+    .login-container .form-signin > h2{
+        text-align: center;
+    }
 </style>
 
-<div class="container">
 
 <%-- 비로그인 상태 --%>
 <%	if( session.getAttribute("login") == null ) { %>
+
+<div id="main">
+	<div id="section-alone">
+
+		<div id="section-login">
+		    <div class="login-container">
+		
+		    <form class="form-signin" action="./login" method="post">
+		        <h2 class="form-signin-heading">로그인</h2>
+		
+		        <label for="memberid" class="sr-only">아이디</label>
+		        <input type="text" id="memberid" class="form-control" name="memberid" placeholder="아이디를 입력해주세요" required autofocus>
+		        <label for="memberpw" class="sr-only">패스워드</label>
+		        <input type="password" id="memberpw" class="form-control" name="memberpw" placeholder="패스워드를 입력해주세요" required>
+		
+		        <button type="button" id="btnIdFind" class="btn btn-info">아이디찾기</button>
+		        <button type="button" id="btnPwFind" class="btn btn-info">비밀번호찾기</button>
+		
+		        <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button">로그인</button>
+		        <button id="btnJoin" class="btn btn-lg btn-success btn-block" type="button">회원가입</button>
+		    </form>
+		
+		    </div> <!-- /container -->
+		</div>
+
+	</div>
+</div>
+
 <%	} %>
 
+<!-- footer page -->
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 
-<form action="./login" method="post" class="form-horizontal">
+
+
+
+<!-- 기존 작업 본 백업 -->
+
+<!-- <div class="container"> -->
+<!-- <form action="./login" method="post" class="form-horizontal">
 
 	<div class="form-group">
 		<label for="userid" class="control-label col-xs-2">아이디</label>
@@ -88,10 +136,7 @@ form {
 		<button type="button" id="btnIdFind" class="btn btn-info">아이디찾기</button>
 		<button type="button" id="btnPwFind" class="btn btn-info">비밀번호찾기</button>
 	</div>
-	
-
-
 
 </form>
 
-</div><!-- .container -->
+</div>.container -->

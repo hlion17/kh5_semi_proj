@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
+import dto.ProfileFile;
 import dto.Recipe;
 import util.Paging;
 
@@ -138,4 +139,20 @@ public interface MemberService {
 	 * 
 	 */
 	public void uploadProfil(HttpServletRequest req);
+	
+	/**
+	 * 세션을 저장되어있는 회원 넘버 추출하기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 프로필 사진 보려는 회원
+	 */
+	public Member getMembernoBySession(HttpServletRequest req);
+	
+	/**
+	 * 프로필사진 조회하려는 회원넘버로 프로필사진넘버 조회하기
+	 * 
+	 * @param memberno - 프로필사진 조회하려는 회원넘버
+	 * @return ProfileFile - 프로필사진넘버
+	 */
+	public ProfileFile view(Member memberno);
 }

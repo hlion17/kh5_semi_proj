@@ -24,7 +24,6 @@ public class StoreDaoImpl implements StoreDao {
 				String sql = "";
 				sql += "SELECT ";
 				sql += "	pro_no";
-				sql += "	, cty_no";
 				sql += "	, name";
 				sql += "	, img_path";
 				sql += "	, price";
@@ -44,7 +43,6 @@ public class StoreDaoImpl implements StoreDao {
 						
 						//결과값 한 행 처리
 						pro.setPro_no(rs.getInt("pro_no"));
-						pro.setCty_no(rs.getInt("cty_no"));
 						pro.setName(rs.getString("name"));
 						pro.setImg_path(rs.getString("img_path"));
 						pro.setPrice(rs.getInt("price"));
@@ -75,7 +73,6 @@ public class StoreDaoImpl implements StoreDao {
 			String sql = "";
 			sql += "SELECT ";
 			sql += "	pro_no";
-			sql += "	, cty_no";
 			sql += "	, name";
 			sql += "	, img_path";
 			sql += "	, price";
@@ -97,7 +94,6 @@ public class StoreDaoImpl implements StoreDao {
 					
 					//결과값 행 처리
 					product.setPro_no(rs.getInt("pro_no"));
-					product.setCty_no(rs.getInt("cty_no"));
 					product.setName(rs.getString("name"));
 					product.setImg_path(rs.getString("img_path"));
 					product.setPrice(rs.getInt("price"));

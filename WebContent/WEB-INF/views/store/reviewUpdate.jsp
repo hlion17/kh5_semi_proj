@@ -75,45 +75,45 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h3>게시글 쓰기</h3>
+<h3>게시글 수정</h3>
 <hr>
+<%=updateReview.getReview_no() %>
 
 <div>
-<form action="/board/update" method="post" enctype="multipart/form-data">
-<input type="hidden" name="boardno" value="<%=updateReview.getReview_no() %>"/>
+	<form action="/review/update" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="review_no" value="<%=updateReview.getReview_no() %>"/>
+		
+		<table class="table table-bordered">
+		<tr><td class="info">회원번호</td><td><%=session.getAttribute("memberno") %></td></tr>
+	<tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
+	<tr><td class="info">상품번호</td><td><%=updateReview.getPro_no() %><input type="hidden" name="pro_no" value="<%=updateReview.getPro_no() %>"></td></tr>
+<%-- 	<tr><td class="info">상품번호</td><td><%=viewReview.getPro_no() %></td> --%>
+	<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateReview.getTitle()%>"/></td></tr>
+	<tr><td class="info" colspan="2">본문</td></tr>
+		<tr><td colspan="2"><textarea id="content" name="content"><%=updateReview.getContent() %></textarea></td></tr>
+		</table>
 
-<table class="table table-bordered">
-<tr><td class="info">아이디</td><td>user02</td></tr>
-<tr><td class="info">닉네임</td><td>test02</td></tr>
-<%-- <td><%=request.getAttribute("writerNick") %></td></tr> --%>
-
-<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateReview.getTitle() %>"/></td></tr>
-<tr><td class="info" colspan="2">본문</td></tr>
-<tr><td colspan="2"><textarea id="content" name="content"><%=updateReview.getContent() %></textarea></td></tr>
-</table>
-
-<!-- 첨부파일 -->
-<div>
-
-	<div id="beforeFile">
-<%	if( reviewFile != null ) { %>
-		기존 첨부파일: 
-		<a href="<%=request.getContextPath() %>/upload/<%=reviewFile.getStored_name() %>"
-		 download="<%=reviewFile.getOrigin_name() %>">
-			<%=reviewFile.getOrigin_name() %>
-		</a>
-		<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-<%	} %>
-	</div>
-
-	<div id="afterFile">
-		새 첨부파일:
-		<input type="file" name="file" />
-	</div>
-</div>
-
-<br>
-</form>
+		<!-- 첨부파일 -->
+		<div>
+		
+			<div id="beforeFile">
+		<%	if( reviewFile != null ) { %>
+				기존 첨부파일: 
+				<a href="<%=request.getContextPath() %>/upload/<%=reviewFile.getStored_name() %>"
+				 download="<%=reviewFile.getOrigin_name() %>">
+					<%=reviewFile.getOrigin_name() %>
+				</a>
+				<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
+		<%	} %>
+			</div>
+		
+			<div id="afterFile">
+				새 첨부파일:
+				<input type="file" name="file" />
+			</div>
+		</div>
+		<br>
+	</form>
 </div>
 
 <div class="text-center">	

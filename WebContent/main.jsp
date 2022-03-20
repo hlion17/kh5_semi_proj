@@ -5,8 +5,8 @@
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 <div id="main">
-<div id="section-alone">
-</div>
+	<div id="section-alone">
+	</div>
 </div>
 
 <!-- footer page -->

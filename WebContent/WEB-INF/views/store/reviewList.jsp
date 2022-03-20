@@ -16,31 +16,33 @@
 
 <table class="table table-striped table-hover table-condensed">
 <tr class="success">
-	<th>게시글번호</th>
-	<th>상품이름</th>
+	<th>글번호</th>
+	<th>상품번호</th>
+	<th>상품명</th>
+	<th>제목</th>
 	<th>작성자</th>
-	<th>게시글제목</th>
 	<th>등록일</th>
 	<th>조회수</th>
+<!-- 	<th></th> -->
 </tr>
 
 <%	for(int i=0; i<ReviewList.size(); i++) { %>
 <tr>
 	<td><%=ReviewList.get(i).getReview_no() %></td>
-	<td><%=ReviewList.get(i).getName() %></td>
+	<td><%=ReviewList.get(i).getPro_no() %></td>
+	<td><%=ReviewList.get(i).getPro_name() %></td>
+	<td><a href="<%=request.getContextPath() %>/review/info?reviewno=<%=ReviewList.get(i).getReview_no()%>"><%=ReviewList.get(i).getTitle() %></td>
 	<td><%=ReviewList.get(i).getNick() %></td>
-	<td><a href="./info?reviewno=<%=ReviewList.get(i).getReview_no()%>"><%=ReviewList.get(i).getTitle() %></td>
 	<td><%=ReviewList.get(i).getRegdate() %></td>
 	<td><%=ReviewList.get(i).getHit() %></td>
+<%-- 	<td><button id="btnWrite" onclick="location.href='<%=request.getContextPath() %>/review/write?reviewno=<%=ReviewList.get(i).getReview_no()%>'">리뷰쓰기</button></td> --%>
 </tr>
 <%	} %>
 </table>
-
 <!-- 글쓰기 버튼 -->
 <div id="btnBox" class="pull-left">
-	<button id="btnWrite" onclick="location.href='/review/write'">글쓰기</button>
+	<button id="btnWrite" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
 </div>
-
 </div><!-- .container -->
 
 <%@ include file="./layout/reviewPaging.jsp" %>

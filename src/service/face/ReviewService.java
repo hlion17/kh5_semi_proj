@@ -83,7 +83,7 @@ public interface ReviewService {
 	 * @param updateReview - 첨부파일과 연결된 게시글의 번호
 	 * @return ReviewFile - 첨부파일 정보 DTO객체
 	 */
-	public ReviewFile viewFile(Review updateReview);
+	public ReviewFile viewFile(Review viewReview);
 
 	/**
 	 * 게시글 수정
@@ -98,5 +98,6 @@ public interface ReviewService {
 	 * @param review - 삭제할 게시글 번호를 가진 객체
 	 */
 	public void delete(Review review);
+	
 
 }

@@ -24,6 +24,9 @@ public class ReviewUpdateController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("/review/update - [GET]");
+		
+		System.out.println("reviewno : " + req.getParameter("reviewno"));
 		
 		//전달파라미터 얻기 - review_no
 		Review review_no = reviewService.getreview_no(req);
@@ -38,7 +41,7 @@ public class ReviewUpdateController extends HttpServlet {
 		//첨부파일 정보 MODEL값 전달
 		req.setAttribute("reviewFile", reviewFile);
 		//VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/board/store/reviewUpdate.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/store/reviewUpdate.jsp").forward(req, resp);
 	}
 	
 
@@ -46,7 +49,7 @@ public class ReviewUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		reviewService.update(req);
-		resp.sendRedirect("/board/list");
+		resp.sendRedirect("/review/list");
 		
 	}
 }

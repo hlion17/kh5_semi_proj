@@ -48,8 +48,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {
 			System.out.println("[WARN] ReviewService getreview_no() - review_no값이 null이거나 비어있음");
 		}
-
-		System.out.println("review_no: " + review_no);
 		return review_no;
 	}
 
@@ -236,34 +234,40 @@ public class ReviewServiceImpl implements ReviewService {
 		//게시글 번호 생성
 		int review_no = reviewDao.selectReviewno(conn);
 		
-		HttpSession session = req.getSession();
-		int memberno =  (Integer) session.getAttribute("memberno");
-		review.setMember_no(memberno);
+		
+//		//회원번호 세션 설정
+//		HttpSession session = req.getSession();
+//		int memberno =  (Integer) session.getAttribute("memberno");
+//		review.setMember_no(memberno);
 //		int pro_no = Integer.parseInt(req.getParameter("pro_no"));
 //		review.setPro_no(pro_no);
 		
+		
 		//게시글 정보 삽입
-			if(review.getTitle()==null || "".equals(review.getTitle())) {
-				review.setTitle("(제목없음)");
-			}
-			if( reviewDao.insert(conn, review) > 0 ) {
+		review.setReview_no(review_no);
+		if(review.getTitle()==null 	|| "".equals(review.getTitle())) {
+			review.setTitle("(제목없음)");
+		}
+		review.setMember_no( (int)req.getSession().getAttribute("memberno") );
+//		review.setPro_no( Integer.parseInt( req.getParameter("pro_no") ) );
+		
+		if( reviewDao.insert(conn, review) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+			
+		//첨부파일 정보 삽입
+		if( reviewFile.getFilesize() != 0 ) {
+			reviewFile.setReview_no(review_no);
+			
+			if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
 				JDBCTemplate.rollback(conn);
 			}
-			
-			
-			//첨부파일 정보 삽입
-			if( reviewFile.getFilesize() != 0 ) {
-				reviewFile.setReview_no(review.getReview_no());
-				
-				if( reviewDao.insertFile(conn, reviewFile) > 0 ) {
-					JDBCTemplate.commit(conn);
-				} else {
-					JDBCTemplate.rollback(conn);
-				}
-			}
-
+		}
 	}
 
 	@Override
@@ -287,8 +291,6 @@ public class ReviewServiceImpl implements ReviewService {
 			System.out.println("[ERROR] 파일 업로드 형식 데이터가 아님");
 			return;
 		}
-
-
 
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 
@@ -321,8 +323,6 @@ public class ReviewServiceImpl implements ReviewService {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-
-
 
 		//게시글 정보 DTO객체
 		Review review = new Review();
@@ -359,12 +359,17 @@ public class ReviewServiceImpl implements ReviewService {
 				}
 
 				//key에 맞게 value를 DTO에 삽입
-				if( "title".equals(key) ) {
-					review.setTitle(value);
+				if( "review_no".equals(key) ) {
+					review.setReview_no( Integer.parseInt(value) );
 
+				} else if( "title".equals(key) ) {
+					review.setTitle(value);
+					
 				} else if ( "content".equals(key) ) {
 					review.setContent(value);
 
+				} else if ( "pro_no".equals(key) ) {
+					review.setPro_no(Integer.parseInt(value));
 				}
 
 			} //if( item.isFormField() ) end
@@ -399,6 +404,7 @@ public class ReviewServiceImpl implements ReviewService {
 				//업로드된 파일의 정보를 DTO객체에 저장하기
 				reviewFile.setOrigin_name(origin);
 				reviewFile.setStored_name(stored);
+				reviewFile.setFilesize( (int)item.getSize() );
 
 			} //if( !item.isFormField() ) end
 
@@ -409,8 +415,8 @@ public class ReviewServiceImpl implements ReviewService {
 		//DB연결 객체
 		Connection conn = JDBCTemplate.getConnection();
 
-		//게시글 번호 생성
-		int reviewno = reviewDao.selectReviewno(conn);
+//		//게시글 번호 생성
+//		int reviewno = reviewDao.selectReviewno(conn);
 
 
 		//게시글 정보 삽입
@@ -438,8 +444,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewFile viewFile(Review updateReview) {
-		return reviewDao.selectFile(JDBCTemplate.getConnection(), updateReview);
+	public ReviewFile viewFile(Review viewReview) {
+		return reviewDao.selectFile(JDBCTemplate.getConnection(), viewReview);
 	}
 
 
