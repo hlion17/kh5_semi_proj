@@ -1,4 +1,39 @@
+--21:45 null
 
+//		//세션에 추천플래그가 없으면 생성, 있으면 값을 유지하기위해 패스(해당글에 단한번만 추천해야하므로)
+//		System.out.println("[TEST]lf : " + lf);
+//		if( lf == null ) {
+//			System.out.println("[TEST]추천플래그가 없는 상태, 새로생성");
+//			req.getSession().setAttribute(likeFlag, false);
+//		}
+
+
+--------서블릿 if문 널활용 실패 0320 0826-----------------------
+package util;
+import java.util.Map;
+import java.util.List;
+
+public class Util {		
+
+	/*
+	 * 공백 또는 null 체크
+	 */
+
+	public static boolean isEmpty(Object obj) {
+		
+		if(obj == null) return true;
+		
+		if ((obj instanceof String) && (((String)obj).trim().length() == 0)) { return true; }
+	        if (obj instanceof Map) { return ((Map<?, ?>) obj).isEmpty(); }
+	        if (obj instanceof Map) { return ((Map<?, ?>)obj).isEmpty(); } 
+	        if (obj instanceof List) { return ((List<?>)obj).isEmpty(); }
+	        if (obj instanceof Object[]) { return (((Object[])obj).length == 0); }
+	        
+		return false;
+		
+	}
+	
+}
 
 //RecipeContentController_backup---------------------------------------------------
 //package controller.community.recipeBoard;

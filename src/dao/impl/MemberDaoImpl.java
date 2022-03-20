@@ -428,12 +428,14 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return member;
 	}
-
+	
 	public int insertProFile(Connection conn, ProfileFile profileFile) {
 
 		String sql = "";
 		sql += "INSERT INTO prfimg( image_NO, member_no, ORIGIN_NAME, STORED_NAME, FILESIZE )";
 		sql += " VALUES (prfimg_seq.nextval, ?, ?, ?, ?)";
+		sql += " SELECT * FROM prfimg, member" ;
+		sql += " WHERE prfimg.member_no = member.member_no" ;
 
 		int res = 0;
 

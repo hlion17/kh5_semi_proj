@@ -33,16 +33,16 @@ public class ProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		// 작성글 삽입
 		memberService.uploadProfil(req);
 		
 		//VIEW 지정
 		req.getRequestDispatcher("/WEB-INF/views/member/profile.jsp").forward(req, resp);
-		
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 //		req.setCharacterEncoding("UTF-8");
 //		resp.setContentType("text/html;charset=UTF-8");
