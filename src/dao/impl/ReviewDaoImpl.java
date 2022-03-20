@@ -189,6 +189,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	public Review selectReviewByReviewno(Connection conn, Review review_no) {
+		System.out.println("ReviewDaoImpl - selectReviewByReviewno 호출");
 
 		// SQL 작성
 		String sql = "";
@@ -209,6 +210,16 @@ public class ReviewDaoImpl implements ReviewDao {
 			while (rs.next()) {
 //				review = new Review(); // 결과값 저장 객체
 
+				System.out.println("setReview_no : " + rs.getInt("review_no"));
+				System.out.println("setPro_no : " + rs.getInt("pro_no"));
+				System.out.println("setPro_name : " + rs.getString("pro_name"));
+				System.out.println("setName : " + rs.getString("name"));
+				System.out.println("setNick : " + rs.getString("nick"));
+				System.out.println("setTitle : " + rs.getString("title"));
+				System.out.println("setContent : " + rs.getString("content"));
+				System.out.println("setRegdate : " + rs.getDate("regdate"));
+				System.out.println("setHit : " + rs.getInt("hit"));
+				
 				// 결과값 한 행 처리
 				review.setReview_no(rs.getInt("review_no"));
 				review.setPro_no(rs.getInt("pro_no"));
@@ -376,6 +387,12 @@ public class ReviewDaoImpl implements ReviewDao {
 		int res = 0;
 
 		try {
+			System.out.println("getOrigin_name : " + reviewFile.getOrigin_name());
+			System.out.println("getStored_name : " + reviewFile.getStored_name());
+			System.out.println("getPath : " + reviewFile.getPath());
+			System.out.println("getFilesize : " + reviewFile.getFilesize());
+			System.out.println("getReview_no : " + reviewFile.getReview_no());
+			
 			//DB작업
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, reviewFile.getOrigin_name());
@@ -424,7 +441,7 @@ public class ReviewDaoImpl implements ReviewDao {
 
 				//결과값 행 처리
 				reviewFile.setImg_no(rs.getInt("img_no"));
-				reviewFile.setOrigin_name(rs.getString("orgin_name"));
+				reviewFile.setOrigin_name(rs.getString("origin_name"));
 				reviewFile.setStored_name(rs.getString("stored_name"));
 				reviewFile.setPath(rs.getString("path"));
 				reviewFile.setFilesize(rs.getInt("filesize"));

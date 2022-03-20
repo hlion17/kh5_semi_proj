@@ -66,14 +66,14 @@ $(document).ready(function() {
 
 <!-- 첨부파일 -->
 
-<!-- <div> -->
-<%-- <%	if( reviewFile != null ) { %> --%>
-<%-- <a href="<%=request.getContextPath() %>/upload/<%=reviewFile.getStored_name() %>" --%>
-<%--  download="<%=reviewFile.getOrigin_name() %>"> --%>
-<%-- 	<%=reviewFile.getOrigin_name() %> --%>
-<!-- </a> -->
-<%-- <%	} %> --%>
-<!-- </div> -->
+<div>
+<%	if( reviewFile != null ) { %>
+	<a href="<%=request.getContextPath() %>/upload/<%=reviewFile.getStored_name() %>"
+	 download="<%=reviewFile.getOrigin_name() %>">
+		<%=reviewFile.getOrigin_name() %>
+	</a>
+<%	} %>
+</div>
 
 	<!-- 첨부파일 -->
 <div>

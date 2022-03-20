@@ -3,17 +3,21 @@ package dto;
 import java.util.Date;
 
 public class Review {
+	//Review DTO객체			//REVIEW 테이블
+	private int review_no;		//review_no	NUMBER			
+	private int pro_no;			//pro_no	NUMBER			상품번호
+	private int member_no;		//MEMBER_NO	NUMBER
+	private String title;		//TITLE		VARCHAR2(100)
+	private String content;		//CONTENT	VARCHAR2(4000)
+	private Date regdate;		//REGDATE	DATE
+	private int hit;			//HIT		NUMBER
 	
-	private int review_no;
-	private int pro_no;
-	private int member_no;
-	private String title;
-	private String content;
-	private Date regdate;
-	private int hit;
-	private String nick;
-	private String name;
-	private String pro_name;
+								//MEMBER 테이블
+	private String nick;		//NICK		VARCHAR2(100)
+	private String name;		//NAME		VARCHAR2(100)	멤버이름
+						
+								//PRODUCT 테이블
+	private String pro_name;	//NAME		VARCHAR2(100)	상품이름
 	@Override
 	public String toString() {
 		return "Review [review_no=" + review_no + ", pro_no=" + pro_no + ", member_no=" + member_no + ", title=" + title
