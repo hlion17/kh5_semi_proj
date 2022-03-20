@@ -14,7 +14,7 @@ import service.face.StoreService;
 import service.impl.StoreServiceImpl;
 import util.Paging;
 
-@WebServlet("/store")
+@WebServlet("/store/main")
 public class StoreMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +23,6 @@ public class StoreMainController extends HttpServlet {
 
 		
 	//VIEW 지정 및 응답 - forward
-	req.getRequestDispatcher("/WEB-INF/views/store/store.jsp").forward(req, resp);
 	
 	}
 	
