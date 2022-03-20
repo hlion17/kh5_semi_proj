@@ -44,6 +44,15 @@ public interface CartService {
 //	    void updateCart(Cart dto);
 //	    void modifyCart(Cart dto);
 	
+	// 새로작성
+	void getAllCartItemByMemberId(HttpServletRequest req);
+	
+	void addCartItem(HttpServletRequest req);
+	
+	void updateCartItem(HttpServletRequest req);
+	
+	void deleteCartItem(HttpServletRequest req);
+	
 	
 
 	}

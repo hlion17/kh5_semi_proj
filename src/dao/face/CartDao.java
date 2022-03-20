@@ -19,9 +19,16 @@ public interface CartDao {
 	 * 
 	 * @param board - 삭제할 장바구니번호 담은 객체
 	 */
-	public int delete(Connection conn, Cart cart);
+	
 
-
+	// 새로작성
+	List<Cart> findAllByMemberNo(Connection conn, int memberNo);
+	
+	int insert(Connection conn, Cart cart);
+	
+	int update(Connection conn, Cart cart);
+	
+	int delete(Connection conn, Cart cart);
 	
 //    List<Cart> cartMoney();
 //    void insert(Cart dto); //장바구니 추가
