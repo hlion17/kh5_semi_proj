@@ -1,3 +1,25 @@
+		try {
+			lf = req.getSession().getAttribute(like);
+			
+			req.getSession().setAttribute(like, true);
+			lf = req.getSession().getAttribute(like);
+			System.out.println("true lf : " + lf);
+			
+		} catch (NullPointerException e) {
+			
+			req.getSession().setAttribute(like, false);
+			System.out.println("false lf : " + lf);
+			
+			boardService.addLike(boardno, req);
+		}
+-----------------------------------------------------------------------
+
+//			String likeFlagFirst = "likeFlagFirst_" + boardno.getBoardno();
+//			req.getSession().setAttribute(likeFlagFirst, false);
+
+//		//플래그 기본값 1
+//		req.getSession().setAttribute(likeFlag, 0);
+
 --21:45 null
 
 //		//세션에 추천플래그가 없으면 생성, 있으면 값을 유지하기위해 패스(해당글에 단한번만 추천해야하므로)

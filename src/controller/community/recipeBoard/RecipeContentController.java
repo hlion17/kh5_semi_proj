@@ -23,8 +23,6 @@ public class RecipeContentController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeContentController( /recipe/content ) [GET] 호출");
 		
-//		System.out.println("[TEST]/content-GET - like_msg_flag : " + req.getAttribute("like_msg_flag"));
-		
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
 		

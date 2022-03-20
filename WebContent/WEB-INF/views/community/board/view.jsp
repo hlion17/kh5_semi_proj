@@ -7,6 +7,7 @@
 
 <%	Recipe viewBoard = (Recipe) request.getAttribute("viewBoard"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
+<%	int b = viewBoard.getBoardno(); %>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -41,9 +42,12 @@ $(document).ready(function() {
 		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
 		
-		if( <%=request.getSession().getAttribute( "like_" + viewBoard.getBoardno() ) %> ) {
-			alert("추천불가상태");
-		}
+		<%	try { %> 
+		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
+				alert("추천불가");
+		<%	} catch (NullPointerException e) { %>
+			alert("추천완료")
+		<%	} %>	
 	})
 	
 });
@@ -51,7 +55,6 @@ $(document).ready(function() {
 
 
 <div id="section">
-
 	<h1>게시글 상세보기</h1>
 	<div>
 		<table class="table table-bordered">
