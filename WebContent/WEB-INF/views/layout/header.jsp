@@ -61,6 +61,7 @@
             <li><a href="/dictionary/main">요리사전</a></li>
             <li><a href="<%=request.getContextPath() %>/recipe/board">커뮤니티</a></li>
             <li><a href="/store">상점</a></li>
+            <li><a href="/social/profile">소셜룸</a></li>
         </ul>
     </div>
 </nav>

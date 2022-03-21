@@ -78,7 +78,7 @@ $(document).ready(function() {
 	<div id="section-alone">
 
 		<div id="section-login">
-		    <div class="login-container">
+		    <div class="login-container text-center">
 		
 		    <form class="form-signin" action="./login" method="post">
 		        <h2 class="form-signin-heading">로그인</h2>
@@ -88,11 +88,12 @@ $(document).ready(function() {
 		        <label for="memberpw" class="sr-only">패스워드</label>
 		        <input type="password" id="memberpw" class="form-control" name="memberpw" placeholder="패스워드를 입력해주세요" required>
 		
-		        <button type="button" id="btnIdFind" class="btn btn-info">아이디찾기</button>
-		        <button type="button" id="btnPwFind" class="btn btn-info">비밀번호찾기</button>
 		
 		        <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button">로그인</button>
 		        <button id="btnJoin" class="btn btn-lg btn-success btn-block" type="button">회원가입</button>
+		        
+		        <button type="button" id="btnIdFind" class="btn btn-block btn-info">아이디찾기</button>
+		        <button type="button" id="btnPwFind" class="btn btn-block btn-info">비밀번호찾기</button>
 		    </form>
 		
 		    </div> <!-- /container -->

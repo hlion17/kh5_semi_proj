@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <%-- 카카오 우편번호 API --%> 
 
@@ -67,8 +61,7 @@ function registerCheckFunction() {
 }
 
 
-
-/* //form validation
+ //form validation
 //	폼 데이터 유효성 검증
 
 //	-> 유효성 값을 입력했는지 검증
@@ -112,6 +105,19 @@ window.onload = function () {
 		
 		validatePw();
 	})
+	//focus를 잃었을 때 blur이벤트 발생
+	memberpw.addEventListener("blur", function () {
+		console.log("#memberpw2 blur")
+		
+		validatePw2();
+	}) 
+	
+	//타이핑 할 때마다 확인하게(위아래 둘다 두는 편) keyup이벤트 발생
+	memberpw.addEventListener("keyup", function () {
+		console.log("#memberpw2 keyup")
+		
+		validatePw2();
+	})
 	
 	
 }
@@ -125,7 +131,7 @@ $(document).ready(function () {
 		//console.log("submit event")
 		
 		//유효성 검사 결과에 따른 submit 
-		if(!validateId() || !validatePw()) {
+		if(!validateId() || !validatePw() || !validatePw2) {
 			
 		//console.log("SUBMIT 중단됨")
 		
@@ -211,31 +217,50 @@ function validatePw() {
 	} else if(!req_idpw.test(memberpw.value)) { //비밀번호 조합 검증
 		warnMsgPw.innerHTML = "비밀번호는 4~20자 사이의 영문 + 숫자 조합으로 입력해주세요";
 		warnMsgPw.style.display = "block";	
-		warnMsgPw2.style.display = "block";	
+	//	warnMsgPw2.style.display = "block";	
 		return false;
 			
 	} else if(memberpw.value.length<4 || memberpw.value.length>20) { //비밀번호 길이 검증
 		warnMsgPw.innerHTML = "비밀번호는 4~20자 사이의 영문 + 숫자 조합으로 입력해주세요";
 		warnMsgPw.style.display = "block";
-		warnMsgPw2.style.display = "block";
+		//	warnMsgPw2.style.display = "block";
 		return false;
 			
-	} else if(memberpw.value != memberpw2.value) {
+	/* } else if(memberpw.value != memberpw2.value) {
 		warnMsgPw2.innerHTML = "비밀번호와 비밀번호 확인을 같게 입력해주세요.";;
 		warnMsgPw.style.display = "block";
 		warnMsgPw2.style.display = "block";
-		return false;
+		return false; */
 		
 	} else { //맞게 입력하면
 		warnMsgPw.innerHTML = "";
-		warnMsgPw2.innerHTML = "";
+		/* warnMsgPw2.innerHTML = ""; */
 		warnMsgPw.style.display = "none";
-		warnMsgPw2.style.display = "none";
+		/* warnMsgPw2.style.display = "none"; */
 		return true;
 		console.log("submit완료")
 	} 
-	 */
+	 
 	
+}
+
+function validatePw2() {
+	console.log(memberpw2.value)
+	
+	if(memberpw.value=="") {
+		warnMsgPw.innerHTML = "";
+		warnMsgPw.style.display="none";
+		return false;
+	} else if(memberpw.value !== memberpw2.value) {
+		warnMsgPw2.innerHTML = "비밀번호와 비밀번호 확인을 같게 입력해주세요.";;
+		warnMsgPw2.style.display = "block";
+		return false;
+	} else {
+		warnMsgPw2.innerHTML = "";
+		warnMsgPw2.style.display = "none";
+		return true;
+		console.log("submit완료")
+	}
 }
 </script>
 
@@ -256,6 +281,9 @@ form {
 	left: 500px;
 	font-size: 10px;
 }
+div{
+	border: none;
+}
 </style>
 
 <div class="container">
@@ -263,6 +291,7 @@ form {
 <form action="./join" method="post" class="form-horizontal">
 <div class="fieldBox">
 
+	<br><br>
 	<div class="form-group">
 		<label for="memberid" class="control-label col-xs-2">아이디</label>
 		<div class="col-xs-10">
@@ -286,6 +315,7 @@ form {
 		<div class="col-xs-10">
 			<input type="text" id="memberpw2" name="memberpw2" class="form-control" required placeholder="필수 입력 항목입니다">
 		</div>
+		<div id="warnMsgPw2" class="msg" ></div>
 	</div>
 	
 	<div class="form-group">
@@ -353,7 +383,10 @@ form {
 		<button type="submit" id="btnJoin" class="btn btn-primary">회원 가입</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
+	<br><br>
 
 </form>
 
 </div><!-- .container -->
+
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>

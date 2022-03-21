@@ -216,12 +216,11 @@ public class RecipeDaoImpl implements RecipeDao {
 		sql += "			RECIPE.*, MEMBER.NICK";
 		sql += "		FROM recipe, MEMBER";
 		sql += "		WHERE MEMBER.MEMBER_NO = RECIPE.MEMBER_NO";
-		sql += "		ORDER BY board_no DESC";
+		sql += "		ORDER BY board_like DESC";
 		sql += " 	) B";
 		sql += " ) recipe";
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
-//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - sql : " + sql);
 		
 		//결과 저장할 List
 		List<Recipe> boardList = new ArrayList<>();
@@ -229,10 +228,11 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			ps = conn.prepareStatement(sql); //SQL수행 객체
 			
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
-//			System.out.println( "[TEST] RecipeDaoImpl - selectAll(Connection conn) - rs.next() : " + rs.next() );
-			
 			while( rs.next() ) {
 				Recipe b = new Recipe(); //결과값 저장 객체
 				

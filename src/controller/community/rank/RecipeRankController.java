@@ -29,7 +29,7 @@ public class RecipeRankController extends HttpServlet {
 		Paging paging = boardService.getPaging(req);
 		
 		//게시글 페이징 목록 조회 - BoardService이용
-		List<Recipe> boardList = boardService.getList( paging );
+		List<Recipe> boardList = boardService.getListRank( paging );
 		
 		//조회결과 MODEL값 전달 - req.setAttribute
 		req.setAttribute("boardList", boardList);
