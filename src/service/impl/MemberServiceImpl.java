@@ -452,5 +452,28 @@ public class MemberServiceImpl implements MemberService {
 		JDBCTemplate.rollback(conn);
 		return false;
 	}
+	
+	@Override
+	public Paging getPaging(HttpServletRequest req) {
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 호출");
+
+		//전달파라미터 curPage 추출하기
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if( param != null && !"".equals( param ) ) {
+			curPage = Integer.parseInt(param);
+		} else {
+			System.out.println("[WARN] MemberService getPaging() - curPage값이 null이거나 비어있음");
+		}
+		
+		//총 게시글 수 조회하기
+		int totalCount = boardDao.selectCntAll(JDBCTemplate.getConnection());
+		
+		//Paging 객체 생성 - 페이징 계산
+		Paging paging = new Paging(totalCount, curPage);
+		
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
+		return paging;
+	}
 
 }

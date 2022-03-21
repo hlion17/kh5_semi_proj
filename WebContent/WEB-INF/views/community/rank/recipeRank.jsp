@@ -45,6 +45,8 @@
 		</table>
 	</div>
 
+<%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
+
 </div><!-- #section -->
 
 <%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

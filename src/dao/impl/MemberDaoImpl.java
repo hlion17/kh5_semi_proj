@@ -326,14 +326,14 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT";
-		sql += "			member_no, id, pw, name, nick, gender,";
-		sql += "			, email, phone, address, intro, my_ref_code, zipcode";
+		sql += " 		SELECT *";
 		sql += "		FROM Member";
 		sql += "		ORDER BY member_no DESC";
 		sql += " 	) B";
 		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		System.out.println(sql);
 		
 		//결과 저장할 List
 		List<Member> boardList = new ArrayList<>();
@@ -536,4 +536,34 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	
+	@Override
+	public int selectCntAll(Connection conn) {
+//		System.out.println("[TEST] MemberDaoImpl - selectCntAll(Connection conn) 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT count(*) cnt FROM member";
+		
+		//총 게시글 수
+		int count = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				count = rs.getInt("cnt");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+//		System.out.println("[TEST] MemberDaoImpl - selectCntAll(Connection conn) - count 리턴 : " + count);
+		return count;
+	}
 }

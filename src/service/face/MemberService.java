@@ -163,4 +163,12 @@ public interface MemberService {
 	 * @return boolean - true:회원탈퇴완료, false:회원탈퇴 실패
 	 */
 	public boolean signout(HttpServletRequest req);
+	
+	/**
+	 * 페이징 객체 생성
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Paging - 페이징 계산이 완료된 Paging객체
+	 */
+	public Paging getPaging(HttpServletRequest req);
 }
