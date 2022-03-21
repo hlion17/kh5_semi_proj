@@ -34,13 +34,13 @@ public class MemberSignOutController extends HttpServlet {
 			
 
 		
-		Member member = memberService.getLoginMember(req);
+//		Member member = memberService.getLoginMember(req);
 		
 		
 		
-		boolean signout = memberService.signout(member);
+		boolean signout = memberService.signout(req);
 
-		System.out.println(signout);
+		System.out.println("회원탈퇴인증" + signout);
 		
 		req.getSession().invalidate();
 
