@@ -13,9 +13,19 @@
 	int memberNo = (Integer)session.getAttribute("memberno");
 %>
 
+<script>
+$(document).ready(function() {
+	$("#btn-to-order").click(function() {
+		const proQty = $("input[name=proQty]").val()
+		
+		location.href = "/order?proNo=<%=ProductList.getPro_no()%>&proQty=" + proQty
+	})
+})
+</script>
+
 <div id="main">
 <div class="container">
-
+<div id="test">
 <h3>상품 상세 정보</h3>
 <hr>
 <a href="/cart">내 장바구니 보기</a><br>
@@ -47,18 +57,22 @@
 	<form action="/cart/add" method="post">
 		<input type="hidden" name="memberNo" value="<%=memberNo%>">
 		<input type="hidden" name="proNo" value="<%=ProductList.getPro_no()%>">
-		수량: <input type="text" name="proQty">
+		수량: <input type="number" min="1" value="1" name="proQty">
 		<input type="hidden" name="proPrice" value="<%=ProductList.getPrice()%>">
+		합계: <input type="text" name="total" value="<%=ProductList.getPrice()%>">
 		<br>
 		<button id="btn-to-cart" type="submit" >장바구니에 담기</button>
 	</form>
+	<button id="btn-to-order" type="button">주문하기</button>
 	<button type="button" onclick="payment()">결제</button>
 </div>
 
-
+</div>
 </div>
 
 </div>
+
+
 
  <script type="text/javascript"> 
   	function payment(){
