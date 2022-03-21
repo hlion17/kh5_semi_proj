@@ -49,9 +49,9 @@ public class MemberSignOutController extends HttpServlet {
 			
 			req.getRequestDispatcher("/WEB-INF/views/member/signout.jsp").forward(req, resp);
 		
-			req.getSession().invalidate();
-			
-			resp.sendRedirect("/main");
+//			req.getSession().invalidate();
+//			
+//			resp.sendRedirect("/main");
 			
 		} else {
 			req.setAttribute("errorMsg", errorMsg);
