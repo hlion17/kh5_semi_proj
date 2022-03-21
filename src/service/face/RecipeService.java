@@ -134,6 +134,6 @@ public interface RecipeService {
 	 * @param followee - 팔로우당하는 사람, 해당 글작성자 memberno
 	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
 	 */
-	public boolean checkFollowFK(int followee, int follower);
+	public int checkFollowPK(int followee, int follower);
 	
 }
