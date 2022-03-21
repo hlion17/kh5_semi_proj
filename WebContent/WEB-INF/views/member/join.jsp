@@ -291,7 +291,7 @@ form {
 	<div class="form-group">
 		<label for="membername" class="control-label col-xs-2">이름</label>
 		<div class="col-xs-10">
-			<input type="text" id="membername" name="membername" class="form-control" >
+			<input type="text" id="membername" name="membername" class="form-control" required placeholder="필수 입력 항목입니다" >
 		</div>
 	</div>
 	
@@ -306,7 +306,7 @@ form {
 	<div class="form-group">
 		<label for="gender" class="control-label col-xs-2">성별</label>
 		<div class="col-xs-10">
-			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="M" >남</label>
+			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="M" checked>남</label>
 			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="F" >여</label>
 		</div>
 	</div>
@@ -329,7 +329,7 @@ form {
 	<div class="form-group">
 		<label for="zipcode" class="control-label col-xs-2">우편번호</label>
 		<div class="col-xs-10">
-			<input type="text" id="zipcode" name="zipcode" class="form-control" >
+			<input type="text" id="zipcode" name="zipcode" class="form-control" required placeholder="필수 입력 항목입니다" >
 		<input type="button" value="우편번호찾기" onclick="kakaopost()">
 		</div>
 	</div>
@@ -337,14 +337,14 @@ form {
 	<div class="form-group">
 		<label for="address" class="control-label col-xs-2">주소</label>
 		<div class="col-xs-10">
-			<input type="text" id="address" name="address" class="form-control" >
+			<input type="text" id="address" name="address" class="form-control"  required placeholder="필수 입력 항목입니다">
 		</div>
 	</div>
 	
 	<div class="form-group">
 		<label for="intro" class="control-label col-xs-2">자기소개</label>
 		<div class="col-xs-10">
-			<textarea class="form-control" name="intro" rows="3" id="intro" placeholder="입력하세요"></textarea>
+			<textarea class="form-control" name="intro" rows="3" id="intro" required placeholder="입력하세요"></textarea>
 		</div>
 	</div>
 </div>

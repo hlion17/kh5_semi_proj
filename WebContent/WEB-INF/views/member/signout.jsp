@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%	String msg = (String)request.getAttribute("alertMsg"); %>
+<%	String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <%@ include file="../layout/header.jsp" %>
 
 <script type="text/javascript">
@@ -10,6 +12,17 @@ $("input").eq(0).focus();
 
 
 </script>
+
+<% if (msg != null) { %> 
+	<script>alert('${alertMsg}')</script>
+<%	request.getSession().invalidate();
+
+	response.sendRedirect("/main");
+%>	
+<% 	} %>
+<% if (errorMsg != null) { %> 
+	<script>alert('${errorMsg}')</script>	
+<% 	} %>
 
 
 
