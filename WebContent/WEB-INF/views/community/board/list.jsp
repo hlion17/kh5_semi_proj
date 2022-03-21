@@ -55,8 +55,8 @@ $(document).ready(function() {
 		<button id="btnWrite" class="btn btn-primary">글쓰기</button>
 	</div>
 	
-</div><!-- #section -->
-
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
+
+</div><!-- #section -->
 
 <%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>

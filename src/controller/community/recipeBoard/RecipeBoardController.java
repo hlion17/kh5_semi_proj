@@ -32,9 +32,6 @@ public class RecipeBoardController extends HttpServlet {
 		Paging paging = boardService.getPaging(req);
 		System.out.println("BoardController doGet() - " + paging);
 		
-		//게시글 전체 조회 - RecipeService이용
-//		List<Recipe> boardList = recipeService.getList();
-		
 		//게시글 페이징 목록 조회 - BoardService이용
 		List<Recipe> boardList = boardService.getList( paging );
 		
@@ -52,3 +49,6 @@ public class RecipeBoardController extends HttpServlet {
 	}
 
 }
+
+//게시글 전체 조회 - RecipeService이용
+//List<Recipe> boardList = recipeService.getList();

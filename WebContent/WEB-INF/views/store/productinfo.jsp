@@ -12,27 +12,15 @@
 int memberNo = (Integer) session.getAttribute("memberno");
 %>
 
-
-<style type="text/css">
-p {
-	border: 1px solid #ccc;
-}
-
-.thumbnail {
-	width: 300px;
-	height: 300px;
-	/*  	float: left;  */
-	margin: 20px;
-}
-
-
-.productInfo {
-	justify-content: center;
-}
-
-</style>
-
-
+<script>
+$(document).ready(function() {
+	$("#btn-to-order").click(function() {
+		const proQty = $("input[name=proQty]").val()
+		
+		location.href = "/order?proNo=<%=ProductList.getPro_no()%>&proQty=" + proQty
+	})
+})
+</script>
 
 <div id="main">
 	<div class="container">
@@ -43,7 +31,7 @@ p {
 		<%=session.getAttribute("memberid")%>님 반갑습니다<br> <img
 			class="thumbnail" alt="onion"
 			src="/resources/img/store/item_<%=ProductList.getPro_no()%>.jpg">
-
+<div id="test">
 		<%-- 상품번호: <%=ProductList.getPro_no()%><br> --%>
 		<h3>
 			<span>상품명: <%=ProductList.getName()%></span><br>
@@ -53,12 +41,12 @@ p {
 
 			<form action="/cart/add" method="post">
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
-				<input type="hidden" name="proNo"
-					value="<%=ProductList.getPro_no()%>"> 수량: <input
-					type="text" name="proQty"> <input type="hidden"
-					name="proPrice" value="<%=ProductList.getPrice()%>"> <br>
-				<button id="btn-to-cart" type="submit">장바구니에 담기</button>
+				<input type="hidden" name="proNo" value="<%=ProductList.getPro_no()%>"> 
+					수량: <input type="text" name="proQty"> 
+					<input type="hidden" name="proPrice" value="<%=ProductList.getPrice()%>"> <br>
+				<button id="btn-to-cart" type="submit">장바구니에 담기</button>		
 			</form>
+			<button id="btn-to-order" type="button">주문하기</button>
 			<button type="button" onclick="payment()">결제</button>
 			<button type="button" onclick="location.href='review/list'">리뷰게시판</button>
 			
@@ -71,7 +59,12 @@ p {
 				src="/resources/img/store/iteminfo_<%=ProductList.getPro_no()%>.jpg"><br>
 		</div>
 
+
 	</div>
+
+</div>
+
+</div>
 </div>
 
 

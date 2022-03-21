@@ -29,13 +29,20 @@ public interface RecipeDao {
 	 * @return List<Recipe> - Recipe테이블 전체 조회 결과 목록
 	 */
 	public List<Recipe> selectAll(Connection conn, Paging paging);
-	
+
 	/**
 	 * Recipe테이블 전체 조회 - 추천순
 	 * @param connection
 	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
 	 */
 	public List<Recipe> selectAllRank(Connection connection);
+
+	/**
+	 * Recipe테이블 전체 조회 - 추천순
+	 * @param connection
+	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
+	 */
+	public List<Recipe> selectAllRank(Connection connection, Paging paging);
 	
 	/**
 	 * 총 게시글 수 조회

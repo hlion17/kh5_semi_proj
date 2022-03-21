@@ -43,6 +43,7 @@
 	
 	<button type="button" onclick="location.href='payment'">결제</button>
 	<button type="button" onclick="location.href='store'">쇼핑하기</button>
+	<button type="button" onclick="location.href='/order'">주문하기</button>
 	
 	</div>
 </div>

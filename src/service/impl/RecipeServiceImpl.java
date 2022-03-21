@@ -37,9 +37,18 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - getList() 리턴 boardDao.selectAll( JDBCTemplate.getConnection() ) : " + boardDao.selectAll( JDBCTemplate.getConnection() ));
 		return boardDao.selectAll( JDBCTemplate.getConnection() );
 	}
-	
+
 	@Override
 	public List<Recipe> getListRank() {
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
+		
+		//게시글 전체 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 리턴 boardDao.selectAllRank( JDBCTemplate.getConnection() ) : " + boardDao.selectAllRank( JDBCTemplate.getConnection() ));
+		return boardDao.selectAllRank( JDBCTemplate.getConnection() );
+	}
+
+	@Override
+	public List<Recipe> getListRank(Paging paging) {
 		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
 		
 		//게시글 전체 조회 결과 반환
