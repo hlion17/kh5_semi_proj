@@ -1,3 +1,217 @@
+------------------------------------------------------------------------------
+		//왜 컨트롤러 서비스 다오로 단계를 구분해 모듈화 하는지 이제 감이 좀온다
+		//컨트롤러가 지저분해지지 않고 일목요연하게 보려면
+		//서비스에서 중간역할을 해주고, 서비스에서는 DB로부터 쿼리로 주고받는 것에 대한 메소드들을
+		//컨트롤러가 지저분해지지 않게 한것처럼 이또한 마찬가지로 일목요연하게 보기 위해서이다
+		//이에 기반하여 볼때 이번에 작성한것보다 개선의 여지가 분명히 있다
+--------0321 1605 팔로우 안되는이유찾음 dbres가 0인이유는 쿼리익스큐트가아닌 업데이트여서 그럼 - 수정전(jsp)-----------------------------------------
+@Override
+	public Follow checkFollowPK(Connection conn, int followee, int follower) {
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
+		
+		Follow followInput = new Follow();
+//		followInput.setFollowee(followee);
+//		followInput.setFollower(follower);
+		
+		Follow followDB = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM follow";
+		sql += " WHERE followee = ? AND follower = ?";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
+
+			System.out.println("setDbRes : " + ps.executeUpdate());
+			followInput.setDbRes(ps.executeUpdate());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				followDB = new Follow();
+				
+				followDB.setFollowee(rs.getInt("followee"));
+				followDB.setFollower(rs.getInt("follower"));
+				int dbwee = followDB.getFollowee();
+				int dbwer = followDB.getFollower();
+				
+				if( followee == dbwee && follower == dbwer ) {
+					followInput.setFollowRes(0);
+				} else {
+					followInput.setFollowRes(1);
+				}
+			}
+			
+		} catch (NullPointerException e) {
+			followInput.setFollowRes(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+//		int wee = followInput.getFollowee();
+//		int wer = followInput.getFollower();
+		
+//		int dbwee = followDB.getFollowee();
+//		int dbwer = followDB.getFollower();
+		
+//		try {
+//			if( followee == dbwee && follower == dbwer ) {
+//				followInput.setFollowRes(0);
+//			} else {
+//				followInput.setFollowRes(1);
+//			}
+//		} catch (NullPointerException e) {
+//			followInput.setFollowRes(0);
+//		}
+		
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
+		return followInput;
+	}
+--------03211427 알러트 대대적 수정전 백업(jsp)-----------------------------------------
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="dto.RecipeFile"%>
+<%@page import="dto.Recipe"%>
+
+<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
+
+<%	Recipe viewBoard = (Recipe) request.getAttribute("viewBoard"); %>
+<%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
+<%	int b = viewBoard.getBoardno(); %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	//목록버튼
+	$("#btnList").click(function() {
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/board");
+	})
+	
+	//수정버튼
+	$("#btnUpdate").click(function() {
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/update?boardno=<%=viewBoard.getBoardno() %>");
+	})
+	
+	//삭제버튼
+	$("#btnDelete").click(function() {
+		if( confirm("게시글을 삭제하시겠습니까?") ) {
+			$(location).attr("href", "<%=request.getContextPath() %>/recipe/delete?boardno=<%=viewBoard.getBoardno() %>");
+		}
+	})
+	
+	//팔로우버튼
+	$("#btnFollow").click(function() {
+		console.log("#btnFollow clicked")
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
+		
+		//팔로우완료 알람띄우기
+		<%	try {
+				System.out.println("[TEST]follow_error_msg(?) : " + request.getAttribute("follow_error_msg"));
+				if ( (boolean)request.getAttribute("follow_error_msg") ){
+ 					request.setAttribute("follow_error_msg", false); %>
+					<% System.out.println("[TEST]follow_error_msg(false) : " + request.getAttribute("follow_error_msg")); %>
+					alert("팔로우 할 수 없습니다");
+		<%		}
+ 			} catch (NullPointerException e) { %>
+				alert("팔로우하셨습니다 :)")
+				request.setAttribute("follow_error_msg", false);
+		<%	} %>
+	})
+	
+	//추천버튼
+	$("#btnLike").click(function() {
+		console.log("#btnLike clicked")
+		
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+		
+		<%	try { %> 
+		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
+				alert("추천할 수 없습니다!");
+		<%	} catch (NullPointerException e) { %>
+			alert("추천하셨습니다 :)")
+		<%	} %>	
+	})
+	
+});
+</script>
+
+
+<div id="section">
+	<h1>게시글 상세보기</h1>
+	<div>
+		<table class="table table-bordered">
+			<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
+			<tr><td class="info">제목</td><td colspan="3"><%=viewBoard.getTitle() %></td></tr>
+			<tr>
+				<td class="info">회원번호</td><td><%=viewBoard.getUserid() %></td>
+				<td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td>
+			</tr>
+			
+			<tr>
+				<td class="info">조회수</td><td id="hit"><%=viewBoard.getHit() %></td>
+				<td class="info">추천수</td><td id="like"><%=viewBoard.getLike() %></td>
+			</tr>
+			
+			<tr><td class="info" colspan="4">본문</td></tr>
+			<tr><td colspan="4"><%=viewBoard.getContent() %></td></tr>
+		</table>
+	</div>
+
+	<!-- 첨부파일 -->
+	<div>
+	<%	if( boardFile != null ) { %>
+		<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+				alt="그림을 불러오지못함" width="100%" height="100%"><br>
+		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+				download="<%=boardFile.getOriginname() %>">
+			<%=boardFile.getOriginname() %>
+		</a>
+	<%	} %>
+	</div>
+
+	<div class="text-center">
+		<button id="btnList" class="btn btn-primary">목록</button>
+		<button id="btnUpdate" class="btn btn-info">수정</button>
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		
+		<button id="btnFollow" class="btn btn-success">팔로우</button>
+		<button id="btnLike" class="btn btn-success">추천</button>
+	</div>
+	
+</div><!-- #section -->
+
+<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>
+--------03211427 알러트 대대적 수정전 백업(컨트롤러)-----------------------------------------
+//팔로우기능
+		if( followee != follower ) { //사전 검사1 - 자기자신을 팔로우하는 경우 followee == follower
+			
+			if( boardService.checkFollowPK(followee, follower) > 0 ) { //사전 검사2 - 이미 팔로우한 사람을 팔로우 못하게(무결성 위반 방지)
+				
+				boardService.setFollow(followee, follower); //글작성자를 이용자가 팔로우
+				
+			} else {
+				req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
+				System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
+			}
+		} else if ( followee == follower ) {
+			req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
+			System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
+		}
+
+--------안됨ㅠㅠ 왜안되지 0321 1349-------------------------
+		PrintWriter writer = resp.getWriter();
+		writer.println("<script>alert('알럿메세지');</script>");
+
+---------------------------------------------------------------------
+이전에 필터에 걸어놓았었떤것 
+//		//함부로 추천할수없게 기본적으로 막아놓기
+//      	req.setAttribute("like_msg_flag", true);
+
 ---------------------------------------------------------------------
 		try {
 			lf = req.getSession().getAttribute(like);

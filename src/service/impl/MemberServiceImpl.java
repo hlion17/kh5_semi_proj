@@ -45,7 +45,6 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 	
-	@Override
 	public boolean login(Member member) {
 		
 		System.out.println("로그인서비스임플 " + member);
@@ -53,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 		if( memberDao.selectCntMemberByMemberidMemberpw(JDBCTemplate.getConnection(), member) > 0 ) {
 			return true;
 		}
-		
+	
 		//로그인 인증 실패
 		return false;
 	}
@@ -421,20 +420,60 @@ public class MemberServiceImpl implements MemberService {
 		return profile;
 	}
 
-	public boolean signout(Member member) {
+	public boolean signout(HttpServletRequest req) {
 		
+		HttpSession session = req.getSession();
 		Connection conn = JDBCTemplate.getConnection();
+		int memberNo = ((Integer) session.getAttribute("memberno"));
+		String memberid = ((String) session.getAttribute("memberid"));
+		String memberpw = req.getParameter("memberpw");
+		
+		Member member = new Member();
+		member.setMemberno(memberNo);
+		member.setMemberpw(memberpw);
+		member.setMemberid(memberid);
+		String alertMsg = "회원탈퇴가 완료되었습니다.";
 		
 		if( memberDao.selectCntMemberByMemberidMemberpw(conn, member) > 0 ) {
-			if(memberDao.deleteMember(conn, member) > 0) {
+			if(refDao.deleteRef_MemberByMeberNo(conn, memberNo) > 0) {
+				
+				if(memberDao.deleteMember(conn, member) > 0) {
 				JDBCTemplate.commit(conn);
+				
+				req.setAttribute("alertMsg", alertMsg);
+				
+				
 				return true;	
+				}
 			}
 		}
 		
-		//로그인 인증 실패
+		//회원탈퇴 정보 일치 실패
 		JDBCTemplate.rollback(conn);
 		return false;
+	}
+	
+	@Override
+	public Paging getPaging(HttpServletRequest req) {
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 호출");
+
+		//전달파라미터 curPage 추출하기
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if( param != null && !"".equals( param ) ) {
+			curPage = Integer.parseInt(param);
+		} else {
+			System.out.println("[WARN] MemberService getPaging() - curPage값이 null이거나 비어있음");
+		}
+		
+		//총 게시글 수 조회하기
+		int totalCount = boardDao.selectCntAll(JDBCTemplate.getConnection());
+		
+		//Paging 객체 생성 - 페이징 계산
+		Paging paging = new Paging(totalCount, curPage);
+		
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
+		return paging;
 	}
 
 }

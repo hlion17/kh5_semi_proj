@@ -8,21 +8,27 @@
 <%	Recipe viewBoard = (Recipe) request.getAttribute("viewBoard"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
 <%	int b = viewBoard.getBoardno(); %>
+<%	HttpSession s = request.getSession(); %>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	//목록버튼
 	$("#btnList").click(function() {
+<%-- 		<% 		System.out.println("목록버튼클릭!"); %> --%>
+		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/board");
 	})
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
+<%-- 		<% 		System.out.println("수정버튼클릭!"); %> --%>
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/update?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
+<%-- 		<% 		System.out.println("삭제버튼클릭!"); %> --%>
+		
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
 			$(location).attr("href", "<%=request.getContextPath() %>/recipe/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
@@ -31,34 +37,47 @@ $(document).ready(function() {
 	//팔로우버튼
 	$("#btnFollow").click(function() {
 		console.log("#btnFollow clicked")
+<%-- 		<% 		System.out.println("팔로우버튼클릭!"); %> --%>
+		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		
-		//팔로우완료 알람띄우기
-		<%	try {
-				System.out.println("[TEST]follow_error_msg(?) : " + request.getAttribute("follow_error_msg"));
-				if ( (boolean)request.getAttribute("follow_error_msg") ){
- 					request.setAttribute("follow_error_msg", false); %>
-					<% System.out.println("[TEST]follow_error_msg(false) : " + request.getAttribute("follow_error_msg")); %>
-					alert("팔로우 할 수 없습니다");
-		<%		}
- 			} catch (NullPointerException e) { %>
-				alert("팔로우하셨습니다 :)")
-				request.setAttribute("follow_error_msg", false);
+		<%	try { %> 
+		
+			//팔로우완료 알람띄우기
+			<% if( (boolean)s.getAttribute("follow_myself_flag") ) { %>
+					alert( '<%=s.getAttribute("follow_myself")%>' );
+			<% } %>
+			<% if ( (boolean)s.getAttribute("follow_already_flag") ) { %>
+					alert( '<%=s.getAttribute("follow_already")%>' );
+			<% } %>
+			<% if ( (boolean)s.getAttribute("follow_success_flag") ) { %>
+					alert( '<%=s.getAttribute("follow_success")%>' );
+			<% } %> 
+			<% if ( (boolean)s.getAttribute("follow_unknown_flag") ) { %>
+					alert( '<%=s.getAttribute("follow_unknown")%>' );
+			<% } %>	
+			
+		<%	} catch (NullPointerException e) { %>
+		<%			System.out.println("null발생");%>
 		<%	} %>
 	})
 	
 	//추천버튼
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
-		
-		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+<%-- 		<% 		System.out.println("추천버튼클릭!"); %> --%>
 		
 		<%	try { %> 
 		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
+		<% 		System.out.println("추천불가메시지 출력!"); %>
 				alert("추천할 수 없습니다!");
 		<%	} catch (NullPointerException e) { %>
-			alert("추천하셨습니다 :)")
-		<%	} %>	
+				alert("추천하셨습니다 :)")
+		<%		System.out.println("추천메시지출력!!");	%>
+		<%	} %>
+		
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/like?boardno=<%=viewBoard.getBoardno() %>");
+		
 	})
 	
 });

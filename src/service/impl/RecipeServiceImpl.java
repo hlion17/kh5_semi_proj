@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -36,9 +37,18 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - getList() 리턴 boardDao.selectAll( JDBCTemplate.getConnection() ) : " + boardDao.selectAll( JDBCTemplate.getConnection() ));
 		return boardDao.selectAll( JDBCTemplate.getConnection() );
 	}
-	
+
 	@Override
 	public List<Recipe> getListRank() {
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
+		
+		//게시글 전체 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getListRank() 리턴 boardDao.selectAllRank( JDBCTemplate.getConnection() ) : " + boardDao.selectAllRank( JDBCTemplate.getConnection() ));
+		return boardDao.selectAllRank( JDBCTemplate.getConnection() );
+	}
+
+	@Override
+	public List<Recipe> getListRank(Paging paging) {
 		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
 		
 		//게시글 전체 조회 결과 반환
@@ -526,18 +536,19 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public void setFollow(int followee, int follower) {
-		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 호출");
+	public void setFollow(int followee, int follower, HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 호출");
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		if( boardDao.setFollow(conn, followee, follower) > 0 ) {
+		if( boardDao.setFollow(conn, followee, follower, req) > 0 ) {
+			req.getSession().setAttribute("follow_success_flag", true);
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		
-		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 리턴");
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 리턴");
 		return;
 	}
 
@@ -556,33 +567,24 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
 		return;
 	}
-
+	
 	@Override
 	public int checkFollowPK(int followee, int follower) {
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 호출");
 		
-		int res = 0; //기본값은 통과금지
-		
+		int res = 0;
+		int a = 0;
 		Connection conn = JDBCTemplate.getConnection();
-		
-		Follow cfe = boardDao.checkFollowPK(conn, followee, follower);
-		
-		if( cfe.getDbRes() > 0 ) {
-			res = cfe.getFollowRes(); //1이상의 값이 입력되면 통과
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
+		Follow dbValue = boardDao.checkFollowPK(conn, followee, follower);
+		//dvValue에 들어있는 멤버값이 양수면 중복
+
+		try {
+			a = dbValue.getFollowee(); 
+		} catch (NullPointerException e) {
+			res = 1;
 		}
 		
-		res = cfe.getFollowRes(); //1이상의 값이 입력되면 통과
-		
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
-		return res;
-		//왜 컨트롤러 서비스 다오로 단계를 구분해 모듈화 하는지 이제 감이 좀온다
-		//컨트롤러가 지저분해지지 않고 일목요연하게 보려면
-		//서비스에서 중간역할을 해주고, 서비스에서는 DB로부터 쿼리로 주고받는 것에 대한 메소드들을
-		//컨트롤러가 지저분해지지 않게 한것처럼 이또한 마찬가지로 일목요연하게 보기 위해서이다
-		//이에 기반하여 볼때 이번에 작성한것보다 개선의 여지가 분명히 있다
+		return res; //1이면 통과
 	}
-	
 }

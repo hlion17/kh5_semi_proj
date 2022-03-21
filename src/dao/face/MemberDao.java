@@ -140,4 +140,13 @@ public interface MemberDao {
 	 * @return int - DELETE 수행 결과
 	 */
 	public int deleteMember(Connection conn, Member member);
+	
+	
+	/**
+	 * 총 게시글 수 조회
+	 * 
+	 * @param conn - DB연결 객체
+	 * @return int - member테이블의 전체 행 수
+	 */
+	public int selectCntAll(Connection conn);
 }

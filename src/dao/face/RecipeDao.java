@@ -29,13 +29,20 @@ public interface RecipeDao {
 	 * @return List<Recipe> - Recipe테이블 전체 조회 결과 목록
 	 */
 	public List<Recipe> selectAll(Connection conn, Paging paging);
-	
+
 	/**
 	 * Recipe테이블 전체 조회 - 추천순
 	 * @param connection
 	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
 	 */
 	public List<Recipe> selectAllRank(Connection connection);
+
+	/**
+	 * Recipe테이블 전체 조회 - 추천순
+	 * @param connection
+	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
+	 */
+	public List<Recipe> selectAllRank(Connection connection, Paging paging);
 	
 	/**
 	 * 총 게시글 수 조회
@@ -154,7 +161,7 @@ public interface RecipeDao {
 	 * @param follower - 팔로우하는 사람
 	 * @return DB 수행 결과
 	 */
-	public int setFollow(Connection conn, int followee, int follower);
+	public int setFollow(Connection conn, int followee, int follower, HttpServletRequest req);
 
 	/**
 	 * 팔로우 검사조건 - 이미 팔로우 한적이 있는지 검사(PK 위반 방지)

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
 import dao.face.RecipeDao;
@@ -200,6 +201,64 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		//최종 조회 결과 반환
 		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
+
+	@Override
+	public List<Recipe> selectAllRank(Connection conn, Paging paging) {
+		System.out.println("[TEST] RecipeDaoImpl - selectAllRank(Connection conn) 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += "	SELECT rownum rnum, B.* FROM (";
+		sql += " 		SELECT";
+		sql += "			RECIPE.*, MEMBER.NICK";
+		sql += "		FROM recipe, MEMBER";
+		sql += "		WHERE MEMBER.MEMBER_NO = RECIPE.MEMBER_NO";
+		sql += "		ORDER BY board_no DESC";
+		sql += " 	) B";
+		sql += " ) recipe";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+//		System.out.println("[TEST] RecipeDaoImpl - selectAll(Connection conn) - sql : " + sql);
+		
+		//결과 저장할 List
+		List<Recipe> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+
+//			System.out.println( "[TEST] RecipeDaoImpl - selectAll(Connection conn) - rs.next() : " + rs.next() );
+			
+			while( rs.next() ) {
+				Recipe b = new Recipe(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setBoardno( rs.getInt("board_no") );			//게시글번호
+				b.setTitle( rs.getString("title") );			//게시글 제목
+				b.setUserid( rs.getInt("member_no") );			//글쓴이
+				b.setWriteDate( rs.getDate("updated_date") );	//등록일
+				b.setHit( rs.getInt("hit") );					//조회수
+				b.setLike( rs.getInt("board_like") );			//추천수
+				b.setIntro( rs.getString("intro") );			//소개글
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] RecipeDaoImpl - selectAllRank(Connection conn) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
 	
@@ -654,7 +713,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public int setFollow(Connection conn, int followee, int follower) {
+	public int setFollow(Connection conn, int followee, int follower, HttpServletRequest req) {
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  호출");
 		
 		String sql = "";
@@ -685,11 +744,8 @@ public class RecipeDaoImpl implements RecipeDao {
 	public Follow checkFollowPK(Connection conn, int followee, int follower) {
 		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
 		
-		Follow followInput = new Follow();
-		followInput.setFollowee(followee);
-		followInput.setFollower(follower);
-		
-		Follow followDB = null;
+		//반환할 객체
+		Follow dbValue = null;
 		
 		String sql = "";
 		sql += "SELECT * FROM follow";
@@ -698,44 +754,29 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, followee);
+			ps.setInt(1, followee); //둘다 똑같은 번호가 있는지 확인
 			ps.setInt(2, follower);
 
-			followInput.setDbRes(ps.executeUpdate());
-			
 			rs = ps.executeQuery();
 			
 			while( rs.next() ) {
-				followDB = new Follow();
+				dbValue = new Follow();
 				
-				followDB.setFollowee(rs.getInt(followee));
-				followDB.setFollower(rs.getInt(follower));
+				dbValue.setFollowee(rs.getInt("followee")); //있으면 값이 들어감
+				dbValue.setFollower(rs.getInt("follower")); //즉, dbValue값이 있으면 중복
 			}
 			
+		} catch (NullPointerException e) {
+//			dbValue.setFollowRes(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
-		
-		int wee = followInput.getFollowee();
-		int wer = followInput.getFollower();
-		int dbwee = followDB.getFollowee();
-		int dbwer = followDB.getFollower();
-		
-		try {
-			if( wee == dbwee && wer == dbwer ) {
-				followInput.setFollowRes(0);
-			} else {
-				followInput.setFollowRes(1);
-			}
-		} catch (NullPointerException e) {
-			followInput.setFollowRes(0);
-		}
-		
-		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
-		return followInput;
+		System.out.println("[TEST] followee : " + followee + " / follower : " + follower);
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 dbValue : " + dbValue);
+		return dbValue;
 	}
 
 }

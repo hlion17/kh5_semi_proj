@@ -2,13 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<%@ include file="../layout/header.jsp" %> 
  
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <%-- 카카오 우편번호 API --%> 
@@ -28,10 +22,6 @@ function kakaopost() { //우편번호 검색 함수 with 카카오
 $("input").eq(0).focus();
 
 
-//회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
-$("#btnUpdateInfo").click(function() {
-	$(location).attr('href', '/member/updateinfo')
-})
 </script>
 
 
@@ -124,7 +114,7 @@ $("#btnUpdateInfo").click(function() {
 </form>
 
 </div><!-- .container -->
-
+<%@ include file="../layout/footer.jsp" %> 
 
 	
 

@@ -29,7 +29,7 @@
         	merchant_uid : 'merchant_' + new Date().getTime(),
         	name : '사과',
         	amount : 100,
-        	buyer_email : 'dss2@naver.com',
+        	buyer_email : 'jhy4811@hanmail.net',
          	buyer_name : 'hee',
          	buyer_tel : '010-000-0000' ,
          	buyer_addr : '서울시',

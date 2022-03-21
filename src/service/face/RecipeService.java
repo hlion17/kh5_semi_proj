@@ -24,13 +24,20 @@ public interface RecipeService {
 	 * @return List<Recipe> - 페이징이 반영된 게시글 조회 결과 목록
 	 */
 	public List<Recipe> getList(Paging paging);
-	
+
 	/**
 	 * 게시글 랭킹 전체 조회
 	 * 
 	 * @return List<Recipe> - 게시글 랭킹 전체 조회 결과 목록
 	 */
 	public List<Recipe> getListRank();
+
+	/**
+	 * 게시글 랭킹 전체 페이지네이션 조회
+	 * 
+	 * @return List<Recipe> - 게시글 랭킹 전체 페이지네이션 조회 결과 목록
+	 */
+	public List<Recipe> getListRank(Paging paging);
 	
 	/**
 	 * 페이징 객체 생성
@@ -121,7 +128,7 @@ public interface RecipeService {
 	 * @param followee - 팔로우당하는 사람, 해당 글작성자 memberno
 	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
 	 */
-	public void setFollow(int followee, int follower);
+	public void setFollow(int followee, int follower, HttpServletRequest req);
 
 	/**
 	 * 조회수 역카운트
