@@ -132,4 +132,12 @@ public interface MemberDao {
 	 */
 	public ProfileFile selectProfileByMemberno(Connection conn, Member memberno);
 	
+	/**
+	 * 회원탈퇴
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param member - 회원탈퇴 객체
+	 * @return int - DELETE 수행 결과
+	 */
+	public int deleteMember(Connection conn, Member member);
 }

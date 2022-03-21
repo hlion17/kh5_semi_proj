@@ -1,39 +1,63 @@
 package controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.SendResult;
 
 import dto.Member;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
 
 /**
- * Servlet implementation class MemberInfoController
+ * Servlet implementation class MemberSignOutController
  */
-@WebServlet("/member/info")
-public class MemberInfoController extends HttpServlet {
+@WebServlet("/member/signout")
+public class MemberSignOutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	private MemberService memberService = new MemberServiceImpl();
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 
-
+		req.getRequestDispatcher("/WEB-INF/views/member/signout.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
+			
+
 		
-		// VIEW 지정 및 응답 - forward
-		req.getRequestDispatcher("/WEB-INF/views/member/info.jsp").forward(req, resp);
+		Member member = memberService.getLoginMember(req);
+		
+		
+		
+		boolean signout = memberService.signout(member);
+
+		System.out.println(signout);
+		
+		req.getSession().invalidate();
+
+		// 성공 여부 확인 : 개발자용
+		if (signout == true) {
+			System.out.println("회원탈퇴 완료.");
+			
+
+		} else {
+			System.out.println("회원탈퇴 실패.");
+			
+		}
+		
+		resp.sendRedirect("/main");
+		
+		
 		
 	}
+
 }

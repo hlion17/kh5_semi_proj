@@ -16,6 +16,44 @@
 <!-- header -->       
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
+<style>
+#product-container {
+	display: flex;
+	flex-flow: row wrap;
+	
+}
+.pro-item {
+	display: flex;
+	flex-flow: column nowrap;
+	margin: 20px;
+	width: 100px;
+	height: 150px;
+	text-align: center;
+}
+.pro-item > :nth-child(1) {
+	font-size: 20px;
+	background: gold;
+}
+.pro-item :nth-child(2) {
+	height: 50%;
+}
+</style>
+
+<div id="main">
+	<div id="section-alone">
+		<div id="product-container">
+			<%	for(int i=0; i<productList.size(); i++) { %>
+			<div class="pro-item">
+				<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div>
+				<div class="pro-item-second"><a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>"><%=productList.get(i).getName() %></a></div>
+				<div class="pro-item-third"><%=productList.get(i).getPrice() %></div>
+			</div>
+			<%	} %>
+		</div>
+	</div>
+</div>
+
+<%--  
 <table>
 <tr>
 	<th>상품번호</th>
@@ -32,5 +70,6 @@
 <%	} %>
 
 </table>
+--%>
 
 <%@include file = "/WEB-INF/views/layout/footer.jsp" %>

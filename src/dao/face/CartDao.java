@@ -21,14 +21,19 @@ public interface CartDao {
 	 */
 	
 
-	// 새로작성
+	// 새로작성	
 	List<Cart> findAllByMemberNo(Connection conn, int memberNo);
+	
+	int addProQty(Connection conn, Cart cart);
+	
+	int checkProInCart(Connection conn, Cart cart);
 	
 	int insert(Connection conn, Cart cart);
 	
 	int update(Connection conn, Cart cart);
 	
 	int delete(Connection conn, Cart cart);
+	
 	
 //    List<Cart> cartMoney();
 //    void insert(Cart dto); //장바구니 추가
