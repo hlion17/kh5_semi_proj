@@ -49,8 +49,7 @@ p {
 			<span>상품명: <%=ProductList.getName()%></span><br>
 		</h3>
 		<span>상품가격: <%=ProductList.getPrice()%>원
-		</span> <span> <!-- 	<button type="button" onclick="location.href='test'">장바구니</button> -->
-			<!-- <button type="button" action="add.jsp">장바구니</button> -->
+		</span>
 
 			<form action="/cart/add" method="post">
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
@@ -61,6 +60,8 @@ p {
 				<button id="btn-to-cart" type="submit">장바구니에 담기</button>
 			</form>
 			<button type="button" onclick="payment()">결제</button>
+			<button type="button" onclick="location.href='review/list'">리뷰게시판</button>
+			
 		</span>
 
 
