@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.Member;
 import dto.Notice;
+import service.face.MemberService;
 import service.face.NoticeService;
+import service.impl.MemberServiceImpl;
 import service.impl.NoticeServiceImpl;
 import util.Paging;
 
@@ -20,6 +23,7 @@ public class NoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	private NoticeService boardService = new NoticeServiceImpl();
+	private MemberService memberService = new MemberServiceImpl();
 
 
 	@Override
@@ -40,6 +44,15 @@ public class NoticeListController extends HttpServlet {
 		
 		//페이징 MODEL값 전달
 		req.setAttribute("paging", paging);
+		
+		//로그인 정보 넘기기
+		Member member = memberService.getMemberInfoBySession(req);
+
+		System.out.println(member);
+
+		Member result = memberService.info(member);
+
+		req.setAttribute("result", result);
 		
 		//VIEW 지정 및 응답 - forward
 		req.getRequestDispatcher("/WEB-INF/views/notice/list.jsp").forward(req, resp);

@@ -92,7 +92,7 @@
 
 	
 	<div class="text-center">
-		<!-- <button type="button" id="btnUpdateProfile" class="btn btn-info">등록</button> -->
+		 <button type="button" id="btnUpdateProfile" class="btn btn-info">등록</button> 
 		<a href="/main">홈으로</a>
 	</div>
 

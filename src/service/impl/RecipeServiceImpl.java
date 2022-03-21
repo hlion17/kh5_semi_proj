@@ -539,5 +539,21 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 리턴");
 		return;
 	}
+
+	@Override
+	public void downHit(int boardno) {
+		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 호출");
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//조회수 증가
+		if( boardDao.downHit(conn, boardno) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
+		return;
+	}
 	
 }

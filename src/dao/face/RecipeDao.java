@@ -52,6 +52,15 @@ public interface RecipeDao {
 	 * @return int - UPDATE 쿼리 수행 결과
 	 */
 	public int updateHit(Connection conn, Recipe boardno);
+
+	/**
+	 * 조회된 게시글의 조회수 증가시키기
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param boardno - 조회할 게시글의 boardno
+	 * @return int - UPDATE 쿼리 수행 결과
+	 */
+	public int downHit(Connection conn, int boardno);
 	
 	/**
 	 * 조회된 게시글의 추천수 증가시키기

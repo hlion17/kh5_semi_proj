@@ -1,6 +1,7 @@
 package controller.community.recipeBoard;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import dto.Recipe;
 import dto.RecipeFile;
 import service.face.RecipeService;
 import service.impl.RecipeServiceImpl;
+import util.FollowEqualException;
 
 @WebServlet("/recipe/follow")
 public class RecipeFollowController extends HttpServlet {
@@ -23,42 +25,38 @@ public class RecipeFollowController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeFollowController( /recipe/content ) [GET] 호출");
 		
-		//전달파라미터 얻기 - boardno
+		//팔로우 불가 메시지 세팅
+		req.setAttribute("follow_error_msg", false);
+		
+		//전달파라미터 얻기 - 글작성자 memberno
 		Recipe boardno = boardService.getBoardno(req);
-
-		//상세보기 결과 조회
 		Recipe viewBoard = boardService.view(boardno);
 		
 		//전달할 파라미터 선언
+		int followee = viewBoard.getUserid();
+		int follower = (int)req.getSession().getAttribute("memberno");
+		System.out.println("[TEST]팔로위 : " + followee);
+		System.out.println("[TEST]팔로어 : " + follower);
+
+		try {
+			//글작성자를 이용자가 팔로우
+			boardService.setFollow(followee, follower);
+			
+//		} catch (FollowEqualException e) { //자기자신을 팔로우하는 경우 followee == follower <<- 이럴때 이 예외처리에 들어와야하는데 어떻게 지정하는지 알아보기
+//			req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
+//			System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
+		} catch (SQLIntegrityConstraintViolationException e) { //이미 팔로우한 사람을 팔로우하려할때
+			
+		}
 		
-		
-		//체크 - 자기자신을 팔로우할때
-		
-		
-		//체크 - 이미 팔로우한 사람을 팔로우하려할때
-		
-		
-		//글작성자를 이용자가 팔로우
-		System.out.println("[TEST]팔로위 : " + viewBoard.getUserid());
-		System.out.println("[TEST]팔로어 : " + (int)req.getSession().getAttribute("memberno"));
-		boardService.setFollow(viewBoard.getUserid(), (int)req.getSession().getAttribute("memberno"));
-		
-		//조회결과 MODEL값 전달
-		req.setAttribute("viewBoard", viewBoard);
-		
-		//닉네임 전달
-		req.setAttribute("writerNick", boardService.getNick(viewBoard));
-		
-		//첨부파일 정보 조회
-		RecipeFile boardFile = boardService.viewFile(viewBoard);
-		
-		//첨부파일 정보 MODEL값 전달
-		req.setAttribute("boardFile", boardFile);
+		//재조회 조회수증가방지
+		boardService.downHit(boardno.getBoardno());
+		boardService.downHit(boardno.getBoardno());
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeFollowController - view.jsp로 포워드");
+		System.out.println("[TEST] RecipeLikeController - /recipe/content로 포워드");
 		System.out.println();
-		req.getRequestDispatcher("/WEB-INF/views/community/board/view.jsp").forward(req, resp);
+		req.getRequestDispatcher("/recipe/content").forward(req, resp);
 	}
 }
 
