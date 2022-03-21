@@ -18,6 +18,7 @@
 
 <!-- 메인 CSS 로드 -->
 <link rel="stylesheet" href="/resources/css/main.css">
+
 </head>
 
 <body>

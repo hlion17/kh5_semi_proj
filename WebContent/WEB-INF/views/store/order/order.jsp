@@ -31,6 +31,7 @@
 			합계: <%= product.getPrice() %><br>
 			<input type="text" name="proNo" value="<%= product.getPro_no() %>">
 			<input type="text" name="proQty" value="<%= request.getAttribute("proQty") %>">
+			<input type="text" name="total" value="<%= product.getPrice() %>">
 		<% } else if (request.getAttribute("list") != null) { %>
 			<% 
 				List<Cart> list = (List<Cart>) request.getAttribute("list");

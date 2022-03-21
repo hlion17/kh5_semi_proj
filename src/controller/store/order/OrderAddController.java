@@ -24,6 +24,7 @@ public class OrderAddController extends HttpServlet {
 		orderingService.addOrder(req);
 		
 		// 주문성공 페이지로 이동
+		// redirect 안하면  새로고침 하면 계속 주문되는데
 		req.getRequestDispatcher("/WEB-INF/views/store/order/order_success.jsp").forward(req, resp);
 	}
 }
