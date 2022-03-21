@@ -162,5 +162,5 @@ public interface MemberService {
 	 * @param member - 회원탈퇴 정보
 	 * @return boolean - true:회원탈퇴완료, false:회원탈퇴 실패
 	 */
-	public boolean signout(Member member);
+	public boolean signout(HttpServletRequest req);
 }
