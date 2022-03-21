@@ -2,7 +2,7 @@ package dto;
 
 import java.util.Date;
 
-public class Orderling {
+public class Ordering {
 	
 	private int order_no;
 	private int mumber_no;
