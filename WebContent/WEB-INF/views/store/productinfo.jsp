@@ -13,10 +13,12 @@
 	int memberNo = (Integer)session.getAttribute("memberno");
 %>
 
+<div id="main">
 <div class="container">
 
 <h3>상품 상세 정보</h3>
 <hr>
+<a href="/cart">내 장바구니 보기</a><br>
 <%=session.getAttribute("memberid") %>님 반갑습니다<br>
 
 
@@ -40,14 +42,14 @@
 
 <div>
 <!-- 	<button type="button" onclick="location.href='test'">장바구니</button> -->
-	<button type="button" action="add.jsp">장바구니</button>
-	<a href="/cart">장바구니 보기</a>
+	<!-- <button type="button" action="add.jsp">장바구니</button> -->
+	
 	<form action="/cart/add" method="post">
 		<input type="hidden" name="memberNo" value="<%=memberNo%>">
 		<input type="hidden" name="proNo" value="<%=ProductList.getPro_no()%>">
 		수량: <input type="text" name="proQty">
 		<input type="hidden" name="proPrice" value="<%=ProductList.getPrice()%>">
-		
+		<br>
 		<button id="btn-to-cart" type="submit" >장바구니에 담기</button>
 	</form>
 	<button type="button" onclick="payment()">결제</button>
@@ -56,6 +58,7 @@
 
 </div>
 
+</div>
 
  <script type="text/javascript"> 
   	function payment(){

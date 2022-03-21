@@ -6,7 +6,8 @@
     pageEncoding="UTF-8"%>
    
 <% 
-	List<Cart> cartList = (List<Cart>) request.getAttribute("list"); 
+	List<Cart> cartList = (List<Cart>) request.getAttribute("list");
+	int sum = 0;
 %>
 
 <!-- header -->
@@ -22,8 +23,10 @@
 	<span>장바구니에 넣은 상품이 없습니다.</span>
 	<% } else { %>
 		<% for (Cart c : cartList) { %>
+			
 			<form action="/cart/update" method="post">
 				<input type="hidden" disabled value="<%=c.getCart_no()%>"><br>
+				<span>제품이름: <%=c.getName()%></span>
 				<input type="hidden" disabled value="<%=c.getMember_no()%>"><br>
 				제품번호: <input type="text" name="proNo" value="<%=c.getPro_no()%>"><br>
 				가격: <input disabled value="<%=c.getPrice()%>"><br>
@@ -31,11 +34,11 @@
 				<button>수정</button>
 			</form>
 			<a href="/cart/delete?proNo=<%=c.getPro_no()%>">삭제</a>
-			
+			<% sum += c.getPrice() * c.getQuantity(); %>
 		<% } %>
 	<% } %>	
 	</div>
-	
+	<div>금액 합계: <%= sum %></div>
 	<br><br><hr>
 	
 	<button type="button" onclick="location.href='payment'">결제</button>
