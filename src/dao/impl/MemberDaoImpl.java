@@ -12,6 +12,7 @@ import common.JDBCTemplate;
 import dao.face.MemberDao;
 import dto.Member;
 import dto.ProfileFile;
+import dto.RankMember;
 import util.Paging;
 
 public class MemberDaoImpl implements MemberDao {
@@ -326,14 +327,14 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT";
-		sql += "			member_no, id, pw, name, nick, gender,";
-		sql += "			, email, phone, address, intro, my_ref_code, zipcode";
+		sql += " 		SELECT *";
 		sql += "		FROM Member";
 		sql += "		ORDER BY member_no DESC";
 		sql += " 	) B";
 		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		System.out.println(sql);
 		
 		//결과 저장할 List
 		List<Member> boardList = new ArrayList<>();
@@ -377,6 +378,67 @@ public class MemberDaoImpl implements MemberDao {
 		
 		//최종 조회 결과 반환
 		System.out.println("[TEST] MemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
+
+	public List<RankMember> selectAllRank(Connection conn, Paging paging) {
+		System.out.println("[TEST] MemberDaoImpl - selectAllRank(Connection conn, Paging paging) 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += "	SELECT rownum rnum, B.* FROM (";
+		sql += " 		SELECT *";
+		sql += "		FROM Member";
+		sql += "		ORDER BY member_no DESC";
+		sql += " 	) B";
+		sql += " ) Member";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		System.out.println(sql);
+		
+		//결과 저장할 List
+		List<RankMember> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setInt(1, paging.getStartNo());
+			ps.setInt(2, paging.getEndNo());
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+			
+			while( rs.next() ) {
+				RankMember b = new RankMember(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setMemberno( rs.getInt("member_no") );
+				b.setMemberid( rs.getString("id") );
+				b.setMemberpw( rs.getString("pw") );
+				b.setMembername( rs.getString("name"));
+				b.setNick( rs.getString("nick"));
+				b.setGender( rs.getString("gender"));
+				b.setEmail( rs.getString("email"));
+				b.setPhone( rs.getString("phone"));
+				b.setAddress( rs.getString("address"));
+				b.setIntro( rs.getString("intro"));
+				b.setMy_ref_code( rs.getInt("my_ref_code"));
+				b.setZipcode( rs.getString("zipcode"));
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] MemberDaoImpl - selectAllRank(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
 
@@ -536,4 +598,34 @@ public class MemberDaoImpl implements MemberDao {
 	
 	
 	
+	@Override
+	public int selectCntAll(Connection conn) {
+//		System.out.println("[TEST] MemberDaoImpl - selectCntAll(Connection conn) 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT count(*) cnt FROM member";
+		
+		//총 게시글 수
+		int count = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				count = rs.getInt("cnt");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+//		System.out.println("[TEST] MemberDaoImpl - selectCntAll(Connection conn) - count 리턴 : " + count);
+		return count;
+	}
 }

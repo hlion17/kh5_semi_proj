@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
 import dto.ProfileFile;
+import dto.RankMember;
 import dto.Recipe;
 import util.Paging;
 
@@ -132,6 +133,14 @@ public interface MemberService {
 	public List<Member> getList(Paging paging);
 	
 	/**
+	 * 게시글 페이징 목록 조회
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Member> - 페이징이 반영된 게시글 조회 결과 목록
+	 */
+	public List<RankMember> getListRank(Paging paging);
+	
+	/**
 	 * 프로필 작성
 	 * 	지정한 프로필 사진을 DB에 저장
 	 * 
@@ -163,4 +172,12 @@ public interface MemberService {
 	 * @return boolean - true:회원탈퇴완료, false:회원탈퇴 실패
 	 */
 	public boolean signout(HttpServletRequest req);
+	
+	/**
+	 * 페이징 객체 생성
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Paging - 페이징 계산이 완료된 Paging객체
+	 */
+	public Paging getPaging(HttpServletRequest req);
 }

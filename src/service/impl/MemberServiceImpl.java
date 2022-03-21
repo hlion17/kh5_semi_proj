@@ -24,6 +24,7 @@ import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Member;
 import dto.ProfileFile;
+import dto.RankMember;
 import service.face.MemberService;
 import util.Paging;
 
@@ -263,6 +264,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public List<RankMember> getListRank(Paging paging) {
+		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
+		return boardDao.selectAllRank( JDBCTemplate.getConnection(), paging );
+	}
+
+
+	@Override
 	public void uploadProfil(HttpServletRequest req) {
 		// 파일업로드형식 인코딩이 맞는지 검사
 		boolean isMultipart = ServletFileUpload.isMultipartContent(req);
@@ -451,6 +462,29 @@ public class MemberServiceImpl implements MemberService {
 		//회원탈퇴 정보 일치 실패
 		JDBCTemplate.rollback(conn);
 		return false;
+	}
+	
+	@Override
+	public Paging getPaging(HttpServletRequest req) {
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 호출");
+
+		//전달파라미터 curPage 추출하기
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if( param != null && !"".equals( param ) ) {
+			curPage = Integer.parseInt(param);
+		} else {
+			System.out.println("[WARN] MemberService getPaging() - curPage값이 null이거나 비어있음");
+		}
+		
+		//총 게시글 수 조회하기
+		int totalCount = boardDao.selectCntAll(JDBCTemplate.getConnection());
+		
+		//Paging 객체 생성 - 페이징 계산
+		Paging paging = new Paging(totalCount, curPage);
+		
+//		System.out.println("[TEST] MemberServiceImpl - getPaging(HttpServletRequest req) 리턴 - paging : " + paging);
+		return paging;
 	}
 
 }
