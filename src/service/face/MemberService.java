@@ -180,4 +180,5 @@ public interface MemberService {
 	 * @return Paging - 페이징 계산이 완료된 Paging객체
 	 */
 	public Paging getPaging(HttpServletRequest req);
+
 }

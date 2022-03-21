@@ -25,6 +25,8 @@ import dao.impl.RefDaoImpl;
 import dto.Member;
 import dto.ProfileFile;
 import dto.RankMember;
+import dto.Recipe;
+import dto.SocialMember;
 import service.face.MemberService;
 import util.Paging;
 
