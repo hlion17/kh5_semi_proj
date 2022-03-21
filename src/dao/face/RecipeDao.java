@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Follow;
 import dto.Recipe;
 import dto.RecipeFile;
 import util.Paging;
@@ -163,6 +164,6 @@ public interface RecipeDao {
 	 * @param follower - 팔로우하는 사람
 	 * @return DB 수행 결과
 	 */
-	public int checkFollowEqual(Connection conn, int followee, int follower);
+	public Follow checkFollowPK(Connection conn, int followee, int follower);
 
 }

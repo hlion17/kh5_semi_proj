@@ -1,7 +1,6 @@
 package controller.community.recipeBoard;
 
 import java.io.IOException;
-import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Recipe;
-import dto.RecipeFile;
 import service.face.RecipeService;
 import service.impl.RecipeServiceImpl;
-import util.FollowEqualException;
 
 @WebServlet("/recipe/follow")
 public class RecipeFollowController extends HttpServlet {
@@ -37,21 +34,21 @@ public class RecipeFollowController extends HttpServlet {
 		int follower = (int)req.getSession().getAttribute("memberno");
 		System.out.println("[TEST]팔로위 : " + followee);
 		System.out.println("[TEST]팔로어 : " + follower);
-
+		
 		//팔로우기능
 		if( followee != follower ) { //사전 검사1 - 자기자신을 팔로우하는 경우 followee == follower
 			
 			//사전 검사2 - 이미 팔로우한 사람을 팔로우 못하게(무결성 위반 방지)
 			//요리턴값이 true이면 밑에 거를 실행하게 하는식으로 하면될듯
-			boardService.checkFollowFK(followee, follower);
+			if( boardService.checkFollowPK(followee, follower) > 0 ) {
+				//글작성자를 이용자가 팔로우하기
+				boardService.setFollow(followee, follower);
+			}
 			
-			//글작성자를 이용자가 팔로우하기
-			boardService.setFollow(followee, follower);
-		}
-		
-		
+		} else if ( followee == follower ) {
 			req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
 			System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
+		}
 		
 		//재조회 조회수증가방지
 		boardService.downHit(boardno.getBoardno());
