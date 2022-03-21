@@ -154,7 +154,7 @@ public interface RecipeDao {
 	 * @param follower - 팔로우하는 사람
 	 * @return DB 수행 결과
 	 */
-	public int setFollow(Connection conn, int followee, int follower);
+	public int setFollow(Connection conn, int followee, int follower, HttpServletRequest req);
 
 	/**
 	 * 팔로우 검사조건 - 이미 팔로우 한적이 있는지 검사(PK 위반 방지)

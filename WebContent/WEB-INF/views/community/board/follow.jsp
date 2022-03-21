@@ -34,16 +34,23 @@ $(document).ready(function() {
 		console.log("#btnFollow clicked")
 		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
-		//팔로우완료 알람띄우기
-		<% if( (boolean)s.getAttribute("follow_myself_flag") ) { %>
-			alert( '<%=s.getAttribute("follow_myself")%>' );
-		<% } else if ( (boolean)s.getAttribute("follow_already_flag") ) { %>
-			alert( '<%=s.getAttribute("follow_already")%>' );
-		<% } else if ( (boolean)s.getAttribute("follow_success_flag") ) { %>
-			alert( '<%=s.getAttribute("follow_success")%>' );
-		<% } else if ( (boolean)s.getAttribute("follow_unknown_flag") ) { %>
-				alert( '<%=s.getAttribute("follow_unknown")%>' );
-		<% } %>	
+		
+		<%	try { %> 
+		
+			//팔로우완료 알람띄우기
+			<% if( (boolean)s.getAttribute("follow_myself_flag") ) { %>
+				alert( '<%=s.getAttribute("follow_myself")%>' );
+			<% } else if ( (boolean)s.getAttribute("follow_already_flag") ) { %>
+				alert( '<%=s.getAttribute("follow_already")%>' );
+			<% } else if ( (boolean)s.getAttribute("follow_success_flag") ) { %>
+				alert( '<%=s.getAttribute("follow_success")%>' );
+			<% } else if ( (boolean)s.getAttribute("follow_unknown_flag") ) { %>
+					alert( '<%=s.getAttribute("follow_unknown")%>' );
+			<% } %>	
+			
+		<%	} catch (NullPointerException e) { %>
+		<%		System.out.println("null발생");%>
+		<%	} %>
 	})
 	
 	//추천버튼
@@ -54,10 +61,12 @@ $(document).ready(function() {
 		
 		<%	try { %> 
 		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
+		<% 		System.out.println("추천불가메시지 출력!"); %>
 				alert("추천할 수 없습니다!");
 		<%	} catch (NullPointerException e) { %>
-			alert("추천하셨습니다 :)")
-		<%	} %>	
+				alert("추천하셨습니다 :)")
+		<%		System.out.println("추천메시지출력!!");	%>
+		<%	} %>
 	})
 	
 });
