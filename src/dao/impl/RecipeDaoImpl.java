@@ -7,16 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
 import dao.face.RecipeDao;
+import dto.Follow;
 import dto.Recipe;
 import dto.RecipeFile;
-import oracle.sql.DATE;
 import util.Paging;
 
 public class RecipeDaoImpl implements RecipeDao {
@@ -657,7 +654,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public int setFollow(Connection conn, int followee_memberno, int follower_memberno) {
+	public int setFollow(Connection conn, int followee, int follower) {
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  호출");
 		
 		String sql = "";
@@ -669,8 +666,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, followee_memberno);
-			ps.setInt(2, follower_memberno);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
 
 			res = ps.executeUpdate();
 			
@@ -682,6 +679,63 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  리턴 res : " + res);
 		return res;
+	}
+
+	@Override
+	public Follow checkFollowPK(Connection conn, int followee, int follower) {
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
+		
+		Follow followInput = new Follow();
+		followInput.setFollowee(followee);
+		followInput.setFollower(follower);
+		
+		Follow followDB = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM follow";
+		sql += " WHERE followee = ? AND follower = ?";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
+
+			followInput.setDbRes(ps.executeUpdate());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				followDB = new Follow();
+				
+				followDB.setFollowee(rs.getInt(followee));
+				followDB.setFollower(rs.getInt(follower));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		int wee = followInput.getFollowee();
+		int wer = followInput.getFollower();
+		int dbwee = followDB.getFollowee();
+		int dbwer = followDB.getFollower();
+		
+		try {
+			if( wee == dbwee && wer == dbwer ) {
+				followInput.setFollowRes(0);
+			} else {
+				followInput.setFollowRes(1);
+			}
+		} catch (NullPointerException e) {
+			followInput.setFollowRes(0);
+		}
+		
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
+		return followInput;
 	}
 
 }

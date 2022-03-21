@@ -17,6 +17,9 @@
  $("#btnUpdateInfo").click(function() {
 	$(location).attr('href', '/member/info')
 }) 
+ $("#btnSignout").click(function() {
+	$(location).attr('href', '/member/signout')
+}) 
 
 </script> 
 
@@ -104,6 +107,7 @@
 	
 	<div class="text-center">
 		<button type="submit" id="btnUpdateInfo" class="btn btn-info">회원정보수정</button>
+		<a href= "/member/signout">회원탈퇴</a>
 		<a href="/main">홈으로</a>
 	</div>
 

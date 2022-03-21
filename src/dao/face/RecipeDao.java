@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Follow;
 import dto.Recipe;
 import dto.RecipeFile;
 import util.Paging;
@@ -149,10 +150,20 @@ public interface RecipeDao {
 	 * 팔로우
 	 * 
 	 * @param conn - DB연결 객체
-	 * @param followee_memberno - 팔로우당하는 사람
-	 * @param follower_memberno - 팔로우하는 사람
+	 * @param followee - 팔로우당하는 사람
+	 * @param follower - 팔로우하는 사람
 	 * @return DB 수행 결과
 	 */
-	public int setFollow(Connection conn, int followee_memberno, int follower_memberno);
+	public int setFollow(Connection conn, int followee, int follower);
+
+	/**
+	 * 팔로우 검사조건 - 이미 팔로우 한적이 있는지 검사(PK 위반 방지)
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param followee - 팔로우당하는 사람
+	 * @param follower - 팔로우하는 사람
+	 * @return DB 수행 결과
+	 */
+	public Follow checkFollowPK(Connection conn, int followee, int follower);
 
 }
