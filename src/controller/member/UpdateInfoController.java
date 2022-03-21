@@ -50,14 +50,23 @@ public class UpdateInfoController extends HttpServlet {
 		
 		System.out.println("추출한 회원 " +  member);
 		
-		Member result = memberService.updateMember(member); 
+		Member result = memberService.updateMember(member);
 		
+		String alertMsg = "수정이 완료되었습니다.";
+		
+		String errorMsg = "수정이 실패하였습니다.";
+		
+		if(result != null) {
+			req.setAttribute("alertMsg", alertMsg);
+		} else {
+			req.setAttribute("errorMsg", errorMsg);			
+		}
+		req.setAttribute("result", result);
+		req.getRequestDispatcher("/WEB-INF/views/member/infoView.jsp").forward(req, resp);
 
 //		System.out.println(member);
 
-		req.setAttribute("result", result);
 		
-        req.getRequestDispatcher("/WEB-INF/views/member/infoView.jsp").forward(req, resp);
         
 //		//메인페이지로 리다이렉트
 //		resp.sendRedirect("/main");

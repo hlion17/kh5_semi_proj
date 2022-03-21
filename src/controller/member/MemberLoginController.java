@@ -1,6 +1,7 @@
 package controller.member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,17 @@ public class MemberLoginController extends HttpServlet {
 		boolean isLogin = memberService.login(member);
 		System.out.println("로그인 컨트롤러 - 로그인 인증" + isLogin);
 		
+		if(isLogin == false) {
+			PrintWriter out = resp.getWriter();
+			 
+			out.println("<script>alert('아이디와 패스워드가 일치하지 않습니다'); location.href='/member/login';</script>");
+			 
+			out.flush();
+
+		}
+		
+		 
+		
 		//세션 정보 처리
 		if( isLogin ) { //로그인 인증 성공
 			
@@ -63,10 +75,10 @@ public class MemberLoginController extends HttpServlet {
 			
 			System.out.println("로그인 컨트롤러 - 로그인 성공");
 			
+			//메인페이지로 리다이렉트
+			resp.sendRedirect("/main.jsp");
 		}
 		
-		//메인페이지로 리다이렉트
-		resp.sendRedirect("/main.jsp");
 		
 	}
 }

@@ -45,7 +45,6 @@ public class MemberServiceImpl implements MemberService {
 		return member;
 	}
 	
-	@Override
 	public boolean login(Member member) {
 		
 		System.out.println("로그인서비스임플 " + member);
@@ -53,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
 		if( memberDao.selectCntMemberByMemberidMemberpw(JDBCTemplate.getConnection(), member) > 0 ) {
 			return true;
 		}
-		
+	
 		//로그인 인증 실패
 		return false;
 	}
@@ -433,13 +432,17 @@ public class MemberServiceImpl implements MemberService {
 		member.setMemberno(memberNo);
 		member.setMemberpw(memberpw);
 		member.setMemberid(memberid);
-		
+		String alertMsg = "회원탈퇴가 완료되었습니다.";
 		
 		if( memberDao.selectCntMemberByMemberidMemberpw(conn, member) > 0 ) {
 			if(refDao.deleteRef_MemberByMeberNo(conn, memberNo) > 0) {
 				
 				if(memberDao.deleteMember(conn, member) > 0) {
 				JDBCTemplate.commit(conn);
+				
+				req.setAttribute("alertMsg", alertMsg);
+				
+				
 				return true;	
 				}
 			}

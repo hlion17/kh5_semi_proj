@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -526,18 +527,19 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public void setFollow(int followee, int follower) {
-		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 호출");
+	public void setFollow(int followee, int follower, HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 호출");
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		if( boardDao.setFollow(conn, followee, follower) > 0 ) {
+		if( boardDao.setFollow(conn, followee, follower, req) > 0 ) {
+			req.getSession().setAttribute("follow_success_flag", true);
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
 		}
 		
-		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 리턴");
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 리턴");
 		return;
 	}
 
@@ -562,22 +564,18 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 호출");
 		
 		int res = 0;
+		int a = 0;
 		Connection conn = JDBCTemplate.getConnection();
 		Follow dbValue = boardDao.checkFollowPK(conn, followee, follower);
+		//dvValue에 들어있는 멤버값이 양수면 중복
 
 		try {
-			dbValue.getFollowee();
+			a = dbValue.getFollowee(); 
 		} catch (NullPointerException e) {
-			res += 1;
-		}
-
-		try {
-			dbValue.getFollower();
-		} catch (NullPointerException e) {
-			res += 1;
+			res = 1;
 		}
 		
-		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 dbValue.getFollowRes() : " + res);
-		return res; //2가 아니면 통과
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
+		return res; //1이면 통과
 	}
 }

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import common.JDBCTemplate;
 import dao.face.RecipeDao;
@@ -654,7 +655,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public int setFollow(Connection conn, int followee, int follower) {
+	public int setFollow(Connection conn, int followee, int follower, HttpServletRequest req) {
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  호출");
 		
 		String sql = "";
@@ -695,7 +696,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, followee);
+			ps.setInt(1, followee); //둘다 똑같은 번호가 있는지 확인
 			ps.setInt(2, follower);
 
 			rs = ps.executeQuery();
@@ -703,8 +704,8 @@ public class RecipeDaoImpl implements RecipeDao {
 			while( rs.next() ) {
 				dbValue = new Follow();
 				
-				dbValue.setFollowee(rs.getInt("followee"));
-				dbValue.setFollower(rs.getInt("follower"));
+				dbValue.setFollowee(rs.getInt("followee")); //있으면 값이 들어감
+				dbValue.setFollower(rs.getInt("follower")); //즉, dbValue값이 있으면 중복
 			}
 			
 		} catch (NullPointerException e) {
@@ -715,8 +716,8 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
-
-		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + dbValue);
+		System.out.println("[TEST] followee : " + followee + " / follower : " + follower);
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 dbValue : " + dbValue);
 		return dbValue;
 	}
 

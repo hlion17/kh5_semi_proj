@@ -1,28 +1,18 @@
 <%@page import="dto.Member"%>
 <% Member m = (Member) request.getAttribute("result"); %>
+<%	String alertMsg = (String)request.getAttribute("alertMsg"); %>
+<%	String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<%@ include file="../layout/header.jsp" %> 
 
-<!-- Bootstrap 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
- <script type="text/javascript">
-
-
-//회원정보수정 버튼 클릭 시 회원정보수정 페이지로 이동
- $("#btnUpdateInfo").click(function() {
-	$(location).attr('href', '/member/info')
-}) 
- $("#btnSignout").click(function() {
-	$(location).attr('href', '/member/signout')
-}) 
-
-</script> 
-
+<% if (errorMsg != null) { %> 
+	<script>alert('${errorMsg}')</script>	
+<% 	} %>
+<% if (alertMsg != null) { %> 
+	<script>alert('${alertMsg}')</script>
+<%	} %>
 
 
 
@@ -107,15 +97,15 @@
 	
 	<div class="text-center">
 		<button type="submit" id="btnUpdateInfo" class="btn btn-info">회원정보수정</button>
-		<a href= "/member/signout">회원탈퇴</a>
-		<a href="/main">홈으로</a>
+		<button type="button" id="btnSignout" onclick="location.href='/member/signout'" class="btn btn-info">회원탈퇴</button>
+		<button type="button" id="btnMain" onclick="location.href='/main'" class="btn btn-info">메인으로</button>
 	</div>
 
 </form>
 
 </div><!-- .container -->
 
-
+<%@ include file="../layout/footer.jsp" %> 
 	
 
 

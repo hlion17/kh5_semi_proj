@@ -68,7 +68,7 @@ function registerCheckFunction() {
 
 
 
-//form validation
+/* //form validation
 //	폼 데이터 유효성 검증
 
 //	-> 유효성 값을 입력했는지 검증
@@ -234,7 +234,7 @@ function validatePw() {
 		return true;
 		console.log("submit완료")
 	} 
-	
+	 */
 	
 }
 </script>
