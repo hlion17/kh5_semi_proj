@@ -1,3 +1,4 @@
+<%@page import="dto.Member"%>
 <%@page import="dto.QaFile"%>
 <%@page import="dto.Qa"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,6 +8,7 @@
 
 <%	Qa viewBoard = (Qa) request.getAttribute("viewBoard"); %>
 <%	QaFile boardFile = (QaFile) request.getAttribute("boardFile"); %>
+<%	Member m = (Member)request.getAttribute("result"); %>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -61,17 +63,25 @@ $(document).ready(function() {
 <!-- 첨부파일 -->
 <div>
 <%	if( boardFile != null ) { %>
-<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
- download="<%=boardFile.getOriginname() %>">
-	<%=boardFile.getOriginname() %>
-</a>
+	<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+			 alt="그림을 불러오지못함" width="50%" height="50%"><br>
+	<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+			download="<%=boardFile.getOriginname() %>">
+		<%=boardFile.getOriginname() %>
+	</a>
 <%	} %>
+</a>
 </div>
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
-	<button id="btnUpdate" class="btn btn-info">수정</button>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<%	if(session.getAttribute("memberid") != null){ %>
+	<%		if(session.getAttribute("memberid").equals(viewBoard.getMemberid()) || 
+				session.getAttribute("memberid").equals("admin")){ %>
+				<button id="btnUpdate" class="btn btn-info">수정</button>
+				<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<%		} %>
+	<%	} %>
 </div>
 
 </div><!-- .container -->

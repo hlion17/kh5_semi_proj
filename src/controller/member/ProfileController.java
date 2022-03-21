@@ -38,6 +38,8 @@ public class ProfileController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("ProfileController[POST] ");
+		
 		// 작성글 삽입
 		memberService.uploadProfil(req);
 		

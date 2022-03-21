@@ -1,4 +1,4 @@
-
+<%@page import="dto.Member"%>
 <%@page import="dto.Notice"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,7 +7,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <%	List<Notice> boardList = (List) request.getAttribute("boardList"); %>
-
+<%	Member m = (Member)request.getAttribute("result"); %>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -44,13 +44,17 @@ $(document).ready(function() {
 <%	} %>
 
 </table>
+
+<% if(session.getAttribute("memberid").equals("admin")) { %>
 <!-- 글쓰기 버튼 -->
 <div id="btnBox" class="pull-left"> <!-- float: left; 와 같음(왼쪽에 버튼 떠다니게) -->
 	<button id="btnWrite" class="btn btn-primary">글쓰기</button> <!-- btn-primary -> 파란색 버튼 -->
 </div>
  
 </div><!-- .container -->
+<%	} else { %>
 
+<% 	} %>
 <%@ include file="./layout/paging.jsp" %>
 
 <%@ include file="../layout/footer.jsp" %>

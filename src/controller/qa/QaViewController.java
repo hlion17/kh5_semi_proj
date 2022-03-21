@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.QaFile;
+import dto.Member;
 import dto.Qa;
+import service.face.MemberService;
 import service.face.QaService;
+import service.impl.MemberServiceImpl;
 import service.impl.QaServiceImpl;
 
 
@@ -22,6 +25,7 @@ public class QaViewController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private QaService boardService = new QaServiceImpl();
+	private MemberService memberService = new MemberServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,6 +52,17 @@ public class QaViewController extends HttpServlet {
 
 		// 첨부파일 정보 MODEL값 전달
 		req.setAttribute("boardFile", boardFile);
+		
+		// 로그인 정보 넘기기
+		Member member = memberService.getMemberInfoBySession(req);
+
+		System.out.println(member);
+
+		Member result = memberService.info(member);
+		
+		System.out.println("result" + result);
+
+		req.setAttribute("result", result);
 
 		// VIEW 지정 및 응답 - forward
 		req.getRequestDispatcher("/WEB-INF/views/qa/view.jsp").forward(req, resp);

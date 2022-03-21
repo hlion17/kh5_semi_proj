@@ -109,7 +109,14 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<img alt="첨부파일" src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>">
+<%	if( boardFile != null ) { %>
+	<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+			 alt="그림을 불러오지못함" width="50%" height="50%"><br>
+	<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+			download="<%=boardFile.getOriginname() %>">
+		<%=boardFile.getOriginname() %>
+	</a>
+<%	} %>
 
 <br>
 </form>
