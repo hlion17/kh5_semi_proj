@@ -686,8 +686,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
 		
 		Follow followInput = new Follow();
-		followInput.setFollowee(followee);
-		followInput.setFollower(follower);
+//		followInput.setFollowee(followee);
+//		followInput.setFollower(follower);
 		
 		Follow followDB = null;
 		
@@ -708,10 +708,20 @@ public class RecipeDaoImpl implements RecipeDao {
 			while( rs.next() ) {
 				followDB = new Follow();
 				
-				followDB.setFollowee(rs.getInt(followee));
-				followDB.setFollower(rs.getInt(follower));
+				followDB.setFollowee(rs.getInt("followee"));
+				followDB.setFollower(rs.getInt("follower"));
+				int dbwee = followDB.getFollowee();
+				int dbwer = followDB.getFollower();
+				
+				if( followee == dbwee && follower == dbwer ) {
+					followInput.setFollowRes(0);
+				} else {
+					followInput.setFollowRes(1);
+				}
 			}
 			
+		} catch (NullPointerException e) {
+			followInput.setFollowRes(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -719,20 +729,21 @@ public class RecipeDaoImpl implements RecipeDao {
 			JDBCTemplate.close(ps);
 		}
 		
-		int wee = followInput.getFollowee();
-		int wer = followInput.getFollower();
-		int dbwee = followDB.getFollowee();
-		int dbwer = followDB.getFollower();
+//		int wee = followInput.getFollowee();
+//		int wer = followInput.getFollower();
 		
-		try {
-			if( wee == dbwee && wer == dbwer ) {
-				followInput.setFollowRes(0);
-			} else {
-				followInput.setFollowRes(1);
-			}
-		} catch (NullPointerException e) {
-			followInput.setFollowRes(0);
-		}
+//		int dbwee = followDB.getFollowee();
+//		int dbwer = followDB.getFollower();
+		
+//		try {
+//			if( followee == dbwee && follower == dbwer ) {
+//				followInput.setFollowRes(0);
+//			} else {
+//				followInput.setFollowRes(1);
+//			}
+//		} catch (NullPointerException e) {
+//			followInput.setFollowRes(0);
+//		}
 		
 		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
 		return followInput;
