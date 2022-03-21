@@ -24,6 +24,7 @@
 <!-- header -->
 <%@include file="/WEB-INF/views/layout/header.jsp"%>
 
+
 <style>
 /* #product-container { */
 /* 	display: flex; */
@@ -79,7 +80,6 @@
 
 
 </style>
-
 
 
 
