@@ -24,6 +24,7 @@ import dao.impl.MemberDaoImpl;
 import dao.impl.RefDaoImpl;
 import dto.Member;
 import dto.ProfileFile;
+import dto.RankMember;
 import service.face.MemberService;
 import util.Paging;
 
@@ -261,6 +262,16 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("[TEST] MemberServiceImpl - getList(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
 		return boardDao.selectAll( JDBCTemplate.getConnection(), paging );
 	}
+
+	@Override
+	public List<RankMember> getListRank(Paging paging) {
+		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
+		return boardDao.selectAllRank( JDBCTemplate.getConnection(), paging );
+	}
+
 
 	@Override
 	public void uploadProfil(HttpServletRequest req) {

@@ -45,7 +45,7 @@
 		</table>
 	</div>
 
-<%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
+<%@ include file="/WEB-INF/views/community/rank/r_paging.jsp" %>
 
 </div><!-- #section -->
 

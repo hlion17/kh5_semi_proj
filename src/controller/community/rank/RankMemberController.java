@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.Member;
+import dto.RankMember;
 import dto.Recipe;
 import service.face.MemberService;
 import service.impl.MemberServiceImpl;
@@ -29,7 +30,7 @@ public class RankMemberController extends HttpServlet {
 		Paging paging = boardService.getPaging(req);
 		
 		//게시글 페이징 목록 조회 - BoardService이용
-		List<Member> boardList = boardService.getList( paging );
+		List<RankMember> boardList = boardService.getListRank( paging );
 		
 		//조회결과 MODEL값 전달 - req.setAttribute
 		req.setAttribute("boardList", boardList);

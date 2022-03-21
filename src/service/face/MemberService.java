@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dto.Member;
 import dto.ProfileFile;
+import dto.RankMember;
 import dto.Recipe;
 import util.Paging;
 
@@ -130,6 +131,14 @@ public interface MemberService {
 	 * @return List<Member> - 페이징이 반영된 게시글 조회 결과 목록
 	 */
 	public List<Member> getList(Paging paging);
+	
+	/**
+	 * 게시글 페이징 목록 조회
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Member> - 페이징이 반영된 게시글 조회 결과 목록
+	 */
+	public List<RankMember> getListRank(Paging paging);
 	
 	/**
 	 * 프로필 작성
