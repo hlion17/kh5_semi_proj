@@ -657,7 +657,7 @@ public class RecipeDaoImpl implements RecipeDao {
 	}
 
 	@Override
-	public int setFollow(Connection conn, int followee_memberno, int follower_memberno) {
+	public int setFollow(Connection conn, int followee, int follower) {
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  호출");
 		
 		String sql = "";
@@ -669,8 +669,8 @@ public class RecipeDaoImpl implements RecipeDao {
 		try {
 			//DB작업
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, followee_memberno);
-			ps.setInt(2, follower_memberno);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
 
 			res = ps.executeUpdate();
 			
@@ -681,6 +681,34 @@ public class RecipeDaoImpl implements RecipeDao {
 		}
 		
 		System.out.println("[TEST] RecipeDaoImpl -  setFollow(conn, int, int)  리턴 res : " + res);
+		return res;
+	}
+
+	@Override
+	public int checkFollowEqual(Connection conn, int followee, int follower) {
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowEqual(conn, int, int)  호출");
+		
+		String sql = "";
+		sql += "INSERT INTO follow( followee, follower )";
+		sql += " VALUES (?, ?)";
+		
+		int res = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowEqual(conn, int, int)  리턴 res : " + res);
 		return res;
 	}
 

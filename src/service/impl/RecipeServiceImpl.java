@@ -525,12 +525,12 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public void setFollow(int followee_memberno, int follower_memberno) {
+	public void setFollow(int followee, int follower) {
 		System.out.println("[TEST] RecipeServiceImpl - setFollow(int follower, int followee) 호출");
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		if( boardDao.setFollow(conn, followee_memberno, follower_memberno) > 0 ) {
+		if( boardDao.setFollow(conn, followee, follower) > 0 ) {
 			JDBCTemplate.commit(conn);
 		} else {
 			JDBCTemplate.rollback(conn);
@@ -554,6 +554,24 @@ public class RecipeServiceImpl implements RecipeService {
 		
 		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
 		return;
+	}
+
+	@Override
+	public boolean checkFollowFK(int followee, int follower) {
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowEqual(int, int) 호출");
+		
+		boolean res = false; //기본값은 통과금지
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		if( boardDao.checkFollowEqual(conn, followee, follower) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowEqual(int, int) 리턴");
+		return res; //통과하려면 true여야함, 위의 다오에 들어갈 메소드에서 판단값을 계승해서 적용
 	}
 	
 }
