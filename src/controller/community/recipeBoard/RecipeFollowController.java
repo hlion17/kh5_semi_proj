@@ -43,8 +43,10 @@ public class RecipeFollowController extends HttpServlet {
 			if( boardService.checkFollowPK(followee, follower) > 0 ) {
 				//글작성자를 이용자가 팔로우하기
 				boardService.setFollow(followee, follower);
+			} else {
+				req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
+				System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
 			}
-			
 		} else if ( followee == follower ) {
 			req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
 			System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));

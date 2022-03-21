@@ -574,8 +574,6 @@ public class RecipeServiceImpl implements RecipeService {
 			JDBCTemplate.rollback(conn);
 		}
 		
-		res = cfe.getFollowRes(); //1이상의 값이 입력되면 통과
-		
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
 		return res;
 		//왜 컨트롤러 서비스 다오로 단계를 구분해 모듈화 하는지 이제 감이 좀온다
