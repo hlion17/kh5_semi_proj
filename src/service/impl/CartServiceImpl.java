@@ -18,38 +18,6 @@ public class CartServiceImpl implements CartService {
 	private CartDao cartDao = new CartDaoImpl();
 	private Logger logger = Logger.getLogger(CartServiceImpl.class.getName());
 
-	@Override
-	public List<Cart> getList() {
-		return cartDao.selectAll(JDBCTemplate.getConnection());
-	}
-	
-	@Override
-	public Cart getCartno(HttpServletRequest req) {
-		//전달파라미터 cartno를 저장할 DTO객체 생성
-		Cart cartno = new Cart();
-		
-		String param = req.getParameter("cartno");
-		if( param != null && !"".equals( param ) ) {
-			cartno.setCart_no( Integer.parseInt(param) );
-		} else {
-			System.out.println("[WARN] CartService getcartno() - cartno값이 null이거나 비어있음");
-		}
-
-		return cartno;
-	}
-	
-	// 삭제 예정
-	@Override
-	public void delete(Cart cart) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		if( cartDao.delete(conn, cart) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-	}
-
 	
 	// 새로작성
 	// 세션에 로그인 한 회원의 장바구니 품목 조회
