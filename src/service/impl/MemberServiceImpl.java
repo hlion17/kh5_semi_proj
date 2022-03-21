@@ -421,6 +421,20 @@ public class MemberServiceImpl implements MemberService {
 		return profile;
 	}
 
-	
+	public boolean signout(Member member) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		if( memberDao.selectCntMemberByMemberidMemberpw(conn, member) > 0 ) {
+			if(memberDao.deleteMember(conn, member) > 0) {
+				JDBCTemplate.commit(conn);
+				return true;	
+			}
+		}
+		
+		//로그인 인증 실패
+		JDBCTemplate.rollback(conn);
+		return false;
+	}
 
 }

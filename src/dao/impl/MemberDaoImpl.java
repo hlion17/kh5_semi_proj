@@ -506,6 +506,31 @@ public class MemberDaoImpl implements MemberDao {
 		return profile;
 	}
 
+	@Override
+	public int deleteMember(Connection conn, Member member) {
+
+		String sql = "";
+		sql += "DELETE FROM member";
+		sql += " WHERE id = ?";
+
+		int res = 0;
+
+		try {
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, member.getMemberid());
+
+			res = ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+
+		return res;
+	}
+
 	
 
 	
