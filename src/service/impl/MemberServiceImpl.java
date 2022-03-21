@@ -421,18 +421,31 @@ public class MemberServiceImpl implements MemberService {
 		return profile;
 	}
 
-	public boolean signout(Member member) {
+	public boolean signout(HttpServletRequest req) {
 		
+		HttpSession session = req.getSession();
 		Connection conn = JDBCTemplate.getConnection();
+		int memberNo = ((Integer) session.getAttribute("memberno"));
+		String memberid = ((String) session.getAttribute("memberid"));
+		String memberpw = req.getParameter("memberpw");
+		
+		Member member = new Member();
+		member.setMemberno(memberNo);
+		member.setMemberpw(memberpw);
+		member.setMemberid(memberid);
+		
 		
 		if( memberDao.selectCntMemberByMemberidMemberpw(conn, member) > 0 ) {
-			if(memberDao.deleteMember(conn, member) > 0) {
+			if(refDao.deleteRef_MemberByMeberNo(conn, memberNo) > 0) {
+				
+				if(memberDao.deleteMember(conn, member) > 0) {
 				JDBCTemplate.commit(conn);
 				return true;	
+				}
 			}
 		}
 		
-		//로그인 인증 실패
+		//회원탈퇴 정보 일치 실패
 		JDBCTemplate.rollback(conn);
 		return false;
 	}

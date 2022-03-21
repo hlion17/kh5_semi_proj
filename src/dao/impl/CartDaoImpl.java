@@ -58,14 +58,25 @@ public class CartDaoImpl implements CartDao {
 	
 
 	// 새로작성
+	
 	// 세션에 로그인 한 회원의 장바구니 품목 조회
 	@Override
 	public List<Cart> findAllByMemberNo(Connection conn, int memberNo) {
 		List<Cart> list = new ArrayList<Cart>();
 		String sql = "";
-		sql = "SELECT cart_no, member_no, pro_no, quantity, price "
+		/* sql = "SELECT cart_no, member_no, pro_no, quantity, price "
 				+ "FROM cart "
-				+ "WHERE member_no = ?";
+				+ "WHERE member_no = ? ORDER BY cart_no";
+		*/
+		
+		sql = "SELECT cart_no, C.member_no, C.pro_no, C.quantity, C.price, P.name "
+			+ "FROM cart C "
+			+ "INNER JOIN product P "
+				+ "ON C.pro_no = P.pro_no "
+			+ "INNER JOIN MEMBER M "
+				+ "ON C.member_no = M.member_no "
+			+ "WHERE C.member_no = ? "
+			+ "ORDER BY cart_no";
 		
 		try {
 			ps = conn.prepareStatement(sql);
@@ -81,6 +92,8 @@ public class CartDaoImpl implements CartDao {
 				cart.setQuantity(rs.getInt("quantity"));
 				cart.setPrice(rs.getInt("price"));
 				
+				cart.setName(rs.getString("name"));
+				
 				list.add(cart);
 			}
 		} catch (SQLException e) {
@@ -94,21 +107,73 @@ public class CartDaoImpl implements CartDao {
 		return list;
 	}
 
+	// 장바구니에 이미 담으려는 품목이 있는지 확인
+	@Override
+	public int checkProInCart(Connection conn, Cart cart) {
+		int result = -1;
+		String sql = "";
+		sql = "SELECT COUNT(*) FROM cart "
+			+ "WHERE member_no = ? AND pro_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, cart.getMember_no());
+			ps.setInt(2, cart.getPro_no());
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+			JDBCTemplate.close(rs);
+		}
+		
+		return result;
+	}
 
+	// 장바구니 품목 수량 추가
+	@Override
+	public int addProQty(Connection conn, Cart cart) {
+		int result = -1;
+		String sql = "";
+		sql = "UPDATE cart "
+			+ "SET quantity = quantity + ? "
+			+ "WHERE member_no = ? AND pro_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, cart.getQuantity());
+			ps.setInt(2, cart.getMember_no());
+			ps.setInt(3, cart.getPro_no());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+	
 	// 장바구니 품목 추가
 	@Override
 	public int insert(Connection conn, Cart cart) {
 		int result = -1;
 		String sql = "";
 		sql = "INSERT INTO cart (cart_no, member_no, pro_no, quantity, price) "
-				+ "VALUES (CART_SEQ.NEXTVAL, ?, ?, ?, ?)";
+			+ "VALUES (CART_SEQ.NEXTVAL, ?, ?, ?, ?)";
 		
 		try {
 			ps = conn.prepareStatement(sql);
+			
 			ps.setInt(1, cart.getMember_no());
 			ps.setInt(2, cart.getPro_no());
 			ps.setInt(3, cart.getQuantity());
 			ps.setInt(4, cart.getPrice());
+			
 			result = ps.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -165,6 +230,12 @@ public class CartDaoImpl implements CartDao {
 		
 		return result;
 	}
+
+
+
+
+	
+	
 	
 
 }

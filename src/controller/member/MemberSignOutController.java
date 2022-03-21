@@ -34,16 +34,32 @@ public class MemberSignOutController extends HttpServlet {
 			
 
 		
-		Member member = memberService.getLoginMember(req);
+//		Member member = memberService.getLoginMember(req);
 		
 		
-		
-		boolean signout = memberService.signout(member);
+		boolean signout = memberService.signout(req);
 
-		System.out.println(signout);
+		System.out.println("회원탈퇴인증" + signout);
 		
-		req.getSession().invalidate();
-
+		String msg = "회원탈퇴가 완료되었습니다.";
+		String errorMsg = "정보가 일치하지 않아 회원탈퇴가 실패했습니다.";
+		
+		if(signout == true) {
+			req.setAttribute("alertMsg", msg);
+			
+			req.getRequestDispatcher("/WEB-INF/views/member/signout.jsp").forward(req, resp);
+		
+			req.getSession().invalidate();
+			
+			resp.sendRedirect("/main");
+			
+		} else {
+			req.setAttribute("errorMsg", errorMsg);
+			
+			req.getRequestDispatcher("/WEB-INF/views/member/signout.jsp").forward(req, resp);
+			
+		}
+		
 		// 성공 여부 확인 : 개발자용
 		if (signout == true) {
 			System.out.println("회원탈퇴 완료.");
@@ -54,7 +70,6 @@ public class MemberSignOutController extends HttpServlet {
 			
 		}
 		
-		resp.sendRedirect("/main");
 		
 		
 		

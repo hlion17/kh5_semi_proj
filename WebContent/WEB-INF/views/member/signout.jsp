@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%	String msg = (String)request.getAttribute("alertMsg"); %>
+<%	String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <%@ include file="../layout/header.jsp" %>
 
 <script type="text/javascript">
@@ -11,21 +13,32 @@ $("input").eq(0).focus();
 
 </script>
 
+<% if (msg != null) { %> 
+	<script>alert('${alertMsg}')</script>
+<%	request.getSession().invalidate();
+
+	response.sendRedirect("/main");
+%>	
+<% 	} %>
+<% if (errorMsg != null) { %> 
+	<script>alert('${errorMsg}')</script>	
+<% 	} %>
+
 
 
 <div class="container">
 <form action="./signout" method="post" class="form-horizontal">
 
 	<div class="form-group text-center">
-		<h3>아이디, 비밀번호를 입력해주세요!</h3>
+		<h3>비밀번호를 입력해주세요!</h3>
 	</div>
 
-	<div class="form-group">
+	<!-- <div class="form-group">
 		<label for="memberid" class="control-label col-xs-2">아이디</label>
 		<div class="col-xs-6">
 			<input type="text" id="memberid" name="memberid" class="form-control" required placeholder="필수 입력 항목입니다">
 		</div>
-	</div>
+	</div> -->
 	
 	<div class="form-group">
 		<label for="memberpw" class="control-label col-xs-2">비밀번호</label>

@@ -685,11 +685,8 @@ public class RecipeDaoImpl implements RecipeDao {
 	public Follow checkFollowPK(Connection conn, int followee, int follower) {
 		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
 		
-		Follow followInput = new Follow();
-		followInput.setFollowee(followee);
-		followInput.setFollower(follower);
-		
-		Follow followDB = null;
+		//반환할 객체
+		Follow dbValue = null;
 		
 		String sql = "";
 		sql += "SELECT * FROM follow";
@@ -701,41 +698,26 @@ public class RecipeDaoImpl implements RecipeDao {
 			ps.setInt(1, followee);
 			ps.setInt(2, follower);
 
-			followInput.setDbRes(ps.executeUpdate());
-			
 			rs = ps.executeQuery();
 			
 			while( rs.next() ) {
-				followDB = new Follow();
+				dbValue = new Follow();
 				
-				followDB.setFollowee(rs.getInt(followee));
-				followDB.setFollower(rs.getInt(follower));
+				dbValue.setFollowee(rs.getInt("followee"));
+				dbValue.setFollower(rs.getInt("follower"));
 			}
 			
+		} catch (NullPointerException e) {
+//			dbValue.setFollowRes(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(rs);
 			JDBCTemplate.close(ps);
 		}
-		
-		int wee = followInput.getFollowee();
-		int wer = followInput.getFollower();
-		int dbwee = followDB.getFollowee();
-		int dbwer = followDB.getFollower();
-		
-		try {
-			if( wee == dbwee && wer == dbwer ) {
-				followInput.setFollowRes(0);
-			} else {
-				followInput.setFollowRes(1);
-			}
-		} catch (NullPointerException e) {
-			followInput.setFollowRes(0);
-		}
-		
-		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
-		return followInput;
+
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + dbValue);
+		return dbValue;
 	}
 
 }

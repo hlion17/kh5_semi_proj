@@ -1,14 +1,17 @@
 package controller.community.recipeBoard;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.Recipe;
+import dto.RecipeFile;
 import service.face.RecipeService;
 import service.impl.RecipeServiceImpl;
 
@@ -22,42 +25,69 @@ public class RecipeFollowController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeFollowController( /recipe/content ) [GET] 호출");
 		
-		//팔로우 불가 메시지 세팅
-		req.setAttribute("follow_error_msg", false);
-		
+		//알람플래그 세팅
+		HttpSession s = req.getSession();
+		s.setAttribute("follow_myself", "자신은 팔로우 할 수 없습니다!");
+		s.setAttribute("follow_myself_flag", false);
+		s.setAttribute("follow_already", "이미 팔로우 하였습니다!");
+		s.setAttribute("follow_already_flag", false);
+		s.setAttribute("follow_success", "팔로우 하셨습니다 :)");
+		s.setAttribute("follow_success_flag", false);
+		s.setAttribute("follow_unknown", "알 수 없는 경로입니다! 관리자에게 문의해주세요 010-0000-0000");
+		s.setAttribute("follow_unknown_flag", true);
+
 		//전달파라미터 얻기 - 글작성자 memberno
 		Recipe boardno = boardService.getBoardno(req);
 		Recipe viewBoard = boardService.view(boardno);
 		
 		//전달할 파라미터 선언
 		int followee = viewBoard.getUserid();
-		int follower = (int)req.getSession().getAttribute("memberno");
+		int follower = (int)s.getAttribute("memberno");
 		System.out.println("[TEST]팔로위 : " + followee);
 		System.out.println("[TEST]팔로어 : " + follower);
 		
 		//팔로우기능
 		if( followee != follower ) { //사전 검사1 - 자기자신을 팔로우하는 경우 followee == follower
 			
-			//사전 검사2 - 이미 팔로우한 사람을 팔로우 못하게(무결성 위반 방지)
-			//요리턴값이 true이면 밑에 거를 실행하게 하는식으로 하면될듯
-			if( boardService.checkFollowPK(followee, follower) > 0 ) {
-				//글작성자를 이용자가 팔로우하기
-				boardService.setFollow(followee, follower);
+			if( boardService.checkFollowPK(followee, follower) >= 2 ) { //사전 검사2 - 이미 팔로우한 사람을 팔로우 못하게(무결성 위반 방지)
+				boardService.setFollow(followee, follower); //글작성자를 이용자가 팔로우
+				System.out.println("[TEST]팔로우 성공했어야하는 경우");
+				s.setAttribute("follow_success_flag", true); //이것도 추후 개선여지있음
+				s.setAttribute("follow_unknown_flag", false);
+			} else {
+				System.out.println("[TEST]이미 팔로우했거나 알수없는 경우");
+				s.setAttribute("follow_already_flag", true); //else라서 정확한 구분이 안되지만 직접 타고들어가서 매겨도 애매한 경우가 너무많음, 추후고민
+				s.setAttribute("follow_unknown_flag", false);
 			}
 			
 		} else if ( followee == follower ) {
-			req.setAttribute("follow_error_msg", true); //jsp에서 알람뜨게하기위한 키값
-			System.out.println("[TEST]follow_error_msg(true) : " + req.getAttribute("follow_error_msg"));
+			System.out.println("[TEST]자기자신을 팔로우");
+			s.setAttribute("follow_myself_flag", true);
+			s.setAttribute("follow_unknown_flag", false);
+		} else {
+			System.out.println("[TEST]알수없는 경우");
+			s.setAttribute("follow_unknown_flag", true);
 		}
 		
 		//재조회 조회수증가방지
 		boardService.downHit(boardno.getBoardno());
-		boardService.downHit(boardno.getBoardno());
+		
+		//조회결과 MODEL값 전달
+		req.setAttribute("viewBoard", viewBoard);
+				
+		//닉네임 전달
+		req.setAttribute("writerNick", boardService.getNick(viewBoard));
+		
+		//첨부파일 정보 조회
+		RecipeFile boardFile = boardService.viewFile(viewBoard);
+		
+		//첨부파일 정보 MODEL값 전달
+		req.setAttribute("boardFile", boardFile);
 		
 		//JSP를 VIEW로 지정, View로 응답
-		System.out.println("[TEST] RecipeLikeController - /recipe/content로 포워드");
+		System.out.println("[TEST] RecipeLikeController - follow.jsp로 포워드");
 		System.out.println();
-		req.getRequestDispatcher("/recipe/content").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/community/board/follow.jsp").forward(req, resp);
 	}
 }
 

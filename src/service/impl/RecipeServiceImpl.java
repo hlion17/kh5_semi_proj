@@ -556,33 +556,28 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
 		return;
 	}
-
+	
 	@Override
 	public int checkFollowPK(int followee, int follower) {
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 호출");
 		
-		int res = 0; //기본값은 통과금지
-		
+		int res = 0;
 		Connection conn = JDBCTemplate.getConnection();
-		
-		Follow cfe = boardDao.checkFollowPK(conn, followee, follower);
-		
-		if( cfe.getDbRes() > 0 ) {
-			res = cfe.getFollowRes(); //1이상의 값이 입력되면 통과
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
+		Follow dbValue = boardDao.checkFollowPK(conn, followee, follower);
+
+		try {
+			dbValue.getFollowee();
+		} catch (NullPointerException e) {
+			res += 1;
+		}
+
+		try {
+			dbValue.getFollower();
+		} catch (NullPointerException e) {
+			res += 1;
 		}
 		
-		res = cfe.getFollowRes(); //1이상의 값이 입력되면 통과
-		
-		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
-		return res;
-		//왜 컨트롤러 서비스 다오로 단계를 구분해 모듈화 하는지 이제 감이 좀온다
-		//컨트롤러가 지저분해지지 않고 일목요연하게 보려면
-		//서비스에서 중간역할을 해주고, 서비스에서는 DB로부터 쿼리로 주고받는 것에 대한 메소드들을
-		//컨트롤러가 지저분해지지 않게 한것처럼 이또한 마찬가지로 일목요연하게 보기 위해서이다
-		//이에 기반하여 볼때 이번에 작성한것보다 개선의 여지가 분명히 있다
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 dbValue.getFollowRes() : " + res);
+		return res; //2가 아니면 통과
 	}
-	
 }

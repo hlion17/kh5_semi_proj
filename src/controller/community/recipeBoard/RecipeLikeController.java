@@ -43,8 +43,8 @@ public class RecipeLikeController extends HttpServlet {
 			System.out.println("true lf : " + lf);
 		}
 		
-		//재조회 조회수증가방지
-		boardService.downHit(boardno.getBoardno());
+//		//재조회 조회수증가방지
+//		boardService.downHit(boardno.getBoardno());
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] RecipeLikeController - /recipe/content로 포워드");

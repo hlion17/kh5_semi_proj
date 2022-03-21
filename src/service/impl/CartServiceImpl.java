@@ -43,7 +43,6 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	// 장바구니 품목 추가
-
 	@Override
 	public void addCartItem(HttpServletRequest req) {
 		// 요청파라미터 분석
@@ -64,8 +63,16 @@ public class CartServiceImpl implements CartService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// DAO 이용
-		int result = cartDao.insert(conn, cart);
-		logger.info("장바구니 품목 추가 결과: " + result);
+		int checkPro_no = cartDao.checkProInCart(conn, cart);
+		
+		int result = -1; 
+		if (checkPro_no > 0) {
+			result = cartDao.addProQty(conn, cart);	
+			logger.info("기존 장바구니에 존재하는 품목 수량 업데이트 결과: " + result);
+		} else if (checkPro_no == 0) {
+			result = cartDao.insert(conn, cart);
+			logger.info("장바구니 품목 추가 결과: " + result);
+		}
 		
 		// DB 삽입결과 확인 및 트랜잭션 처리
 		if (result == 1) {

@@ -160,4 +160,19 @@ public interface RefDao {
 	 */
 	int deleteRef_Member(Connection conn, int myRefCode, int targetMemberNo);
 
+	/**
+	 * 냉장고 코드에 해당하는 냉장고 제거
+	 * @param conn
+	 * @param refCode
+	 * @return
+	 */
+	//int deleteRef(Connection conn, int refCode);
+	
+	/**
+	 * 회원번호를 참조하고 있는 냉장고_회원 매핑 테이블 정보 제거
+	 * @param conn - DB 접속 객체
+	 * @param memberNo - 제거할 대상 회원번호
+	 * @return DB 삭제 결과
+	 */
+	int deleteRef_MemberByMeberNo(Connection conn, int memberNo);
 }
