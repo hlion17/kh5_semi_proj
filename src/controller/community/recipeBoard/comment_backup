@@ -1,5 +1,78 @@
+------------------------------------------------------------------------------
+		//왜 컨트롤러 서비스 다오로 단계를 구분해 모듈화 하는지 이제 감이 좀온다
+		//컨트롤러가 지저분해지지 않고 일목요연하게 보려면
+		//서비스에서 중간역할을 해주고, 서비스에서는 DB로부터 쿼리로 주고받는 것에 대한 메소드들을
+		//컨트롤러가 지저분해지지 않게 한것처럼 이또한 마찬가지로 일목요연하게 보기 위해서이다
+		//이에 기반하여 볼때 이번에 작성한것보다 개선의 여지가 분명히 있다
+--------0321 1605 팔로우 안되는이유찾음 dbres가 0인이유는 쿼리익스큐트가아닌 업데이트여서 그럼 - 수정전(jsp)-----------------------------------------
+@Override
+	public Follow checkFollowPK(Connection conn, int followee, int follower) {
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  호출");
+		
+		Follow followInput = new Follow();
+//		followInput.setFollowee(followee);
+//		followInput.setFollower(follower);
+		
+		Follow followDB = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM follow";
+		sql += " WHERE followee = ? AND follower = ?";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
 
-
+			System.out.println("setDbRes : " + ps.executeUpdate());
+			followInput.setDbRes(ps.executeUpdate());
+			
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				followDB = new Follow();
+				
+				followDB.setFollowee(rs.getInt("followee"));
+				followDB.setFollower(rs.getInt("follower"));
+				int dbwee = followDB.getFollowee();
+				int dbwer = followDB.getFollower();
+				
+				if( followee == dbwee && follower == dbwer ) {
+					followInput.setFollowRes(0);
+				} else {
+					followInput.setFollowRes(1);
+				}
+			}
+			
+		} catch (NullPointerException e) {
+			followInput.setFollowRes(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+//		int wee = followInput.getFollowee();
+//		int wer = followInput.getFollower();
+		
+//		int dbwee = followDB.getFollowee();
+//		int dbwer = followDB.getFollower();
+		
+//		try {
+//			if( followee == dbwee && follower == dbwer ) {
+//				followInput.setFollowRes(0);
+//			} else {
+//				followInput.setFollowRes(1);
+//			}
+//		} catch (NullPointerException e) {
+//			followInput.setFollowRes(0);
+//		}
+		
+		System.out.println("[TEST] RecipeDaoImpl -  checkFollowPK(conn, int, int)  리턴 follow : " + followInput);
+		return followInput;
+	}
 --------03211427 알러트 대대적 수정전 백업(jsp)-----------------------------------------
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

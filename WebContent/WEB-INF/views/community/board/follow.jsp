@@ -32,18 +32,18 @@ $(document).ready(function() {
 	//팔로우버튼
 	$("#btnFollow").click(function() {
 		console.log("#btnFollow clicked")
-		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		
+		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		//팔로우완료 알람띄우기
 		<% if( (boolean)s.getAttribute("follow_myself_flag") ) { %>
-			s.getAttribute("follow_myself");
+			alert( '<%=s.getAttribute("follow_myself")%>' );
 		<% } else if ( (boolean)s.getAttribute("follow_already_flag") ) { %>
-			s.getAttribute("follow_already");
+			alert( '<%=s.getAttribute("follow_already")%>' );
 		<% } else if ( (boolean)s.getAttribute("follow_success_flag") ) { %>
-			s.getAttribute("follow_success");
+			alert( '<%=s.getAttribute("follow_success")%>' );
 		<% } else if ( (boolean)s.getAttribute("follow_unknown_flag") ) { %>
-			s.getAttribute("follow_unknown");
-		<% } %>
+				alert( '<%=s.getAttribute("follow_unknown")%>' );
+		<% } %>	
 	})
 	
 	//추천버튼
