@@ -445,7 +445,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		
-		//로그인 인증 실패
+		//회원탈퇴 정보 일치 실패
 		JDBCTemplate.rollback(conn);
 		return false;
 	}
