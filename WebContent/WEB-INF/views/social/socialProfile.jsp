@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	SocialMember viewBoard = (SocialMember) request.getAttribute("viewBoard"); %>
+<%-- <%	ProfileFile profileFile = (ProfileFile) request.getAttribute("profileFile"); %> --%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -27,12 +28,21 @@ $(document).ready(function() {
 	<!-- 첨부파일 -->
 	<div>
 	<%	if( viewBoard != null ) { %>
+
 		<img src="<%=request.getContextPath() %>/upload/<%=viewBoard.getStored_name() %>" 
-				alt="그림을 불러오지못함" width="100%" height="100%"><br>
+				alt="그림을 불러오지못함" width="100%"><br>
 		<a href="<%=request.getContextPath() %>/upload/<%=viewBoard.getStored_name() %>"
 				download="<%=viewBoard.getOrigin_name() %>">
 			<%=viewBoard.getOrigin_name() %>
 		</a>
+
+<%-- 		<img src="<%=request.getContextPath() %>/upload/<%=profileFile.getStoredname() %>"  --%>
+<!-- 				alt="그림을 불러오지못함" width="400" height="300"><br> -->
+<%-- 		<a href="<%=request.getContextPath() %>/upload/<%=profileFile.getStoredname() %>" --%>
+<%-- 				download="<%=profileFile.getOriginname() %>"> --%>
+<%-- 			<%=profileFile.getOriginname() %> --%>
+<!-- 		</a> -->
+	
 	<%	} %>
 	</div>
 	
@@ -53,7 +63,9 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="text-center">
+	<% if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
 		<button id="btnUpdate" class="btn btn-info">수정</button>
+	<% } %>
 	</div>
 	
 </div><!-- #section -->

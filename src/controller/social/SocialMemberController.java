@@ -40,10 +40,10 @@ public class SocialMemberController extends HttpServlet {
 		req.setAttribute("viewBoard", viewBoard);
 				
 		//첨부파일 정보 조회
-		ProfileFile profileFile = socialService.viewFile(viewBoard);
+		viewBoard = socialService.viewFile(viewBoard);
 		
 		//첨부파일 정보 MODEL값 전달
-		req.setAttribute("boardFile", profileFile);
+		req.setAttribute("boardFile", viewBoard);
 		
 		//JSP를 VIEW로 지정, View로 응답
 //		System.out.println("[TEST] RecipeContentController - /recipe/follow.jsp로 포워드");

@@ -112,7 +112,7 @@ public class SocialServiceImpl implements SocialService {
 	}
 
 	@Override
-	public ProfileFile viewFile(SocialMember viewBoard) {
+	public SocialMember viewFile(SocialMember viewBoard) {
 		System.out.println("[TEST] SocialServiceImpl - viewFile() 호출");
 		
 		System.out.println("[TEST] SocialServiceImpl - viewFile() 리턴 boardDao.selectFile() : " + boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard));
@@ -207,11 +207,8 @@ public class SocialServiceImpl implements SocialService {
 				//key에 맞게 value를 DTO에 삽입
 				if( "memberno".equals(key) ) {
 					board.setMemberno( Integer.parseInt(value) );
-					
-//				} else if ( "content".equals(key) ) {
-//					board.setContent(value);
-//					
-//				}
+					System.out.println("key value memberno 삽입 : " + board.getMemberno());
+				}
 				
 			} //if( item.isFormField() ) end
 			
@@ -271,7 +268,8 @@ public class SocialServiceImpl implements SocialService {
 		
 		//첨부파일 정보 삽입
 		if( board.getFilesize() != 0 ) {
-			board.setMemberno(board.getMemberno());
+//			board.setMemberno(board.getMemberno());
+			System.out.println("파일정보삽입 : " + board.getMemberno());
 			
 			if( boardDao.insertFile(conn, board) > 0 ) {
 				JDBCTemplate.commit(conn);
@@ -282,6 +280,5 @@ public class SocialServiceImpl implements SocialService {
 		
 		System.out.println("[TEST] SocialMemberServiceImpl - update(HttpServletRequest req) 리턴");
 		return;
-	}
 	}
 }

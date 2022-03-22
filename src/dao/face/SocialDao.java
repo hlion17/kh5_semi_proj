@@ -13,7 +13,7 @@ public interface SocialDao {
 
 	List<SocialMember> selectAll(Connection connection, Paging paging);
 
-	ProfileFile selectFile(Connection connection, SocialMember viewBoard);
+	SocialMember selectFile(Connection connection, SocialMember viewBoard);
 
 	SocialMember selectBoardByBoardno(Connection conn, SocialMember memberno);
 

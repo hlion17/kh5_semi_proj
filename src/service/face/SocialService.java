@@ -61,7 +61,7 @@ public interface SocialService {
 	 * @param viewBoard - 첨부파일과 연결된 게시글의 번호
 	 * @return RecipeFile - 첨부파일 정보 DTO객체
 	 */
-	public ProfileFile viewFile(SocialMember viewBoard);
+	public SocialMember viewFile(SocialMember viewBoard);
 	
 	/**
 	 * 게시글 수정

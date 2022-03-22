@@ -120,7 +120,7 @@ public class SocialDaoImpl implements SocialDao {
 	}
 	
 	@Override
-	public ProfileFile selectFile(Connection conn, SocialMember viewBoard) {
+	public SocialMember selectFile(Connection conn, SocialMember viewBoard) {
 		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 호출");
 		
 		//SQL 작성
@@ -129,7 +129,6 @@ public class SocialDaoImpl implements SocialDao {
 		sql += " WHERE member_no = ?";
 		
 		//결과 저장할 DTO객체
-		ProfileFile b = null;
 		
 		try {
 			ps = conn.prepareStatement(sql); //SQL수행 객체
@@ -139,14 +138,13 @@ public class SocialDaoImpl implements SocialDao {
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
 			while( rs.next() ) {
-				b = new ProfileFile(); //결과값 저장 객체
 				
 				//결과값 행 처리
-				b.setFileno( rs.getInt("image_no"));
-				b.setMemberno( rs.getInt("member_no"));
-				b.setOriginname( rs.getString("origin_name"));
-				b.setStoredname( rs.getString("stored_name"));
-				b.setFilesize( rs.getInt("filesize"));
+				viewBoard.setImage_no( rs.getInt("image_no"));
+				viewBoard.setMemberno( rs.getInt("member_no"));
+				viewBoard.setOrigin_name( rs.getString("origin_name"));
+				viewBoard.setStored_name( rs.getString("stored_name"));
+				viewBoard.setFilesize( rs.getInt("filesize"));
 			}
 			
 		} catch (SQLException e) {
@@ -158,8 +156,8 @@ public class SocialDaoImpl implements SocialDao {
 		}
 		
 		//최종 조회 결과 반환
-		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 리턴 boardFile : " + b);
-		return b;
+		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 리턴 boardFile : " + viewBoard);
+		return viewBoard;
 	}
 	
 	@Override
@@ -260,8 +258,6 @@ public class SocialDaoImpl implements SocialDao {
 			ps.setString(2, board.getOrigin_name());
 			ps.setString(3, board.getStored_name());
 			ps.setInt(4, board.getFilesize());
-//			new Date(refItem.getExpireDate().getTime())
-//			new java.sql.Date(new java.util.Date().getTime())
 
 			res = ps.executeUpdate();
 			

@@ -27,20 +27,16 @@ public class SocialProfileUpdateController extends HttpServlet {
 		System.out.println("[TEST] SocialProfileUpdateController( /social/profile/update ) [GET] 호출");
 		
 		//전달파라미터 얻기 - boardno
-		SocialMember boardno = boardService.getMemberno(req);
+		SocialMember memberno = boardService.getMemberno(req);
 
 		//상세보기 결과 조회
-		SocialMember updateBoard = boardService.view(boardno); 
+		SocialMember updateBoard = boardService.view(memberno); 
 		
-		//조회결과 MODEL값 전달
+		//첨부파일 정보 조회
+		updateBoard = boardService.viewFile(updateBoard);
+		
+		//첨부파일 정보 MODEL값 전달
 		req.setAttribute("updateBoard", updateBoard);
-
-		//이미 SocialMember 객체에서 가지고 있도록 설계함
-//		//첨부파일 정보 조회
-//		RecipeFile boardFile = boardService.viewFile(updateBoard);
-//		
-//		//첨부파일 정보 MODEL값 전달
-//		req.setAttribute("boardFile", boardFile);
 		
 		//JSP를 VIEW로 지정, View로 응답
 		System.out.println("[TEST] SocialProfileUpdateController - socialProfileUpdate.jsp.jsp로 포워드");
@@ -62,9 +58,13 @@ public class SocialProfileUpdateController extends HttpServlet {
 		//수정된 결과를 목록에 반영
 		boardService.update(req);
 		
-		System.out.println("[TEST] SocialProfileUpdateController - socialProfileUpdate.jsp.jsp로 포워드");
+		System.out.println("[TEST] SocialProfileUpdateController - /social/profile로 리다이렉트");
 		System.out.println();
-		req.getRequestDispatcher("/WEB-INF/views/social/socialProfileUpdate.jsp").forward(req, resp);
+		resp.sendRedirect("/social/profile");
+		
+//		System.out.println("[TEST] SocialProfileUpdateController - socialProfileUpdate.jsp.jsp로 포워드");
+//		System.out.println();
+//		req.getRequestDispatcher("/WEB-INF/views/social/socialProfileUpdate.jsp").forward(req, resp);
 	}
 
 }
