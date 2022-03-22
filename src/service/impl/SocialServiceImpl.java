@@ -300,4 +300,43 @@ public class SocialServiceImpl implements SocialService {
 		System.out.println("[TEST] SocialMemberServiceImpl - update(HttpServletRequest req) 리턴");
 		return;
 	}
+
+	@Override
+	public int checkFollowPK(int followee, int follower) {
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 호출");
+		
+		int res = 0;
+		int a = 0;
+		Connection conn = JDBCTemplate.getConnection();
+		Follow dbValue = boardDao.checkFollowPK(conn, followee, follower);
+		//dvValue에 들어있는 멤버값이 양수면 중복
+
+		try {
+			a = dbValue.getFollowee(); 
+		} catch (NullPointerException e) {
+			res = 1;
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
+		return res; //1이면 통과
+	}
+
+	@Override
+	public void setFollow(int followee, int follower, HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 호출");
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		if( boardDao.setFollow(conn, followee, follower, req) > 0 ) {
+			req.getSession().setAttribute("follow_success_flag", true);
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - setFollow() 리턴");
+		return;
+	}
+
+	
 }
