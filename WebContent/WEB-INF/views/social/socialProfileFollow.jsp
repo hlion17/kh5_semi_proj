@@ -8,23 +8,6 @@
 
 <%	SocialMember updateBoard = (SocialMember) request.getAttribute("updateBoard"); %>
 
-<!-- 스마트에디터 2 -->
-<!-- <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script> -->
-
-<!-- <form>태그의 submit을 수행하면 editor에 작성한 내용을 <textarea>에 반영 -->
-<!-- <script type="text/javascript"> -->
-<!-- function submitContents( elClickedObj ) { -->
-	
-<!-- //에디터의 내용을 #content에 반영한다 -->
-<!-- oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); -->
-	
-<!-- try { -->
-<!--  		elClickedObj.form.submit(); -->
-<!--  	} catch(e) {} -->
-	
-<!--  } -->
-<!-- </script> -->
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -64,7 +47,6 @@ $(document).ready(function() {
 
 <style type="text/css">
 #content {
-/* 	width: 100%; */
 	width: 98%;
 }
 </style>
@@ -117,7 +99,6 @@ $(document).ready(function() {
 			<tr><td class="info">주소</td><td colspan="3"><%=updateBoard.getAddress() %></td></tr>
 			<tr><td class="info">소개글</td><td colspan="3"><%=updateBoard.getIntro() %></td></tr>
 			<tr><td class="info">냉장고번호</td><td colspan="3"><%=updateBoard.getMy_ref_code() %></td></tr>
-<!-- 			나중에 각 항목에 버튼넣어서 보여주는 요소들을 사용자가 원하는대로 제한할수있게 -->
 <%-- 				<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateBoard.getNick() %>"/></td></tr> --%>
 			</table>
 		</div>
@@ -128,6 +109,5 @@ $(document).ready(function() {
 
 </div><!-- #section -->
 
-<!-- 텍스트에디터제거 -->
 
 <%@ include file="/WEB-INF\views\social\layout\socialFooter.jsp" %>

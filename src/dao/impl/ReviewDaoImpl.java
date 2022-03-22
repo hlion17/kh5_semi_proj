@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -535,5 +536,55 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	
+	
+	
+//	//검색어 기능
+//	public ArrayList<Review> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
+//		// SQL 작성
+//		String sql = "";
+//		sql += " SELECT review.*, nick, member.name name, product.name pro_name";
+//		sql += " FROM review, MEMBER, product";
+//		sql += " WHERE review.member_no = member.member_no";
+//		sql += " 	AND review.pro_no = product.pro_no";
+//		sql += " 	AND review_no = ?";
+//		
+//		// 결과 저장할 DTO객체
+////		Review review = null;
+//		Review review = new Review(); // 결과값 저장 객체
+//		try {
+//			ps = conn.prepareStatement(sql);
+//			ps.setInt(1, review_no.getReview_no());
+//			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+//
+//			while (rs.next()) {
+////				review = new Review(); // 결과값 저장 객체
+//
+//				// 결과값 한 행 처리
+//				review.setReview_no(rs.getInt("review_no"));
+//				review.setMember_no(rs.getInt("member_no"));
+//				review.setPro_no(rs.getInt("pro_no"));
+//				review.setPro_name(rs.getString("pro_name"));
+//				review.setName(rs.getString("name"));
+//				review.setNick(rs.getString("nick"));
+//				review.setTitle(rs.getString("title"));
+//				review.setContent(rs.getString("content"));
+//				review.setRegdate(rs.getDate("regdate"));
+//				review.setHit(rs.getInt("hit"));
+//				
+//				System.out.println(review);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			// JDBC객체 닫기
+//			JDBCTemplate.close(rs);
+//			JDBCTemplate.close(ps);
+//		}
+//
+//		// 최종 조회 결과 반환
+//		System.out.println("pro_no파라미터를 기반으로 모든 값을 넣은 review 객체 : " + review);
+//		return review;
+//	}
 }
 

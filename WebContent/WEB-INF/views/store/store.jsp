@@ -52,21 +52,25 @@
 
 
 /* 희연 추가 */
+
 #product-container {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	margin; 0 0 0 0 ;
 	padding-bottom: 100px;
 }
 
-
+# section-alone {
+	margin: 50px;
+}
 .pro-item {
 	display: flex;
 	flex-flow: column nowrap;
-	width: 250px;
-	height: 250px;
+	width: 300px;
+	height: 300px;
 	text-align: center;
-	margin: 50px;
+ 	margin: 50px; 
 }
 
 
@@ -74,14 +78,39 @@
 	text-align: center;
 }
 
+.btns {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+}
+
+.pro-item-second {
+	border-color: red;
+	text-align: center;
+	color: white;
+}
 
 </style>
 
 
+<!-- <script> -->
+//     $( document ).ready( function() {
+//         $( '.pro-item-third' ).on( 'keyup', function() {
+//           $( this ).val( $( this ).val().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
+//         } );
+//       } );
+<!-- </script> -->
+
+
 
 <div id="main">
-<h2 class="name">STORE</h2>
+	<h2 class="name">STORE</h2>
 
+	<span class="btns">
+	<button type="button" class="btn btn-warning" onclick="location.href='/cart'">My cart</button>
+	<button type="button" class="btn btn-warning" onclick="location.href='review/list'">Review Board</button>
+	</span>
+	
 	<div id="section-alone">
 		<div id="product-container">
 			<%	for(int i=0; i<productList.size(); i++) { %>
@@ -89,7 +118,7 @@
 				<img 
 					src="/resources/img/store/item_<%= productList.get(i).getPro_no() %>.jpg"
 					class="img-thumbnail">
-								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div>
+<%-- 								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div> --%>
 				<div class="pro-item-second">
 					<a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>"><%=productList.get(i).getName() %></a>
 				</div>

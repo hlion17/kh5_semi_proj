@@ -31,6 +31,16 @@ public interface RecipeDao {
 	public List<Recipe> selectAll(Connection conn, Paging paging);
 
 	/**
+	 * Recipe테이블 전체 조회
+	 * 	-> 페이징 처리 추가
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Recipe> - Recipe테이블 전체 조회 결과 목록
+	 */
+	public List<Recipe> selectAllMyRecipe(Connection conn, Paging paging, HttpServletRequest req);
+
+	/**
 	 * Recipe테이블 전체 조회 - 추천순
 	 * @param connection
 	 * @return List<Recipe> - Recipe테이블 전체 랭킹 조회 결과 목록
