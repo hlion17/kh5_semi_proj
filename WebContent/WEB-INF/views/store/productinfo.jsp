@@ -4,13 +4,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@include file="/WEB-INF/views/layout/header.jsp"%>
-
-
 <%
 	Product ProductList = (Product) request.getAttribute("viewProduct");
-int memberNo = (Integer) session.getAttribute("memberno");
+	int memberNo = (Integer) session.getAttribute("memberno");
 %>
+
+<!-- header -->
+<%@include file="/WEB-INF/views/layout/header.jsp"%>
 
 <script>
 $(document).ready(function() {

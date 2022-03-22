@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.JDBCTemplate;
 import dao.face.OrderDao;
@@ -128,6 +130,55 @@ public class OrderDaoImpl implements OrderDao {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<OrderResult> getOrderResutlByMemberNo(Connection conn, int memberNo) {
+		List<OrderResult> list = new ArrayList<OrderResult>();
+		String sql = "";
+		sql = "SELECT "
+				+ "O.order_no"
+				+ ", O.order_date"
+				+ ", O.total"
+				+ ", P.name"
+				+ ", D.address"
+				+ ", D.phone"
+				+ ", D.receiver "
+				+ ", O.member_no "
+				+ ", O.status "
+			+ "FROM ordering O "
+			+ "INNER JOIN delivery D "
+				+ "ON O.order_no = D.order_no "
+			+ "INNER JOIN order_product OP "
+				+ "ON O.order_no = OP.order_no "
+			+ "INNER JOIN product P "
+				+ "ON OP.pro_no = P.pro_no "
+			+ "WHERE O.member_no = ? ";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, memberNo);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				OrderResult result = new OrderResult();
+				
+				result.setOrderNo(rs.getInt("order_no"));
+				result.setOrderDate(rs.getDate("order_date"));
+				result.setTotal(rs.getInt("total"));
+				result.setProName(rs.getString("name"));
+				result.setAddress(rs.getString("address"));
+				result.setPhone(rs.getString("phone"));
+				result.setReceiver(rs.getString("receiver"));
+				result.setStatus(rs.getString("status"));
+				
+				list.add(result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 
