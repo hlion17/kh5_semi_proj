@@ -6,8 +6,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<!-- <script src="https://kit.fontawesome.com/dc662594ab.js" crossorigin="anonymous"></script> -->
 
-<!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
@@ -52,19 +52,18 @@ strong{
 	font-family : bootstrap-icons;
 }  
 </style>
-</style>
 
 </head>
 
 <div class="container">
-
 <div class="margin-top"></div>
 	<div class="text-center">
 	<strong>회원가입이 완료되었습니다!</strong><br><br>
-	<strong><%=m.getMemberid() %>님 환영합니다!</strong><br><br>
-	<%
+	<strong>회원가입이 완료되었습니다!</strong><br><br>
+	<%-- <strong><%=m.getMemberid() %>님 환영합니다!</strong><br><br> --%>
+	<%-- <%
 	    out.println("<script>alert('회원가입이 완료되었습니다!');</script>");
-	%>
+	%> --%>
 
 	</div>
 
