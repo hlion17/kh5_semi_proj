@@ -386,14 +386,26 @@ public class MemberDaoImpl implements MemberDao {
 		
 		//SQL 작성
 		String sql = "";
+//		sql += "SELECT * FROM (";
+//		sql += "	SELECT rownum rnum, B.* FROM (";
+//		sql += " 		SELECT *";
+//		sql += "		FROM MEMBER M";
+//		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE) F";
+//		sql += "		ON (M.MEMBER_NO = f.followee)";
+//		sql += "		LEFT OUTER JOIN PRFIMG P";
+//		sql += "		ON (M.MEMBER_NO = P.MEMBER_NO)";
+//		sql += "		ORDER BY cnt DESC NULLS LAST";
+//		sql += " 	) B";
+//		sql += " ) Member";
+//		sql += " WHERE rnum BETWEEN ? AND ?";
+		
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT *";
-		sql += "		FROM MEMBER M";
+		sql += " 		select * from member m";
+		sql += "		left join (SELECT * FROM (SELECT prfimg.*, ROW_NUMBER() OVER(PARTITION BY member_no ORDER BY image_no DESC) as a FROM prfimg) WHERE a = 1) x";
+		sql += "		on m.member_no = x.member_no";
 		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE) F";
 		sql += "		ON (M.MEMBER_NO = f.followee)";
-		sql += "		LEFT OUTER JOIN PRFIMG P";
-		sql += "		ON (M.MEMBER_NO = P.MEMBER_NO)";
 		sql += "		ORDER BY cnt DESC NULLS LAST";
 		sql += " 	) B";
 		sql += " ) Member";
