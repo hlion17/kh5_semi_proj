@@ -32,7 +32,7 @@
 		
 		<%	for(int i=0; i<boardList.size(); i++) { %>
 		<tr onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'">
-			<td><%=i+1 %> 위</td>
+			<td><%=boardList.get(i).getDense_rank() %> 위</td>
 			<td><%=boardList.get(i).getFollowCnt() %></td>
 			<td>
 		<!-- 첨부파일 -->

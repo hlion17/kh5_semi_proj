@@ -401,12 +401,14 @@ public class MemberDaoImpl implements MemberDao {
 		
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
+		sql += " 		SELECT C.*, DENSE_RANK() OVER (ORDER BY CNT DESC NULLS LAST) DENSE_RANK";
+		sql += " 		FROM (";
 		sql += " 		select * from member m";
 		sql += "		left join (SELECT * FROM (SELECT prfimg.*, ROW_NUMBER() OVER(PARTITION BY member_no ORDER BY image_no DESC) as a FROM prfimg) WHERE a = 1) x";
 		sql += "		on m.member_no = x.member_no";
 		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE) F";
 		sql += "		ON (M.MEMBER_NO = f.followee)";
-		sql += "		ORDER BY cnt DESC NULLS LAST";
+		sql += " 	) C";
 		sql += " 	) B";
 		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
@@ -442,6 +444,7 @@ public class MemberDaoImpl implements MemberDao {
 				b.setZipcode( rs.getString("zipcode"));
 				
 				b.setFollowCnt( rs.getInt("cnt"));
+				b.setDense_rank( rs.getInt("dense_rank"));
 				
 				b.setImage_no( rs.getInt("image_no"));
 				b.setOrigin_name( rs.getString("origin_name"));
