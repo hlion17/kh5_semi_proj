@@ -18,10 +18,10 @@
 	<table class="table table-striped table-hover table-condensed">
 	<tr class="success">
 		<th>랭킹</th>
-	<!-- 	<th>이미지</th> -->
+		<th>팔로우수</th>
+		<th>이미지</th>
 		<th>아이디</th>
 		<th>닉네임</th>
-		<th>팔로우수</th>
 		<th>성별</th>
 		<th>이메일</th>
 		<th>연락처</th>
@@ -30,17 +30,23 @@
 	</tr>
 	
 	<%	for(int i=0; i<boardList.size(); i++) { %>
-<!-- 	<tr> -->
+	<tr>
 		<td><%=i+1 %> 위</td>
-		
-	<%-- 	<td><%	if( boardFile != null ) { %> --%>
-	<%-- 			<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"	 --%>
-	<%-- 			download="<%=boardFile.getOriginname() %>">	<%=boardFile.getOriginname() %></a> --%>
-	<%-- 		<%	} %></td> --%>
-<%-- 		<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td> --%>
+		<td><%=boardList.get(i).getFollowCnt() %></td>
+		<td>
+	<!-- 첨부파일 -->
+	<%	if( boardList != null ) { %>
+		<img src="<%=request.getContextPath() %>/upload/<%=boardList.get(i).getStored_name() %>" 
+				alt="그림을 불러오지못함" width="100%" height="100%"><br>
+		<a href="<%=request.getContextPath() %>/upload/<%=boardList.get(i).getStored_name() %>"
+				download="<%=boardList.get(i).getOrigin_name() %>">
+			<%=boardList.get(i).getOrigin_name() %>
+		</a>
+	<%	} %>
+		</td>
+<%-- 		<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getMemberno() %>"><%=boardList.get(i).getTitle() %></a></td> --%>
 		<td><%=boardList.get(i).getMemberid() %></td>
 		<td><%=boardList.get(i).getNick() %></td>
-		<td><%=boardList.get(i).getFollowCnt() %></td>
 		<td><%=boardList.get(i).getGender() %></td>
 		<td><%=boardList.get(i).getEmail() %></td>
 		<td><%=boardList.get(i).getPhone() %></td>
