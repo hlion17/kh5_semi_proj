@@ -18,7 +18,7 @@ import service.impl.RecipeServiceImpl;
 import service.impl.SocialServiceImpl;
 import util.Paging;
 
-@WebServlet("/social/follow")
+@WebServlet("/social/followee")
 public class SocialFolloweeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

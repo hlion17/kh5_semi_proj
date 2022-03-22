@@ -29,12 +29,13 @@ $(document).ready(function() {
 	<div>
 		<table class="table table-striped table-hover table-condensed">
 			<tr class="success">
-			<th>이미지</th>
-			<th>순위</th>
-			<th>팔로우수</th>
-			<th>닉네임</th>
-			<th>아이디</th>
-			<th>성별</th>
+				<th>이미지</th>
+				<th>순위</th>
+				<th>팔로우수</th>
+				<th>닉네임</th>
+				<th>아이디</th>
+				<th>성별</th>
+				<th>언팔로우</th>
 			</tr>
 			
 		
@@ -62,7 +63,7 @@ $(document).ready(function() {
 						<td><%=boardList.get(i).getNick() %></td>
 						<td><%=boardList.get(i).getMemberid() %></td>
 						<td><%=boardList.get(i).getGender() %></td>
-<%-- 						<td><%=boardList.get(i).getEmail() %></td> --%>
+						<td><button onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'"></button></td>
 					</tr>
 				
 				

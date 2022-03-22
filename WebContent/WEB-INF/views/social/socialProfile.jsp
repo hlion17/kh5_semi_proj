@@ -44,6 +44,11 @@ $(document).ready(function() {
 <!-- 		</a> -->
 	
 	<%	} %>
+		<div class="text-center">
+		<% if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
+			<button id="btnUpdate" class="btn btn-info">이미지 수정</button>
+		<% } %>
+		</div>
 	</div>
 	
 	<div>
@@ -62,11 +67,6 @@ $(document).ready(function() {
 		</table>
 	</div>
 	
-	<div class="text-center">
-	<% if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
-		<button id="btnUpdate" class="btn btn-info">수정</button>
-	<% } %>
-	</div>
 	
 </div><!-- #section -->
 
