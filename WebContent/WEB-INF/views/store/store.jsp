@@ -66,12 +66,9 @@
 	width: 250px;
 	height: 250px;
 	text-align: center;
-	margin: 30px;
+	margin: 50px;
 }
 
-#section-alone {
-	margin: 100px;
-}
 
 .name {
 	text-align: center;
@@ -92,7 +89,7 @@
 				<img 
 					src="/resources/img/store/item_<%= productList.get(i).getPro_no() %>.jpg"
 					class="img-thumbnail">
-				<%-- 				<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div> --%>
+								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div>
 				<div class="pro-item-second">
 					<a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>"><%=productList.get(i).getName() %></a>
 				</div>

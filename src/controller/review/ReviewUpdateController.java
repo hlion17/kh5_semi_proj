@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.impl.ReviewDaoImpl;
 import dto.Review;
 import dto.ReviewFile;
 import service.face.ReviewService;
@@ -50,6 +51,7 @@ public class ReviewUpdateController extends HttpServlet {
 		
 		reviewService.update(req);
 		resp.sendRedirect("/review/list");
+//		resp.sendRedirect("/review/info?reviewno=" + ;
 		
 	}
 }

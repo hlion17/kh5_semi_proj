@@ -388,10 +388,13 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT CNT, M.*";
+		sql += " 		SELECT *";
 		sql += "		FROM MEMBER M";
-		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE ORDER BY cnt DESC) F";
+		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE) F";
 		sql += "		ON (M.MEMBER_NO = f.followee)";
+		sql += "		LEFT OUTER JOIN PRFIMG P";
+		sql += "		ON (M.MEMBER_NO = P.MEMBER_NO)";
+		sql += "		ORDER BY cnt DESC NULLS LAST";
 		sql += " 	) B";
 		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
@@ -427,6 +430,11 @@ public class MemberDaoImpl implements MemberDao {
 				b.setZipcode( rs.getString("zipcode"));
 				
 				b.setFollowCnt( rs.getInt("cnt"));
+				
+				b.setImage_no( rs.getInt("image_no"));
+				b.setOrigin_name( rs.getString("origin_name"));
+				b.setStored_name( rs.getString("stored_name"));
+				b.setFilesize( rs.getInt("filesize"));
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);
