@@ -9,19 +9,29 @@
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	SocialMember viewBoard = (SocialMember) request.getAttribute("viewBoard"); %>
-<%	ProfileFile boardFile = (ProfileFile) request.getAttribute("boardFile"); %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//수정버튼
+	$("#btnUpdate").click(function() {
+		$(location).attr("href", "<%=request.getContextPath() %>/social/profile/update?memberno=<%=viewBoard.getMemberno() %>");
+	})
+	
+});
+</script>
 
 <div id="section">
 	<h1>프로필</h1>
 	
 	<!-- 첨부파일 -->
 	<div>
-	<%	if( boardFile != null ) { %>
-		<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+	<%	if( viewBoard != null ) { %>
+		<img src="<%=request.getContextPath() %>/upload/<%=viewBoard.getStored_name() %>" 
 				alt="그림을 불러오지못함" width="100%" height="100%"><br>
-		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-				download="<%=boardFile.getOriginname() %>">
-			<%=boardFile.getOriginname() %>
+		<a href="<%=request.getContextPath() %>/upload/<%=viewBoard.getStored_name() %>"
+				download="<%=viewBoard.getOrigin_name() %>">
+			<%=viewBoard.getOrigin_name() %>
 		</a>
 	<%	} %>
 	</div>
@@ -40,6 +50,10 @@
 			<tr><td class="info">소개글</td><td colspan="3"><%=viewBoard.getIntro() %></td></tr>
 			<tr><td class="info">냉장고번호</td><td colspan="3"><%=viewBoard.getMy_ref_code() %></td></tr>
 		</table>
+	</div>
+	
+	<div class="text-center">
+		<button id="btnUpdate" class="btn btn-info">수정</button>
 	</div>
 	
 </div><!-- #section -->

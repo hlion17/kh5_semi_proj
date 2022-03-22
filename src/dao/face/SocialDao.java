@@ -17,4 +17,8 @@ public interface SocialDao {
 
 	SocialMember selectBoardByBoardno(Connection conn, SocialMember memberno);
 
+	int update(Connection conn, SocialMember board);
+
+	int insertFile(Connection conn, SocialMember board);
+
 }

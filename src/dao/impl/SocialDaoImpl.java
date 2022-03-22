@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -209,6 +210,69 @@ public class SocialDaoImpl implements SocialDao {
 		//최종 조회 결과 반환
 		System.out.println("[TEST] SocialMemberDaoImpl - selectBoardByBoardno(Connection conn, SocialMember boardno) - b 리턴 : " + b);
 		return b;
+	}
+
+	@Override
+	public int update(Connection conn, SocialMember board) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  update(Connection conn, Recipe board) 호출");
+		
+		String sql = "";
+		sql += "UPDATE member";
+		sql += " SET title = ?,";
+		sql += " 	content = ?";
+		sql += " WHERE board_no = ?";
+		
+		int res = -1;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+//			ps.setString(1, board.getTitle());
+//			ps.setString(2, board.getContent());
+			ps.setInt(3, board.getMemberno());
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] SocialMemberDaoImpl -  update(Connection conn, Recipe board) 리턴 res" + res);
+		return res;
+	}
+
+	@Override
+	public int insertFile(Connection conn, SocialMember board) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 호출");
+		
+		String sql = "";
+		sql += "INSERT INTO PRFIMG( IMAGE_NO, MEMBER_NO, ORIGIN_NAME, STORED_NAME, FILESIZE )";
+		sql += " VALUES (PRFIMG_seq.nextval, ?, ?, ?, ?)";
+		
+		int res = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board.getMemberno());
+			ps.setString(2, board.getOrigin_name());
+			ps.setString(3, board.getStored_name());
+			ps.setInt(4, board.getFilesize());
+//			new Date(refItem.getExpireDate().getTime())
+//			new java.sql.Date(new java.util.Date().getTime())
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] SocialMemberDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 리턴 res : " + res);
+		return res;
 	}
 
 }

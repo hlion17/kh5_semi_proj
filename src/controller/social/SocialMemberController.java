@@ -20,18 +20,18 @@ import service.impl.MemberServiceImpl;
 import service.impl.RecipeServiceImpl;
 import service.impl.SocialServiceImpl;
 
-@WebServlet("/social/profile")
-public class SocialProfileController extends HttpServlet {
+@WebServlet("/social/member")
+public class SocialMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private SocialService socialService = new SocialServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] SocialProfileController( /social/profile ) [GET] 호출");
+		System.out.println("[TEST] SocialProfileController( /recipe/content ) [GET] 호출");
 		
 		//전달파라미터 얻기 - memberno
-		SocialMember memberno = socialService.getProfileno(req);
+		SocialMember memberno = socialService.getMemberno(req);
 		
 		//상세보기 결과 조회
 		SocialMember viewBoard = socialService.view(memberno); 

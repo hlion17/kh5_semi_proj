@@ -19,6 +19,14 @@ public interface SocialService {
 	 * @param req - 요청 정보 객체
 	 * @return Member - 전달파라미터 memberno값을 포함한 DTO객체
 	 */
+	public SocialMember getProfileno(HttpServletRequest req);
+	
+	/**
+	 * 요청 파라미터 얻어오기
+	 * 
+	 * @param req - 요청 정보 객체
+	 * @return Member - 전달파라미터 memberno값을 포함한 DTO객체
+	 */
 	public SocialMember getMemberno(HttpServletRequest req);
 	
 	/**
@@ -54,4 +62,12 @@ public interface SocialService {
 	 * @return RecipeFile - 첨부파일 정보 DTO객체
 	 */
 	public ProfileFile viewFile(SocialMember viewBoard);
+	
+	/**
+	 * 게시글 수정
+	 * 
+	 * @param req - 요청 정보 객체
+	 */
+	public void update(HttpServletRequest req);
+
 }

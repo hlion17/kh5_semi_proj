@@ -37,9 +37,9 @@ $(document).ready(function() {
 			</tr>
 			
 			<%	for(int i=0; i<boardList.size(); i++) { %>
-			<tr>
+			<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>'">
 				<td><%=boardList.get(i).getBoardno() %></td>
-				<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+				<td><%=boardList.get(i).getTitle() %></a></td>
 				<td><%=boardList.get(i).getNick() %></td>
 				<td><%=boardList.get(i).getWriteDate() %></td>
 				<td><%=boardList.get(i).getLike() %></td>
