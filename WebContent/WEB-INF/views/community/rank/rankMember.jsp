@@ -19,12 +19,13 @@
 	<tr class="success">
 		<th>랭킹</th>
 	<!-- 	<th>이미지</th> -->
+		<th>아이디</th>
 		<th>닉네임</th>
+		<th>팔로우수</th>
 		<th>성별</th>
 		<th>이메일</th>
 		<th>연락처</th>
 <!-- 		<th>레시피수</th> -->
-<!-- 		<th>팔로우수</th> -->
 		<th>소개글</th>
 	</tr>
 	
@@ -37,12 +38,12 @@
 	<%-- 			download="<%=boardFile.getOriginname() %>">	<%=boardFile.getOriginname() %></a> --%>
 	<%-- 		<%	} %></td> --%>
 <%-- 		<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td> --%>
-
+		<td><%=boardList.get(i).getMemberid() %></td>
 		<td><%=boardList.get(i).getNick() %></td>
+		<td><%=boardList.get(i).getFollowCnt() %></td>
 		<td><%=boardList.get(i).getGender() %></td>
 		<td><%=boardList.get(i).getEmail() %></td>
 		<td><%=boardList.get(i).getPhone() %></td>
-<%-- 		<td><%=boardList.get(i).get() %></td> --%>
 <%-- 		<td><%=boardList.get(i).get() %></td> --%>
 		<td><%=boardList.get(i).getIntro() %></td>
 	</tr>

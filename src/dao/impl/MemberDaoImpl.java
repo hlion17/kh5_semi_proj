@@ -388,9 +388,10 @@ public class MemberDaoImpl implements MemberDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT *";
-		sql += "		FROM Member";
-		sql += "		ORDER BY member_no DESC";
+		sql += " 		SELECT CNT, M.*";
+		sql += "		FROM MEMBER M";
+		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE ORDER BY cnt DESC) F";
+		sql += "		ON (M.MEMBER_NO = f.followee)";
 		sql += " 	) B";
 		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
@@ -424,6 +425,8 @@ public class MemberDaoImpl implements MemberDao {
 				b.setIntro( rs.getString("intro"));
 				b.setMy_ref_code( rs.getInt("my_ref_code"));
 				b.setZipcode( rs.getString("zipcode"));
+				
+				b.setFollowCnt( rs.getInt("cnt"));
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);

@@ -39,9 +39,6 @@ public class SocialProfileController extends HttpServlet {
 		//조회결과 MODEL값 전달
 		req.setAttribute("viewBoard", viewBoard);
 				
-		//닉네임 전달
-		req.setAttribute("writerNick", socialService.getNick(viewBoard));
-		
 		//첨부파일 정보 조회
 		ProfileFile profileFile = socialService.viewFile(viewBoard);
 		
