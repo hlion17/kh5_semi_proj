@@ -49,4 +49,29 @@ public interface OrderDao {
 	 */
 	List<OrderResult> getOrderResutlByMemberNo(Connection conn, int memberNo);
 
+	/**
+	 * 주문번호에 해당하는 주문_상품 매핑 테이블 정보 삭제
+	 * @param conn - DB 삭제	
+	 * @param orderNo - 삭제 할 주문 번호
+	 * @return 삭제 결과 (1 - 성공, 0 - 실패)
+	 */
+	int deleteOrderAndProduct(Connection conn, int orderNo);
+
+	/**
+	 * 주문번호에 해당하는 주문정보 삭제
+	 * @param conn - DB 접속 객체
+	 * @param orderNo - 삭제 할 주문번호
+	 * @return DB 레코드 삭제 결과 (1 - 성공, 0 - 실패) 
+	 */
+	int deleteOrder(Connection conn, int orderNo);
+
+	/** 
+	 * 결제완료 상태 변경
+	 * @param conn - DB 접속 객체
+	 * @param orderNo - 상태 변경 할 주문 번호
+	 * @param status - 상태 변경 메시지
+	 * @return DB update 수행 결과
+	 */
+	int updateStatusToSuccess(Connection conn, int orderNo, String status);
+
 }

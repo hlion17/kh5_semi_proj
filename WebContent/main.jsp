@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="dto.Ref"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
@@ -6,6 +8,7 @@
 
 <div id="main">
 	<div id="section-alone">
+	<h1><a href="/order/check">주문 확인 테스트 중</a></h1>
 	</div>
 </div>
 

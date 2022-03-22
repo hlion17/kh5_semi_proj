@@ -263,12 +263,15 @@ public class RefServiceImpl implements RefService {
 	public void updateRefItem(HttpServletRequest req) {
 		// 쿼리 파라미터 분석
 		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
+		/* 메모만 변경 할 수 있게 변경
 		String itemName = req.getParameter("itemName");
 		String itemQty = req.getParameter("itemQty");
 		int status = Integer.parseInt(req.getParameter("status"));
 		String expireDate = req.getParameter("expireDate");
+		*/
 		String note = req.getParameter("note");
 		
+		/* 메모만 수정 할 수 있게 변경
 		// 유통기한 날짜 String -> Data 변환
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date parsedExDate = null;
@@ -277,16 +280,19 @@ public class RefServiceImpl implements RefService {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		// 냉장고 품목 DTO 생성
 		RefItem refItem = new RefItem();
 		
 		// DTO에 정보 저장
 		refItem.setItemNo(itemNo);
+		/* 메모만 변경 할 수 있게 변경
 		refItem.setItemName(itemName);
 		refItem.setItemQty(itemQty);
 		refItem.setStatus(status);
 		refItem.setExpireDate(parsedExDate);
+		*/
 		refItem.setNote(note);
 		logger.info("품목 수정 할 내용: " + refItem);
 		
