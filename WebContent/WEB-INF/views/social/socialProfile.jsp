@@ -6,7 +6,7 @@
 <%@page import="dto.RecipeFile"%>
 <%@page import="dto.Recipe"%>
 
-<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
+<%@ include file="/WEB-INF\views\social\layout\socialHeader.jsp" %>
 
 <%	SocialMember viewBoard = (SocialMember) request.getAttribute("viewBoard"); %>
 <%-- <%	ProfileFile profileFile = (ProfileFile) request.getAttribute("profileFile"); %> --%>
@@ -70,4 +70,4 @@ $(document).ready(function() {
 	
 </div><!-- #section -->
 
-<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>
+<%@ include file="/WEB-INF\views\social\layout\socialFooter.jsp" %>

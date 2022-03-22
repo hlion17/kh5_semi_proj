@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     
 <%
+	// 페이지에 필요한 데이터(냉장고 품목 리스트, 냉장고 코드, 냉장고 상태코드)
 	List<RefItem> list = (List<RefItem>) request.getAttribute("itemList");
 	int refCode = (Integer) request.getAttribute("refCode");
 	int status = (Integer) request.getAttribute("status");
@@ -11,7 +12,7 @@
 
 <style>
 
-#divView { 
+/* #divView { 
 	position:absolute; 
 	display:none;
 	background-color:#ffffff; 
@@ -20,7 +21,7 @@
 	height:250px; 
 	padding:10px; 
 }
-
+ */
 </style>
 
 <script>
@@ -88,29 +89,33 @@ function getItemDetail(param) {
     
 	<%-- dDay에 따른 색 구분 --%>	
 	<% if (dDay <= 0 ) { %>
-		<div style="background: red;" class="item-holder"><span>D-Day <%= dDay %></span></div>
+		<div style="background: #FF6666;" class="item-holder"><span>D-Day <%= dDay %></span></div>
 	<% } else { %>
-		<div style="background: lime;" class="item-holder"><span>D-Day <%= dDay %></span></div>
+		<div style="background: #B4EEB4;" class="item-holder"><span>D-Day <%= dDay %></span></div>
 	<% } %>
-    
    	<!-- 재료구분 코드에 따른 아이콘 불러오기 -->
-   	<img src="/resources/img/ingrCty/<%= list.get(i).getIngrCtyCode() %>.png" class="item-holder">
-    	
+   	<% if (list.get(i).getStatus() == 0){ %>
+	<img src="/resources/img/ingrCty/<%= list.get(i).getIngrCtyCode() %>.png" class="item-holder" style="background: #B1E693;">
+   	<% } else if(list.get(i).getStatus() == 1) { %>
+	<img src="/resources/img/ingrCty/<%= list.get(i).getIngrCtyCode() %>.png" class="item-holder" style="background: #D6E5FA;" class="item-holder">	
+   	<% } else if(list.get(i).getStatus() == 2) { %>
+   	<img src="/resources/img/ingrCty/<%= list.get(i).getIngrCtyCode() %>.png" class="item-holder" style="background: beige;">
+   	<% } %>
    	<%-- 보관상태에 따른 색 구분 --%>
 <!-- *** 글자수 많으면 넘어가는거 해결하기 *** -->
 	<% if (list.get(i).getStatus() == 0){ %>
-		<div style="background: yellow;" class="item-holder"><%= list.get(i).getItemName() %></div>
+		<div style="background: #B1E693;" class="item-holder"><%= list.get(i).getItemName() %></div>
 	<% } else if(list.get(i).getStatus() == 1) { %>
 		<div style="background: #D6E5FA;" class="item-holder"><%= list.get(i).getItemName() %></div>
 	<% } else if(list.get(i).getStatus() == 2) { %>
-		<div style="background: #B1E693;" class="item-holder"><%= list.get(i).getItemName() %></div>
+		<div style="background: beige;" class="item-holder"><%= list.get(i).getItemName() %></div>
 	<% } %>
 	</div>
+	
 <% } %>
-
 
 <!-- 아이템 상세 정보 팝업 레이어 --> 
 <div id="divView" class="item-holder">
-	<button id="#close">x</button>
+	<!-- <button id="#close">x</button> -->
 	<div id="detail-content-area" class="item-holder"></div>
 </div>

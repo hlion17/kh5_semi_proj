@@ -148,12 +148,13 @@ window.onload = function () {
 	});
 	
 	// 상품상세 정보 영역 이외 클릭시 상세 정보 레이어 닫음
+	/*
 	$(document).click(function (e) {
 		if (!$(e.target).hasClass("item-holder")) {
 				$("#divView").hide()
 			}
 		});
-	
+	*/
 	// 냉장고 품목 상세정보 페이지 요청(ajax)
 	function getItemDetail(param) {
 		

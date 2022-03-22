@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
+<%@ include file="/WEB-INF\views\social\layout\socialHeader.jsp" %>
 
 <%	SocialMember updateBoard = (SocialMember) request.getAttribute("updateBoard"); %>
 
@@ -127,4 +127,4 @@ $(document).ready(function() {
 
 <!-- 텍스트에디터제거 -->
 
-<%@ include file="/WEB-INF\views\community\layout\recipeFooter.jsp" %>
+<%@ include file="/WEB-INF\views\social\layout\socialFooter.jsp" %>

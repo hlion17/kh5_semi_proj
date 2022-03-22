@@ -22,4 +22,16 @@ public interface OrderingService {
 	 */
 	void getOrders(HttpServletRequest req);
 
+	/**
+	 * 주문을 취소한다.
+	 * @param req - 주문번호 정보가 담긴 요청 객체
+	 */
+	void cancleOrder(HttpServletRequest req);
+
+	/**
+	 * 주문의 결제 상태를 변경한다.
+	 * @param req - 주문번호 정보가 담긴 요청 객체
+	 */
+	void updateStatus(HttpServletRequest req);
+
 }

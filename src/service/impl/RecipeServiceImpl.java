@@ -55,9 +55,17 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - getList(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
 		return boardDao.selectAll( JDBCTemplate.getConnection(), paging );
 	}
+
+	@Override
+	public List<Recipe> getListMyRecipe(Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] RecipeServiceImpl - getListMyRecipe(Paging paging) 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] RecipeServiceImpl - getListMyRecipe(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
+		return boardDao.selectAllMyRecipe( JDBCTemplate.getConnection(), paging, req );
+	}
 	
 	@Override
-	
 	public List<Recipe> getListRank(Paging paging) {
 		System.out.println("[TEST] RecipeServiceImpl - getListRank() 호출");
 		

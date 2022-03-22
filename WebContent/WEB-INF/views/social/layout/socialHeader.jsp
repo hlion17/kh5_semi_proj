@@ -11,8 +11,9 @@
 <!--             <li onclick="location.href = '/rank/recipe'">레시피 랭킹</li> -->
 <!--             <li onclick="location.href = '/rank/member'">유저 랭킹</li> -->
             
-            <li><a href="/recipe/board">레시피 자랑</a></li>
-            <li><a href="/rank/recipe">레시피 랭킹</a></li>
-            <li><a href="/rank/member">유저 랭킹</a></li>
+            <li><a href="/social/profile">마이프로필</a></li>
+            <li><a href="/social/recipe">마이레시피</a></li>
+            <li><a href="/social/follow">팔로우</a></li>
+            <li><a href="/social/follower">팔로워</a></li>
         </ul>
 </div>

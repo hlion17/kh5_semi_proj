@@ -1,53 +1,74 @@
+/* 레이아웃 확인용 제거 */
+div {
+	border: none;
+	background: white;	
+}
+ul {
+	border: none;
+}
+/*  */
+
 #ref-main {
-    width: 700px;
-    height: 500px;
-
+    width: 100%;
+    max-width: 1000px;
+    height: 600px;
+    min-height: 500px;
     margin: 50px auto;
-
 }
 #ref-main-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
     width: 95%;
-    height: 10%;
-
+    height: 8%;
     margin: 0 auto;
+	border-bottom: 1px solid black;    
 }
 #ref-main-items {
     width: 95%;
     height: 90%;
-
     margin: 0 auto;
-    
     overflow: auto;
+    
+	scrollbar-width: thin;
+	scrollbar-color: #6969dd #e0e0e0; 
+	scrollbar-width: thin;
+}
+#ref-main-items::-webkit-scrollbar {
+    width: 10px;
+}
+#ref-main-items::-webkit-scrollbar-track {
+     background-color: darkgrey;
+}
+#ref-main-items::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
 }
 .item {
 	display: inline-block;
     width: 120px;
-    height: 150px;
-    margin: 10px;
-
+    height: 160px;
+    margin: 40px;
     text-align: center;
 }
 .item > :first-child {
     height: 15%;
     margin: 0;
     padding: 0;
-
     border-radius: 10px;
 }
 .item > img {
     height: 70%;
-    width: 100%
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    margin-top: 10px;
+    
 }
 .item > :last-child {
     height: 15%;
     margin: 0;
     padding: 0;
-    
     overflow: hidden;
+    border-radius: 0 0 8px 8px;
 }
 
 /* 모달창 스타일 */
@@ -97,12 +118,15 @@
 	font-size: 30px;
 }
 .filtering {
-	color: blue;
+	position: relative;
+	display: block;
+	padding: 10px 15px;
 	cursor: pointer;
+	border-radius: 4px;
 }
 .active {
-	color: red;
-	
+	color: #fff;
+	background-color: #337ab7;
 }
 
 /* 품목 상세 오프셋 레이어 스타일 */
@@ -111,7 +135,7 @@
 	display:none;
 	background-color:#ffffff; 
 	border:solid 2px #d0d0d0; 
-	width:350px; 
-	height:250px; 
-	padding:10px; 
+	/* width:400px; */ 
+	/* height:250px; */ 
+	padding:20px; 
 }
