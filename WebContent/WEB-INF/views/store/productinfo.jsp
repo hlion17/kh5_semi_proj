@@ -32,10 +32,10 @@ $(document).ready(function() {
 			class="thumbnail" alt="onion"
 			src="/resources/img/store/item_<%=ProductList.getPro_no()%>.jpg">
 <div id="test">
-		<%-- 상품번호: <%=ProductList.getPro_no()%><br> --%>
 		<h3>
 			<span>상품명: <%=ProductList.getName()%></span><br>
 		</h3>
+		상품번호: <%=ProductList.getPro_no()%><br>
 		<span>상품가격: <%=ProductList.getPrice()%>원
 		</span>
 
@@ -64,8 +64,6 @@ $(document).ready(function() {
 
 </div>
 
-</div>
-</div>
 
 
 
