@@ -18,6 +18,8 @@ public interface SocialDao {
 
 	List<Follow> selectAllFollow(Connection connection, Paging paging, HttpServletRequest req);
 
+	List<Follow> selectAllFollower(Connection connection, Paging paging, HttpServletRequest req);
+
 	SocialMember selectFile(Connection connection, SocialMember viewBoard);
 
 	SocialMember selectBoardByBoardno(Connection conn, SocialMember memberno);

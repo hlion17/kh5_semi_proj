@@ -48,8 +48,8 @@ public class RecipeLikeController extends HttpServlet {
 			System.out.println("true lf : " + lf);
 		}
 		
-//		//재조회 조회수증가방지
-//		boardService.downHit(boardno.getBoardno());
+		//재조회 조회수증가방지
+		boardService.downHit(boardno.getBoardno());
 //		
 //		//조회결과 MODEL값 전달
 //		req.setAttribute("viewBoard", viewBoard);

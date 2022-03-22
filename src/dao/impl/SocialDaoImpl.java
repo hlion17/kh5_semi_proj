@@ -182,6 +182,60 @@ public class SocialDaoImpl implements SocialDao {
 		System.out.println("[TEST] SocialMemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
 		return boardList;
 	}
+
+	@Override
+	public List<Follow> selectAllFollower(Connection conn, Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAllFollow() 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += "	SELECT rownum rnum, B.* FROM (";
+		
+		sql += " 		select * from follow";
+		sql += "		WHERE followee = ?";
+		
+		sql += " 	) B";
+		sql += " ) MEMBER";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		//결과 저장할 List
+		List<Follow> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			System.out.println("memberno : " + Integer.parseInt(req.getSession().getAttribute("memberno").toString()));
+			
+			ps.setInt(1, Integer.parseInt(req.getSession().getAttribute("memberno").toString()) );
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+			
+			while( rs.next() ) {
+				Follow b = new Follow(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setFollowee( rs.getInt("followee"));
+				b.setFollower( rs.getInt("follower"));
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
 	
 	@Override
 	public SocialMember selectFile(Connection conn, SocialMember viewBoard) {

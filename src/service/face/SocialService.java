@@ -1,15 +1,10 @@
 package service.face;
 
-import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dto.Follow;
-import dto.Member;
-import dto.ProfileFile;
-import dto.Recipe;
-import dto.RecipeFile;
 import dto.SocialMember;
 import util.Paging;
 
@@ -48,6 +43,8 @@ public interface SocialService {
 	public List<SocialMember> getList(Paging paging);
 
 	public List<Follow> getListFollow(Paging paging, HttpServletRequest req);
+
+	public List<Follow> getListFollower(Paging paging, HttpServletRequest req);
 	
 	/**
 	 * 전달된 memberno를 이용하여 게시글을 조회한다

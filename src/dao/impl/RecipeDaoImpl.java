@@ -390,7 +390,7 @@ public class RecipeDaoImpl implements RecipeDao {
 		
 		String sql = "";
 		sql += "UPDATE recipe";
-		sql += " SET hit = hit - 1";
+		sql += " SET hit = hit - 2";
 		sql += " WHERE board_no = ?";
 		
 		int res = 0;

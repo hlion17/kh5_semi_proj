@@ -54,6 +54,7 @@ $(document).ready(function() {
 								download="<%=boardList.get(i).getOrigin_name() %>">
 							<%=boardList.get(i).getOrigin_name() %>
 						</a>
+					<%	} %>
 					
 						</td>
 						<td><%=boardList.get(i).getDense_rank() %> 위</td>
@@ -64,7 +65,6 @@ $(document).ready(function() {
 <%-- 						<td><%=boardList.get(i).getEmail() %></td> --%>
 					</tr>
 				
-					<%	} %>
 				
 				<%	} %>
 				

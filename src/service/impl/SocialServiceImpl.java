@@ -108,6 +108,15 @@ public class SocialServiceImpl implements SocialService {
 		System.out.println("[TEST] SocialServiceImpl - getListFollow() 리턴 boardDao.selectAll() : " + boardDao.selectAllFollow( JDBCTemplate.getConnection(), paging, req ));
 		return boardDao.selectAllFollow( JDBCTemplate.getConnection(), paging, req );
 	}
+
+	@Override
+	public List<Follow> getListFollower(Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] SocialServiceImpl - getListFollower() 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] SocialServiceImpl - getListFollower() 리턴 boardDao.selectAll() : " + boardDao.selectAllFollow( JDBCTemplate.getConnection(), paging, req ));
+		return boardDao.selectAllFollower( JDBCTemplate.getConnection(), paging, req );
+	}
 	
 	@Override
 	public SocialMember view(SocialMember socialMember) {
