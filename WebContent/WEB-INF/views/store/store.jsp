@@ -93,6 +93,15 @@
 </style>
 
 
+<!-- <script> -->
+//     $( document ).ready( function() {
+//         $( '.pro-item-third' ).on( 'keyup', function() {
+//           $( this ).val( $( this ).val().replace( /\,/g, '' ).replace( /(\d)(?=(?:\d{3})+(?!\d))/g, '$1,' ) );
+//         } );
+//       } );
+<!-- </script> -->
+
+
 
 <div id="main">
 	<h2 class="name">STORE</h2>
