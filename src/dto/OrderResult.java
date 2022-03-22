@@ -11,12 +11,13 @@ public class OrderResult {
 	private String address;
 	private String phone;
 	private String receiver;
+	private String status;
 	
 	@Override
 	public String toString() {
 		return "OrderResult [orderNo=" + orderNo + ", orderDate=" + orderDate + ", total=" + total + ", proName="
 				+ proName + ", proQty=" + proQty + ", address=" + address + ", phone=" + phone + ", receiver="
-				+ receiver + "]";
+				+ receiver + ", status=" + status + "]";
 	}
 
 	public int getOrderNo() {
@@ -82,6 +83,15 @@ public class OrderResult {
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 	
 

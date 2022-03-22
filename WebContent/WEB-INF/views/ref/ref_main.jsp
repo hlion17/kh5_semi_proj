@@ -8,13 +8,12 @@
 <%@page import="dto.RefItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <%
 	List<RefItem> list = (List<RefItem>) request.getAttribute("itemList");
 	int refCode = (Integer) request.getAttribute("refCode");
 	int status = (Integer) request.getAttribute("status");
 %>
-
 
 <!-- header page -->
 <%@include file="/WEB-INF/views/layout/header.jsp" %>

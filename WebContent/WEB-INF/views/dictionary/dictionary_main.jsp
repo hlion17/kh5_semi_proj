@@ -7,6 +7,7 @@
 	List<Ingredient> ingrs = (List<Ingredient>) request.getAttribute("ingrs"); 
 %>
  --%>
+ 
 <!-- header page -->
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 

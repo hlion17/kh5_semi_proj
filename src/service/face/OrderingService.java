@@ -16,4 +16,10 @@ public interface OrderingService {
 	 */
 	void addOrder(HttpServletRequest req);
 
+	/** 
+	 * 주문 결과를 조회한다.
+	 * @param req 
+	 */
+	void getOrders(HttpServletRequest req);
+
 }
