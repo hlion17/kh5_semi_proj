@@ -55,19 +55,27 @@
 }
 #recipe-brief {
 	margin-bottom: 30px;
+	padding: 20px;
 }
 #recipe-brief span {
 	line-height: 30px;
+	padding: 20px;
 }
 #recipe-ingrs {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-around;
-	margin-bottom: 30px;
+	/* justify-content: space-around; */
+	align-content: space-between;
+	/* margin: 30px 0; */
+	padding: 20px;
 	
 }
 .recipe-ingr {
 	width: 40%;
+	padding: 10px;
+}
+#recipe-step {
+	margin-top: 20px;
 }
 #recipe-step span {
 	line-heigth: 20px;
@@ -76,7 +84,7 @@
 	width: 150px;
 }
 #recipe-step .recipe-step-inner-div {
-	margin-bottom: 20px;
+	margin: 30px 20px;
 }
 #recipe-step .step {
 	display: inline-block;

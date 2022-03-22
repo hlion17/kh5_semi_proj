@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+    #ingr-detail-container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    #ingr-detail-container > div {
+        margin-bottom: 100px;
+    }
+    #ingr-detail-container p {
+        line-height: 25px;
+    }
+	#ingr-detail-container span {
+        font-weight: bold;
+    }
+    #ingr-detail-container #ingr-detail-img {
+        display: flex;
+        flex-flow: column nowrap;
+        text-align: center;
+    }
+    #ingr-detail-container #ingr-detail-img > div:first-child {
+        height: 300px;
+    }
+    #ingr-detail-container #ingr-detail-img > div:first-child img {
+        height: 100%;
+    }
+    #ingr-detail-container #ingr-detail-img > div:last-child {
+        height: 20px;
+        padding: 20px;
+    }

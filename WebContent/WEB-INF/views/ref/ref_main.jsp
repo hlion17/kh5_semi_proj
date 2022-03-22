@@ -46,7 +46,7 @@
             <!-- ajax로 아이템 추가 페이지 삽입-->
 
         </div>
-        <span class="close-area"> X</span>
+        <!-- <span class="close-area"> X</span> -->
     </div>
 </div>
 
@@ -116,15 +116,25 @@
 				<h3 class="modal-title"><strong>냉장고 공유</strong></h3>
 			</div>
 			<div class="modal-body">
-												
-								나의 냉장고 코드 : <% int myRefCode = (Integer)session.getAttribute("refCode"); %><%= myRefCode %>
-								<form action="/ref/share" method="post">
-									<label>공유하기<input type="text" name="refCode"></label>
-									<button>제출</button>
-								</form>
+				<form action="/ref/share" method="post" id="share-form">	
+					<div class="form-group">
+						<label>나의 냉장고 코드</label>
+					    <p class="form-control-static">
+					    <mark>
+						  <% int myRefCode = (Integer)session.getAttribute("refCode"); %>
+						  <%= myRefCode %>
+						</mark>
+					  	</p>
+					</div>		
+					<div class="form-group">
+						<label for="refCode">공유하기</label>
+					    <input type="text" class="form-control" id="refCode" name="refCode" placeholder="공유할 코드를 입력해주세요">
+					</div>												
+					<button class="btn btn-primary">공유</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 			</div>
 		</div>
 	</div>

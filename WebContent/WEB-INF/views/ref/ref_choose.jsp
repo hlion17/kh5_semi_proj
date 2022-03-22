@@ -8,6 +8,7 @@
 	String memberId = (String) session.getAttribute("memberid");
 	int myRefCode = (Integer) session.getAttribute("refCode");
 	String name = (String) session.getAttribute("membername");
+
 %>
 
 <!-- header page -->        
@@ -16,9 +17,10 @@
 <script>
 
 $(document).ready(function() {
-	
+		
 	// 버튼을 눌렀을 떄 공유 취소 요청 보내기
 	$(".btn-cancle-share").click(function() {
+		console.log("클릭")
 		const targetRefName = $(this).prev().text()
 		const targetMemberNo = $(this).attr("data-targetMemberNo");
 		const isCancling = confirm("정말로 " + targetRefName + "의 공유를 중단하시겠습니까?")
@@ -58,7 +60,8 @@ div {
 	
 }
 #share-item-container .share-item {
-	width: 400px;
+	width: 220px;
+	margin-top: 10px;
 	/* text-align: center; */
 }
 </style>
@@ -75,7 +78,7 @@ div {
 	<% if (refList.get(i).getRefCode() != myRefCode) { %>
 	<div class="share-item">
 		<button type="button" class="btn btn-primary" onclick="location.href='/ref/itemlist?refCode=<%= refList.get(i).getRefCode() %>'"><%= refList.get(i).getRefName() %></button>
-		<button type="button" class="btn btn-danger" class="btn-cancle-share" data-targetMemberNo="<%= refList.get(i).getYourMemberNo() %>">공유취소</button>
+		<button type="button" class="btn btn-danger btn-cancle-share" data-targetMemberNo="<%= refList.get(i).getYourMemberNo() %>">공유취소</button>
 	</div>
 	<% } %>
 <% } %>
