@@ -45,7 +45,7 @@ $(document).ready(function() {
 
 </table>
 
-<% if(session.getAttribute("memberid").equals("admin")) { %>
+<% if(("admin").equals(session.getAttribute("memberid"))) { %>
 <!-- 글쓰기 버튼 -->
 <div id="btnBox" class="pull-left"> <!-- float: left; 와 같음(왼쪽에 버튼 떠다니게) -->
 	<button id="btnWrite" class="btn btn-primary">글쓰기</button> <!-- btn-primary -> 파란색 버튼 -->

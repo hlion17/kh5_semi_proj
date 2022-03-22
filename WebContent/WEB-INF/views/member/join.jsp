@@ -3,6 +3,10 @@
     
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <%-- 카카오 우편번호 API --%> 
 
 <script>
@@ -73,6 +77,19 @@ function registerCheckFunction() {
 //아이디, 비밀번호 조합 제한
 var req_idpw = /^[A-Za-z]{1}[A-Za-z0-9_]{3,19}$/ //반드시 영문으로 시작 숫자+언더바 허용 4~20자리
 
+//이메일 형식 제한
+var req_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+//전화번호 형식 제한
+var req_phone = /^\d{11}$/;
+
+//우편번호 형식 제한
+//var req_zipcode = /^\d{3}-?\d{3}$/u;
+var req_zipcode = /^\d{5}$/;
+
+//주소 형식 제한(한글 + 공백 + 숫자)
+var req_address = /^[가-힣\s0-9]+$/;
+
 
 //------------------------------------------------------------
 
@@ -105,7 +122,7 @@ window.onload = function () {
 		
 		validatePw();
 	})
-	//focus를 잃었을 때 blur이벤트 발생
+	/* //focus를 잃었을 때 blur이벤트 발생
 	memberpw.addEventListener("blur", function () {
 		console.log("#memberpw2 blur")
 		
@@ -117,13 +134,61 @@ window.onload = function () {
 		console.log("#memberpw2 keyup")
 		
 		validatePw2();
-	})
+	}) */
+	//focus를 잃었을 때 blur이벤트 발생
+	email.addEventListener("blur", function () {
+		console.log("#email blur")
+		
+		validateEmail();
+	}) 
 	
+	//타이핑 할 때마다 확인하게(위아래 둘다 두는 편) keyup이벤트 발생
+	email.addEventListener("keyup", function () {
+		console.log("#email keyup")
+		
+		validateEmail();
+	})
+	phone.addEventListener("blur", function () {
+		console.log("#phone blur")
+		
+		validatePhone();
+	}) 
+	
+	//타이핑 할 때마다 확인하게(위아래 둘다 두는 편) keyup이벤트 발생
+	phone.addEventListener("keyup", function () {
+		console.log("#phone keyup")
+		
+		validatePhone();
+	})
+	zipcode.addEventListener("blur", function () {
+		console.log("#zipcode blur")
+		
+		validateZipcode();
+	}) 
+	
+	//타이핑 할 때마다 확인하게(위아래 둘다 두는 편) keyup이벤트 발생
+	zipcode.addEventListener("keyup", function () {
+		console.log("#zipcode keyup")
+		
+		validateZipcode();
+	})
+	/* address.addEventListener("blur", function () {
+		console.log("#address blur")
+		
+		validateAddress();
+	}) 
+	
+	//타이핑 할 때마다 확인하게(위아래 둘다 두는 편) keyup이벤트 발생
+	address.addEventListener("keyup", function () {
+		console.log("#address keyup")
+		
+		validateAddress();
+	}) */
 	
 }
 
-//유효성 이중 검사
-$(document).ready(function () {
+/*  //유효성 이중 검사
+  $(document).ready(function () {
 	
 	//form태그에 submit이 발생했을 때 이벤트 처리
 	//	-> submit수행 전에 동작한다.
@@ -131,19 +196,22 @@ $(document).ready(function () {
 		//console.log("submit event")
 		
 		//유효성 검사 결과에 따른 submit 
-		if(!validateId() || !validatePw() || !validatePw2) {
+		if(!validateId() || !validatePw() /*||  !validatePw2 */ //||!validateEmail() ||!validatePhone() ||validateZipcode() /* ||validateAddress */) {
 			
 		//console.log("SUBMIT 중단됨")
 		
 		//submit을 중단시킨다.(return false를 submit에 쓰면)
-		return false;
+		/* alert("입력하신 정보를 다시 확인해주세요!") */
+		//return false;
+
 		
-		}
+		//}
 		
+		//return true;
 		//alert("SUBMIT 수행됨")
-	})
+	//}) 
 	
-})
+// })  
 
 //폼 아이디 검증 함수
 function validateId() {
@@ -244,7 +312,7 @@ function validatePw() {
 	
 }
 
-function validatePw2() {
+/* function validatePw2() {
 	console.log(memberpw2.value)
 	
 	if(memberpw.value=="") {
@@ -261,10 +329,90 @@ function validatePw2() {
 		return true;
 		console.log("submit완료")
 	}
-}
+} */
+
+//이메일 유효성 검사
+ function validateEmail() {
+	console.log(email.value)
+	
+	if(email.value=="") {
+		warnMsgEmail.innerHTML = "";
+		warnMsgEmail.style.display="none";
+		return false;
+	} else if(!req_email.test(email.value)) {
+		warnMsgEmail.innerHTML = "이메일 형식으로 입력해주세요.";
+		warnMsgEmail.style.display = "block";
+		return false;
+	} else {
+		warnMsgEmail.innerHTML = "";
+		warnMsgEmail.style.display = "none";
+		return true;
+		console.log("submit완료")
+	}
+} 
+//전화번호 유효성 검사
+ function validatePhone() {
+	console.log(phone.value)
+	
+	if(phone.value=="") {
+		warnMsgPhone.innerHTML = "";
+		warnMsgPhone.style.display="none";
+		return false;
+	} else if(!req_phone.test(phone.value)) {
+		warnMsgPhone.innerHTML = "전화번호를 올바르게 입력해주세요.";
+		warnMsgPhone.style.display = "block";
+		return false;
+	} else {
+		warnMsgPhone.innerHTML = "";
+		warnMsgPhone.style.display = "none";
+		return true;
+		console.log("submit완료")
+	}
+} 
+//우편번호 유효성 검사
+ function validateZipcode() {
+	console.log(zipcode.value)
+	
+	if(zipcode.value=="") {
+		warnMsgZipcode.innerHTML = "";
+		warnMsgZipcode.style.display="none";
+		return false;
+	} else if(!req_zipcode.test(zipcode.value)) {
+		warnMsgZipcode.innerHTML = "우편번호 찾기를 이용해주세요.";
+		warnMsgZipcode.style.display = "block";
+		return false;
+	} else {
+		warnMsgZipcode.innerHTML = "";
+		warnMsgZipcode.style.display = "none";
+		return true;
+		console.log("submit완료")
+	}
+} 
+ //주소 유효성 검사
+ function validateAddress() {
+	console.log(address.value)
+	
+	if(address.value=="") {
+		warnMsgAddress.innerHTML = "";
+		warnMsgAddress.style.display="none";
+		return false;
+	} else if(!req_address.test(address.value)) {
+		warnMsgAddress.innerHTML = "우편번호 찾기를 이용해 주소를 적어주세요.";
+		warnMsgAddress.style.display = "block";
+		return false;
+	} else {
+		warnMsgAddress.innerHTML = "";
+		warnMsgAddress.style.display = "none";
+		return true;
+		console.log("submit완료")
+	} 
+} 
 </script>
 
 <style type="text/css">
+*{
+	font-family: 'Jua', sans-serif;
+}
 form {
 	width: 600px;
 	margin: 0 auto;
@@ -284,6 +432,13 @@ form {
 div{
 	border: none;
 }
+.margin{
+	margin: 50%;
+}
+.margin-top{
+	margin: 10%;
+}
+
 </style>
 
 <div class="container">
@@ -291,11 +446,15 @@ div{
 <form action="./join" method="post" class="form-horizontal">
 <div class="fieldBox">
 
-	<br><br>
+	<div class="margin-top"></div>
+	
+	<div class="form-group text-center">
+		<h3>회원가입</h3><br><br>
+	</div>
 	<div class="form-group">
-		<label for="memberid" class="control-label col-xs-2">아이디</label>
-		<div class="col-xs-10">
-			<input type="text" id="memberid" name="memberid" class="form-control input_id" required placeholder="필수 입력 항목입니다">
+		<label for="memberid" class="control-label col-xs-2">* 아이디</label>
+		<div class="col-xs-8">
+			<input type="text" id="memberid" name="memberid" class="form-control input_id" required placeholder="아이디를 입력해주세요.">
 				<div id="warnMsgId" class="msg" ></div>
 			<button type="button" class="btn btn-primary" onclick="registerCheckFunction();">중복검사</button> <!-- 중복검사 -->
 				<font id= "checkId" size="2"></font>
@@ -303,39 +462,39 @@ div{
 	</div>
 
 	<div class="form-group">
-		<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
-		<div class="col-xs-10">
-			<input type="text" id="memberpw" name="memberpw" class="form-control" required placeholder="필수 입력 항목입니다">
+		<label for="memberpw" class="control-label col-xs-2">* 비밀번호</label>
+		<div class="col-xs-8">
+			<input type="text" id="memberpw" name="memberpw" class="form-control" required placeholder="비밀번호를 입력해주세요.">
+				<div id="warnMsgPw" class="msg" ></div>
 		</div>
-		<div id="warnMsgPw" class="msg" ></div>
 	</div>
 	
-	<div class="form-group">
+	<!-- <div class="form-group">
 		<label for="memberpw2" class="control-label col-xs-2">비밀번호확인</label>
 		<div class="col-xs-10">
 			<input type="text" id="memberpw2" name="memberpw2" class="form-control" required placeholder="필수 입력 항목입니다">
 		</div>
 		<div id="warnMsgPw2" class="msg" ></div>
-	</div>
+	</div> -->
 	
 	<div class="form-group">
-		<label for="membername" class="control-label col-xs-2">이름</label>
-		<div class="col-xs-10">
-			<input type="text" id="membername" name="membername" class="form-control" required placeholder="필수 입력 항목입니다" >
+		<label for="membername" class="control-label col-xs-2">* 이름</label>
+		<div class="col-xs-8">
+			<input type="text" id="membername" name="membername" class="form-control" required placeholder="이름을 입력해주세요." >
 		</div>
 	</div>
 	
 
 	<div class="form-group">
-		<label for="nick" class="control-label col-xs-2">닉네임</label>
-		<div class="col-xs-10">
-			<input type="text" id="nick" name="nick" class="form-control" required placeholder="필수 입력 항목입니다">
+		<label for="nick" class="control-label col-xs-2">* 닉네임</label>
+		<div class="col-xs-8">
+			<input type="text" id="nick" name="nick" class="form-control" required placeholder="닉네임을 입력해주세요.">
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="gender" class="control-label col-xs-2">성별</label>
-		<div class="col-xs-10">
+		<label for="gender" class="control-label col-xs-2">* 성별</label>
+		<div class="col-xs-8">
 			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="M" checked>남</label>
 			<label class="radio-inline"><input type="radio" id="gender" name="gender" value="F" >여</label>
 		</div>
@@ -343,38 +502,42 @@ div{
 	
 
 	<div class="form-group">
-		<label for="email" class="control-label col-xs-2">이메일</label>
-		<div class="col-xs-10">
-			<input type="text" id="email" name="email" class="form-control" required placeholder="필수 입력 항목입니다">
+		<label for="email" class="control-label col-xs-2">* 이메일</label>
+		<div class="col-xs-8">
+			<input type="text" id="email" name="email" class="form-control" required placeholder="이메일을 입력해주세요.">
+				<div id="warnMsgEmail" class="msg" ></div>
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="phone" class="control-label col-xs-2">전화번호</label>
-		<div class="col-xs-10">
-			<input type="text" id="phone" name="phone" class="form-control" required placeholder="필수 입력 항목입니다">
+		<label for="phone" class="control-label col-xs-2">* 전화번호</label>
+		<div class="col-xs-8">
+			<input type="text" id="phone" name="phone" class="form-control" required placeholder="전화번호를 입력해주세요.">
+				<div id="warnMsgPhone" class="msg" ></div>
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="zipcode" class="control-label col-xs-2">우편번호</label>
-		<div class="col-xs-10">
-			<input type="text" id="zipcode" name="zipcode" class="form-control" required placeholder="필수 입력 항목입니다" >
+		<label for="zipcode" class="control-label col-xs-2">* 우편번호</label>
+		<div class="col-xs-8">
+			<input type="text" id="zipcode" name="zipcode" class="form-control" required placeholder="우편번호를 입력해주세요." >
+				<div id="warnMsgZipcode" class="msg" ></div>
 		<input type="button" value="우편번호찾기" onclick="kakaopost()">
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="address" class="control-label col-xs-2">주소</label>
-		<div class="col-xs-10">
-			<input type="text" id="address" name="address" class="form-control"  required placeholder="필수 입력 항목입니다">
+		<label for="address" class="control-label col-xs-2">* 주소</label>
+		<div class="col-xs-8">
+			<input type="text" id="address" name="address" class="form-control"  required placeholder="주소를 입력해주세요.">
+				<div id="warnMsgAddress" class="msg" ></div>
 		</div>
 	</div>
 	
 	<div class="form-group">
-		<label for="intro" class="control-label col-xs-2">자기소개</label>
-		<div class="col-xs-10">
-			<textarea class="form-control" name="intro" rows="3" id="intro" required placeholder="입력하세요"></textarea>
+		<label for="intro" class="control-label col-xs-2">* 자기소개</label>
+		<div class="col-xs-8">
+			<textarea class="form-control" name="intro" rows="3" id="intro" required placeholder="자기소개를 입력해주세요."></textarea><br>
 		</div>
 	</div>
 </div>
@@ -383,7 +546,7 @@ div{
 		<button type="submit" id="btnJoin" class="btn btn-primary">회원 가입</button>
 		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 	</div>
-	<br><br>
+	<div class="margin"></div>
 
 </form>
 

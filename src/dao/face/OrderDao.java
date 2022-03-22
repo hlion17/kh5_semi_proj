@@ -1,6 +1,7 @@
 package dao.face;
 
 import java.sql.Connection;
+import java.util.List;
 
 import dto.OrderResult;
 import dto.Ordering;
@@ -39,5 +40,13 @@ public interface OrderDao {
 	 * @return 주문 결과
 	 */
 	OrderResult getOrderResutl(Connection conn, int orderNo);
+
+	/**
+	 * 회원의 모든 주문 결과를 가져오는 메서드
+	 * @param conn - DB 접속 객체
+	 * @param memberNo - 조회할 회원번호
+	 * @return
+	 */
+	List<OrderResult> getOrderResutlByMemberNo(Connection conn, int memberNo);
 
 }

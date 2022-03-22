@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
-<%-- <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %> --%>
+<%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
 
 <div id="section">
 
@@ -18,7 +18,7 @@
 		<table class="table table-striped table-hover table-condensed">
 			<tr class="success">
 				<th>랭킹</th>
-			<!-- 	<th>이미지</th> -->
+<!-- 				<th>이미지</th> -->
 				<th>레시피 이름</th>
 				<th>조회수</th>
 				<th>추천수</th>
@@ -28,13 +28,19 @@
 			</tr>
 			
 			<%	for(int i=0; i<boardList.size(); i++) { %>
-			<tr>
+			<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno()%>'">
 				<td><%=i+1 %> 위</td>
-			<%-- 	<td><%	if( boardFile != null ) { %> --%>
-			<%-- 			<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"	 --%>
-			<%-- 			download="<%=boardFile.getOriginname() %>">	<%=boardFile.getOriginname() %></a> --%>
-			<%-- 		<%	} %></td> --%>
-				<td><a href="<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>"><%=boardList.get(i).getTitle() %></a></td>
+<!-- 				<td> -->
+<%-- 					<%	if( boardFile != null ) { %> --%>
+<%-- 						<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"  --%>
+<!-- 								alt="그림을 불러오지못함" width="100%" height="100%"><br> -->
+<%-- 						<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" --%>
+<%-- 								download="<%=boardFile.getOriginname() %>"> --%>
+<%-- 							<%=boardFile.getOriginname() %> --%>
+<!-- 						</a> -->
+<%-- 					<%	} %> --%>
+<!-- 				</td> -->
+				<td><%=boardList.get(i).getTitle() %></td>
 				<td><%=boardList.get(i).getHit() %></td>
 				<td><%=boardList.get(i).getLike() %></td>
 				<td><%=boardList.get(i).getWriteDate() %></td>

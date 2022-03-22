@@ -176,4 +176,21 @@ public class OrderingServiceImpl implements OrderingService {
 		
 	}
 
+	@Override
+	public void getOrders(HttpServletRequest req) {
+		// 세션에서 로그인 한 회원의 회원번호 가져오기
+		HttpSession session = req.getSession();
+		int memberNo = (Integer) session.getAttribute("memberno");
+		logger.info("세션에 저장된 로그인 회원 번호: " + memberNo);
+		
+		// DB Connection 객체
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DAO
+		List<OrderResult> list = orderDao.getOrderResutlByMemberNo(conn, memberNo);
+		
+		// View에 전달 할 데이터 저장
+		req.setAttribute("list", list);
+	}
+
 }

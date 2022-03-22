@@ -20,27 +20,35 @@ import service.impl.MemberServiceImpl;
 import service.impl.RecipeServiceImpl;
 import service.impl.SocialServiceImpl;
 
-@WebServlet("/social/profile")
-public class SocialProfileController extends HttpServlet {
+@WebServlet("/social/member")
+public class SocialMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private SocialService socialService = new SocialServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] SocialProfileController( /social/profile ) [GET] 호출");
+		System.out.println("[TEST] SocialProfileController( /recipe/content ) [GET] 호출");
 		
 		//전달파라미터 얻기 - memberno
-		SocialMember memberno = socialService.getProfileno(req);
+		SocialMember memberno = socialService.getMemberno(req);
 		
 		//상세보기 결과 조회
 		SocialMember viewBoard = socialService.view(memberno); 
 		
+		//조회결과 MODEL값 전달
+		req.setAttribute("viewBoard", viewBoard);
+				
 		//첨부파일 정보 조회
 		viewBoard = socialService.viewFile(viewBoard);
 		
 		//첨부파일 정보 MODEL값 전달
-		req.setAttribute("viewBoard", viewBoard);
+		req.setAttribute("boardFile", viewBoard);
+		
+		//JSP를 VIEW로 지정, View로 응답
+//		System.out.println("[TEST] RecipeContentController - /recipe/follow.jsp로 포워드");
+//		System.out.println();
+//		req.getRequestDispatcher("/recipe/follow").forward(req, resp);
 		
 		System.out.println("[TEST] SocialProfileController - socialProfile.jsp로 포워드");
 		System.out.println();

@@ -11,7 +11,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 
-
 <% 
 	List<Product> productList = (List)request.getAttribute("ProductList");
 
@@ -23,6 +22,7 @@
 
 <!-- header -->
 <%@include file="/WEB-INF/views/layout/header.jsp"%>
+
 
 <style>
 /* #product-container { */
@@ -53,23 +53,24 @@
 
 /* 희연 추가 */
 
-/* div { background: white; border:none; } */
-
 #product-container {
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
+	margin; 0 0 0 0 ;
 	padding-bottom: 100px;
 }
 
-
+# section-alone {
+	margin: 50px;
+}
 .pro-item {
 	display: flex;
 	flex-flow: column nowrap;
-	width: 250px;
-	height: 250px;
+	width: 300px;
+	height: 300px;
 	text-align: center;
-	margin: 50px;
+ 	margin: 50px; 
 }
 
 
@@ -77,18 +78,30 @@
 	text-align: center;
 }
 
+.btns {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+}
+
+.pro-item-second {
+	border-color: red;
+	text-align: center;
+	color: white;
+}
 
 </style>
 
 
 
-
 <div id="main">
-<h2 class="name">STORE</h2>
+	<h2 class="name">STORE</h2>
 
-<a href="/cart">내 장바구니 보기</a><br>
-<button type="button" onclick="location.href='review/list'">리뷰게시판</button>
-
+	<span class="btns">
+	<button type="button" class="btn btn-warning" onclick="location.href='/cart'">My cart</button>
+	<button type="button" class="btn btn-warning" onclick="location.href='review/list'">Review Board</button>
+	</span>
+	
 	<div id="section-alone">
 		<div id="product-container">
 			<%	for(int i=0; i<productList.size(); i++) { %>
