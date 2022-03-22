@@ -1,6 +1,7 @@
 package dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,7 +120,7 @@ public class SocialDaoImpl implements SocialDao {
 	}
 	
 	@Override
-	public ProfileFile selectFile(Connection conn, SocialMember viewBoard) {
+	public SocialMember selectFile(Connection conn, SocialMember viewBoard) {
 		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 호출");
 		
 		//SQL 작성
@@ -128,7 +129,6 @@ public class SocialDaoImpl implements SocialDao {
 		sql += " WHERE member_no = ?";
 		
 		//결과 저장할 DTO객체
-		ProfileFile b = null;
 		
 		try {
 			ps = conn.prepareStatement(sql); //SQL수행 객체
@@ -138,14 +138,13 @@ public class SocialDaoImpl implements SocialDao {
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 
 			while( rs.next() ) {
-				b = new ProfileFile(); //결과값 저장 객체
 				
 				//결과값 행 처리
-				b.setFileno( rs.getInt("image_no"));
-				b.setMemberno( rs.getInt("member_no"));
-				b.setOriginname( rs.getString("origin_name"));
-				b.setStoredname( rs.getString("stored_name"));
-				b.setFilesize( rs.getInt("filesize"));
+				viewBoard.setImage_no( rs.getInt("image_no"));
+				viewBoard.setMemberno( rs.getInt("member_no"));
+				viewBoard.setOrigin_name( rs.getString("origin_name"));
+				viewBoard.setStored_name( rs.getString("stored_name"));
+				viewBoard.setFilesize( rs.getInt("filesize"));
 			}
 			
 		} catch (SQLException e) {
@@ -157,8 +156,8 @@ public class SocialDaoImpl implements SocialDao {
 		}
 		
 		//최종 조회 결과 반환
-		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 리턴 boardFile : " + b);
-		return b;
+		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 리턴 boardFile : " + viewBoard);
+		return viewBoard;
 	}
 	
 	@Override
@@ -209,6 +208,67 @@ public class SocialDaoImpl implements SocialDao {
 		//최종 조회 결과 반환
 		System.out.println("[TEST] SocialMemberDaoImpl - selectBoardByBoardno(Connection conn, SocialMember boardno) - b 리턴 : " + b);
 		return b;
+	}
+
+	@Override
+	public int update(Connection conn, SocialMember board) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  update(Connection conn, Recipe board) 호출");
+		
+		String sql = "";
+		sql += "UPDATE member";
+		sql += " SET title = ?,";
+		sql += " 	content = ?";
+		sql += " WHERE board_no = ?";
+		
+		int res = -1;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+//			ps.setString(1, board.getTitle());
+//			ps.setString(2, board.getContent());
+			ps.setInt(3, board.getMemberno());
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] SocialMemberDaoImpl -  update(Connection conn, Recipe board) 리턴 res" + res);
+		return res;
+	}
+
+	@Override
+	public int insertFile(Connection conn, SocialMember board) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 호출");
+		
+		String sql = "";
+		sql += "INSERT INTO PRFIMG( IMAGE_NO, MEMBER_NO, ORIGIN_NAME, STORED_NAME, FILESIZE )";
+		sql += " VALUES (PRFIMG_seq.nextval, ?, ?, ?, ?)";
+		
+		int res = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, board.getMemberno());
+			ps.setString(2, board.getOrigin_name());
+			ps.setString(3, board.getStored_name());
+			ps.setInt(4, board.getFilesize());
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] SocialMemberDaoImpl -  insertFile(Connection conn, RecipeFile boardFile) 리턴 res : " + res);
+		return res;
 	}
 
 }

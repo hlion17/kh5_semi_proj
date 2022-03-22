@@ -19,7 +19,8 @@ import javax.servlet.http.HttpSession;
 	"/social/recipe", "/social/followee", "/social/follower", "/social/member", 
 	"/member/info", "/member/infoView", "/member/updateinfo", 
 	"/notice/delete", "/notice/update" ,"/notice/write",
-	"/qa/delete", "/qa/view", "/qa/update", "/qa/write"} )
+	"/qa/delete", "/qa/view", "/qa/update", "/qa/write",
+	"/social/profile/update", "/social/profile"} )
 public class LoginFilter implements Filter {
 
 	@Override

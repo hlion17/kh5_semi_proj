@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <%	ProfileFile viewProfile = (ProfileFile) request.getAttribute("viewProfile"); %>
 
+
+
 <%@ include file="../layout/header.jsp" %>
 
 <script>

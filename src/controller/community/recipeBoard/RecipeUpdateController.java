@@ -22,14 +22,7 @@ public class RecipeUpdateController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] RecipeUpdateController( /recipe/update ) [GET] 호출");
-		
-		//로그인 되어있지 않으면 리다이렉트 
-		if( req.getSession().getAttribute("login") == null ) {
-			resp.sendRedirect("/main.jsp");
-			
-			return;
-		}
-		
+
 		//전달파라미터 얻기 - boardno
 		Recipe boardno = boardService.getBoardno(req);
 
