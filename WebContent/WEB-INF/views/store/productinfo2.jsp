@@ -12,39 +12,6 @@
 int memberNo = (Integer) session.getAttribute("memberno");
 %>
 
-
-<style type="text/css">
-
-body { padding: 50px;}
-
-/* #main { */
-/* 	position: relative; padding: 0 0 0 395px; widhth:962px; box-sizing: border-box; */
-/* } */
-
-.thumbnail {
-	width: 370px; height: 370px; border: 1px solid #e8e8e8; margin: 30px; 
-	float: left; 
-}
-	 
-#productInfo {
-	margin: 30px;
-	
-}
-
-.desciption {
-	text-align: center;
-}
-
-
-</style>
-
-
-
-
-
-
-
-
 <script>
 $(document).ready(function() {
 	$("#btn-to-order").click(function() {
@@ -55,24 +22,22 @@ $(document).ready(function() {
 })
 </script>
 
-
-
-
-
-<%-- 		<%=session.getAttribute("memberid")%>님 반갑습니다<br>  --%>
 <div id="main">
 	<div class="container">
-		<img class="thumbnail" alt="onion"
-			src="/resources/img/store/item_<%=ProductList.getPro_no()%>.jpg">
-			
-			
-		<div id="productInfo">
-			<h2><span class="itemName"><%=ProductList.getName()%></span></h2>
-			<br>
 
-		<h5>상품번호: <%=ProductList.getPro_no()%></h5><br>
-		<h5>상품가격: <%=ProductList.getPrice()%>원</h5>
+		<h3>상품 상세 정보</h3>
+		<hr>
 		
+		<%=session.getAttribute("memberid")%>님 반갑습니다<br> <img
+			class="thumbnail" alt="onion"
+			src="/resources/img/store/item_<%=ProductList.getPro_no()%>.jpg">
+<div id="test">
+		<h3>
+			<span>상품명: <%=ProductList.getName()%></span><br>
+		</h3>
+		상품번호: <%=ProductList.getPro_no()%><br>
+		<span>상품가격: <%=ProductList.getPrice()%>원
+		</span>
 
 			<form action="/cart/add" method="post">
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
@@ -83,19 +48,20 @@ $(document).ready(function() {
 			</form>
 			<button id="btn-to-order" type="button">주문하기</button>
 			<button type="button" onclick="payment()">결제</button>
-		</div>
 			
 			<!-- 리뷰게시판 연결 -->
 <%-- 			<%	for(int i=0; i<ProductList.size(); i++) { %> --%>
 <%-- 			<button type="button" onclick="location.href='review/list/info?reviewno=' + <%=ProductList.get(i).getReview_no()%>">리뷰게시판</button> --%>
 <%-- 			<% } %> --%>
 
+		</span>
 
-		<p style="clear:both;" class="desciption">
+
+		<div></div>
 			<h1>상세 설명</h1>
 			<img class="productInfo"
-				src="/resources/img/store/iteminfo_<%=ProductList.getPro_no()%>.jpg">
-		<p>
+				src="/resources/img/store/iteminfo_<%=ProductList.getPro_no()%>.jpg"><br>
+		</div>
 
 
 	</div>

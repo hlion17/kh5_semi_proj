@@ -98,6 +98,10 @@ public interface ReviewService {
 	 * @param review - 삭제할 게시글 번호를 가진 객체
 	 */
 	public void delete(Review review);
-	
+
+	//검색
+	public void searchReview(HttpServletRequest req);
+
+
 
 }

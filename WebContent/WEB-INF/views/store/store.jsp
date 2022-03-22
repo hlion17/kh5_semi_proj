@@ -52,6 +52,9 @@
 
 
 /* 희연 추가 */
+
+/* div { background: white; border:none; } */
+
 #product-container {
 	display: flex;
 	justify-content: center;
@@ -83,6 +86,9 @@
 <div id="main">
 <h2 class="name">STORE</h2>
 
+<a href="/cart">내 장바구니 보기</a><br>
+<button type="button" onclick="location.href='review/list'">리뷰게시판</button>
+
 	<div id="section-alone">
 		<div id="product-container">
 			<%	for(int i=0; i<productList.size(); i++) { %>
@@ -90,7 +96,7 @@
 				<img 
 					src="/resources/img/store/item_<%= productList.get(i).getPro_no() %>.jpg"
 					class="img-thumbnail">
-								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div>
+<%-- 								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div> --%>
 				<div class="pro-item-second">
 					<a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>"><%=productList.get(i).getName() %></a>
 				</div>
