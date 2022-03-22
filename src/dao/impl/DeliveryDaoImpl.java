@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import common.JDBCTemplate;
 import dao.face.DeliveryDao;
 import dto.Delivery;
+import oracle.net.aso.l;
 
 public class DeliveryDaoImpl implements DeliveryDao {
 
@@ -27,6 +28,25 @@ public class DeliveryDaoImpl implements DeliveryDao {
 			ps.setString(2, deli.getPhone());
 			ps.setString(3, deli.getReciever());
 			ps.setInt(4, deli.getOrder_no());
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int delete(Connection conn, int orderNo) {
+		int result = -1;
+		String sql = "";
+		sql = "DELETE delivery WHERE order_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderNo);
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

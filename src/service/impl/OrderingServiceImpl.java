@@ -193,4 +193,55 @@ public class OrderingServiceImpl implements OrderingService {
 		req.setAttribute("list", list);
 	}
 
+	@Override
+	public void cancleOrder(HttpServletRequest req) {
+		// 요청 파라미터 분석
+		int orderNo = Integer.parseInt(req.getParameter("orderNo"));
+		logger.info("/order/cancle 요청 파라미터 - 주문번호: " + orderNo);
+		
+		// DB Connection 객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DAO
+		int result1 = deliveryDao.delete(conn, orderNo);
+		logger.info("배송정보 삭제 결과: " + result1);
+		int result2 = orderDao.deleteOrderAndProduct(conn, orderNo);
+		logger.info("주문_상품 매핑 정보 삭제 결과: " + result2);
+		int result3 = orderDao.deleteOrder(conn, orderNo);
+		logger.info("주문정보 삭제 결과: " + result3);
+		
+		// DB 삭제 결과 확인 및 트랜잭션 처리
+		if (result1 == 1 && result2 >= 1 && result3 == 1) {
+			JDBCTemplate.commit(conn);
+			logger.info("주문 취소 최종 성공 커밋 됨");
+		} else {
+			JDBCTemplate.rollback(conn);
+			logger.warning("주문 취소 최종 실패 롤백 됨");
+		}
+		
+	}
+
+	@Override
+	public void updateStatus(HttpServletRequest req) {
+		// 요청 파라미터 분석
+		int orderNo = Integer.parseInt(req.getParameter("orderNo"));
+		logger.info("/order/update 요청 파라미터 - 주문번호: " + orderNo);
+		
+		// DB Connection 객체 생성
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// DAO
+		int result = orderDao.updateStatusToSuccess(conn, orderNo, "결제완료");
+		logger.info("주문 상태 업데이트 결과: " + result);
+		
+		// DB 삭제 결과 확인 및 트랜잭션 처리
+		if (result >= 1) {
+			JDBCTemplate.commit(conn);
+			logger.info("DB 업데이트 결과 성공 커밋 됨");
+		} else {
+			JDBCTemplate.rollback(conn);
+			logger.warning("DB 업데이트 결과 실패 롤백 됨");
+		}
+	}
+
 }

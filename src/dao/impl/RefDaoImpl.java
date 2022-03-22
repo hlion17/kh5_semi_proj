@@ -484,23 +484,31 @@ public class RefDaoImpl implements RefDao{
 	public int update(Connection conn, RefItem refItem) {
 		int result = -1;
 		String sql = "";
+//		sql = "UPDATE item "
+//				+ "SET "
+//				+ "item_name = ?, "
+//				+ "item_qty = ?, "
+//				+ "status = ?, "
+//				+ "expire_date = ?, "
+//				+ "note = ? "
+//				+ "WHERE item_no = ?";
+		// 메모만 수정할 수 있게 변경
 		sql = "UPDATE item "
-				+ "SET "
-				+ "item_name = ?, "
-				+ "item_qty = ?, "
-				+ "status = ?, "
-				+ "expire_date = ?, "
-				+ "note = ? "
-				+ "WHERE item_no = ?";
+			+ "SET note = ? "
+			+ "WHERE item_no = ?";
 		
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, refItem.getItemName());
-			ps.setString(2, refItem.getItemQty());
-			ps.setInt(3, refItem.getStatus());
-			ps.setDate(4, new Date(refItem.getExpireDate().getTime()));
-			ps.setString(5, refItem.getNote());
-			ps.setInt(6, refItem.getItemNo());
+			// 메모만 변경 할 수 있게 변경
+//			ps.setString(1, refItem.getItemName());
+//			ps.setString(2, refItem.getItemQty());
+//			ps.setInt(3, refItem.getStatus());
+//			ps.setDate(4, new Date(refItem.getExpireDate().getTime()));
+//			ps.setString(5, refItem.getNote());
+//			ps.setInt(6, refItem.getItemNo());
+			
+			ps.setString(1, refItem.getNote());
+			ps.setInt(2, refItem.getItemNo());
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

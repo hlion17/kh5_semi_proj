@@ -181,6 +181,67 @@ public class OrderDaoImpl implements OrderDao {
 		return list;
 	}
 
+	@Override
+	public int deleteOrderAndProduct(Connection conn, int orderNo) {
+		int result = -1;
+		String sql = "";
+		sql = "DELETE order_product WHERE order_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteOrder(Connection conn, int orderNo) {
+		int result = -1;
+		String sql = "";
+		sql = "DELETE ordering WHERE order_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, orderNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
+	
+	@Override
+	public int updateStatusToSuccess(Connection conn, int orderNo, String status) {
+		int result = -1;
+		String sql = "";
+		sql = "UPDATE ordering "
+			+ "SET status = ? "
+			+ "WHERE order_no = ?";
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, status);
+			ps.setInt(2, orderNo);
+			result = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		return result;
+	}
+
 
 
 }
