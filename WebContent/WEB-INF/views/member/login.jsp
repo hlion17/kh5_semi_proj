@@ -4,6 +4,10 @@
 <!-- header page -->
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
 <!-- login page JS -->
 <script type="text/javascript">
 
@@ -57,7 +61,6 @@ $(document).ready(function() {
     .login-container {
         display: flex;
         justify-content: center;
-        margin-top: 100px;
     }
     .login-container .form-signin{
         width: 400px;
@@ -68,6 +71,13 @@ $(document).ready(function() {
     .login-container .form-signin > h2{
         text-align: center;
     }
+    div {
+    	border: none;
+    }
+    *{
+	font-family: 'Jua', sans-serif;
+	}
+	
 </style>
 
 
@@ -76,12 +86,13 @@ $(document).ready(function() {
 
 <div id="main">
 	<div id="section-alone">
+			<br><br><br><br>
 
 		<div id="section-login">
 		    <div class="login-container text-center">
 		
 		    <form class="form-signin" action="./login" method="post">
-		        <h2 class="form-signin-heading">로그인</h2>
+		        <h2 class="form-signin-heading">로그인</h2><br>
 		
 		        <label for="memberid" class="sr-only">아이디</label>
 		        <input type="text" id="memberid" class="form-control" name="memberid" placeholder="아이디를 입력해주세요" required autofocus>

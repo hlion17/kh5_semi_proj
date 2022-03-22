@@ -75,9 +75,9 @@ $(document).ready(function() {
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
-	<%	if(session.getAttribute("memberid") != null){ %>
-	<%		if(session.getAttribute("memberid").equals(viewBoard.getMemberid()) || 
-				session.getAttribute("memberid").equals("admin")){ %>
+	<% if(("admin").equals(session.getAttribute("memberid"))) { %>
+	<%		if(viewBoard.getMemberid().equals(session.getAttribute("memberid")) || 
+			("admin").equals(session.getAttribute("memberid"))){ %>
 				<button id="btnUpdate" class="btn btn-info">수정</button>
 				<button id="btnDelete" class="btn btn-danger">삭제</button>
 	<%		} %>
@@ -87,7 +87,6 @@ $(document).ready(function() {
 </div><!-- .container -->
 
 <%@ include file="../layout/footer.jsp" %>
-
 
 
 
