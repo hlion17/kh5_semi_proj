@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dto.Follow;
 import dto.Member;
 import dto.ProfileFile;
 import dto.Recipe;
@@ -46,6 +47,8 @@ public interface SocialService {
 	 */
 	public List<SocialMember> getList(Paging paging);
 
+	public List<Follow> getListFollow(Paging paging, HttpServletRequest req);
+	
 	/**
 	 * 전달된 memberno를 이용하여 게시글을 조회한다
 	 * 
@@ -70,5 +73,6 @@ public interface SocialService {
 	 * @param req - 요청 정보 객체
 	 */
 	public void update(HttpServletRequest req);
+
 
 }

@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import common.JDBCTemplate;
 import dao.face.SocialDao;
 import dao.impl.SocialDaoImpl;
+import dto.Follow;
 import dto.Member;
 import dto.ProfileFile;
 import dto.SocialMember;
@@ -97,6 +98,15 @@ public class SocialServiceImpl implements SocialService {
 		//페이징 적용해서 조회 결과 반환
 		System.out.println("[TEST] SocialServiceImpl - getList(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
 		return boardDao.selectAll( JDBCTemplate.getConnection(), paging );
+	}
+
+	@Override
+	public List<Follow> getListFollow(Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] SocialServiceImpl - getListFollow() 호출");
+		
+		//페이징 적용해서 조회 결과 반환
+		System.out.println("[TEST] SocialServiceImpl - getListFollow() 리턴 boardDao.selectAll() : " + boardDao.selectAllFollow( JDBCTemplate.getConnection(), paging, req ));
+		return boardDao.selectAllFollow( JDBCTemplate.getConnection(), paging, req );
 	}
 	
 	@Override
