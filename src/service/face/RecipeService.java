@@ -24,6 +24,14 @@ public interface RecipeService {
 	 * @return List<Recipe> - 페이징이 반영된 게시글 조회 결과 목록
 	 */
 	public List<Recipe> getList(Paging paging);
+	
+	/**
+	 * 게시글 페이징 목록 조회
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return List<Recipe> - 페이징이 반영된 게시글 조회 결과 목록
+	 */
+	public List<Recipe> getListMyRecipe(Paging paging, HttpServletRequest req);
 
 	/**
 	 * 게시글 랭킹 전체 조회
