@@ -8,6 +8,48 @@
 <%	Notice viewBoard = (Notice) request.getAttribute("viewBoard"); %>
 <%	NoticeFile boardFile = (NoticeFile) request.getAttribute("boardFile"); %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+#btnList:before {
+	content: '\F479';
+	font-family : bootstrap-icons;
+}  
+#btnUpdate:before {
+	content: '\F4CA';
+	font-family : bootstrap-icons;
+}  
+#btnDelete:before {
+	content: '\F5DE';
+	font-family : bootstrap-icons;
+}  
+
+</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	//목록버튼
@@ -32,7 +74,8 @@ $(document).ready(function() {
 
 <div class="container">
 
-<h1>게시글 상세보기</h1>
+<div class="margin-top"></div>
+<!-- <h1>게시글 상세보기</h1> -->
 <hr>
 <table class="table table-bordered">
 
@@ -72,14 +115,14 @@ $(document).ready(function() {
 </div>
 
 <div class="text-center">
-	<button id="btnList" class="btn btn-primary">목록</button>
+	<button id="btnList" class="btn btn-primary">&nbsp;목록</button>
 	<% if(("admin").equals(session.getAttribute("memberid"))) { %>
-	<button id="btnUpdate" class="btn btn-info">수정</button>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>
+	<button id="btnUpdate" class="btn btn-info">&nbsp;수정</button>
+	<button id="btnDelete" class="btn btn-danger">&nbsp;삭제</button>
 	<%	} else { %>
 	<%	}  %>
 </div>
-
+<div class="margin"></div>
 </div><!-- .container -->
 
 <%@ include file="../layout/footer.jsp" %>

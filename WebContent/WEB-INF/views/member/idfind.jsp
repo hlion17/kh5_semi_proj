@@ -33,15 +33,16 @@ div {
 
 <script type="text/javascript">
 
-//페이지 접속 시 첫 입력창으로 포커스 이동
-$("input").eq(0).focus();
+$(document).ready(function() {
+	//페이지 접속 시 아이디 입력창으로 포커스 이동
+	$("input").eq(0).focus();
 
-//취소 버튼 클릭 시 뒤로가기
-$("#btnCancel").click(function() {
-	history.go(-1);
+	//취소 버튼 클릭 시 뒤로가기
+	$("#btnCancel").click(function() {
+		history.go(-1);
 //		location.href = "/"
+	})
 })
-
 
 //아이디 찾기
 
