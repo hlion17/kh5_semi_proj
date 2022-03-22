@@ -100,7 +100,7 @@ public interface ReviewService {
 	public void delete(Review review);
 
 	//검색
-	public void searchReview(HttpServletRequest req);
+	//public void searchReview(HttpServletRequest req);
 
 
 

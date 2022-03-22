@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %>
+<%-- <%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %> --%>
 
 
 </body>
