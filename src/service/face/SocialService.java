@@ -71,5 +71,22 @@ public interface SocialService {
 	 */
 	public void update(HttpServletRequest req);
 
+	
+	/**
+	 * 팔로우
+	 * 
+	 * @param followee - 팔로우당하는 사람, 해당 글작성자 memberno
+	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
+	 */
+	public void setFollow(int followee, int follower, HttpServletRequest req);
+	
+
+	/**
+	 * 팔로우 검사조건 - 이미 팔로우 한적이 있는지 검사(PK 위반 방지)
+	 * @param followee - 팔로우당하는 사람, 해당 글작성자 memberno
+	 * @param follower - 팔로우하는 사람, 현재 로그인세션 memberno
+	 */
+	public int checkFollowPK(int followee, int follower);
+	
 
 }

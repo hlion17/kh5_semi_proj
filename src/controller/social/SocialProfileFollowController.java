@@ -12,18 +12,21 @@ import javax.servlet.http.HttpSession;
 
 import dto.Recipe;
 import dto.RecipeFile;
+import dto.SocialMember;
 import service.face.RecipeService;
+import service.face.SocialService;
 import service.impl.RecipeServiceImpl;
+import service.impl.SocialServiceImpl;
 
-@WebServlet("/social/follow")
-public class SocialFollowController extends HttpServlet {
+@WebServlet("/social/profile/follow")
+public class SocialProfileFollowController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private RecipeService boardService = new RecipeServiceImpl();
+	private SocialService boardService = new SocialServiceImpl();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("[TEST] RecipeFollowController( /recipe/follow ) [GET] 호출");
+		System.out.println("[TEST] SocialProfileFollowController( /social/profile/follow ) [GET] 호출");
 		
 		//알람플래그 세팅
 		HttpSession s = req.getSession();
@@ -33,16 +36,14 @@ public class SocialFollowController extends HttpServlet {
 		s.setAttribute("follow_already_flag", false);
 		s.setAttribute("follow_success", "팔로우 하셨습니다 :)");
 		s.setAttribute("follow_success_flag", false);
-//		s.setAttribute("follow_unknown", "알 수 없는 경로입니다! 관리자에게 문의해주세요 010-0000-0000");
-//		s.setAttribute("follow_unknown_flag", false);
 
 		//전달파라미터 얻기 - 글작성자 memberno
-		Recipe boardno = boardService.getBoardno(req);
-		Recipe viewBoard = boardService.view(boardno);
+		SocialMember boardno = boardService.getMemberno(req);
+		SocialMember viewBoard = boardService.view(boardno);
 		
 		//전달할 파라미터 선언
-		int followee = viewBoard.getUserid();
-		int follower = (int)s.getAttribute("memberno");
+		int followee = viewBoard.getMemberno();
+		int follower = Integer.parseInt(s.getAttribute("memberno").toString());
 		System.out.println("[TEST]팔로위 : " + followee);
 		System.out.println("[TEST]팔로어 : " + follower);
 		
@@ -64,33 +65,10 @@ public class SocialFollowController extends HttpServlet {
 			System.out.println("[TEST]알수없는 경우");
 		}
 		
-		//재조회 조회수증가방지
-		boardService.downHit(boardno.getBoardno());
-		
-//		//조회결과 MODEL값 전달
-//		req.setAttribute("viewBoard", viewBoard);
-//				
-//		//닉네임 전달
-//		req.setAttribute("writerNick", boardService.getNick(viewBoard));
-//		
-//		//첨부파일 정보 조회
-//		RecipeFile boardFile = boardService.viewFile(viewBoard);
-//		
-//		//첨부파일 정보 MODEL값 전달
-//		req.setAttribute("boardFile", boardFile);
-		
-		//JSP를 VIEW로 지정, View로 응답
-//		System.out.println("[TEST] RecipeFollowController - /recipe/like 로 포워드");
-//		System.out.println();
-//		req.getRequestDispatcher("/recipe/like").forward(req, resp);
-		
-		System.out.println("[TEST] RecipeFollowController - /recipe/content로 포워드");
+		System.out.println("[TEST] SocialProfileFollowController - /social/profile로 포워드");
 		System.out.println();
-		req.getRequestDispatcher("/recipe/content").forward(req, resp);
+		req.getRequestDispatcher("/social/profile").forward(req, resp);
 		
-//		System.out.println("[TEST] RecipeFollowController - follow.jsp로 포워드");
-//		System.out.println();
-//		req.getRequestDispatcher("/WEB-INF/views/community/board/follow.jsp").forward(req, resp);
 	}
 }
 

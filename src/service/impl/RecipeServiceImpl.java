@@ -546,6 +546,22 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
+	public void downHit(int boardno) {
+		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 호출");
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//조회수 증가
+		if( boardDao.downHit(conn, boardno) > 0 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
+		return;
+	}
+	
+	@Override
 	public void setFollow(int followee, int follower, HttpServletRequest req) {
 		System.out.println("[TEST] RecipeServiceImpl - setFollow() 호출");
 		
@@ -559,22 +575,6 @@ public class RecipeServiceImpl implements RecipeService {
 		}
 		
 		System.out.println("[TEST] RecipeServiceImpl - setFollow() 리턴");
-		return;
-	}
-
-	@Override
-	public void downHit(int boardno) {
-		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 호출");
-		Connection conn = JDBCTemplate.getConnection();
-		
-		//조회수 증가
-		if( boardDao.downHit(conn, boardno) > 0 ) {
-			JDBCTemplate.commit(conn);
-		} else {
-			JDBCTemplate.rollback(conn);
-		}
-		
-		System.out.println("[TEST] RecipeServiceImpl - downHit(int) 리턴");
 		return;
 	}
 	
@@ -597,4 +597,5 @@ public class RecipeServiceImpl implements RecipeService {
 		System.out.println("[TEST] RecipeServiceImpl - checkFollowPK(int, int) 리턴 res : " + res);
 		return res; //1이면 통과
 	}
+
 }
