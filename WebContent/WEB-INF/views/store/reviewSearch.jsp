@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>주문</h1>
+
+<%-- <%	List<Review> ReviewList = (List) request.getAttribute("reviewList"); %> --%>
 
 
 </body>
