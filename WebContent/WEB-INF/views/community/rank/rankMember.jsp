@@ -10,9 +10,46 @@
 
 <%	List<RankMember> boardList = (List) request.getAttribute("boardList"); %>
 
-<div id="section">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-	<h1>유저 랭킹</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+/* .border{
+	border: 1px solid #ccc;
+} */
+  h1:before {
+	content: '\F5E7';
+	font-family : bootstrap-icons;
+}
+
+</style>
+
+<div id="section">
+<div class="margin-top"></div>
+	<h1>&nbsp;유저 랭킹</h1>
 	<hr>
 	
 	<div>
@@ -34,9 +71,9 @@
 			<!-- 첨부파일 -->
 			<%	if( boardList != null ) { %>
 				<% if( boardList.get(i).getImage_no() != 0 ) { %>
-					<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" alt="" width="100" height="100"><br>
+					<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" class="img-circle" alt="" width="100" height="100"><br>
 				<% } else { %>
-					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" class="img-circle" alt="" width="100" height="100">
 				<% } %>
 				</td>
 				<td><%=boardList.get(i).getMemberid() %></td>
@@ -47,6 +84,7 @@
 		<%	} %>
 		</table>
 	</div>
+	<div class="margin"></div>
 
 <%@ include file="/WEB-INF/views/community/rank/m_paging.jsp" %>
 

@@ -9,14 +9,52 @@
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
 <%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
 
-<div id="section">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
-	<h1>레시피 랭킹</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+/* .border{
+	border: 1px solid #ccc;
+} */
+  h1:before {
+	content: '\F5E7';
+	font-family : bootstrap-icons;
+}
+
+</style>
+
+<div id="section">
+<div class="margin-top"></div>
+
+	<h1>&nbsp;레시피 랭킹</h1>
 	<hr>
 	
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-			<tr class="success">
+			<tr class="info">
 				<th>랭킹</th>
 <!-- 				<th>이미지</th> -->
 				<th>레시피 이름</th>
@@ -50,6 +88,7 @@
 			<%	} %>
 		</table>
 	</div>
+	<div class="margin"></div>
 
 <%@ include file="/WEB-INF/views/community/rank/r_paging.jsp" %>
 
