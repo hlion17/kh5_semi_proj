@@ -27,6 +27,7 @@ public class SocialRecipeController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] SocialRecipeController( /social/profile ) [GET] 호출");
 		
+
 		//전달파라미터에서 현재 페이징 객체 알아내기
 		Paging paging = boardService.getPaging(req);
 		System.out.println("SocialRecipeController doGet() - " + paging);

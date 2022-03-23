@@ -55,6 +55,9 @@ public class SocialProfileUpdateController extends HttpServlet {
 			return;
 		}
 		
+		String referer = req.getSession().getAttribute("이전페이지").toString();
+		System.out.println( "referer : " + referer );
+		
 		//수정된 결과를 목록에 반영
 		boardService.update(req);
 		

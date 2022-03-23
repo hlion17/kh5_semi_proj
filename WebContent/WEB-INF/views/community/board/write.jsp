@@ -52,7 +52,7 @@ function submitContents( elClickedObj ) {
 
 	<div>
 		<form action="./insert" method="post" enctype="multipart/form-data">
-		
+
 			<table class="table table-bordered">
 				<tr><td class="info">아이디</td><td><%=session.getAttribute("memberid") %></td></tr>
 				<tr><td class="info">닉네임</td><td><%=session.getAttribute("nick") %></td></tr>
