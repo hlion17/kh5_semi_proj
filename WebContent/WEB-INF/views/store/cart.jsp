@@ -42,45 +42,144 @@
 <style type="text/css">
 
 .userhi {
-	text-align: center;
-	font-size: 50px;
-	margin: 50px;
-	font-family: 'Black Han Sans', sans-serif;
+    text-align: center;
+    font-size: 30px;
+    margin: 70px;
+    font-family: 'Black Han Sans', sans-serif;
 }
 
 
 .delete {
-	border: 1px solid black;
-	background: yellow;
+idth: 51px;
+    height: 32px;
+    background: red;
+    -webkit-line-break: after-white-space;
+    padding: 2px 7px;
+    border: 1px solid black;
 }
 
 .table {
-	width: 100%
+	margin: 100px;
 }
 
 #btn{
 	background: red;
 }
 
-th, tr {
-	text-align: center;
-}
 
-.cart {
+.container {
 	font-family: 'Noto Sans KR', sans-serif;
+	
 }
 .btns {
 	text-align: center;
 
 }
-</style>
 
+.img {
+    width: 253px;
+    height: 160px;
+    overflow: auto;
+}
+
+input {
+	width: 150px;
+}
+
+.itemName{
+	font-size : 19px;
+}
+
+th {
+	background: #77af9c;
+	font-size: 20px;
+    text-align-last: center;
+	    
+}
+
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+
+
+    
+  }
+th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+  }
+
+/* 상품금액, 수량 input태그 칸 안보이기 */
+input {
+    cursor: default;
+    border: none;
+    background: white;
+    width: 56px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.proQty{
+	border: 1px solid black;
+	margin: 2px;
+}
+
+
+.total {
+	font-size: 50px
+}
+
+
+.pr{
+	font-size: 30;
+	border: 1px solid black;
+	text-align-last: center;
+/* 	background: #77af9c; */
+	font-family: 'Noto Sans KR', sans-serif;
+	
+}
+
+.price, .totalPrice {
+	font-size: 40px;
+}
+
+.totalPrice {
+	color: red;
+}
+
+.btns {
+	text-align: center;
+}
+#btn-payment{
+	background: #fff;
+	color: #77af9c;
+	border: 1px solid #77af9c;
+	width: 264px;
+	height: 54px;
+	padding: 18px 0 19px;
+	margin: 10px
+}
+
+#btn-shopping{
+	background: #77af9c;
+	border: 1px solid #77af9c;
+	color: #fff;
+	width: 264px;
+	height: 54px;
+	padding: 18px 0 19px;
+	margin: 10px
+
+}
+
+
+</style>
 
 
 <!-- header -->
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
- <div id="main">
+ <div class="main">
  
  	<div class="userhi">
  		<i class="bi bi-heart"></i>
@@ -89,15 +188,15 @@ th, tr {
 	</div>
 	
 	
-	<div class="cart">
-		<table class="table" >
+	<div class="container">
+		<table class="class" >
 		
 			<tr class="tr">
-				<th width=45%>상품정보</th>
+				<th width=55% colspan="2">상품정보</th>
 				<th width=20%>상품금액</th>
 				<th width=5%>수량</th>
 				<th width=10%>배송비</th>
-				<th width=20%>수정/삭제</th>
+				<th width=10%>수정/삭제</th>
 			</tr>
 			
 			<tr>
@@ -112,44 +211,53 @@ th, tr {
 				<form action="/cart/update" method="post">
 						<input type="hidden" disabled value="<%=c.getCart_no()%>">
 						<td>
-<%-- 							<img class="img" alt=""src="/resources/img/store/item_<%=c.getPro_no()%>.jpg"> --%>
-<%-- 							<%=c.getName()%> --%>
+							<img class="img" alt=""src="/resources/img/store/item_<%=c.getPro_no()%>.jpg">
+						</td>
+							<td class="itemName"><%=c.getName()%>
 						</td>
 						<% itemName = c.getName(); %>
 						
 						<input type="hidden" disabled value="<%=c.getMember_no()%>">
 						<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
 						
-						<td> <input disabled value="<%=c.getPrice()%>"><br></td>
-						<td> <input type="text" name="proQty" value="<%=c.getQuantity()%>"></td>
+						<td> <input disabled value="<%=c.getPrice()%>">원</td>
+						<td> <input type="text" class="proQty" value="<%=c.getQuantity()%>"></td>
 						
-						<td>무료배송</td>
+						<td class="free">무료배송</td>
 						<td><button>수정</button>
 						
 				</form>
 						<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
+						</td>
 							<% sum += c.getPrice() * c.getQuantity(); %>
 								<% } %>
 						<% } %>	
-						</td>
 			</tr>
 				
 		</table>
 
 
 	<hr>
-			
-	<div>금액 합계: <%= sum %>원</div>
-
+	
+	<div class="pr">
+	총 상품가격 <span class="price"><%= sum %>원</span>
+	<i class="bi bi-plus-square"></i>
+	    +    총 배송비 0 원    =    
+	총 주문금액 : <span class="totalPrice"> <%= sum %>원</span>
+	
+	</div>
 	<br>
 	
+	<div class="btns">
 <!-- 	<button type="button" id="btn" onclick="location.href='payment'">결제</button> -->
 	<button type="button" id="btn-payment" >결제</button>
-	<button type="button" id="btn" onclick="location.href='store'">쇼핑하기</button>
+	<button type="button" id="btn-shopping" onclick="location.href='store'">쇼핑하기</button>
+	</div>
+	
 	
 	</div>
 
-
+</div>
 
 
 
