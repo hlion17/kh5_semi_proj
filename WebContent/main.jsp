@@ -6,9 +6,14 @@
 <!-- header -->
 <%@include file="/WEB-INF/views/layout/header.jsp"%>
 
+<style>
+
+</style>
+
 <div id="main">
 	<div id="section-alone">
-	<h1><a href="/order/check">주문 확인 테스트 중</a></h1>
+	<!-- <h1><a href="/order/check">주문 확인 테스트 중</a></h1> -->
+
 	</div>
 </div>
 
