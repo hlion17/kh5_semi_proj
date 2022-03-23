@@ -49,14 +49,13 @@ $(document).ready(function() {
 						<td>
 					<!-- 첨부파일 -->
 					<%	if( boardList != null ) { %>
-						<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" 
-								alt="그림을 불러오지못함" width="100" height="100"><br>
-						<a href="<%=request.getContextPath() %>/upload/<%=boardList.get(i).getStored_name() %>"
-								download="<%=boardList.get(i).getOrigin_name() %>">
-							<%=boardList.get(i).getOrigin_name() %>
-						</a>
+						<% if( boardList.get(i).getImage_no() != 0 ) { %>
+							<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" 
+									alt="" width="100" height="100">
+						<% } else { %>
+							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+						<% } %>
 					<%	} %>
-					
 						</td>
 						<td><%=boardList.get(i).getDense_rank() %> 위</td>
 						<td><%=boardList.get(i).getFollowCnt() %></td>
@@ -74,7 +73,7 @@ $(document).ready(function() {
 		</table>
 	</div>
 
-<%@ include file="/WEB-INF/views/community/rank/m_paging.jsp" %>
+<%@ include file="/WEB-INF/views/social/layout/weePaging.jsp" %>
 
 </div><!-- #section -->
 

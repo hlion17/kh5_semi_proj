@@ -464,7 +464,7 @@ div{
 	<div class="form-group">
 		<label for="memberpw" class="control-label col-xs-2">* 비밀번호</label>
 		<div class="col-xs-8">
-			<input type="text" id="memberpw" name="memberpw" class="form-control" required placeholder="비밀번호를 입력해주세요.">
+			<input type="password" id="memberpw" name="memberpw" class="form-control" required placeholder="비밀번호를 입력해주세요.">
 				<div id="warnMsgPw" class="msg" ></div>
 		</div>
 	</div>
