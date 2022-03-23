@@ -26,6 +26,12 @@ public class SocialProfileUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("[TEST] SocialProfileUpdateController( /social/profile/update ) [GET] 호출");
 		
+		try {
+			String referer = req.getSession().getAttribute("이전페이지").toString();
+			System.out.println( "referer : " + referer );
+		} catch (NullPointerException e) {
+		}
+		
 		//전달파라미터 얻기 - boardno
 		SocialMember memberno = boardService.getMemberno(req);
 
@@ -54,9 +60,6 @@ public class SocialProfileUpdateController extends HttpServlet {
 			
 			return;
 		}
-		
-		String referer = req.getSession().getAttribute("이전페이지").toString();
-		System.out.println( "referer : " + referer );
 		
 		//수정된 결과를 목록에 반영
 		boardService.update(req);
