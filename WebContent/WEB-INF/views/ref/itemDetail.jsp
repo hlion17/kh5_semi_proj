@@ -96,7 +96,7 @@ function deleteItem() {
 		</div>
 		
 		<div class="form-group item-holder" style="padding-left: 20px;">
-			<button type="button" class="item-holder btn btn-primary" type="submit">수정</button>
+			<button type="submit" class="item-holder btn btn-primary">수정</button>
 			<button type="button" class="item-holder btn btn-danger" type="button" onclick="deleteItem()">삭제</button>
 			<button type="button" class="btn btn-default" id="#close">취소</button>
 		</div>
