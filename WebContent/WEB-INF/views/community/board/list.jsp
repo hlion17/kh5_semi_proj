@@ -61,13 +61,14 @@ $(document).ready(function() {
 
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h1>레시피 자랑 게시판</h1>
+	<h1>&nbsp;레시피 자랑</h1>
 	<hr>
 
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-			<tr class="success">
+			<tr class="info">
 				<th>번호</th>
 				<th>제목</th>
 				<th>글쓴이</th>
@@ -92,8 +93,9 @@ $(document).ready(function() {
 	
 	<!-- 글쓰기 버튼 -->
 	<div id="btnBox" class="pull-left">
-		<button id="btnWrite" class="btn btn-primary">글쓰기</button>
+		<button id="btnWrite" class="btn btn-primary">&nbsp;글쓰기</button>
 	</div>
+	<div class="margin"></div>
 	
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
 

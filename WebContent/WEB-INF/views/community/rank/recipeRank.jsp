@@ -47,13 +47,14 @@ div {
 </style>
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h1>레시피 랭킹</h1>
+	<h1>&nbsp;레시피 랭킹</h1>
 	<hr>
 	
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-			<tr class="success">
+			<tr class="info">
 				<th>랭킹</th>
 <!-- 				<th>이미지</th> -->
 				<th>레시피 이름</th>
@@ -87,6 +88,7 @@ div {
 			<%	} %>
 		</table>
 	</div>
+	<div class="margin"></div>
 
 <%@ include file="/WEB-INF/views/community/rank/r_paging.jsp" %>
 
