@@ -44,6 +44,10 @@ div {
 	content: '\F5E7';
 	font-family : bootstrap-icons;
 }
+table, tr, th, td {
+	text-align: center;
+	vertical-align: text-bottom;
+}
 
 </style>
 
@@ -54,7 +58,7 @@ div {
 	
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-		<tr class="success">
+		<tr class="info">
 			<th>랭킹</th>
 			<th>팔로우수</th>
 			<th>이미지</th>
@@ -64,12 +68,12 @@ div {
 		</tr>
 		
 		<%	for(int i=0; i<boardList.size(); i++) { %>
+			<%	if( boardList != null ) { %>
 			<tr onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'">
 				<td><%=boardList.get(i).getDense_rank() %> 위</td>
 				<td><%=boardList.get(i).getFollowCnt() %></td>
 				<td>
 			<!-- 첨부파일 -->
-			<%	if( boardList != null ) { %>
 				<% if( boardList.get(i).getImage_no() != 0 ) { %>
 					<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" class="img-circle" alt="" width="100" height="100"><br>
 				<% } else { %>

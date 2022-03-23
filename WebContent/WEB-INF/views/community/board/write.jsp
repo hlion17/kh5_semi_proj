@@ -3,7 +3,7 @@
 
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
-`<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -99,9 +99,9 @@ function submitContents( elClickedObj ) {
 		</form>
 	</div>
 
-	<div class="text-center">	
-		<button type="button" id="btnWrite" class="btn btn-info">&nbsp;작성</button>
-		<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
+	<div class="text-center">
+			<button type="button" id="btnWrite" class="btn btn-info">&nbsp;작성</button>
+			<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
 	</div>
 	<div class="margin"></div>
 

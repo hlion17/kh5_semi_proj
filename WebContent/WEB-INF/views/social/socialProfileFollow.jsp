@@ -8,6 +8,54 @@
 
 <%	SocialMember updateBoard = (SocialMember) request.getAttribute("updateBoard"); %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+#btnList:before {
+	content: '\F479';
+	font-family : bootstrap-icons;
+}  
+#btnUpdate:before {
+	content: '\F4CA';
+	font-family : bootstrap-icons;
+}  
+#btnDelete:before {
+	content: '\F5DE';
+	font-family : bootstrap-icons;
+}
+#btnLike:before {
+	content: '\F407';
+	font-family : bootstrap-icons;
+}
+#btnFollow:before {
+	content: '\F4CF';
+	font-family : bootstrap-icons;
+}
+</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -58,21 +106,22 @@ $(document).ready(function() {
 	<div>
 		<form action="/social/profile/update" method="post" enctype="multipart/form-data">
 			
-			<div>
-				<!-- 첨부파일 -->
+		<!-- 첨부파일 -->
+			<%	if( updateBoard != null ) { %>
+			
 				<div id="beforeFile">
 					<%	if( updateBoard.getStored_name() != null ) { %>
-							<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" 
-									alt="" width="400" height="400">
-							<br>
-							기존 첨부파일: 
-							<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>"
-							 		download="<%=updateBoard.getOrigin_name() %>">
-								<%=updateBoard.getOrigin_name() %>
-							</a>
-							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
+						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" 
+								alt="" width="400" height="400">
+						<br>
+						기존 첨부파일: 
+						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>"
+						 		download="<%=updateBoard.getOrigin_name() %>">
+							<%=updateBoard.getOrigin_name() %>
+						</a>
+						<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
 					<% } else { %>
-							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+						<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
 					<% } %>
 				</div>
 				
@@ -85,13 +134,10 @@ $(document).ready(function() {
 					<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 				</div>
 				
-			</div>
 			
-			<div>
-			
-				<input type="hidden" name="memberno" value="<%=updateBoard.getMemberno() %>" />
+				<div>
+					<input type="hidden" name="memberno" value="<%=updateBoard.getMemberno() %>" />
 					
-				<%	if( updateBoard != null ) { %>
 					<table class="table table-bordered">
 					<tr><td class="info">회원번호</td><td colspan="3"><%=updateBoard.getMemberno() %></td></tr>
 					<tr><td class="info">아이디</td><td colspan="3"><%=updateBoard.getMemberid() %></td></tr>
@@ -106,11 +152,11 @@ $(document).ready(function() {
 					<tr><td class="info">냉장고번호</td><td colspan="3"><%=updateBoard.getMy_ref_code() %></td></tr>
 	<%-- 				<tr><td class="info">제목</td><td><input type="text" name="title" style="width:100%" value="<%=updateBoard.getNick() %>"/></td></tr> --%>
 					</table>
-				<% 	} %>
-			</div>
+				</div>
+				
+			<% 	} %>
 		
 		</form>
-		
 	</div>
 
 </div><!-- #section -->
