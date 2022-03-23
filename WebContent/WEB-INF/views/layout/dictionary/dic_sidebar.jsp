@@ -3,6 +3,9 @@
     
     
 <style>
+#sidebar > ul {
+	list-style: none;
+}
 #sidebar > ul > li {
 	cursor: pointer;
 }
@@ -57,9 +60,14 @@ function goOpenRecipe() {
 </script>
 
 <div id="sidebar">
-    <ul>
+<!--     <ul>
         <li onclick="goIngrList()">재료검색</li>
         <li onclick="goExDateList()">유통기한 검색</li>
         <li onclick="goOpenRecipe()">오픈레시피 검색</li>
+    </ul> -->
+	<ul>
+        <li><a href="/ingr/list">재료검색</a></li>
+        <li><a href="/expireDate/list">유통기한 검색</a></li>
+        <li><a href="/openRecipe/search">오픈레시피 검색</a></li>
     </ul>
 </div>

@@ -7,27 +7,7 @@
 	List<Ingredient> ingrs = (List<Ingredient>) request.getAttribute("ingrs");
 %>
 
-<style>
-
-.ingr-short {
-	display: flex;
-	flex-flow: column wrap;
-	
-	width: 40%;
-	height: 100px;
-}
-.ingr-short :nth-child(2) {
-	width: 30%;
-	height: 100%;
-	
-	text-align: center;
-}
-.ingr-short :nth-child(3) {
-	width: 70%;
-	height: 100%;
-}
-
-</style>
+<link rel="stylesheet" href="/resources/css/dictionary/dic_ingr_main.css">
 
 <script>
 $(".ingr-short").children().click(function() {
@@ -40,6 +20,7 @@ $(".ingr-short").children().click(function() {
 <% for(Ingredient i : ingrs) { %>
   	<div class="ingr-short">
   		<div style="display: none;"><%= i.getIngrCode() %></div>
+  		<div><img src="/resources/img/ingredient/<%= i.getIngrCode()%>.jpg"></div>
 		<div><h3><%= i.getIngrName() %></h3></div>
 		<div>
 			칼로리: <%= i.getDetail1() %><br>

@@ -13,10 +13,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+
 	//수정버튼
 	$("#btnUpdate").click(function() {
 		$(location).attr("href", "<%=request.getContextPath() %>/social/profile/update?memberno=<%=viewBoard.getMemberno() %>");
+	})
+
+	//팔로우버튼
+	$("#btnFollow").click(function() {
+		$(location).attr("href", "<%=request.getContextPath() %>/social/profile/follow?memberno=<%=viewBoard.getMemberno() %>");
 	})
 	
 });
@@ -44,6 +49,13 @@ $(document).ready(function() {
 <!-- 		</a> -->
 	
 	<%	} %>
+		<div class="text-center">
+		<% 	if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
+				<button id="btnUpdate" class="btn btn-info">이미지 수정</button>
+		<% 	} else { %>
+				<button id="btnFollow" class="btn btn-info">팔로우</button>
+		<% 	} %>
+		</div>
 	</div>
 	
 	<div>
@@ -62,11 +74,6 @@ $(document).ready(function() {
 		</table>
 	</div>
 	
-	<div class="text-center">
-	<% if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
-		<button id="btnUpdate" class="btn btn-info">수정</button>
-	<% } %>
-	</div>
 	
 </div><!-- #section -->
 

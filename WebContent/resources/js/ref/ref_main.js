@@ -32,10 +32,12 @@ window.onload = function () {
     })
 
     // 모달창 닫기
+	/*
     const closeBtn = modal.querySelector(".close-area")
     closeBtn.addEventListener("click", function() {
         modal.style.display = "none"
     })
+	*/
 
     // 모달창 바깥 영역 클릭시 닫기
     modal.addEventListener("click", e => {
@@ -171,6 +173,18 @@ window.onload = function () {
 			}
 		})
 	}
+	
+	// 냉장고 공유 폼 빈칸 검증
+	$("#share-form").submit(function() {
+		const refCode = $("input[name='refCode']").val()
+		
+		if (refCode === "") {
+			alert("값을 입력하세요")
+			return false
+		}
+		return true
+	})
 
 
 } // onload 끝
+

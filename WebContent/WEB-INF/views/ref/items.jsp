@@ -10,20 +10,6 @@
 	int status = (Integer) request.getAttribute("status");
 %>
 
-<style>
-
-/* #divView { 
-	position:absolute; 
-	display:none;
-	background-color:#ffffff; 
-	border:solid 2px #d0d0d0; 
-	width:350px; 
-	height:250px; 
-	padding:10px; 
-}
- */
-</style>
-
 <script>
 
 //냉장고 품목 클릭시 해당 위치에 상품 상세 정보 레이어 생성
@@ -48,11 +34,12 @@ $('.item').click(function(e) {
 });
 
 // 상품상세 정보 영역 이외 클릭시 상세 정보 레이어 닫음
+
 $(document).click(function (e) {
 	if (!$(e.target).hasClass("item-holder")) {
 			$("#divView").hide()
-		}
-	});
+	}
+}); 
 
 // 냉장고 품목 상세정보 페이지 요청(ajax)
 function getItemDetail(param) {
@@ -116,6 +103,5 @@ function getItemDetail(param) {
 
 <!-- 아이템 상세 정보 팝업 레이어 --> 
 <div id="divView" class="item-holder">
-	<!-- <button id="#close">x</button> -->
 	<div id="detail-content-area" class="item-holder"></div>
 </div>

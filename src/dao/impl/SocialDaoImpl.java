@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import common.JDBCTemplate;
 import dao.face.SocialDao;
+import dto.Follow;
 import dto.ProfileFile;
 import dto.SocialMember;
 import dto.ProfileFile;
@@ -60,12 +63,16 @@ public class SocialDaoImpl implements SocialDao {
 		String sql = "";
 		sql += "SELECT * FROM (";
 		sql += "	SELECT rownum rnum, B.* FROM (";
-		sql += " 		SELECT M.*, IMAGE_NO, ORIGIN_NAME, STORED_NAME, FILESIZE";
-		sql += "		FROM MEMBER M, PRFIMG P";
-		sql += "		WHERE M.MEMBER_NO = P.MEMBER_NO";
-		sql += "		ORDER BY M.member_no DESC";
+		sql += " 		SELECT C.*, DENSE_RANK() OVER (ORDER BY CNT DESC NULLS LAST) DENSE_RANK";
+		sql += " 		FROM (";
+		sql += " 		select * from member m";
+		sql += "		left join (SELECT * FROM (SELECT prfimg.*, ROW_NUMBER() OVER(PARTITION BY member_no ORDER BY image_no DESC) as a FROM prfimg) WHERE a = 1) x";
+		sql += "		on m.member_no = x.member_no";
+		sql += "		LEFT OUTER JOIN (SELECT FOLLOWEE, COUNT(*) cnt FROM FOLLOW GROUP BY FOLLOWEE) F";
+		sql += "		ON (M.MEMBER_NO = f.followee)";
+		sql += " 	) C";
 		sql += " 	) B";
-		sql += " ) MEMBER";
+		sql += " ) Member";
 		sql += " WHERE rnum BETWEEN ? AND ?";
 		
 		//결과 저장할 List
@@ -96,11 +103,122 @@ public class SocialDaoImpl implements SocialDao {
 				b.setMy_ref_code( rs.getInt("my_ref_code"));
 				b.setZipcode( rs.getString("zipcode"));
 				
+				b.setFollowCnt( rs.getInt("cnt"));
+				b.setDense_rank( rs.getInt("dense_rank"));
+//				b.setFollowee( rs.getInt("followee"));
+//				b.setFollower( rs.getInt("follower"));
+				
 				b.setImage_no( rs.getInt("image_no"));
 				b.setMember_no( rs.getInt("member_no"));
 				b.setOrigin_name( rs.getString("origin_name"));
 				b.setStored_name( rs.getString("stored_name"));
 				b.setFilesize( rs.getInt("filesize"));
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
+
+	@Override
+	public List<Follow> selectAllFollow(Connection conn, Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAllFollow() 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += "	SELECT rownum rnum, B.* FROM (";
+		
+		sql += " 		select * from follow";
+		sql += "		WHERE follower = ?";
+		
+		sql += " 	) B";
+		sql += " ) MEMBER";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		//결과 저장할 List
+		List<Follow> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setInt(1, Integer.parseInt(req.getSession().getAttribute("memberno").toString()) );
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+			
+			while( rs.next() ) {
+				Follow b = new Follow(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setFollowee( rs.getInt("followee"));
+				b.setFollower( rs.getInt("follower"));
+				
+				//리스트객체에 조회한 행 객체 저장
+				boardList.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//JDBC객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		//최종 조회 결과 반환
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAll(Connection conn, Paging paging) - boardList 리턴 : " + boardList);
+		return boardList;
+	}
+
+	@Override
+	public List<Follow> selectAllFollower(Connection conn, Paging paging, HttpServletRequest req) {
+		System.out.println("[TEST] SocialMemberDaoImpl - selectAllFollow() 호출");
+		
+		//SQL 작성
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += "	SELECT rownum rnum, B.* FROM (";
+		
+		sql += " 		select * from follow";
+		sql += "		WHERE followee = ?";
+		
+		sql += " 	) B";
+		sql += " ) MEMBER";
+		sql += " WHERE rnum BETWEEN ? AND ?";
+		
+		//결과 저장할 List
+		List<Follow> boardList = new ArrayList<>();
+		
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			System.out.println("memberno : " + Integer.parseInt(req.getSession().getAttribute("memberno").toString()));
+			
+			ps.setInt(1, Integer.parseInt(req.getSession().getAttribute("memberno").toString()) );
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
+			
+			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
+			
+			while( rs.next() ) {
+				Follow b = new Follow(); //결과값 저장 객체
+				
+				//결과값 한 행 처리
+				b.setFollowee( rs.getInt("followee"));
+				b.setFollower( rs.getInt("follower"));
 				
 				//리스트객체에 조회한 행 객체 저장
 				boardList.add(b);

@@ -8,7 +8,7 @@
 %>
 
 <!-- header page -->
-<%-- <%@include file="/WEB-INF/views/layout/header.jsp" %> --%>
+<%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 <link rel="stylesheet" href="/resources/css/dictionary/dic_ingr_main.css">
 
@@ -43,22 +43,24 @@ $(document).ready(function() {
 })
 </script>
 
+<main>
 
+<div id="main">
 	<!-- 사전 사이드바 -->
-    <%-- <%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %> --%>
-    
-
-    	<h1>등록된 재료 리스트</h1>
-		<hr>
+	<%@include file="/WEB-INF/views/layout/dictionary/dic_sidebar.jsp" %>
+	<div id=section>
+   		<h1 style="margin-bottom: 30px;">재료 검색</h1>
 		<div>
-			<input type="text" name="ingrName">
+			<input type="text" name="ingrName" placeholder="Search">
 			<button id="btn-ingrsearch-submit">검색</button>
 		</div>
-    
+		<hr>
+		
     	<div id="ingr-short-container">
 	    <% for(Ingredient i : ingrs) { %>
 	    	<div class="ingr-short">
 	    		<div style="display: none;"><%= i.getIngrCode() %></div>
+	    		<div><img src="/resources/img/ingredient/<%= i.getIngrCode()%>.jpg"></div>
 				<div><h3><%= i.getIngrName() %></h3></div>
 				<div>
 					칼로리: <%= i.getDetail1() %><br>
@@ -70,8 +72,12 @@ $(document).ready(function() {
 		
 		<% }%>
 		</div>
-
+	</div>
+    <div class="clearfix"></div>
+</div>
+	
+</main>
 
 <!-- footer page -->
-<%-- <%@include file="/WEB-INF/views/layout/footer.jsp" %> --%>
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 

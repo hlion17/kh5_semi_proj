@@ -2,6 +2,7 @@
 div {
 	border: none;
 	background: white;	
+	margin: 0;
 }
 ul {
 	border: none;
@@ -96,26 +97,26 @@ ul {
 }
 
 #modal .modal-window {
-    background: rgba( 69, 139, 197, 0.70 );
+    /* background: rgba( 69, 139, 197, 0.70 ); */
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 13.5px );
     -webkit-backdrop-filter: blur( 13.5px );
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     width: 400px;
-    height: 500px;
+    height: 550px;
     position: relative;
     top: -100px;
     padding: 10px;
 }
 
 .close-area {
-	position: absolute;
+	/* position: absolute;
 	top: -10px;
 	right: 0px;
 	
 	color: red;
-	font-size: 30px;
+	font-size: 30px; */
 }
 .filtering {
 	position: relative;
@@ -138,4 +139,20 @@ ul {
 	/* width:400px; */ 
 	/* height:250px; */ 
 	padding:20px; 
+}
+
+/* 아이템 상세창 CSS */
+#item-detail {
+	/* width: 500px; */
+}
+#item-detail .form-group {
+	margin: 0 auto;
+	width: 400px;
+}
+#item-detail .form-group {
+	margin-bottom: 10px;
+}
+#item-detail .form-group label {
+	margin: 0;
+	padding-top: 7px;
 }

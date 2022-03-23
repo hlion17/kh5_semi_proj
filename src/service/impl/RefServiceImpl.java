@@ -331,6 +331,13 @@ public class RefServiceImpl implements RefService {
 		Member targetMember = memberDao.findeByRefCode(conn, refCode);
 		logger.info("DB조회결과 - 공유대상 회원정보: " + targetMember);
 		
+		if (targetMember == null) {
+			//리다이렉트라 요청 객체 못보냄
+			//req.setAttribute("noSuchMemberMsg", "해당 회원이 존재 하지 않습니다.");
+			logger.info("존재하지 않는 공유 회원번호 입력");
+			return;
+		}
+		
 		// 세션분석 - 로그인 한 회원의 냉장고 코드
 		HttpSession session = req.getSession();
 		int myRefCode = (Integer) session.getAttribute("refCode");

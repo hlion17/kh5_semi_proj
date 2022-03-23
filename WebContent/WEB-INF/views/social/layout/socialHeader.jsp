@@ -13,7 +13,7 @@
             
             <li><a href="/social/profile">마이프로필</a></li>
             <li><a href="/social/recipe">마이레시피</a></li>
-            <li><a href="/social/follow">팔로우</a></li>
+            <li><a href="/social/followee">팔로우</a></li>
             <li><a href="/social/follower">팔로워</a></li>
         </ul>
 </div>

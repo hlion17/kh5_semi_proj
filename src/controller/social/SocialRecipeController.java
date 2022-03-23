@@ -29,7 +29,7 @@ public class SocialRecipeController extends HttpServlet {
 		
 		//전달파라미터에서 현재 페이징 객체 알아내기
 		Paging paging = boardService.getPaging(req);
-		System.out.println("BoardController doGet() - " + paging);
+		System.out.println("SocialRecipeController doGet() - " + paging);
 		
 		//게시글 페이징 목록 조회 - BoardService이용
 		List<Recipe> boardList = boardService.getListMyRecipe(paging, req);

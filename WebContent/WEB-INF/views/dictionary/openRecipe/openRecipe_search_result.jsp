@@ -18,13 +18,13 @@
 	display: flex;
 	flex-flow: column nowrap;
 	
-	width: 250px;
-	height: 300px;
+	width: 270px;
+	height: auto;
 	
 	margin: 20px auto;
 }
 .recipe-result .recipe-img-div {
-    display:table-cell;
+    /* display:table-cell; */
     vertical-align:middle;
     
     width: 100%;
@@ -34,6 +34,20 @@
 .recipe-result .recipe-img-div img {
     max-width:240px;
     max-height:180px;
+    border-radius: 10px;
+}
+.recipe-result .recipe-img-div h4 {
+    font-weight: bold;
+}
+.recipe-result .recipe-img-div > div:nth-child(2) {
+	maring-top: 20px;
+    border-bottom: 1px solid black;
+}
+.recipe-short {
+	padding: 10px;
+}
+.recipe-short span {
+	font-weight: bold;
 }
 </style>
 
@@ -58,21 +72,23 @@ $(".recipe-result").click(function() {
 	<script>alert("검색결과가 없습니다.")</script>
 	<% } else { %>
 		<% for(OpenRecipe o : list) { %>
-		<div class="recipe-result"" style="cursor: pointer;">
+		<div class="recipe-result" style="cursor: pointer;">
 			<div style="display: none;"><%= o.getData1() %></div>
 			<div class="recipe-img-div">
 			<% if (!"".equals(o.getMainImg())) {%>
-		    	<img src="<%= o.getMainImg() %>" style="height: 300px;width: 300px"><br>
-		    	<span><%= o.getData1() %></span>
+		    	<div><img src="<%= o.getMainImg() %>" style="height: 300px;width: 300px"></div>
+		    	<div><h4><%= o.getData1() %></h4></div>
 		    <% } %>	
 			</div>
-			<div>
-				<span>요리종류: <%= o.getPat() %></span><br>
-				<span>영양정보: </span><br>
-				<span>열량: <%= o.getEng() %>g, </span>
-				<span>단백질: <%= o.getPro() %>g, </span>
-				<span>지방: <%= o.getFat() %>g, </span>
-				<span>나트륨: <%= o.getNa() %>g</span>
+			<div class="recipe-short">
+				<p><span>요리종류: </span><%= o.getPat() %></p>
+				<p><span>영양정보: </span></p>
+				<p>
+					<span>열량: </span><%= o.getEng() %>g, 
+					<span>단백질: </span><%= o.getPro() %>g,<br> 
+					<span>지방: </span><%= o.getFat() %>g, 
+					<span>나트륨: </span><%= o.getNa() %>g
+				</p>
 			</div>
 		</div>
 		<% }%>

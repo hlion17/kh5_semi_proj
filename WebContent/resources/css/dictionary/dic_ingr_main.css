@@ -3,22 +3,37 @@
 #ingr-short-container {
 	display: flex;
 	flex-flow: row wrap;
-	
+	justify-content: space-around;
+	margin-top: 20px;
 }
 .ingr-short {
 	display: flex;
-	flex-flow: column wrap;
-	
+	flex-flow: column nowrap;
 	width: 40%;
-	height: 100px;
+	height: 400px;
+	margin: 20px;
+	background: beige;
 }
 .ingr-short :nth-child(2) {
-	width: 30%;
-	height: 100%;
-	
-	text-align: center;
+	width: 100%;
+	height: 50%;
+	object-fit: cover;
+}
+.ingr-short :nth-child(2) > img{
+	width: 100%;
+	height: 100%
 }
 .ingr-short :nth-child(3) {
-	width: 70%;
-	height: 100%;
+	width: 100%;
+	height: 15%;
+	text-align: center;
+}
+.ingr-short :nth-child(4) {
+	width: 90%;
+	height: 30%;
+	text-align: center;
+	border-top: 1px solid black;
+	padding: 10px;
+	margin: 10px;
+	line-height: 25px;
 }

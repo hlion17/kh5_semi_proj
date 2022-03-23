@@ -25,10 +25,17 @@
 %>
 
 <style>
-#item-detail {
-
+/* #item-detail {
 	width: 500px;
 }
+#item-detail .form-group {
+	margin: 0 auto;
+	width: 400px;
+}
+#item-detail .form-group label {
+	margin: 0;
+	padding-top: 12px;
+} */
 </style>
 
 <script>
@@ -39,57 +46,57 @@ function deleteItem() {
 
 </script>
 
-<div id="item-detail"">
+<div id="item-detail">
 <form action="/ref/items/update" method="post" class="item-holder form-horizontal">
 	
 		<%-- 냉장고 코드, 아이템 코드 수정 요청 보낼 때 필요에서 히든 속성 지정 --%>
 		<input type="hidden" name="refCode" value=<%= refCode %>>
 		<input type="hidden" name="itemNo" value=<%= refItem.getItemNo() %>>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">품목이름</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">품목이름</label>
+	   		<div class="col-sm-9 item-holder">
 				<p class="form-control-static item-holder"><%= refItem.getItemName() %></p>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">품목수량</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">품목수량</label>
+	   		<div class="col-sm-9 item-holder">
 				<p class="form-control-static item-holder"><%= refItem.getItemQty() %></p>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">보관상태</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">보관상태</label>
+	   		<div class="col-sm-9 item-holder">
 				<p class="form-control-static item-holder"><%= refItem.getItemName() %></p>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">등록일</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">등록일</label>
+	   		<div class="col-sm-9 item-holder">
 				<p class="form-control-static item-holder"><%= refItem.getRegDate() %></p>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">유통기한</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">유통기한</label>
+	   		<div class="col-sm-9 item-holder">
 				<p class="form-control-static item-holder"><%= refItem.getExpireDate() %></p>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-2 control-label item-holder">메모</label>
-	   		<div class="col-sm-6 item-holder">
+		<div class="form-group item-holder">
+			<label class="col-sm-3 control-label item-holder">메모</label>
+	   		<div class="col-sm-9 item-holder">
 				<textarea class="form-control item-holder" rows="3" name="note"><%= refItem.getNote() %></textarea>
 	   		</div>
 		</div>
 		
-		<div class="form-group">
-			<button type="button" class="item-holder btn btn-primary" type="submit">제출</button>
+		<div class="form-group item-holder" style="padding-left: 20px;">
+			<button type="button" class="item-holder btn btn-primary" type="submit">수정</button>
 			<button type="button" class="item-holder btn btn-danger" type="button" onclick="deleteItem()">삭제</button>
 			<button type="button" class="btn btn-default" id="#close">취소</button>
 		</div>

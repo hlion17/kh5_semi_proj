@@ -3,11 +3,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<!-- 부트스트랩 적용  -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inspiration&family=Roboto:wght@300&display=swap" rel="stylesheet">
 
 <%
 	Product ProductList = (Product) request.getAttribute("viewProduct");
@@ -24,14 +19,13 @@ body { padding: 50px;}
 /*  	position: relative; padding: 0 0 0 395px; widhth:962px; box-sizing: border-box;  */
 } 
 
-/* 썸네일 이미지 위치 */
 .thumbnail {
-	width: 450px; height: 450px; border: 1px solid #e8e8e8; margin: 20px; 
+	width: 370px; height: 370px; border: 1px solid #e8e8e8; margin: 30px; 
 	float: left; 
 }
 	 
 #productInfo {
-	margin:  0 auto;
+	margin: 30px;
 	
 }
 
@@ -46,22 +40,8 @@ body { padding: 50px;}
 	
 }
 
-#btn-to-order, #btn-to-payment, #btn-to-cart {
-	border: 1px solid black;
- }
-
-.btn:hover{
-	background: red;
-	
-}
-
-
 
 </style>
-
-
-
-
 
 
 
@@ -90,26 +70,22 @@ $(document).ready(function() {
 			
 			
 		<div id="productInfo">
-				<span class="itemName"><%=ProductList.getName()%></span><br>
-			<span>
-			상품번호: <%=ProductList.getPro_no()%>
-			상품가격: <%=ProductList.getPrice()%>원
-			</span>
-			
+			<h2><span class="itemName"><%=ProductList.getName()%></span></h2>
+			<br>
+
+		<h5>상품번호: <%=ProductList.getPro_no()%></h5><br>
+		<h5>상품가격: <%=ProductList.getPrice()%>원</h5>
+		
+
 			<form action="/cart/add" method="post">
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
 				<input type="hidden" name="proNo" value="<%=ProductList.getPro_no()%>"> 
-				수량: <input type="text" name="proQty" value="1" placeholder="수량을 입력하세요">개 
-				<input type="hidden" name="proPrice" class="proprice" value="<%=ProductList.getPrice()%>"> 
-				
-				<br><br>
-				
-				<button id="btn-to-cart" class="btn btn-outline-info" type="submit" onclick="addcart()">장바구니에 담기</button>		
+					수량: <input type="text" name="proQty"> 
+					<input type="hidden" name="proPrice" value="<%=ProductList.getPrice()%>"> <br>
+				<button id="btn-to-cart" type="submit">장바구니에 담기</button>		
 			</form>
-			
-			<br>
 			<button id="btn-to-order" type="button">주문하기</button>
-			<button id="btn-to-payment" type="button" onclick="payment()">결제</button>
+			<button type="button" onclick="payment()">결제</button>
 		</div>
 			
 			<!-- 리뷰게시판 연결 -->
@@ -118,8 +94,6 @@ $(document).ready(function() {
 <%-- 			<% } %> --%>
 
 	</div>
-	
-	<hr>
 	
 	<p style="clear:both;" class="desciption">
 	<h1 background="yellow">상세 설명</h1>
@@ -134,24 +108,14 @@ $(document).ready(function() {
 
 
 <script type="text/javascript">
-	function addcart() {
-		if (confirm('장바구니 페이지로 이동하시겠습니까?')) {
-			location.href = 'cart';
-		} else {
-			//장바구니 담기 누르고 취소하면 안담기고 이동됨 -> 담기고 이동안되게끔 해야한다 
-		}
-	};
-	
 	function payment() {
 		if (confirm('해당 상품을 주문 하시겠습니까?')) {
 			location.href = 'payment';
 		} else {
 			document.addFrom.reset();
 		}
-	};
+	}
 </script>
-
-
 
 
 

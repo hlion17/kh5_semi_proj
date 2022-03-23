@@ -20,8 +20,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import common.JDBCTemplate;
 import dao.face.ReviewDao;
 import dao.impl.ReviewDaoImpl;
+import dto.OpenRecipe;
 import dto.Review;
 import dto.ReviewFile;
+import openapi.OpenRecipeApi;
 import service.face.ReviewService;
 import util.Paging;
 
@@ -461,7 +463,15 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 	
-	
-	
+	//리뷰서치
+//	@Override
+//	public void searchReview(HttpServletRequest req) {
+//		
+//		String pro_name = req.getParameter("pro_name");
+//
+//		req.setAttribute("pro_no", pro_no);
+//		
+//	}
+//	
 }
 	
