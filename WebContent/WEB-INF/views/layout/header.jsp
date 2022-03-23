@@ -7,8 +7,8 @@
 <!-- 헤더안에 적으면 또 적용 안됨 -->
 
 <!-- Bootstrap 3 -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <!-- 메인 CSS 로드 -->
 <link rel="stylesheet" href="/resources/css/main.css">
@@ -60,6 +60,7 @@
     <li><a href="<%=request.getContextPath() %>/member/logout">로그아웃</a></li>
     <li><a href="<%=request.getContextPath() %>/member/infoView">회원정보</a></li>
     <li><a href="<%=request.getContextPath() %>/social/profile">프로필</a></li>
+    <li><a href="<%=request.getContextPath() %>/order/check">주문조회</a></li>
     <li><a href="<%=request.getContextPath() %>/notice/list">공지사항</a></li>
     <li><a href="<%=request.getContextPath() %>/qa/list">Q&A</a></li>
 </ul>
