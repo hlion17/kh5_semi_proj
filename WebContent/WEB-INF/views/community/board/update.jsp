@@ -11,40 +11,6 @@
 <!-- 스마트에디터 2 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
-<style>
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
-*{
-	font-family: 'Jua', sans-serif;
-}
-
-div { 
-	border: none !important;
-} 
-/* button {
-	margin: 5%;
-} */
-.margin {
-	margin: 5%;
-}
-.margin-top{
-	margin: 5%;
-}
-#btnUpdate:before {
-	content: '\F4CA';
-	font-family : bootstrap-icons;
-}
-#btnCancel:before {
-	content: '\F623';
-	font-family : bootstrap-icons;
-}
-</style>
-
 <!-- <form>태그의 submit을 수행하면 editor에 작성한 내용을 <textarea>에 반영 -->
 <script type="text/javascript">
 function submitContents( elClickedObj ) {
@@ -133,23 +99,20 @@ $(document).ready(function() {
 			
 				<div id="beforeFile">
 					<%	if( boardFile != null ) { %>
-							기존 첨부파일: 
-							<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" 
-									alt="" width="400" height="400">
-							<br>
-							<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-							 		download="<%=boardFile.getOriginname() %>">
+							&lt;기존 첨부파일&gt;
+							<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" alt="">
+							<a class="img_a" href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" download="<%=boardFile.getOriginname() %>">
 								<%=boardFile.getOriginname() %>
 							</a>
 							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
 					<% } else { %>
-							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="">
 					<% } %>
 				</div>
 			
 				<div id="afterFile">
-					새 첨부파일:
-					<input type="file" name="file" accept="image/*" />
+					&lt;새 첨부파일&gt;	
+					<br><input class="img_input" type="file" name="file" accept="image/*" /><br>
 				</div>
 				
 			</div>

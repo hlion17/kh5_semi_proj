@@ -40,6 +40,7 @@ public class SocialProfileFollowController extends HttpServlet {
 		//전달파라미터 얻기 - 글작성자 memberno
 		SocialMember boardno = boardService.getMemberno(req);
 		SocialMember viewBoard = boardService.view(boardno);
+		String param = req.getParameter("memberno");
 		
 		//전달할 파라미터 선언
 		int followee = viewBoard.getMemberno();
@@ -67,7 +68,7 @@ public class SocialProfileFollowController extends HttpServlet {
 		
 		System.out.println("[TEST] SocialProfileFollowController - /social/profile로 포워드");
 		System.out.println();
-		req.getRequestDispatcher("/social/profile").forward(req, resp);
+		req.getRequestDispatcher("/social/member?"+"memberno="+param).forward(req, resp);
 		
 	}
 }

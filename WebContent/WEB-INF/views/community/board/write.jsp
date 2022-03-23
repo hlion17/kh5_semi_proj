@@ -3,39 +3,6 @@
 
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-<style>
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
-*{
-	font-family: 'Jua', sans-serif;
-}
-div { 
-	border: none !important;
-} 
-/* button {
-	margin: 5%;
-} */
-.margin {
-	margin: 5%;
-}
-.margin-top{
-	margin: 5%;
-}
-#btnWrite:before {
-	content: '\F4CB';
-	font-family : bootstrap-icons;
-}
-#btnCancel:before {
-	content: '\F623';
-	font-family : bootstrap-icons;
-} 
-</style>
-
 <!-- 스마트에디터2 설치 -->
 <script type="text/javascript" src="../resources/se2/js/service/HuskyEZCreator.js"></script>
 
@@ -72,11 +39,7 @@ function submitContents( elClickedObj ) {
 }
 </script>
 
-<style type="text/css">
-#content {
-	width: 100%;
-}
-</style>
+
 
 <div id="section">
 	<div class="margin-top"></div>

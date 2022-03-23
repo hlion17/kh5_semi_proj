@@ -36,14 +36,12 @@ $(document).ready(function() {
 		<div>
 			<%	if( viewBoard != null ) { %>
 				<%	if( viewBoard.getStored_name() != null ) { %>
-					<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" 
-							alt="" width="400" height="400"><br>
-					<a href="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>"
-							download="<%=viewBoard.getOrigin_name() %>">
+					<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" alt="" width="100%" height="100%"><br>
+					<a href="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" download="<%=viewBoard.getOrigin_name() %>">
 						<%=viewBoard.getOrigin_name() %>
 					</a>
 				<% } else { %>
-					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100%" height="100%">
 				<% } %>
 			<%	} %>
 		</div>
