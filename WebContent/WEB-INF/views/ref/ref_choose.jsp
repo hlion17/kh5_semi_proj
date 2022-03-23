@@ -85,9 +85,9 @@ div {
 </div>
 
 <!-- 냉장고 선택 모달창 띄우는 버튼 -->
-<button id="ref-modal" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ref-choose">
+<!-- <button id="ref-modal" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ref-choose">
  모달창 테스트
-</button>
+</button> -->
 
 </div>
 

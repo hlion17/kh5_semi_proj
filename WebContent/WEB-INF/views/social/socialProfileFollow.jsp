@@ -62,11 +62,11 @@ $(document).ready(function() {
 			<!-- 첨부파일 -->
 			<div id="beforeFile">
 				<%	if( updateBoard.getStored_name() != null ) { %>
-						<img src="<%=request.getContextPath() %>/upload/<%=updateBoard.getStored_name() %>" 
+						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" 
 								alt="그림을 불러오지못함" width="100%" height="100%">
 						<br>
 						기존 첨부파일: 
-						<a href="<%=request.getContextPath() %>/upload/<%=updateBoard.getStored_name() %>"
+						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>"
 						 		download="<%=updateBoard.getOrigin_name() %>">
 							<%=updateBoard.getOrigin_name() %>
 						</a>

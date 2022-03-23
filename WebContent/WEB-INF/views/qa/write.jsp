@@ -103,7 +103,7 @@ function submitContents( elClickedObj ) {
 
 <div class="text-center">	
 	<button type="button" id="btnWrite" class="btn btn-info">&nbsp;작성</button>
-	<button type="buttont" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
+	<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
 </div>
 <div class="margin"></div>
 <!-- .container -->
@@ -121,7 +121,6 @@ nhn.husky.EZCreator.createInIFrame({
 	fCreate: "createSEditor2"
 })
 </script>
-
 
 
 <%@ include file="../layout/footer.jsp" %>

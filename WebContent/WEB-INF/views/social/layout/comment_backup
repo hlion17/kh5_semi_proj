@@ -1,3 +1,15 @@
+------------------첨부파일 이미지 이름및 다운링크 주석 socialFollowee.jsp 0323 1838---------------
+					<!-- 첨부파일 -->
+					<%	if( boardList != null ) { %>
+						<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" 
+								alt="" width="100" height="100">
+<%-- 						<a href="<%=request.getContextPath() %>/upload/<%=boardList.get(i).getStored_name() %>" --%>
+<%-- 								download="<%=boardList.get(i).getOrigin_name() %>"> --%>
+<%-- 							<%=boardList.get(i).getOrigin_name() %> --%>
+<!-- 						</a> -->
+					<%	} %>
+
+-----------------그놈의 널처리.. socialFollower.jsp 주석백업 0323 1837-------------
 <%@page import="dto.Follow"%>
 <%@page import="dto.SocialMember"%>
 <%@page import="java.util.List"%>
@@ -59,6 +71,24 @@ $(document).ready(function() {
 						<% } else { %>
 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
 						<% } %>
+<%-- 						<a href="<%=request.getContextPath() %>/upload/<%=boardList.get(i).getStored_name() %>" --%>
+<%-- 								download="<%=boardList.get(i).getOrigin_name() %>"> --%>
+<%-- 							<%=boardList.get(i).getOrigin_name() %> --%>
+<!-- 						</a> -->
+<%-- 					<%	try { %> --%>
+<%-- 						<%	if( (boardList.get(i).getStored_name().toString()).equals("") ) { %> --%>
+<%-- 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100"> --%>
+<%-- 						<%	} %> --%>
+<%-- 					<%	} catch (NullPointerException e) { %> --%>
+<%-- 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100"> --%>
+<%-- 					<%	} %> --%>
+<%-- 					<%	try { %> --%>
+<%-- 						<%	if( boardList.get(i).getStored_name() == null ) { %> --%>
+<%-- 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100"> --%>
+<%-- 						<%	} %> --%>
+<%-- 					<%	} catch (NullPointerException e) { %> --%>
+<%-- 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100"> --%>
+<%-- 					<%	} %> --%>
 					<%	} %>
 						</td>
 						<td><%=boardList.get(i).getDense_rank() %> 위</td>

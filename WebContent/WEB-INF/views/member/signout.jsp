@@ -92,7 +92,7 @@ $(document).ready(function() {
 	<div class="form-group">
 		<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
 		<div class="col-xs-8">
-			<input type="text" id="memberpw" name="memberpw" class="form-control" required placeholder="비밀번호를 입력하세요."><br><br>
+			<input type="password" id="memberpw" name="memberpw" class="form-control" required placeholder="비밀번호를 입력하세요."><br><br>
 			<button type="sumbit" class="btn btn-primary" >확인</button> 
 			<button type="button" id="btnCancel" class="btn btn-danger">취소</button> 
 		</div>
