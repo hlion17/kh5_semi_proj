@@ -141,7 +141,7 @@ $(document).ready(function() {
 			<label for="zipcode" class="control-label col-xs-2">우편번호</label>
 <%-- 				<td><%=session.getAttribute("zipcode") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" name="zipcode" class="form-control" value="<%=session.getAttribute("zipcode") %>"></td>
+ 				<input type="text" id="zipcode" name="zipcode" class="form-control" value="<%=session.getAttribute("zipcode") %>"></td>
  				<input type="button" value="우편번호찾기" onclick="kakaopost()">
  				</div>
 		</div>
@@ -151,7 +151,7 @@ $(document).ready(function() {
 			<label for="address" class="control-label col-xs-2">주소</label>
 <%-- 				<td><%=session.getAttribute("address") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" name="address" class="form-control" value="<%=session.getAttribute("address") %>"></td>
+ 				<input type="text" id="address" name="address" class="form-control" value="<%=session.getAttribute("address") %>"></td>
  				</div>
 		</div>
 	</tr>

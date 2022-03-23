@@ -67,8 +67,8 @@ div {
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
 			<div class="col-xs-8">
-				<td><%=m.getMemberpw() %> 
-				<input type="hidden" name="memberpw" class="form-control" value="<%=session.getAttribute("memberpw") %>"></td>
+				<td><%-- <%=m.getMemberpw() %> --%> 
+				<input type="password" style="border:0 solid black; text-align:center;" name="memberpw" class="form-control" value="<%=m.getMemberpw() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -76,8 +76,8 @@ div {
 		<div class="form-group">
 			<label for="membername" class="control-label col-xs-2">이름</label>
 			<div class="col-xs-8">
-				<td><%=m.getMembername() %> 
-				<input type="hidden" name="membername" class="form-control" value="<%=session.getAttribute("membername") %>"></td>
+				<td><%-- <%=m.getMembername() %>  --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="membername" class="form-control" value="<%=m.getMembername() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -86,8 +86,8 @@ div {
 		<div class="form-group">
 			<label for="nick" class="control-label col-xs-2">닉네임</label>
 			<div class="col-xs-8">
-				<td><%=m.getNick() %>
-				<input type="hidden" name="nick"class="form-control"  value="<%=session.getAttribute("nick") %>"></td>
+				<td><%-- <%=m.getNick() %> --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="nick"class="form-control"  value="<%=m.getNick() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -106,8 +106,8 @@ div {
 		<div class="form-group">
 			<label for="memberpw" class="control-label col-xs-2">이메일</label>
 			<div class="col-xs-8">
-				<td><%=m.getEmail() %> 
-				<input type="hidden" name="email" class="form-control"  value="<%=session.getAttribute("email") %>"></td>
+				<td><%-- <%=m.getEmail() %> --%> 
+				<input type="text" style="border:0 solid black; text-align:center;" name="email" class="form-control"  value="<%=m.getEmail() %>"></td>
 		</div> 
 		</div> 
 	</tr>
@@ -115,8 +115,8 @@ div {
 		<div class="form-group">
 			<label for="phone" class="control-label col-xs-2">전화번호</label>
 			<div class="col-xs-8">
-				<td><%=m.getPhone() %>
-				<input type="hidden" name="phone" class="form-control" value="<%=session.getAttribute("phone") %>"></td>
+				<td><%-- <%=m.getPhone() %> --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="phone" class="form-control" value="<%=m.getPhone() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -124,8 +124,8 @@ div {
 		<div class="form-group">
 			<label for="zipcode" class="control-label col-xs-2">우편번호</label>
 			<div class="col-xs-8">
-				<td><%=m.getZipcode() %> 
-				<input type="hidden" name="zipcode" class="form-control" value="<%=session.getAttribute("zipcode") %>"></td>
+				<td><%-- <%=m.getZipcode() %>  --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="zipcode" class="form-control" value="<%=m.getZipcode() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -133,8 +133,8 @@ div {
 		<div class="form-group">
 			<label for="address" class="control-label col-xs-2">주소</label>
 			<div class="col-xs-8">
-				<td><%=m.getAddress() %>
-				<input type="hidden" name="address" class="form-control" value="<%=session.getAttribute("address") %>"></td>
+				<td><%-- <%=m.getAddress() %> --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="address" class="form-control" value="<%=m.getAddress() %>"></td>
 		</div>
 		</div>
 	</tr>
@@ -142,8 +142,8 @@ div {
 		<div class="form-group">
 			<label for="intro" class="control-label col-xs-2">자기소개</label>
 			<div class="col-xs-8">
-				<td><%=m.getIntro() %>
-				<input type="hidden" name="intro" class="form-control" value="<%=session.getAttribute("intro") %>"></td><br><br><br>
+				<td><%-- <%=m.getIntro() %> --%>
+				<input type="text" style="border:0 solid black; text-align:center;" name="intro" class="form-control" value="<%=m.getIntro() %>"></td><br><br><br>
 		</div>
 		</div>
 	</tr>
