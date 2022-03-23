@@ -389,4 +389,70 @@ public class SocialDaoImpl implements SocialDao {
 		return res;
 	}
 
+	@Override
+	public Follow checkFollowPK(Connection conn, int followee, int follower) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  checkFollowPK(conn, int, int)  호출");
+		
+		//반환할 객체
+		Follow dbValue = null;
+		
+		String sql = "";
+		sql += "SELECT * FROM follow";
+		sql += " WHERE followee = ? AND follower = ?";
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee); //둘다 똑같은 번호가 있는지 확인
+			ps.setInt(2, follower);
+
+			rs = ps.executeQuery();
+			
+			while( rs.next() ) {
+				dbValue = new Follow();
+				
+				dbValue.setFollowee(rs.getInt("followee")); //있으면 값이 들어감
+				dbValue.setFollower(rs.getInt("follower")); //즉, dbValue값이 있으면 중복
+			}
+			
+		} catch (NullPointerException e) {
+//			dbValue.setFollowRes(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		System.out.println("[TEST] followee : " + followee + " / follower : " + follower);
+		System.out.println("[TEST] SocialMemberDaoImpl -  checkFollowPK(conn, int, int)  리턴 dbValue : " + dbValue);
+		return dbValue;
+	}
+
+	@Override
+	public int setFollow(Connection conn, int followee, int follower, HttpServletRequest req) {
+		System.out.println("[TEST] SocialMemberDaoImpl -  setFollow(conn, int, int)  호출");
+		
+		String sql = "";
+		sql += "INSERT INTO follow( followee, follower )";
+		sql += " VALUES (?, ?)";
+		
+		int res = 0;
+		
+		try {
+			//DB작업
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, followee);
+			ps.setInt(2, follower);
+
+			res = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(ps);
+		}
+		
+		System.out.println("[TEST] SocialMemberDaoImpl -  setFollow(conn, int, int)  리턴 res : " + res);
+		return res;
+	}
 }

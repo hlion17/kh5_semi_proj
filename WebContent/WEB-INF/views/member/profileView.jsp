@@ -13,10 +13,10 @@
 	$(location).attr('href', '/member/profile')
 }) 
 </script>
-
+<!-- /upload  -> /resources/img/member 로 변경 0323 1206 병수 -->
 <div>
 <%	if( viewProfile != null ) { %>
-	<a href="<%=request.getContextPath() %>/upload/<%=viewProfile.getStoredname() %>"
+	<a href="<%=request.getContextPath() %>/resources/img/member/<%=viewProfile.getStoredname() %>"
 	 download="<%=viewProfile.getOriginname() %>">
 		<%=viewProfile.getOriginname() %>
 	</a>
@@ -28,10 +28,12 @@
 		 alt="프로필 이미지를 불러오지 못했습니다." width="20%" height="20%"> 
 <%	} %>
 </div>
-	<!-- 첨부파일 -->
+
+<!-- /upload  -> /resources/img/member 로 변경 0323 1206 병수 -->
+<!-- 첨부파일 -->
 <div>
 <%	if( viewProfile != null ) { %>
-	<img src="<%=request.getContextPath() %>/upload/<%=viewProfile.getStoredname() %>" 
+	<img src="<%=request.getContextPath() %>/resources/img/member/<%=viewProfile.getStoredname() %>" 
 			 alt="그림을 불러오지못함" width="100%" height="100%"><br>
 	<a href="<%=request.getContextPath() %>/upload/<%=viewProfile.getStoredname() %>"
 			download="<%=viewProfile.getOriginname() %>">
