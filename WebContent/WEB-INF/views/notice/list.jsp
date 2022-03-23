@@ -67,7 +67,7 @@ $(document).ready(function() {
 <hr>
 
 <table class="table table-striped table-hover table-condensed">
-<tr class="success">
+<tr class="info">
 	<th>글번호</th>
 	<th>제목</th>
 	<th>아이디</th>
