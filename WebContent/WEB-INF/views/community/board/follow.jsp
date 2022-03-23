@@ -103,6 +103,8 @@ $(document).ready(function() {
 					download="<%=boardFile.getOriginname() %>">
 				<%=boardFile.getOriginname() %>
 			</a>
+		<% } else { %>
+			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
 		<% } %>
 	</div>
 

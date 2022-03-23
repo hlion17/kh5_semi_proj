@@ -77,17 +77,18 @@ $(document).ready(function() {
 				<th>조회수</th>
 			</tr>
 			
-			<%	for(int i=0; i<boardList.size(); i++) { %>
-			<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>'">
-				<td><%=boardList.get(i).getBoardno() %></td>
-				<td><%=boardList.get(i).getTitle() %></a></td>
-				<td><%=boardList.get(i).getNick() %></td>
-				<td><%=boardList.get(i).getWriteDate() %></td>
-				<td><%=boardList.get(i).getLike() %></td>
-				<td><%=boardList.get(i).getHit() %></td>
-			</tr>
+			<%	if( boardList != null ) { %>
+				<%	for(int i=0; i<boardList.size(); i++) { %>
+				<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno() %>'">
+					<td><%=boardList.get(i).getBoardno() %></td>
+					<td><%=boardList.get(i).getTitle() %></a></td>
+					<td><%=boardList.get(i).getNick() %></td>
+					<td><%=boardList.get(i).getWriteDate() %></td>
+					<td><%=boardList.get(i).getLike() %></td>
+					<td><%=boardList.get(i).getHit() %></td>
+				</tr>
+				<%	} %>
 			<%	} %>
-		
 		</table>
 	</div>
 	

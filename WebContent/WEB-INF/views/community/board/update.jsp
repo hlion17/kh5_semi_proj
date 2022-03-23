@@ -130,6 +130,7 @@ $(document).ready(function() {
 			
 			<!-- 첨부파일 -->
 			<div>
+			
 				<div id="beforeFile">
 					<%	if( boardFile != null ) { %>
 							기존 첨부파일: 
@@ -141,13 +142,16 @@ $(document).ready(function() {
 								<%=boardFile.getOriginname() %>
 							</a>
 							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-					<%	} %>
+					<% } else { %>
+							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+					<% } %>
 				</div>
 			
 				<div id="afterFile">
 					새 첨부파일:
 					<input type="file" name="file" accept="image/*" />
 				</div>
+				
 			</div>
 			<br>
 		</form>
