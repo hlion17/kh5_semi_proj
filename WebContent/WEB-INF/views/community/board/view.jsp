@@ -14,21 +14,16 @@
 $(document).ready(function() {
 	//목록버튼
 	$("#btnList").click(function() {
-<%-- 		<% 		System.out.println("목록버튼클릭!"); %> --%>
-		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/board");
 	})
 	
 	//수정버튼
 	$("#btnUpdate").click(function() {
-<%-- 		<% 		System.out.println("수정버튼클릭!"); %> --%>
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/update?boardno=<%=viewBoard.getBoardno() %>");
 	})
 	
 	//삭제버튼
 	$("#btnDelete").click(function() {
-<%-- 		<% 		System.out.println("삭제버튼클릭!"); %> --%>
-		
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
 			$(location).attr("href", "<%=request.getContextPath() %>/recipe/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
@@ -37,8 +32,6 @@ $(document).ready(function() {
 	//팔로우버튼
 	$("#btnFollow").click(function() {
 		console.log("#btnFollow clicked")
-<%-- 		<% 		System.out.println("팔로우버튼클릭!"); %> --%>
-		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		
 		<%	try { %> 
@@ -65,8 +58,6 @@ $(document).ready(function() {
 	//추천버튼
 	$("#btnLike").click(function() {
 		console.log("#btnLike clicked")
-<%-- 		<% 		System.out.println("추천버튼클릭!"); %> --%>
-		
 		<%	try { %> 
 		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
 		<% 		System.out.println("추천불가메시지 출력!"); %>
@@ -119,11 +110,13 @@ $(document).ready(function() {
 
 	<div class="text-center">
 		<button id="btnList" class="btn btn-primary">목록</button>
+		<button id="btnLike" class="btn btn-success">추천</button>
+		<% 	if( viewBoard.getUserid() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
 		<button id="btnUpdate" class="btn btn-info">수정</button>
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
-		
+		<% 	} else { %>
 		<button id="btnFollow" class="btn btn-success">팔로우</button>
-		<button id="btnLike" class="btn btn-success">추천</button>
+		<% 	} %>
 	</div>
 	
 </div><!-- #section -->
