@@ -8,6 +8,46 @@
 
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+/* .border{
+	border: 1px solid #ccc;
+} */
+  h1:before {
+	content: '\F484';
+	font-family : bootstrap-icons;
+}
+button:before {
+	content: '\F4CB';
+	font-family : bootstrap-icons;
+} 
+</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -21,13 +61,14 @@ $(document).ready(function() {
 
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h1>레시피 자랑 게시판</h1>
+	<h1>&nbsp;레시피 자랑</h1>
 	<hr>
 
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-			<tr class="success">
+			<tr class="info">
 				<th>번호</th>
 				<th>제목</th>
 				<th>글쓴이</th>
@@ -52,8 +93,9 @@ $(document).ready(function() {
 	
 	<!-- 글쓰기 버튼 -->
 	<div id="btnBox" class="pull-left">
-		<button id="btnWrite" class="btn btn-primary">글쓰기</button>
+		<button id="btnWrite" class="btn btn-primary">&nbsp;글쓰기</button>
 	</div>
+	<div class="margin"></div>
 	
 <%@ include file="/WEB-INF/views/community/board/paging.jsp" %>
 

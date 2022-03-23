@@ -10,6 +10,55 @@
 <%	int b = viewBoard.getBoardno(); %>
 <%	HttpSession s = request.getSession(); %>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+form {
+	width: 600px;
+	margin: 0 auto;
+}
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+#btnList:before {
+	content: '\F479';
+	font-family : bootstrap-icons;
+}  
+#btnUpdate:before {
+	content: '\F4CA';
+	font-family : bootstrap-icons;
+}  
+#btnDelete:before {
+	content: '\F5DE';
+	font-family : bootstrap-icons;
+}
+#btnLike:before {
+	content: '\F407';
+	font-family : bootstrap-icons;
+}
+#btnFollow:before {
+	content: '\F4CF';
+	font-family : bootstrap-icons;
+}
+</style>
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 	//목록버튼
@@ -23,7 +72,7 @@ $(document).ready(function() {
 	})
 	
 	//삭제버튼
-	$("#btnDelete").click(function() {
+	$("#btnDelete").click(function() {		
 		if( confirm("게시글을 삭제하시겠습니까?") ) {
 			$(location).attr("href", "<%=request.getContextPath() %>/recipe/delete?boardno=<%=viewBoard.getBoardno() %>");
 		}
@@ -31,7 +80,7 @@ $(document).ready(function() {
 	
 	//팔로우버튼
 	$("#btnFollow").click(function() {
-		console.log("#btnFollow clicked")
+		console.log("#btnFollow clicked")		
 		$(location).attr("href", "<%=request.getContextPath() %>/recipe/follow?boardno=<%=viewBoard.getBoardno() %>");
 		
 		<%	try { %> 
@@ -57,7 +106,7 @@ $(document).ready(function() {
 	
 	//추천버튼
 	$("#btnLike").click(function() {
-		console.log("#btnLike clicked")
+		console.log("#btnLike clicked")		
 		<%	try { %> 
 		<%		boolean lf = (boolean)request.getSession().getAttribute( "like_" + b ); %> 
 		<% 		System.out.println("추천불가메시지 출력!"); %>
@@ -76,7 +125,8 @@ $(document).ready(function() {
 
 
 <div id="section">
-	<h1>게시글 상세보기</h1>
+<div class="margin-top"></div>
+	<!-- <h1>게시글 상세보기</h1> -->
 	<div>
 		<table class="table table-bordered">
 			<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
@@ -109,15 +159,16 @@ $(document).ready(function() {
 	</div>
 
 	<div class="text-center">
-		<button id="btnList" class="btn btn-primary">목록</button>
-		<button id="btnLike" class="btn btn-success">추천</button>
+		<button id="btnList" class="btn btn-primary">&nbsp;목록</button>
+		<button id="btnLike" class="btn btn-success">&nbsp;추천</button>
 		<% 	if( viewBoard.getUserid() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
-		<button id="btnUpdate" class="btn btn-info">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		<button id="btnUpdate" class="btn btn-info">&nbsp;수정</button>
+		<button id="btnDelete" class="btn btn-danger">&nbsp;삭제</button>
 		<% 	} else { %>
-		<button id="btnFollow" class="btn btn-success">팔로우</button>
+		<button id="btnFollow" class="btn btn-warning">&nbsp;팔로우</button>
 		<% 	} %>
 	</div>
+	<div class="margin"></div>
 	
 </div><!-- #section -->
 

@@ -11,6 +11,40 @@
 <!-- 스마트에디터 2 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<style>
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+*{
+	font-family: 'Jua', sans-serif;
+}
+
+div { 
+	border: none !important;
+} 
+/* button {
+	margin: 5%;
+} */
+.margin {
+	margin: 5%;
+}
+.margin-top{
+	margin: 5%;
+}
+#btnUpdate:before {
+	content: '\F4CA';
+	font-family : bootstrap-icons;
+}
+#btnCancel:before {
+	content: '\F623';
+	font-family : bootstrap-icons;
+}
+</style>
+
 <!-- <form>태그의 submit을 수행하면 editor에 작성한 내용을 <textarea>에 반영 -->
 <script type="text/javascript">
 function submitContents( elClickedObj ) {
@@ -77,8 +111,9 @@ $(document).ready(function() {
 </style>
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h3>게시글 쓰기</h3>
+	<!-- <h3>게시글 쓰기</h3> -->
 	<hr>
 
 	<div>
@@ -119,9 +154,10 @@ $(document).ready(function() {
 	</div>
 
 	<div class="text-center">	
-		<button type="button" id="btnUpdate" class="btn btn-info">수정</button>
-		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+		<button type="button" id="btnUpdate" class="btn btn-info">&nbsp;수정</button>
+		<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
 	</div>
+	<div class="margin"></div>
 
 </div><!-- #section -->
 
