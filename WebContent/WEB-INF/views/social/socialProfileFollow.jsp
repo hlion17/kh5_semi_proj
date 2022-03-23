@@ -58,12 +58,12 @@ $(document).ready(function() {
 	<div>
 		<form action="/social/profile/update" method="post" enctype="multipart/form-data">
 			
-		<div>	
+		<div>
 			<!-- 첨부파일 -->
 			<div id="beforeFile">
 				<%	if( updateBoard.getStored_name() != null ) { %>
 						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" 
-								alt="그림을 불러오지못함" width="100%" height="100%">
+								alt="" width="400" height="400">
 						<br>
 						기존 첨부파일: 
 						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>"
@@ -71,7 +71,9 @@ $(document).ready(function() {
 							<%=updateBoard.getOrigin_name() %>
 						</a>
 						<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-				<%	} %>
+				<% } else { %>
+						<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+				<% } %>
 			</div>
 			
 			<div id="afterFile">

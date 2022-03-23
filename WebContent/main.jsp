@@ -6,7 +6,9 @@
 <!-- header -->
 <%@include file="/WEB-INF/views/layout/header.jsp"%>
 
+<style>
 
+</style>
 
 <!-- footer page -->
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>

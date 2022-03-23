@@ -42,7 +42,6 @@ public class MemberLoginController extends HttpServlet {
 		
 		if(isLogin == false) {
 			PrintWriter out = resp.getWriter();
-			 
 			out.println("<script>alert('아이디와 패스워드가 일치하지 않습니다'); location.href='/member/login';</script>");
 			 
 			out.flush();

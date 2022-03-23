@@ -53,12 +53,14 @@ $(document).ready(function() {
 						<td>
 					<!-- 첨부파일 -->
 					<%	if( boardList != null ) { %>
+					
 						<% if( boardList.get(i).getImage_no() != 0 ) { %>
 							<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" 
 									alt="" width="100" height="100">
 						<% } else { %>
 							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
 						<% } %>
+						
 					<%	} %>
 						</td>
 						<td><%=boardList.get(i).getDense_rank() %> 위</td>

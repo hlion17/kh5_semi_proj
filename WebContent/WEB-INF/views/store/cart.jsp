@@ -10,7 +10,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inspiration&family=Roboto:wght@300&display=swap" rel="stylesheet">
-   
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+ <!-- 글꼴 라이브러리  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <!-- iamport.payment.js -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
 
@@ -38,27 +44,35 @@
 .userhi {
 	text-align: center;
 	font-size: 50px;
-	
+	margin: 50px;
+	font-family: 'Black Han Sans', sans-serif;
 }
+
 
 .delete {
 	border: 1px solid black;
 	background: yellow;
 }
 
-.cartinfo {
-	
+.table {
+	width: 100%
 }
 
 #btn{
 	background: red;
 }
 
-
-th {
+th, tr {
 	text-align: center;
 }
 
+.cart {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+.btns {
+	text-align: center;
+
+}
 </style>
 
 
@@ -67,63 +81,81 @@ th {
 <%@include file = "/WEB-INF/views/layout/header.jsp" %>
 
  <div id="main">
-		<div class="userhi"><%=session.getAttribute("memberid")%>님의 장바구니 목록</div>
+ 
+ 	<div class="userhi">
+ 		<i class="bi bi-heart"></i>
+		<span><%=session.getAttribute("memberid")%>의 장바구니</span>
+		<i class="bi bi-heart"></i>
+	</div>
+	
+	
+	<div class="cart">
+		<table class="table" >
 		
-		<table class="table-bordered table-condensed" >
+			<tr class="tr">
 				<th width=45%>상품정보</th>
 				<th width=20%>상품금액</th>
 				<th width=5%>수량</th>
 				<th width=10%>배송비</th>
-				<th width=20% colspan="2"></th>
-<!-- 				<th width=10%></th> -->
-				
+				<th width=20%>수정/삭제</th>
 			</tr>
 			
-			<!-- 장바구니가 null일 때 확인되는 문구  -->
-			<% if (cartList == null) { %> 
-			<div>장바구니에 넣은 상품이 없습니다.</div>
-			<% } else { %>
-			<!-- 장바구니에 상품이 있을 때 확인되는 부분  -->
-			<% for (Cart c : cartList) { %> 
-			<form action="/cart/update" method="post">
-				<tr>
-					<input type="hidden" disabled value="<%=c.getCart_no()%>">
-					<td><%=c.getName()%></td>
-					<% itemName = c.getName(); %>
-					
-					<input type="hidden" disabled value="<%=c.getMember_no()%>">
-					<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
-					<td> <input disabled value="<%=c.getPrice()%>"><br></td>
-					<td> <input type="text" name="proQty" value="<%=c.getQuantity()%>"></td>
-					<td> 무료배송</td>
-					<td><button>수정</button></td>
-					<td>
-					</form>
-					<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
-						<% sum += c.getPrice() * c.getQuantity(); %>
-			<% } %>	
-			<% } %>	
-					</td>
-				</tr>
-			
-	
+			<tr>
+				<!-- 장바구니가 null일 때 확인되는 문구  -->
+				<% if (cartList == null) { %> 
+				<div>장바구니에 넣은 상품이 없습니다.</div>
+				
+				<% } else { %>
+				
+				<!-- 장바구니에 상품이 있을 때 확인되는 부분  -->
+				<% for (Cart c : cartList) { %> 
+				<form action="/cart/update" method="post">
+						<input type="hidden" disabled value="<%=c.getCart_no()%>">
+						<td>
+<%-- 							<img class="img" alt=""src="/resources/img/store/item_<%=c.getPro_no()%>.jpg"> --%>
+<%-- 							<%=c.getName()%> --%>
+						</td>
+						<% itemName = c.getName(); %>
+						
+						<input type="hidden" disabled value="<%=c.getMember_no()%>">
+						<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
+						
+						<td> <input disabled value="<%=c.getPrice()%>"><br></td>
+						<td> <input type="text" name="proQty" value="<%=c.getQuantity()%>"></td>
+						
+						<td>무료배송</td>
+						<td><button>수정</button>
+						
+				</form>
+						<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
+							<% sum += c.getPrice() * c.getQuantity(); %>
+								<% } %>
+						<% } %>	
+						</td>
+			</tr>
+				
 		</table>
+
+
+	<hr>
 			
 	<div>금액 합계: <%= sum %>원</div>
 
 	<br>
-	<hr>
 	
 <!-- 	<button type="button" id="btn" onclick="location.href='payment'">결제</button> -->
 	<button type="button" id="btn-payment" >결제</button>
 	<button type="button" id="btn" onclick="location.href='store'">쇼핑하기</button>
-	<button type="button" id="btn" onclick="location.href='/order'">주문하기</button>
 	
-</div>
+	</div>
 
 
+
+
+
+
+<!-- 아이포트 결제 모듈 -->
 <script type="text/javascript">
-//결제 모듈
 $(document).ready(function() {
 		
 		$("#btn-payment").click(function() {

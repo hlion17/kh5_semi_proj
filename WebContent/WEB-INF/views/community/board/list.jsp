@@ -28,8 +28,8 @@ $(document).ready(function() {
 	<div>
 		<table class="table table-striped table-hover table-condensed">
 			<tr class="success">
-				<th>게시글 번호</th>
-				<th>게시글 제목</th>
+				<th>번호</th>
+				<th>제목</th>
 				<th>글쓴이</th>
 				<th>등록일</th>
 				<th>추천수</th>

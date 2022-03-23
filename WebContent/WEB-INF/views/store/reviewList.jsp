@@ -66,6 +66,12 @@ h1 {
 	margin-top: 30px;
 	margin-bottom: 20px;
 }
+
+th {
+	float: none; 
+	margin:0 auto;
+}
+
 </style>
 
 
@@ -87,7 +93,7 @@ h1 {
 	
 	<!-- 글쓰기 버튼 -->
 	<div id="btnBox" class="pull-left">
-		<button id="btnWrite" class="btn btn-success btn-sm" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
+		<button id="btnWrite" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
 	</div>
 	
 	<!-- 검색창 설정 -->	
@@ -101,7 +107,7 @@ h1 {
 					</select></td>
 					<td><input type="text" class="form-control"
 						placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type="submit" class="btn btn-success">검색</button></td>
+					<td><button type="submit" class="btn btn-primary">검색</button></td>
 				</tr>
 			</table>
 		</form>
@@ -109,8 +115,8 @@ h1 {
 
 
 	<div class="container">
-		<table class="table table-striped table-bordered table-hover active">
-			<tr class="success" >
+		<table class="table table-striped table-hover table-condensed">
+			<tr class="info" >
 				<th width=10%>NO</th>
 				<th width=20%>제목</th>
 <!-- 				<th width=10%>상품번호</th> -->

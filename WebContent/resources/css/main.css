@@ -1,18 +1,19 @@
 * {
-    margin: 0;
+  /*   margin: 0;
     padding: 0;
     box-sizing: border-box;
-    list-style: none; 
+    list-style: none;  */
 }
 
 div {
-    border: 1px solid black;
+    /* border: 1px solid black;
     background: beige;
-    margin: 5px 0px;
+    margin: 5px 0px; */
 }
 ul {
-	border: 1px solid black;
-	padding: 0;
+	/* border: 1px solid black;
+	padding: 0; */
+	list-style: none;
 }
 li {
 	padding: 0;
@@ -20,7 +21,7 @@ li {
 
 /* header */
 header {
-    background: beige;
+    /* background: beige; */
     height: 50px;
     width: 100%;
 }
@@ -45,7 +46,7 @@ header {
 
 /* navigator */
 nav {
-    background: beige;
+    /* background: beige; */
     width: 100%;
     height: 50px;
 }
@@ -73,7 +74,7 @@ nav {
 
 /* footer */
 footer {
-    background: beige;
+    /* background: beige; */
     width: 100%;
     height: 50px;
 }
@@ -122,7 +123,7 @@ footer {
 }
 #section {
     float: right;
-	background: beige;
+	/* background: beige; */
     min-height: 700px;
     width: 78%;
     margin: 5px 5px;

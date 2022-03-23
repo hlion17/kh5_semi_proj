@@ -127,8 +127,11 @@ h2 {
 
 .free {
 	background: #77af9c;
-	border-radius: 50%;
-
+    border-radius: 43%;
+    margin: 20;
+    color: white;
+    font-size: small;
+    padding: 3;
 }
 </style>
 
@@ -153,6 +156,7 @@ h2 {
 				<a href="./productInfo?pro_no=<%=productList.get(i).getPro_no() %>">
 				<img src="/resources/img/store/item_<%= productList.get(i).getPro_no() %>.jpg"
 					class="img-thumbnail"></a>
+				
 					
 <%-- 								<div class="pro-item-first"><%=productList.get(i).getPro_no() %></div> --%>
 				<div class="pro-item-second">

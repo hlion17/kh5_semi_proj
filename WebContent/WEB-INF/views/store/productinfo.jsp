@@ -16,7 +16,9 @@
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inspiration&family=Noto+Sans+KR&family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Do+Hyeon&family=Inspiration&family=Noto+Sans+KR&family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+
 
 <!-- iamport.payment.js -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js" type="text/javascript"></script>
@@ -24,15 +26,8 @@
 
 <%
 	Product ProductList = (Product) request.getAttribute("viewProduct");
+	
 	int memberNo = (Integer) session.getAttribute("memberno");
-%>
-
-
-
-
-<%
-// 	List<OrderResult> list = (List<OrderResult>) request.getAttribute("list");
-	// 결제 정보에 필요한 데이터 로드
 	String email = (String) session.getAttribute("email");
 	String address = (String) session.getAttribute("address");
 	String phone = (String) session.getAttribute("phone");
@@ -52,6 +47,8 @@ body { padding: 50px;}
 
 #main {
  	text-align: center;
+ 	font-family: font-family: 'Noto Sans KR', sans-serif;
+ 	
 /*  	position: relative; padding: 0 0 0 395px; widhth:962px; box-sizing: border-box;  */
 } 
 
@@ -60,40 +57,49 @@ body { padding: 50px;}
 	width: 450px; height: 450px; border: 1px solid #e8e8e8; margin: 20px; 
 	float: left; 
 }
+
+.itemPrice {
+    font-size: 17px;
+    text-align: initial;
+    margin: 0px 0 0 474px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 	 
 #productInfo {
-	margin:  0 auto;
-	padding : center;
+	text-align: center;
+    margin: 0 auto;
+
 	
 }
 
-.desciption {
+.description {
 	text-align: center;
+	margin: 0 auto;
+    font-size: 43px;
+    margin: 50 70 100;
+    background: #46ae4f;
+    color: white;
 }
 
 /* 상세설명 이미지 */
 #productInfo {
 	height: 170px;
 	margin: 0 auto;
-	font-family: 'Noto Sans KR', sans-serif;
+	padding: 50px;
 }
 
 .itemName {
 /* 	height: 50px; */
 	font-size: 30px;
-	text-align: center;
+    font-size: 30px;
+    text-align: initial;
+    margin: 0 0 0 474;
 	
 }
 
-
-
-#btn-to-order, #btn-to-payment, #btn-to-cart {
-	border: 1px solid black;
- }
-
-.btn:hover{
-	background: red;
-	
+.prc {
+	font-size: 10px;
+	color: red;
 }
 
 
@@ -102,7 +108,39 @@ h1 {
 	padding: 0 50 50px;
 }
 
+.btn-cart{
+	background: #fff;
+	color: #46ae4f;
+	border: 1px solid #46ae4f;
+	width: 264px;
+	height: 54px;
+	padding: 18px 0 19px;
+}
 
+.btn-pay{
+	background: #46ae4f;
+	border: 1px solid #46ae4f;
+	color: #fff;
+	width: 264px;
+	height: 54px;
+	padding: 18px 0 19px;
+
+}
+
+.free{
+    background: #46AE32;
+    border-radius: 43%;
+    margin: 20;
+    color: white;
+    font-size: small;
+    padding: 3;
+}
+
+.prc {
+	font-size: 40px;
+    color: #46AE32;
+	
+}
 </style>
 
 
@@ -132,30 +170,35 @@ $(document).ready(function() {
 	<div class="container">
 		<img class="thumbnail" alt=""
 			src="/resources/img/store/item_<%=ProductList.getPro_no()%>.jpg">
-			
-			
+
+	
+	<span>		
 		<div id="productInfo">
 			
-			<span class="itemName"><%=ProductList.getName()%></span><br>
-			<span>
+			<div class="itemName"><%=ProductList.getName()%></div><br>
+		
+			<div class="itemPrice">
 <%-- 			상품번호: <%=ProductList.getPro_no()%> --%>
-			상품가격: <%=ProductList.getPrice()%>원
-			</span>
+			<small>상품가격:</small> <span class="prc"><%=ProductList.getPrice()%></span> <small>원</small>
+			<span class="free">무료배송</span>
 			
+			<hr>
+			<div>판매자: 냉스타그램</div>
+			<div>택배사: CJ택배</div>
+			<hr>
 			<form action="/cart/add" method="post">
 				<input type="hidden" name="memberNo" value="<%=memberNo%>">
 				<input type="hidden" name="proNo" value="<%=ProductList.getPro_no()%>"> 
-				수량: <input type="text" name="proQty" value="1" placeholder="수량을 입력하세요">개 
+				수량: <input type="text" name="proQty" value="1" placeholder="구매할 수량을 입력하세요">개 
 				<input type="hidden" name="proPrice" class="proprice" value="<%=ProductList.getPrice()%>"> 
-				
+			</div>
 				<br><br>
 				
-				<button id="btn-to-cart" class="btn btn-outline-info" type="submit" onclick="addcart()">장바구니에 담기</button>		
+			<button id="btn-to-cart" class="btn-cart" type="submit" onclick="addcart()">장바구니</button>		
 			</form>
 			
-			<br>
+			<button id="btn-to-payment" class="btn-pay" type="button" >바로구매</button>
 <!-- 			<button id="btn-to-order" type="button">주문하기</button> -->
-			<button id="btn-to-payment" type="button" >결제</button>
 		</div>
 			
 			<!-- 리뷰게시판 연결 -->
@@ -163,31 +206,34 @@ $(document).ready(function() {
 <%-- 			<button type="button" onclick="location.href='review/list/info?reviewno=' + <%=ProductList.get(i).getReview_no()%>">리뷰게시판</button> --%>
 <%-- 			<% } %> --%>
 
+	</span>
+
 	</div>
+	
 	
 	<hr>
 	
 	<p style="clear:both;" class="desciption">
-	<h1 background="yellow">상세 설명</h1>
+	<div class="description">상세 설명</div>
 	<img class="productInfo"
 		src="/resources/img/store/iteminfo_<%=ProductList.getPro_no()%>.jpg">
 	<p>
-
+	
+	
+	
 </div>
 
 
-
 <script type="text/javascript">
-	function addcart() {
-		if (confirm('장바구니 페이지로 이동하시겠습니까?')) {
-// 			console.log("true")
-			location.href = 'cart';
-		} else {
-// 			console.log("false")
-		}
-	};
-		
+function addcart() {
+	if (confirm('장바구니 페이지로 이동하시겠습니까?')) {
+		location.href = 'cart';
+	} else {
+		//장바구니 담기 누르고 취소하면 안담기고 이동됨 -> 담기고 이동안되게끔 해야한다 
+	}
+};
 </script>
+
 
 <% 
 	System.out.println(ProductList.getName());
@@ -200,8 +246,12 @@ $(document).ready(function() {
 %>
 
 
+
+
+
+
+<!-- 결제모듈  -->
 <script type="text/javascript">
-//결제 모듈
 $(document).ready(function() {
 	
 	$("#btn-to-payment").click(function() {
