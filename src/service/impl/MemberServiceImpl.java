@@ -361,7 +361,7 @@ public class MemberServiceImpl implements MemberService {
 				String uid = UUID.randomUUID().toString().split("-")[0]; // 8자리 UUID
 
 				// 파일 업로드 폴더
-				File uploadFolder = new File(context.getRealPath("upload"));
+				File uploadFolder = new File(context.getRealPath("/resources/img/member"));
 				uploadFolder.mkdir();
 
 				// 파일명 처리
