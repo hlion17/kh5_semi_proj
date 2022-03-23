@@ -97,9 +97,9 @@ $(document).ready(function() {
 	<!-- 첨부파일 -->
 	<div>
 	<%	if( boardFile != null ) { %>
-		<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" 
+		<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" 
 				alt="그림을 불러오지못함" width="100%" height="100%"><br>
-		<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
+		<a href="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>"
 				download="<%=boardFile.getOriginname() %>">
 			<%=boardFile.getOriginname() %>
 		</a>

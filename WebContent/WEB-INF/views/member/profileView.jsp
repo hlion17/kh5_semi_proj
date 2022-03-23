@@ -34,7 +34,7 @@
 <div>
 <%	if( viewProfile != null ) { %>
 	<img src="<%=request.getContextPath() %>/resources/img/member/<%=viewProfile.getStoredname() %>" 
-			 alt="그림을 불러오지못함" width="100%" height="100%"><br>
+			 alt="그림을 불러오지못함" width="300" height="300"><br>
 	<a href="<%=request.getContextPath() %>/upload/<%=viewProfile.getStoredname() %>"
 			download="<%=viewProfile.getOriginname() %>">
 		<%=viewProfile.getOriginname() %>
