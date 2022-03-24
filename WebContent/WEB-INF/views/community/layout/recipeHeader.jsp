@@ -82,7 +82,9 @@ table, tr, th, td {
 	max-width: 300;
 	max-height: 300;
 }
-
+.board_content {
+	text-align: left;
+}
 
 </style>
 

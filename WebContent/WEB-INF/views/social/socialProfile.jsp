@@ -29,23 +29,24 @@ $(document).ready(function() {
 
 <div id="section">
 	<h1 id="my_profile">&nbsp;마이 프로필</h1>
-	<hr>
-	<!-- 첨부파일 -->
-	<div>
 	
-		<div>
-			<%	if( viewBoard != null ) { %>
-				<%	if( viewBoard.getStored_name() != null ) { %>
-					<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" alt=""><br>
-					<a href="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" download="<%=viewBoard.getOrigin_name() %>">
-						<%=viewBoard.getOrigin_name() %>
-					</a>
-				<% } else { %>
-					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100%" height="100%">
-				<% } %>
-			<%	} %>
+	<hr>
+	
+	<div class="text-center">
+		<div class="text-center">
+<%-- 			<%	if( viewBoard != null ) { %> --%>
+			<%	if( viewBoard.getStored_name() != null ) { %>
+				<!-- 첨부파일 -->
+				<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" alt=""><br>
+				<a class="img_a" href="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" download="<%=viewBoard.getOrigin_name() %>">
+					<%=viewBoard.getOrigin_name() %>
+				</a >
+			<% } else { %>
+				<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+			<% } %>
+<%-- 			<%	} %> --%>
 		</div>
-		
+		<br>
 		<div class="text-center">
 			<% 	if( viewBoard.getMemberno() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
 					<button id="btnUpdate" class="btn btn-info">이미지 수정</button>
@@ -53,10 +54,8 @@ $(document).ready(function() {
 					<button id="btnFollow" class="btn btn-info">팔로우</button>
 			<% 	} %>
 		</div>
-		
-	</div>
+		<br>
 	
-	<div>
 		<%	if( viewBoard != null ) { %>
 			<table class="table table-bordered">
 				<tr><td class="info">회원번호</td><td colspan="3"><%=viewBoard.getMemberno() %></td></tr>

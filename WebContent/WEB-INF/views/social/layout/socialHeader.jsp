@@ -108,6 +108,9 @@ table, tr, th, td {
 	max-height: 300
 }
 
+.board_content {
+	text-align: left;
+}
 </style>
 
 <div class="container"><!---------------- .container ---------------------->

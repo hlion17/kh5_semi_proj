@@ -8,54 +8,6 @@
 
 <%	SocialMember updateBoard = (SocialMember) request.getAttribute("updateBoard"); %>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-<style>
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
-*{
-	font-family: 'Jua', sans-serif;
-}
-form {
-	width: 600px;
-	margin: 0 auto;
-}
-div { 
-	border: none !important;
-} 
-/* button {
-	margin: 5%;
-} */
-.margin {
-	margin: 5%;
-}
-.margin-top{
-	margin: 5%;
-}
-#btnList:before {
-	content: '\F479';
-	font-family : bootstrap-icons;
-}  
-#btnUpdate:before {
-	content: '\F4CA';
-	font-family : bootstrap-icons;
-}  
-#btnDelete:before {
-	content: '\F5DE';
-	font-family : bootstrap-icons;
-}
-#btnLike:before {
-	content: '\F407';
-	font-family : bootstrap-icons;
-}
-#btnFollow:before {
-	content: '\F4CF';
-	font-family : bootstrap-icons;
-}
-</style>
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -103,7 +55,7 @@ $(document).ready(function() {
 	<h3>프로필 수정</h3>
 	<hr>
 
-	<div>
+	<div class="text-center">
 		<form action="/social/profile/update" method="post" enctype="multipart/form-data">
 			
 		<!-- 첨부파일 -->

@@ -82,7 +82,7 @@ $(document).ready(function() {
 				<div id="beforeFile">
 					<%	if( updateBoard.getStored_name() != null ) { %>
 						<!-- 첨부파일 -->
-						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" alt="" width="100%" height="100%">
+						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" alt="">
 						<br>
 						기존 첨부파일: 
 						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" download="<%=updateBoard.getOrigin_name() %>">
