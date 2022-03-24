@@ -105,7 +105,11 @@ table, tr, th, td {
 	align-items: center;
 	align-self:center;
 	max-width: 300;
-	max-height: 300
+	max-height: 300;
+}
+
+img {
+	max-width: 300;
 }
 
 .board_content {

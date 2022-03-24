@@ -269,9 +269,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<RankMember> getListRank(Paging paging) {
 		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 호출");
 		
+		List<RankMember> rm = boardDao.selectAllRank( JDBCTemplate.getConnection(), paging ); 
+		
 		//페이징 적용해서 조회 결과 반환
-		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + boardDao.selectAll( JDBCTemplate.getConnection(), paging ));
-		return boardDao.selectAllRank( JDBCTemplate.getConnection(), paging );
+		System.out.println("[TEST] MemberServiceImpl - getListRank(Paging paging) 리턴 boardDao.selectAll( JDBCTemplate.getConnection(), paging ) : " + rm);
+		return rm;
 	}
 
 

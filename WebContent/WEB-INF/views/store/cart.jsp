@@ -41,6 +41,8 @@
 
 <style type="text/css">
 
+*{ font-family: 'Jua', sans-serif; }
+
 .userhi {
     text-align: center;
     font-size: 30px;

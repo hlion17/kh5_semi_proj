@@ -19,59 +19,57 @@
 <style type="text/css">
 
 * {
-	/* 폰트지정 */
-	font-family: 'Inspiration', cursive;
-	font-family: 'Roboto', sans-serif;
+   font-family: 'Jua', sans-serif; 
 }
 
 .container {
-	width: 1250%;
-/* 	margin: 0 auto; */
-/*  	text-overflow: ellipsis; */
- 	text-align: center;
- 	margin: 10px;
+   width: 1250%;
+/*    margin: 0 auto; */
+    text-overflow: ellipsis;
+    text-align: center;
+    margin: 10px;
 }
 
 tr, td {
-	overflow:hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;
-	margin: 0 auto;
-	text-align: center;
+   overflow:hidden;
+   white-space : nowrap;
+   text-overflow: ellipsis;
+   margin: 0 auto;
+   text-align: center;
 }
 
-.pull-left {
-	/* 버튼 오른쪽 배치  */
+#btnBox {
+   margin: 10px;
 }
-
 .reviewList{
 margin: 0 auto;
 }
 
 .row{
-	margin: 5px;
+   margin: 5px;
 }
 
 .success {
-	text-align: center;
+   text-align: center;
 }
 
 .rb {
-	text-align: center;
-	font-family: 'Bebas Neue', cursive;
-	font-size: 20px;
+   text-align: center;
+   font-family: 'Bebas Neue', cursive;
+   font-size: 20px;
 }
 
 h1 {
-	margin-top: 30px;
-	margin-bottom: 20px;
+   margin-top: 30px;
+   margin-bottom: 20px;
 }
 
 th {
-	float: none; 
-	margin:0 auto;
+   float: none; 
+   margin:0 auto;
     text-align-last: center;
 }
+
 
 </style>
 

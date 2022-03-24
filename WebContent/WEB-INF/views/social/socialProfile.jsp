@@ -33,7 +33,7 @@ $(document).ready(function() {
 	<hr>
 	
 	<div class="text-center">
-		<div class="text-center">
+		<div class="text-center" >
 <%-- 			<%	if( viewBoard != null ) { %> --%>
 			<%	if( viewBoard.getStored_name() != null ) { %>
 				<!-- 첨부파일 -->

@@ -79,13 +79,13 @@ $(document).ready(function() {
 			<form action="/social/profile/update" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="memberno" value="<%=updateBoard.getMemberno() %>" />
 				
-				<div id="beforeFile">
+				<div id="beforeFile" style="text-align: center;">
 					<%	if( updateBoard.getStored_name() != null ) { %>
 						<!-- 첨부파일 -->
 						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" alt="">
 						<br>
 						기존 첨부파일: 
-						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" download="<%=updateBoard.getOrigin_name() %>">
+						<a class="img_a" href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" download="<%=updateBoard.getOrigin_name() %>">
 							<%=updateBoard.getOrigin_name() %>
 						</a>
 						<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>

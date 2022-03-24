@@ -134,8 +134,10 @@ public class SocialServiceImpl implements SocialService {
 	public SocialMember viewFile(SocialMember viewBoard) {
 		System.out.println("[TEST] SocialServiceImpl - viewFile() 호출");
 		
-		System.out.println("[TEST] SocialServiceImpl - viewFile() 리턴 boardDao.selectFile() : " + boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard));
-		return boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard);
+		SocialMember sm = boardDao.selectFile(JDBCTemplate.getConnection(), viewBoard);
+		
+		System.out.println("[TEST] SocialServiceImpl - viewFile() 리턴 boardDao.selectFile() : " + sm);
+		return sm;
 	}
 
 	@Override

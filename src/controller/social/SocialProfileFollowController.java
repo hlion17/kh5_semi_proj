@@ -65,10 +65,16 @@ public class SocialProfileFollowController extends HttpServlet {
 		} else {
 			System.out.println("[TEST]알수없는 경우");
 		}
+
 		
-		System.out.println("[TEST] SocialProfileFollowController - /social/profile로 포워드");
+		
+		System.out.println("[TEST] SocialProfileFollowController - /rank/member로 리다이렉션");
 		System.out.println();
-		req.getRequestDispatcher("/social/member?"+"memberno="+param).forward(req, resp);
+		resp.sendRedirect("/rank/member");
+		
+//		System.out.println("[TEST] SocialProfileFollowController - /social/profile로 포워드");
+//		System.out.println();
+//		req.getRequestDispatcher("/social/member?"+"memberno="+param).forward(req, resp);
 		
 	}
 }

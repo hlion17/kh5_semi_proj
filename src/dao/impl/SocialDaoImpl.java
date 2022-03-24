@@ -240,11 +240,13 @@ public class SocialDaoImpl implements SocialDao {
 	@Override
 	public SocialMember selectFile(Connection conn, SocialMember viewBoard) {
 		System.out.println("[TEST] SocialMemberDaoImpl -  selectFile(Connection conn, SocialMember viewBoard) 호출");
-		
+	
 		//SQL 작성
 		String sql = "";
-		sql += "SELECT * FROM PRFIMG";
-		sql += " WHERE member_no = ?";
+		sql += "select * from member m";
+		sql += "	left join (SELECT * FROM (SELECT prfimg.*, ROW_NUMBER() OVER(PARTITION BY member_no ORDER BY image_no DESC) as a FROM prfimg) WHERE a = 1) x";
+		sql += "	on m.member_no = x.member_no";
+		sql += "	where m.member_no = ?";
 		
 		//결과 저장할 DTO객체
 		
