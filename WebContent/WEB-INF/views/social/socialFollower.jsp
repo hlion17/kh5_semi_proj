@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 <div id="section">
 
-	<h1>마이 팔로워</h1>
+	<h1 id="my_follower">&nbsp;마이 팔로워</h1>
 	<hr>
 
 	<div>

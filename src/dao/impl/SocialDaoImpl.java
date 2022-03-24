@@ -259,7 +259,7 @@ public class SocialDaoImpl implements SocialDao {
 				
 				//결과값 행 처리
 				viewBoard.setImage_no( rs.getInt("image_no"));
-				viewBoard.setMemberno( rs.getInt("member_no"));
+				viewBoard.setMember_no( rs.getInt("member_no"));
 				viewBoard.setOrigin_name( rs.getString("origin_name"));
 				viewBoard.setStored_name( rs.getString("stored_name"));
 				viewBoard.setFilesize( rs.getInt("filesize"));

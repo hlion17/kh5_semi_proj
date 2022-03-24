@@ -78,7 +78,7 @@ $(document).ready(function() {
 <div id="section">
 <div class="margin-top"></div>
 	<!-- <h1>게시글 상세보기</h1> -->
-	<div>
+	<div class="text-center">
 		<table class="table table-bordered">
 			<%	if( viewBoard != null ) { %>
 				<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
@@ -94,21 +94,21 @@ $(document).ready(function() {
 				</tr>
 				
 				<tr><td class="info" colspan="4">본문</td></tr>
-				<tr><td colspan="4"><%=viewBoard.getContent() %></td></tr>
+				<tr><td class="board_content" colspan="4" ><%=viewBoard.getContent() %></td></tr>
 			<%	} %>
 		</table>
 	</div>
 	
 	<br>
 	<!-- 첨부파일 -->
-	<div>
+	<div class="text-center">
 		<%	if( boardFile != null ) { %>
 			<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" alt="">
 			<a class="img_a" href="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" download="<%=boardFile.getOriginname() %>">
 				<%=boardFile.getOriginname() %>
 			</a>
 		<% } else { %>
-			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="">
+			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="300" hidden="300">
 		<% } %>
 	</div>
 
