@@ -27,7 +27,7 @@
 .container {
 	width: 1250%;
 /* 	margin: 0 auto; */
- 	text-overflow: ellipsis;
+/*  	text-overflow: ellipsis; */
  	text-align: center;
  	margin: 10px;
 }
@@ -70,6 +70,7 @@ h1 {
 th {
 	float: none; 
 	margin:0 auto;
+    text-align-last: center;
 }
 
 </style>
@@ -92,27 +93,11 @@ th {
 <!-- 	<div class="row"> -->
 	
 	<!-- 글쓰기 버튼 -->
-	<div id="btnBox" class="pull-left">
+	<div id="btnBox" class="pull-right">
 		<button id="btnWrite" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
 	</div>
 	
-	<!-- 검색창 설정 -->	
-		<form method="post" name="search" action="/review/search">
-			<table class="pull-right">
-				<tr >
-					<td><select class="form-control" name="searchField">
-							<option value="0">선택</option>
-							<option value="bbsTitle">제목</option>
-							<option value="userID">작성자</option>
-					</select></td>
-					<td><input type="text" class="form-control"
-						placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type="submit" class="btn btn-primary">검색</button></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-
+	<br>	<br>
 
 	<div class="container">
 		<table class="table table-striped table-hover table-condensed">

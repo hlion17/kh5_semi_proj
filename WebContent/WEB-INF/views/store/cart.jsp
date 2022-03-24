@@ -110,6 +110,7 @@ th, td {
   
 .tr {
 	color: white;
+	
 }
 
 /* 상품금액, 수량 input태그 칸 안보이기 */
@@ -125,6 +126,7 @@ input {
 .proQty{
 	border: 1px solid black;
 	margin: 2px;
+	
 }
 
 
@@ -192,7 +194,7 @@ input {
 	
 	
 	<div class="container">
-		<table class="class" >
+	<table class="class" >
 		
 			<tr class="tr">
 				<th width=55% colspan="2">상품정보</th>
@@ -202,39 +204,47 @@ input {
 				<th width=10%>수정/삭제</th>
 			</tr>
 			
-			<tr>
+			<!-- <tr> -->
 				<!-- 장바구니가 null일 때 확인되는 문구  -->
-				<% if (cartList == null) { %> 
-				<div>장바구니에 넣은 상품이 없습니다.</div>
-				
-				<% } else { %>
-				
-				<!-- 장바구니에 상품이 있을 때 확인되는 부분  -->
-				<% for (Cart c : cartList) { %> 
+			<% if (cartList == null) { %> 
+			<div>장바구니에 넣은 상품이 없습니다.</div>
+			
+			<% } else { %>
+			
+			<!-- 장바구니에 상품이 있을 때 확인되는 부분  -->
+			<% for (Cart c : cartList) { %> 
+			<tr>
 				<form action="/cart/update" method="post">
-						<input type="hidden" disabled value="<%=c.getCart_no()%>">
-						<td>
-							<img class="img" alt=""src="/resources/img/store/item_<%=c.getPro_no()%>.jpg">
-						</td>
-							<td class="itemName"><%=c.getName()%>
-						</td>
-						<% itemName = c.getName(); %>
-						
-						<input type="hidden" disabled value="<%=c.getMember_no()%>">
-						<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
-						
-						<td> <input disabled value="<%=c.getPrice()%>">원</td>
-					<td> <input type="text" name="proQty" value="<%=c.getQuantity()%>"></td>
-					<td> 무료배송</td>
+					<input type="hidden" disabled value="<%=c.getCart_no()%>">
+				<td>
+					<img class="img" alt=""src="/resources/img/store/item_<%=c.getPro_no()%>.jpg">
+				</td>
+				<td class="itemName">
+					<%=c.getName()%>
+				</td>
+					<% itemName = c.getName(); %>
+					<input type="hidden" disabled value="<%=c.getMember_no()%>">
+					<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
+				<td>
+					<input disabled value="<%=c.getPrice()%>">원
+				</td>
+				<td>
+					<input type="text" name="proQty" class="proQty" value="<%=c.getQuantity()%>">
+				</td>
+				<td>무료배송</td>
 					
-					<td><button>수정</button>
-					</form>
+				<td>
+					<button>수정</button>
 					<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
-						<% sum += c.getPrice() * c.getQuantity(); %>
-							<% } %>
-					<% } %>	
-					</td>
-				</tr>
+				</td>
+				</form>
+				
+				<% sum += c.getPrice() * c.getQuantity(); %>
+			</tr>	
+			<% } %>
+			<% } %>	
+	<!-- 			</td>
+			</tr> -->
 				
 		</table>
 
