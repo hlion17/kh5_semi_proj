@@ -37,42 +37,39 @@ $(document).ready(function() {
 			<th>성별</th>
 			</tr>
 			
-		<% System.out.println("boardList.size() : " + boardList.size()); %>
-		<% System.out.println("followList.size() : " + followList.size()); %>
+<%-- 		<% System.out.println("boardList.size() : " + boardList.size()); %> --%>
+<%-- 		<% System.out.println("followList.size() : " + followList.size()); %> --%>
+			<%	if( boardList != null ) { %>
 		
-		<%	for(int i=0; i<boardList.size(); i++) { %>
-			<%	for(int j=0; j<followList.size(); j++) { %>
+				<%	for(int i=0; i<boardList.size(); i++) { %>
+					<%	for(int j=0; j<followList.size(); j++) { %>
 				
-				<% System.out.println("boardList.get(i).getMemberno() : " + boardList.get(i).getMemberno()); %>
-				<% System.out.println("followList.get(j).getFollower() : " + followList.get(j).getFollower()); %>
+<%-- 				<% System.out.println("boardList.get(i).getMemberno() : " + boardList.get(i).getMemberno()); %> --%>
+<%-- 				<% System.out.println("followList.get(j).getFollower() : " + followList.get(j).getFollower()); %> --%>
 				
 <!-- 				바깥족 포문 유저넘버가 현로그인세션이팔로우한유저가맞으면 출력 -->
-				<%	if( boardList.get(i).getMemberno() == followList.get(j).getFollower() ) {  %>
-		
-					<tr onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'">
-						<td>
-					<!-- 첨부파일 -->
-					<%	if( boardList != null ) { %>
-					
-						<% if( boardList.get(i).getImage_no() != 0 ) { %>
-							<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" 
-									alt="" width="100" height="100">
-						<% } else { %>
-							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
-						<% } %>
-						
+						<%	if( boardList.get(i).getMemberno() == followList.get(j).getFollower() ) {  %>
+							<tr onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'">
+								<td>
+									<% if( boardList.get(i).getImage_no() != 0 ) { %>
+										<!-- 첨부파일 -->
+										<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" alt="" width="100" height="100">
+									<% } else { %>
+										<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+									<% } %>
+								</td>
+								<td><%=boardList.get(i).getDense_rank() %> 위</td>
+								<td><%=boardList.get(i).getFollowCnt() %></td>
+								<td><%=boardList.get(i).getNick() %></td>
+								<td><%=boardList.get(i).getMemberid() %></td>
+								<td><%=boardList.get(i).getGender() %></td>
+		<%-- 						<td><%=boardList.get(i).getEmail() %></td> --%>
+							</tr>
 					<%	} %>
-						</td>
-						<td><%=boardList.get(i).getDense_rank() %> 위</td>
-						<td><%=boardList.get(i).getFollowCnt() %></td>
-						<td><%=boardList.get(i).getNick() %></td>
-						<td><%=boardList.get(i).getMemberid() %></td>
-						<td><%=boardList.get(i).getGender() %></td>
-<%-- 						<td><%=boardList.get(i).getEmail() %></td> --%>
-					</tr>
 					
 				<%	} %>
 			<%	} %>
+			
 		<%	} %>
 		</table>
 	</div>

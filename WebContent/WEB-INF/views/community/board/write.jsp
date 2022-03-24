@@ -39,15 +39,11 @@ function submitContents( elClickedObj ) {
 }
 </script>
 
-<style type="text/css">
-#content {
-	width: 100%;
-}
-</style>
+
 
 <div id="section">
-
-	<h3>게시글 쓰기</h3>
+	<div class="margin-top"></div>
+	<!-- <h3>게시글 쓰기</h3> -->
 	<hr>
 
 	<div>
@@ -66,10 +62,11 @@ function submitContents( elClickedObj ) {
 		</form>
 	</div>
 
-	<div class="text-center">	
-		<button type="button" id="btnWrite" class="btn btn-info">작성</button>
-		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+	<div class="text-center">
+			<button type="button" id="btnWrite" class="btn btn-info">&nbsp;작성</button>
+			<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
 	</div>
+	<div class="margin"></div>
 
 </div><!-- #section -->
 

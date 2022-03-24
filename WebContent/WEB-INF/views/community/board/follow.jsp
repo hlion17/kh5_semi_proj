@@ -77,43 +77,54 @@ $(document).ready(function() {
 	<h1>게시글 상세보기</h1>
 	<div>
 		<table class="table table-bordered">
-			<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
-			<tr><td class="info">제목</td><td colspan="3"><%=viewBoard.getTitle() %></td></tr>
-			<tr>
-				<td class="info">회원번호</td><td><%=viewBoard.getUserid() %></td>
-				<td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td>
-			</tr>
-			
-			<tr>
-				<td class="info">조회수</td><td id="hit"><%=viewBoard.getHit() %></td>
-				<td class="info">추천수</td><td id="like"><%=viewBoard.getLike() %></td>
-			</tr>
-			
-			<tr><td class="info" colspan="4">본문</td></tr>
-			<tr><td colspan="4"><%=viewBoard.getContent() %></td></tr>
+			<%	if( viewBoard != null ) { %>
+				<tr><td class="info">글번호</td><td colspan="3"><%=viewBoard.getBoardno() %></td></tr>
+				<tr><td class="info">제목</td><td colspan="3"><%=viewBoard.getTitle() %></td></tr>
+				<tr>
+					<td class="info">회원번호</td><td><%=viewBoard.getUserid() %></td>
+					<td class="info">닉네임</td><td><%=request.getAttribute("writerNick") %></td>
+				</tr>
+				
+				<tr>
+					<td class="info">조회수</td><td id="hit"><%=viewBoard.getHit() %></td>
+					<td class="info">추천수</td><td id="like"><%=viewBoard.getLike() %></td>
+				</tr>
+				
+				<tr><td class="info" colspan="4">본문</td></tr>
+				<tr><td colspan="4"><%=viewBoard.getContent() %></td></tr>
+			<% } %>
 		</table>
 	</div>
 
+	<br>
 	<!-- 첨부파일 -->
 	<div>
-	<%	if( boardFile != null ) { %>
-		<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" 
-				alt="그림을 불러오지못함" width="100%" height="100%"><br>
-		<a href="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>"
-				download="<%=boardFile.getOriginname() %>">
-			<%=boardFile.getOriginname() %>
-		</a>
-	<%	} %>
+		<%	if( boardFile != null ) { %>
+			<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" alt="" ><br>
+			<a href="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" download="<%=boardFile.getOriginname() %>">
+				<%=boardFile.getOriginname() %>
+			</a>
+		<% } else { %>
+			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+		<% } %>
 	</div>
 
 	<div class="text-center">
-		<button id="btnList" class="btn btn-primary">목록</button>
-		<button id="btnUpdate" class="btn btn-info">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
-		
-		<button id="btnFollow" class="btn btn-success">팔로우</button>
-		<button id="btnLike" class="btn btn-success">추천</button>
+		<br><br>
+		<button id="btnList" class="btn btn-primary">&nbsp;목록</button>
+		<%	if( request.getSession().getAttribute("memberno") != null ) { %>
+			<% 	if( viewBoard.getUserid() == Integer.parseInt(request.getSession().getAttribute("memberno").toString()) ) { %>
+				<button id="btnUpdate" class="btn btn-info">&nbsp;수정</button>
+				<button id="btnDelete" class="btn btn-danger">&nbsp;삭제</button>
+				<button id="btnLike" class="btn btn-success">&nbsp;추천</button>
+			<% 	} else { %>
+				<button id="btnLike" class="btn btn-success">&nbsp;추천</button>
+				<button id="btnFollow" class="btn btn-warning">&nbsp;팔로우</button>
+			<% 	} %>
+		<% 	} %>
 	</div>
+	
+	<div class="margin"></div>
 	
 </div><!-- #section -->
 

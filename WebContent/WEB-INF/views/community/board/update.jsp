@@ -77,8 +77,9 @@ $(document).ready(function() {
 </style>
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h3>게시글 쓰기</h3>
+	<!-- <h3>게시글 쓰기</h3> -->
 	<hr>
 
 	<div>
@@ -95,33 +96,35 @@ $(document).ready(function() {
 			
 			<!-- 첨부파일 -->
 			<div>
+			
 				<div id="beforeFile">
 					<%	if( boardFile != null ) { %>
-							기존 첨부파일: 
-							<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" 
-									alt="그림을 불러오지못함" width="100%" height="100%">
-							<br>
-							<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"
-							 		download="<%=boardFile.getOriginname() %>">
+							&lt;기존 첨부파일&gt;
+							<img src="<%=request.getContextPath() %>/resources/img/recipe/<%=boardFile.getStoredname() %>" alt="">
+							<a class="img_a" href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" download="<%=boardFile.getOriginname() %>">
 								<%=boardFile.getOriginname() %>
 							</a>
 							<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-					<%	} %>
+					<% } else { %>
+							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="">
+					<% } %>
 				</div>
 			
 				<div id="afterFile">
-					새 첨부파일:
-					<input type="file" name="file" accept="image/*" />
+					&lt;새 첨부파일&gt;	
+					<br><input class="img_input" type="file" name="file" accept="image/*" /><br>
 				</div>
+				
 			</div>
 			<br>
 		</form>
 	</div>
 
 	<div class="text-center">	
-		<button type="button" id="btnUpdate" class="btn btn-info">수정</button>
-		<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+		<button type="button" id="btnUpdate" class="btn btn-info">&nbsp;수정</button>
+		<button type="button" id="btnCancel" class="btn btn-danger">&nbsp;취소</button>
 	</div>
+	<div class="margin"></div>
 
 </div><!-- #section -->
 

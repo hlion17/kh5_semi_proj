@@ -3,21 +3,30 @@
 <%@page import="dto.RecipeFile"%>
 <%@page import="dto.Recipe"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	List<RankMember> boardList = (List) request.getAttribute("boardList"); %>
 
-<div id="section">
 
-	<h1>유저 랭킹</h1>
+<style>
+img {
+	vertical-align: middle;
+	width: 100px;
+	height: 100px;
+}
+</style>
+
+<div id="section">
+	<div class="margin-top"></div>
+	
+	<h1>&nbsp;유저 랭킹</h1>
 	<hr>
 	
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-		<tr class="success">
+		<tr class="info">
 			<th>랭킹</th>
 			<th>팔로우수</th>
 			<th>이미지</th>
@@ -27,16 +36,16 @@
 		</tr>
 		
 		<%	for(int i=0; i<boardList.size(); i++) { %>
+			<%	if( boardList != null ) { %>
 			<tr onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'">
 				<td><%=boardList.get(i).getDense_rank() %> 위</td>
 				<td><%=boardList.get(i).getFollowCnt() %></td>
 				<td>
-			<!-- 첨부파일 -->
-			<%	if( boardList != null ) { %>
+				<!-- 첨부파일 -->
 				<% if( boardList.get(i).getImage_no() != 0 ) { %>
-					<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" alt="" width="100" height="100"><br>
+					<img src="<%=request.getContextPath() %>/resources/img/social/<%=boardList.get(i).getStored_name() %>" class="img-circle" alt=""><br>
 				<% } else { %>
-					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
+					<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" class="img-circle" alt="" >
 				<% } %>
 				</td>
 				<td><%=boardList.get(i).getMemberid() %></td>
@@ -47,6 +56,7 @@
 		<%	} %>
 		</table>
 	</div>
+	<div class="margin"></div>
 
 <%@ include file="/WEB-INF/views/community/rank/m_paging.jsp" %>
 

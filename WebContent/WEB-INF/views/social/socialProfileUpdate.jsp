@@ -74,39 +74,38 @@ $(document).ready(function() {
 	<hr>
 
 	<div>
-		<form action="/social/profile/update" method="post" enctype="multipart/form-data">
-			
+	
 		<div>	
-			<!-- 첨부파일 -->
-			<div id="beforeFile">
-				<%	if( updateBoard.getStored_name() != null ) { %>
-						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" 
-								alt="" width="100%" height="100%">
+			<form action="/social/profile/update" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="memberno" value="<%=updateBoard.getMemberno() %>" />
+				
+				<div id="beforeFile">
+					<%	if( updateBoard.getStored_name() != null ) { %>
+						<!-- 첨부파일 -->
+						<img src="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" alt="" width="100%" height="100%">
 						<br>
 						기존 첨부파일: 
-						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>"
-						 		download="<%=updateBoard.getOrigin_name() %>">
+						<a href="<%=request.getContextPath() %>/resources/img/social/<%=updateBoard.getStored_name() %>" download="<%=updateBoard.getOrigin_name() %>">
 							<%=updateBoard.getOrigin_name() %>
 						</a>
 						<span id="delFile" style="color:red; font-weight: bold; cursor: pointer;">X</span>
-				<% } else { %>
-						<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100" height="100">
-				<% } %>
-			</div>
-			
-			<div id="afterFile">
-				새 첨부파일:<input type="file" name="file" accept="image/*" />
-			</div>
-			
-			<div class="text-center">	
-				<button type="button" id="btnUpdate" class="btn btn-info">완료</button>
-				<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
-			</div>
-			
+					<% } else { %>
+							<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="100%" height="100%">
+					<% } %>
+				</div>
+				
+				<div id="afterFile">
+					새 첨부파일:<input type="file" name="file" accept="image/*" />
+				</div>
+				
+				<div class="text-center">	
+					<button type="button" id="btnUpdate" class="btn btn-info">완료</button>
+					<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
+				</div>
+			</form>
 		</div>
 		
 		<div>
-			<input type="hidden" name="memberno" value="<%=updateBoard.getMemberno() %>" />
 			<table class="table table-bordered">
 			<tr><td class="info">회원번호</td><td colspan="3"><%=updateBoard.getMemberno() %></td></tr>
 			<tr><td class="info">아이디</td><td colspan="3"><%=updateBoard.getMemberid() %></td></tr>
@@ -124,7 +123,6 @@ $(document).ready(function() {
 			</table>
 		</div>
 		
-		</form>
 	</div>
 
 

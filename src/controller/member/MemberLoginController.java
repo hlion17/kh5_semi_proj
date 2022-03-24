@@ -32,6 +32,7 @@ public class MemberLoginController extends HttpServlet {
 		
 		//요청 데이터의 한글 UTF-8 처리 설정
     	req.setCharacterEncoding("UTF-8");
+    	
 		
 		//전달파라미터 얻기 - 로그인 정보(userid, userpw)
 		Member member = memberService.getLoginMember(req);
@@ -41,7 +42,10 @@ public class MemberLoginController extends HttpServlet {
 		System.out.println("로그인 컨트롤러 - 로그인 인증" + isLogin);
 		
 		if(isLogin == false) {
+			resp.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = resp.getWriter();
+			
+			 
 			out.println("<script>alert('아이디와 패스워드가 일치하지 않습니다'); location.href='/member/login';</script>");
 			 
 			out.flush();

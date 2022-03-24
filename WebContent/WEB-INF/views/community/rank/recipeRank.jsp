@@ -7,49 +7,37 @@
 <%@ include file="/WEB-INF\views\community\layout\recipeHeader.jsp" %>
 
 <%	List<Recipe> boardList = (List) request.getAttribute("boardList"); %>
-<%	RecipeFile boardFile = (RecipeFile) request.getAttribute("boardFile"); %>
 
 <div id="section">
+<div class="margin-top"></div>
 
-	<h1>레시피 랭킹</h1>
+	<h1>&nbsp;레시피 랭킹</h1>
 	<hr>
 	
 	<div>
 		<table class="table table-striped table-hover table-condensed">
-			<tr class="success">
-				<th>랭킹</th>
-<!-- 				<th>이미지</th> -->
-				<th>레시피 이름</th>
-				<th>조회수</th>
-				<th>추천수</th>
-				<th>작성일</th>
-			<!-- 		<th>소개글</th> -->
-			<!-- 	<th>게시글 번호</th>	 -->
-			</tr>
-			
-			<%	for(int i=0; i<boardList.size(); i++) { %>
-			<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno()%>'">
-				<td><%=i+1 %> 위</td>
-<!-- 				<td> -->
-<%-- 					<%	if( boardFile != null ) { %> --%>
-<%-- 						<img src="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>"  --%>
-<!-- 								alt="그림을 불러오지못함" width="100%" height="100%"><br> -->
-<%-- 						<a href="<%=request.getContextPath() %>/upload/<%=boardFile.getStoredname() %>" --%>
-<%-- 								download="<%=boardFile.getOriginname() %>"> --%>
-<%-- 							<%=boardFile.getOriginname() %> --%>
-<!-- 						</a> -->
-<%-- 					<%	} %> --%>
-<!-- 				</td> -->
-				<td><%=boardList.get(i).getTitle() %></td>
-				<td><%=boardList.get(i).getHit() %></td>
-				<td><%=boardList.get(i).getLike() %></td>
-				<td><%=boardList.get(i).getWriteDate() %></td>
-			<%-- 		<td><%=boardList.get(i).getIntro() %></td> --%>
-			<%-- 	<td><%=boardList.get(i).getBoardno() %></td> --%>
-			</tr>
+			<%	if( boardList != null ) { %>
+				<tr class="info">
+					<th>랭킹</th>
+					<th>레시피 이름</th>
+					<th>조회수</th>
+					<th>추천수</th>
+					<th>작성일</th>
+				</tr>
+				
+				<%	for(int i=0; i<boardList.size(); i++) { %>
+				<tr onclick="location.href='<%=request.getContextPath() %>/recipe/content?boardno=<%=boardList.get(i).getBoardno()%>'">
+					<td><%=i+1 %> 위</td>
+					<td><%=boardList.get(i).getTitle() %></td>
+					<td><%=boardList.get(i).getHit() %></td>
+					<td><%=boardList.get(i).getLike() %></td>
+					<td><%=boardList.get(i).getWriteDate() %></td>
+				</tr>
+				<%	} %>
 			<%	} %>
 		</table>
 	</div>
+	<div class="margin"></div>
 
 <%@ include file="/WEB-INF/views/community/rank/r_paging.jsp" %>
 
