@@ -50,12 +50,13 @@
 
 
 .delete {
-idth: 51px;
+	width: 51px;
     height: 32px;
     background: red;
     -webkit-line-break: after-white-space;
-    padding: 2px 7px;
+    padding: 3px 7px;
     border: 1px solid black;
+  	color: white;
 }
 
 .table {
@@ -100,15 +101,16 @@ th {
 table {
     width: 100%;
     border-top: 1px solid #444444;
-
-
-    
   }
 th, td {
     border-bottom: 1px solid #444444;
     padding: 10px;
     text-align: center;
   }
+  
+.tr {
+	color: white;
+}
 
 /* 상품금액, 수량 input태그 칸 안보이기 */
 input {
@@ -137,6 +139,7 @@ input {
 	text-align-last: center;
 /* 	background: #77af9c; */
 	font-family: 'Noto Sans KR', sans-serif;
+	
 	
 }
 
@@ -221,18 +224,17 @@ input {
 						<input type="hidden" name="proNo" value="<%=c.getPro_no()%>">
 						
 						<td> <input disabled value="<%=c.getPrice()%>">원</td>
-						<td> <input type="text" class="proQty" value="<%=c.getQuantity()%>"></td>
-						
-						<td class="free">무료배송</td>
-						<td><button>수정</button>
-						
-				</form>
-						<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
-						</td>
-							<% sum += c.getPrice() * c.getQuantity(); %>
-								<% } %>
-						<% } %>	
-			</tr>
+					<td> <input type="text" name="proQty" value="<%=c.getQuantity()%>"></td>
+					<td> 무료배송</td>
+					
+					<td><button>수정</button>
+					</form>
+					<a href="/cart/delete?proNo=<%=c.getPro_no()%>" class="delete">삭제</a>
+						<% sum += c.getPrice() * c.getQuantity(); %>
+							<% } %>
+					<% } %>	
+					</td>
+				</tr>
 				
 		</table>
 
@@ -241,8 +243,7 @@ input {
 	
 	<div class="pr">
 	총 상품가격 <span class="price"><%= sum %>원</span>
-	<i class="bi bi-plus-square"></i>
-	    +    총 배송비 0 원    =    
+	    +    총 배송비 0  원     =    
 	총 주문금액 : <span class="totalPrice"> <%= sum %>원</span>
 	
 	</div>
