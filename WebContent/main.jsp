@@ -81,11 +81,11 @@ div {
 
 <div id="section-alone">
 	
-	    <div class="content-title"><h2>이달의 제철 식품</h2></div>
+	    <div class="content-title"><h2>오늘의 식재료 추천</h2></div>
     <div class="main-content2">
 
         <div class="items2">
-            <img src="/resources/img/ingredient/6.jpg" alt="">
+            <img src="/resources/img/main/strawberry.jpg" alt="">
         </div>
         <div class="items2">
             <p>
@@ -101,7 +101,7 @@ div {
     <div class="main-content">
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/test/1.jpg" alt="">
+                <img src="/resources/img/main/1.jpg" alt="">
             </div>
             <div class="item-detail">
                 <strong>나희도</strong>
@@ -109,7 +109,7 @@ div {
         </div>
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/test/2.jpg" alt="">
+                <img src="/resources/img/main/2.jpg" alt="">
             </div>
             <div class="item-detail">
                 <strong>백이진</strong>
@@ -117,7 +117,7 @@ div {
         </div>
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/test/3.jpg" alt="">
+                <img src="/resources/img/main/3.jpg" alt="">
             </div>
             <div class="item-detail">
                 <strong>보나</strong>
@@ -125,30 +125,30 @@ div {
         </div>
     </div>
 
-    <div class="content-title"><h2>이달의 추천 레시피</h2></div>
+    <div class="content-title"><h2>이 달의 추천 레시피</h2></div>
     <div class="main-content">
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/ingredient/1.jpg" alt="">
+                <img src="/resources/img/main/egg.jpg" alt="">
             </div>
             <div class="item-detail">
-                <strong>브로콜리</strong>
+                <strong>백종원 에그치즈토스트~ 간단한데 맛은 최고</strong>
             </div>
         </div>
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/ingredient/2.jpg" alt="">
+                <img src="/resources/img/main/chick.jpg" alt="">
             </div>
             <div class="item-detail">
-                <strong>백이진</strong>
+                <strong>닭봉간장조림~ 십년째 만들어먹는 양념 공유해요!</strong>
             </div>
         </div>
         <div class="items">
             <div class="item-img">
-                <img src="/resources/img/ingredient/3.jpg" alt="">
+                <img src="/resources/img/main/shrimp.jpg" alt="">
             </div>
             <div class="item-detail">
-                <strong>토마토</strong>
+                <strong>간단한 술안주로 최고인 버터갈릭새우 만들기</strong>
             </div>
         </div>
     </div>
