@@ -1,6 +1,8 @@
 
+<%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% Member m = (Member) request.getAttribute("result"); %>
 
 <%@ include file="../layout/header.jsp" %> 
  
@@ -87,7 +89,7 @@ $(document).ready(function() {
 			<label for="memberpw" class="control-label col-xs-2">비밀번호</label>
 				<td><%-- <%=session.getAttribute("memberpw") %> --%>
 			<div class="col-xs-8">
-				<input type="text" name="memberpw" class="form-control" value="<%=session.getAttribute("memberpw") %>"></td>
+				<input type="text" name="memberpw" class="form-control" value="<%=m.getMemberpw() %>"></td>
 			</div>
 		</div>
 	</tr>
@@ -96,7 +98,7 @@ $(document).ready(function() {
 			<label for="membername" class="control-label col-xs-2">이름</label>
 				<td><%-- <%=session.getAttribute("membername") %> --%></td>
 			<div class="col-xs-8">
-				<input type="text" name="membername" class="form-control" value="<%=session.getAttribute("membername") %>"></td>
+				<input type="text" name="membername" class="form-control" value="<%=m.getMembername() %>"></td>
 			</div>
 		</div>
 	</tr>
@@ -105,7 +107,7 @@ $(document).ready(function() {
 			<label for="nick" class="control-label col-xs-2">닉네임</label>
 <%-- 				<td><%=session.getAttribute("nick") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" name="nick" class="form-control" value="<%=session.getAttribute("nick") %>"></td>
+ 				<input type="text" name="nick" class="form-control" value="<%=m.getNick() %>"></td>
  			</div>
 		</div>
 	</tr>
@@ -123,7 +125,7 @@ $(document).ready(function() {
 			<label for="memberpw" class="control-label col-xs-2">이메일</label>
 <%-- 				<td><%=session.getAttribute("email") %></td>
 <--%>			<div class="col-xs-8">
-				<input type="text" name="email" class="form-control" value="<%=session.getAttribute("email") %>"></td>
+				<input type="text" name="email" class="form-control" value="<%=m.getEmail() %>"></td>
 			</div>
 		</div>
 	</tr>
@@ -132,7 +134,7 @@ $(document).ready(function() {
 			<label for="phone" class="control-label col-xs-2">전화번호</label>
 <%-- 				<td><%=session.getAttribute("phone") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" name="phone" class="form-control" value="<%=session.getAttribute("phone") %>"></td>
+ 				<input type="text" name="phone" class="form-control" value="<%=m.getPhone() %>"></td>
  				</div>
 		</div>
 	</tr>
@@ -141,7 +143,7 @@ $(document).ready(function() {
 			<label for="zipcode" class="control-label col-xs-2">우편번호</label>
 <%-- 				<td><%=session.getAttribute("zipcode") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" id="zipcode" name="zipcode" class="form-control" value="<%=session.getAttribute("zipcode") %>"></td>
+ 				<input type="text" id="zipcode" name="zipcode" class="form-control" value="<%=m.getZipcode() %>"></td>
  				<input type="button" value="우편번호찾기" onclick="kakaopost()">
  				</div>
 		</div>
@@ -151,7 +153,7 @@ $(document).ready(function() {
 			<label for="address" class="control-label col-xs-2">주소</label>
 <%-- 				<td><%=session.getAttribute("address") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" id="address" name="address" class="form-control" value="<%=session.getAttribute("address") %>"></td>
+ 				<input type="text" id="address" name="address" class="form-control" value="<%=m.getAddress() %>"></td>
  				</div>
 		</div>
 	</tr>
@@ -160,7 +162,7 @@ $(document).ready(function() {
 			<label for="intro" class="control-label col-xs-2">자기소개</label>
 <%-- 				<td><%=session.getAttribute("intro") %></td>
 --%>			<div class="col-xs-8">
- 				<input type="text" name="intro" class="form-control" value="<%=session.getAttribute("intro") %>"></td><br><br>
+ 				<input type="text" name="intro" class="form-control" value="<%=m.getIntro() %>"></td><br><br>
  				</div>
 		</div>
 	</tr> 
