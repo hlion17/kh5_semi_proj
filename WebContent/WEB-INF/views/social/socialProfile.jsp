@@ -28,15 +28,15 @@ $(document).ready(function() {
 </script>
 
 <div id="section">
-	<h1>마이 프로필</h1>
-	
+	<h1 id="my_profile">&nbsp;마이 프로필</h1>
+	<hr>
 	<!-- 첨부파일 -->
 	<div>
 	
 		<div>
 			<%	if( viewBoard != null ) { %>
 				<%	if( viewBoard.getStored_name() != null ) { %>
-					<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" alt="" width="100%" height="100%"><br>
+					<img src="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" alt=""><br>
 					<a href="<%=request.getContextPath() %>/resources/img/social/<%=viewBoard.getStored_name() %>" download="<%=viewBoard.getOrigin_name() %>">
 						<%=viewBoard.getOrigin_name() %>
 					</a>

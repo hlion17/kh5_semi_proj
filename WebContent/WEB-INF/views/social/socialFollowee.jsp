@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 <div id="section">
 
-	<h1>마이 팔로우</h1>
+	<h1 id="my_follow">&nbsp;마이 팔로우</h1>
 	<hr>
 
 	<div>
@@ -35,7 +35,7 @@ $(document).ready(function() {
 				<th>닉네임</th>
 				<th>아이디</th>
 				<th>성별</th>
-				<th>언팔로우</th>
+<!-- 				<th>언팔로우</th> -->
 			</tr>
 		
 			<%	if( boardList != null ) { %>
@@ -60,7 +60,7 @@ $(document).ready(function() {
 								<td><%=boardList.get(i).getNick() %></td>
 								<td><%=boardList.get(i).getMemberid() %></td>
 								<td><%=boardList.get(i).getGender() %></td>
-								<td><button onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'"></button></td>
+<%-- 								<td><button onclick="location.href='<%=request.getContextPath() %>/social/member?memberno=<%=boardList.get(i).getMemberno() %>'"></button></td> --%>
 							</tr>
 						<%	} %>
 					

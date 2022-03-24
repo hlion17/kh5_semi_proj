@@ -79,8 +79,8 @@ table, tr, th, td {
 	align-content: center;
 	align-items: center;
 	align-self:center;
-	max-width: 80%;
-	max-height: 80%
+	max-width: 300;
+	max-height: 300;
 }
 
 

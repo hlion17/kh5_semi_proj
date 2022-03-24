@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 <div id="section">
 
-	<h1>마이 레시피</h1>
+	<h1 id="my_recipe">&nbsp;마이 레시피</h1>
 	<hr>
 
 	<div>

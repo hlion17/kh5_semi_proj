@@ -108,7 +108,7 @@ $(document).ready(function() {
 				<%=boardFile.getOriginname() %>
 			</a>
 		<% } else { %>
-			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="">
+			<img src="<%=request.getContextPath() %>/resources/img/profileBasic/profile.jpg" alt="" width="300" hidden="300">
 		<% } %>
 	</div>
 
