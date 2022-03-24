@@ -28,7 +28,6 @@ public interface StoreDao {
 	Product selectProductByProductno(Connection conn, Product productNo);
 
 
-//	public static int delete(Connection conn, Cart cart);
 	
 	
 
