@@ -8,6 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inspiration&family=Roboto:wght@300&display=swap" rel="stylesheet">
 
+<!-- 글꼴 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inspiration&family=Noto+Sans+KR&family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+
+
 
 <style type="text/css">
 
@@ -49,6 +56,22 @@ margin: 0 auto;
 	text-align: center;
 }
 
+.rb {
+	text-align: center;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 20px;
+}
+
+h1 {
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+th {
+	float: none; 
+	margin:0 auto;
+}
+
 </style>
 
 
@@ -63,20 +86,20 @@ margin: 0 auto;
 
 
 
-<h1>Review Board</h1>
+<div class="rb"><h1>Review Board</h1></div>
 
 <!-- <div class="reviewList"> -->
 <!-- 	<div class="row"> -->
 	
 	<!-- 글쓰기 버튼 -->
 	<div id="btnBox" class="pull-left">
-		<button id="btnWrite" class="btn btn-success btn-sm" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
+		<button id="btnWrite" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/review/write'">리뷰쓰기</button>
 	</div>
 	
 	<!-- 검색창 설정 -->	
 		<form method="post" name="search" action="/review/search">
 			<table class="pull-right">
-				<tr>
+				<tr >
 					<td><select class="form-control" name="searchField">
 							<option value="0">선택</option>
 							<option value="bbsTitle">제목</option>
@@ -84,7 +107,7 @@ margin: 0 auto;
 					</select></td>
 					<td><input type="text" class="form-control"
 						placeholder="검색어 입력" name="searchText" maxlength="100"></td>
-					<td><button type="submit" class="btn btn-success">검색</button></td>
+					<td><button type="submit" class="btn btn-primary">검색</button></td>
 				</tr>
 			</table>
 		</form>
@@ -92,8 +115,8 @@ margin: 0 auto;
 
 
 	<div class="container">
-		<table class="table table-striped table-bordered table-hover active">
-			<tr class="success">
+		<table class="table table-striped table-hover table-condensed">
+			<tr class="info" >
 				<th width=10%>NO</th>
 				<th width=20%>제목</th>
 <!-- 				<th width=10%>상품번호</th> -->

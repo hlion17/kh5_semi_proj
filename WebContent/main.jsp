@@ -10,12 +10,5 @@
 
 </style>
 
-<div id="main">
-	<div id="section-alone">
-	<!-- <h1><a href="/order/check">주문 확인 테스트 중</a></h1> -->
-
-	</div>
-</div>
-
 <!-- footer page -->
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
